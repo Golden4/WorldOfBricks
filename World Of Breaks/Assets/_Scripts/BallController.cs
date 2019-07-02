@@ -9,10 +9,9 @@ public class BallController : MonoBehaviour {
 	public List<Ball> ballsList;
 	public float ballSpeed = 3;
 	public int ballCount = 2;
-	public Vector2 startThrowPos = new Vector2 (-.5f, -4.5f);
+	public Vector2 startThrowPos = new Vector2 (-.5f, -3.75f);
 	public bool startPosChanged = false;
 	public float timeBetweenBalls = .1f;
-
 	public Image throwingDirectionImage;
 	public Text ballCountText;
 	public Image mousePivotPointImage;
@@ -64,7 +63,7 @@ public class BallController : MonoBehaviour {
 
 	void Update ()
 	{
-		if (!canThrow || GameManager.Instance.playerLose)
+		if (!canThrow || UIScreen.Ins.playerLose)
 			return;
 
 
@@ -92,20 +91,28 @@ public class BallController : MonoBehaviour {
 
 				dirMouse = -curMousePos + startMousePos;
 
-				Quaternion rotation = Quaternion.FromToRotation (Vector3.up, dirMouse.normalized);
+                Quaternion rotation = Quaternion.FromToRotation(Vector3.up, dirMouse.normalized);
 
-				if (Quaternion.Angle (rotation, Quaternion.Euler (Vector3.up)) < 90) {
-					throwingDirectionImage.transform.rotation = rotation;
+                if (Quaternion.Angle(rotation, Quaternion.Euler(Vector3.up)) < 90)
+                {
+                    if (!TrajectoryHelper.Ins.isActive)
+                    {
+                        throwingDirectionImage.transform.rotation = rotation;
 
-					Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
-					heigth.y = Mathf.Clamp (dirMouse.magnitude, 10, 200) * 4.5f + 100;
+                        Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
+                        heigth.y = Mathf.Clamp(dirMouse.magnitude, 10, 150) * 4.5f + 100;
 
-					throwingDirectionImage.rectTransform.sizeDelta = heigth;
+                        throwingDirectionImage.rectTransform.sizeDelta = heigth;
+                    }
+                    else
+                    {
+                        TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse);
+                    }
 
-					dirToThrow = dirMouse;
-				}
-				
-			}
+                    dirToThrow = dirMouse;
+                }
+
+            }
 
 		} else if (mouseCurState == MouseState.mouseDragging) {
 			
@@ -114,9 +121,12 @@ public class BallController : MonoBehaviour {
 			mousePivotPointImage.gameObject.SetActive (false);
 
 			throwingDirectionImage.gameObject.SetActive (false);
-
-			ThrowBalls (dirToThrow.normalized);
-		}
+            if (dirMouse.sqrMagnitude > 1000)
+            {
+                ThrowBalls(dirToThrow.normalized);
+            }
+            TrajectoryHelper.Ins.ShowTajectory(false);
+        }
 
 	}
 
@@ -143,7 +153,11 @@ public class BallController : MonoBehaviour {
 
 		iTween.ScaleTo (ballCountText.gameObject, Vector3.zero, .5f);
 
-		//ballCountText.gameObject.SetActive (false);
+        //ballCountText.gameObject.SetActive (false);
+
+        UIScreen.Ins.EnableReturnBallsBtn(true);
+
+        float lastThrowTime = Time.time;
 
 		while (!canThrow) {
 			
@@ -158,19 +172,25 @@ public class BallController : MonoBehaviour {
 				}
 			}
 
+            if(lastThrowTime + 3 < Time.time)
+            {
+                UIScreen.Ins.ShowTimeAcceleratorBtn();
+            }
+
 			yield return null;
 		}
 
-		//ballCountText.gameObject.SetActive (true);
+        UIScreen.Ins.EnableReturnBallsBtn(false);
 
-		//iTween.FadeFrom (ballCountText.gameObject, 0, .5f);
+        //ballCountText.gameObject.SetActive (true);
 
-		iTween.ScaleTo (ballCountText.gameObject, Vector3.one, .5f);
+        //iTween.FadeFrom (ballCountText.gameObject, 0, .5f);
+
+        iTween.ScaleTo (ballCountText.gameObject, Vector3.one, .5f);
 
 		ballCountText.text = "x" + ballCount;
-		print (startThrowPos);
 
-		Vector3 pos = Camera.main.WorldToScreenPoint (startThrowPos + Vector2.left * .5f);
+		Vector3 pos = Camera.main.WorldToScreenPoint (startThrowPos + Vector2.left * .5f) + Vector3.up * 7f;
 		if (pos.x < 0) {
 			pos.x += Mathf.Abs (pos.x) + 50;
 		}
@@ -181,6 +201,17 @@ public class BallController : MonoBehaviour {
 		BlocksController.Instance.ShiftBlockMapDown ();
 		startPosChanged = false;
 	}
+
+    public void ReturnAllBalls()
+    {
+
+        List<Ball> balls = new List<Ball>(ballsList);
+
+        for (int i = 0; i < balls.Count; i++)
+        {
+            balls[i].ReturnBall(); 
+        }
+    }
 
 	public void	BallCountPlus ()
 	{

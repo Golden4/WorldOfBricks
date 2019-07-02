@@ -6,12 +6,11 @@ public class EdgeScreenCollisions : MonoBehaviour {
 	public float colThickness = 4f;
 	public float zPosition = 0f;
 	private Vector2 screenSize;
+	public Sprite edgeSprite;
 	//public static Vector2 screenResolution;
 
 	void Start ()
 	{
-
-
 		Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
 
 
@@ -24,18 +23,21 @@ public class EdgeScreenCollisions : MonoBehaviour {
 
 		Vector3 cameraPos = Camera.main.transform.position;
 
-		screenSize.x = Vector2.Distance (Camera.main.ScreenToWorldPoint (new Vector2 (0, 0)), Camera.main.ScreenToWorldPoint (new Vector2 (Screen.height / 16f * 10f, 0))) * 0.5f;
-		screenSize.y = Vector2.Distance (Camera.main.ScreenToWorldPoint (new Vector2 (0, 0)), Camera.main.ScreenToWorldPoint (new Vector2 (0, Screen.height))) * 0.5f;
+		/*screenSize.x = Vector2.Distance (Camera.main.ScreenToWorldPoint (new Vector2 (0, 0)), Camera.main.ScreenToWorldPoint (new Vector2 (Screen.height / 16f * 10f, 0))) * 0.5f;
+		screenSize.y = Vector2.Distance (Camera.main.ScreenToWorldPoint (new Vector2 (0, 0)), Camera.main.ScreenToWorldPoint (new Vector2 (0, Screen.height))) * 0.5f;*/
+		screenSize = BlocksController.Instance.GetBlockHolerSize () /*+ Vector2.one * .05f*/;
 
 		foreach (KeyValuePair<string,Transform> valPair in colliders) {
 			valPair.Value.gameObject.AddComponent<BoxCollider2D> ();
-			valPair.Value.name = valPair.Key + "Collider";
+            Rigidbody2D rb = valPair.Value.gameObject.AddComponent<Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Static;
+            valPair.Value.name = valPair.Key + "Collider";
 			valPair.Value.parent = transform;
  
 			if (valPair.Key == "Left" || valPair.Key == "Right")
-				valPair.Value.localScale = new Vector3 (colThickness, screenSize.y * 2 + .5f, colThickness);
+				valPair.Value.localScale = new Vector3 (colThickness, screenSize.y * 2, colThickness);
 			else
-				valPair.Value.localScale = new Vector3 (screenSize.x * 2 + .5f, colThickness, colThickness);
+				valPair.Value.localScale = new Vector3 (screenSize.x * 2, colThickness, colThickness);
 		}  
 
 
@@ -45,18 +47,50 @@ public class EdgeScreenCollisions : MonoBehaviour {
 		colliders ["Bottom"].position = new Vector3 (cameraPos.x, cameraPos.y - screenSize.y - (colliders ["Bottom"].localScale.y * 0.5f), zPosition);
 
 
+        foreach (KeyValuePair<string,Transform> valPair in colliders) {
+			
+			if (valPair.Key == "Left" || valPair.Key == "Right") {
+				//sr.size = new Vector2 (.05f, 1.0127f);
+				//if (valPair.Key == "Left") {
+				//	go.transform.localPosition = new Vector3 (.475f, 0);
+				//} else {
+				//	go.transform.localPosition = new Vector3 (-.475f, 0);
+				//}
+			} else {
+
+                GameObject go = new GameObject("EdgeSprite" + valPair.Key);
+                go.transform.SetParent(colliders[valPair.Key].transform, false);
+                go.transform.localScale = Vector3.one;
+                SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
+                sr.sprite = edgeSprite;
+                sr.drawMode = SpriteDrawMode.Sliced;
+
+                sr.size = new Vector2 (1f, .05f);
+				if (valPair.Key == "Top") {
+					go.transform.localPosition = new Vector3 (0, -.475f);
+				} else {
+					go.transform.localPosition = new Vector3 (0, .475f);
+				}
+
+			}
+			
+
+		}
+
+
+
 
 		GameObject TopRight = new GameObject ("TopRight");
 		TopRight.transform.position = new Vector3 (cameraPos.x + screenSize.x, cameraPos.y + screenSize.y);
 		TopRight.transform.eulerAngles = new Vector3 (0, 0, 45);
 		TopRight.transform.parent = transform;
-		TopRight.transform.localScale = new Vector3 (.3f, .3f, 1);
+		TopRight.transform.localScale = new Vector3 (.4f, .8f, 1);
 
 		GameObject TopLeft = new GameObject ("TopLeft");
 		TopLeft.transform.position = new Vector3 (cameraPos.x - screenSize.x, cameraPos.y + screenSize.y);
 		TopLeft.transform.eulerAngles = new Vector3 (0, 0, 45);
 		TopLeft.transform.parent = transform;
-		TopLeft.transform.localScale = new Vector3 (.3f, .3f, 1);
+		TopLeft.transform.localScale = new Vector3 (.8f, .4f, 1);
 
 /*		GameObject BottomRight = new GameObject ("BottomCollider");
 		BottomRight.transform.position = new Vector3 (cameraPos.x + screenSize.x, cameraPos.y - screenSize.y);

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 222577593652610090}
   - component: {fileID: 102832034892378530}
   - component: {fileID: 23678495465570642}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ TextMesh:
   m_FontSize: 45
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: 1f16052dfd5f6f54e94e97ecedd4c86b, type: 3}
+  m_Font: {fileID: 12800000, guid: 0e15ae35fab85e14fa7710869fb772f6, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294963103
@@ -85,7 +85,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f16052dfd5f6f54e94e97ecedd4c86b, type: 3}
+  - {fileID: 2100000, guid: 0e15ae35fab85e14fa7710869fb772f6, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 222212491884293832}
   - component: {fileID: 58841943705379822}
   - component: {fileID: 114264765648939692}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: VerLaser
   m_TagString: Block
   m_Icon: {fileID: 0}

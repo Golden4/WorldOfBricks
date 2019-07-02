@@ -7,19 +7,21 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 	public Block[][] blockMap = new Block[10] [];
 	public BlockForSpawn[] blocksForSpawn;
 	public Vector2 offsetBetweenBlocks;
+    public int blocksLife;
 
 	GameObject blockHolder;
 
-	public Vector3 centerOfScreen;
+	public event System.Action OnChangeTopLine;
 
+	public Vector3 centerOfScreen;
 
 	void Start ()
 	{
-		CurLevel = 1;
+        UIScreen.Ins.UpdateScore(1);
 
 		blockHolder = new GameObject ("BlockHolder");
-		centerOfScreen = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2f, Screen.height - Screen.height * .08f, 10));
-		blockHolder.transform.position = centerOfScreen;
+		//centerOfScreen = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2f, Screen.height - Screen.height * .08f, 10));
+		blockHolder.transform.position = Vector3.zero;// centerOfScreen;
 
 		Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
 
@@ -27,14 +29,32 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 		//ShiftBlockMapDown ();
 		ChangeTopLine ();
 		ShowMapInConsole ();
-
 	}
 
+    public void CalculateBlockLife()
+    {
+        blocksLife = 0;
+
+        for (int i = 0; i < blockMap.Length; i++)
+        {
+            for (int j = 0; j < blockMap[i].Length; j++)
+            {
+                blocksLife += blockMap[i][j].blockLife;
+            }
+        }
+        
+
+        if (blocksLife <= 0)
+        {
+            UIScreen.Ins.ShowClearText();
+        }
+
+    }
 
 	void InitializeBlockMap ()
 	{
 		for (int i = 0; i < blockMap.Length; i++) {
-			blockMap [i] = new Block[7];
+			blockMap [i] = new Block[8];
 			for (int j = 0; j < blockMap [i].Length; j++) {
 				blockMap [i] [j] = new Block (0);
 			}
@@ -65,10 +85,14 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 			}
 		}
 
-		CurLevel++;
+		if (OnChangeTopLine != null) {
+			OnChangeTopLine ();
+		}
+
+        UIScreen.Ins.UpdateScore(++UIScreen.Ins.score);
 
 		Invoke ("ChangeTopLine", .2f);
-		Invoke ("ShowMapInConsole", .2f);
+		//Invoke ("ShowMapInConsole", .2f);
 		Invoke ("CheckForLose", .2f);
 	}
 
@@ -77,12 +101,12 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 		for (int i = 0; i < blockMap [0].Length; i++) {
 
 			if (blockMap [blockMap.Length - 1] [i].blockLife > 0) {
-				EventManager.OnLose ();
+                UIScreen.OnLoseEventCall();
 				break;
 			}
 		}
 
-		if (!GameManager.Instance.playerLose) {
+		if (!UIScreen.Ins.playerLose) {
 			for (int i = 0; i < blockMap [0].Length; i++) {
 			
 				if (blockMap [blockMap.Length - 1] [i].blockComp != null) {
@@ -95,7 +119,6 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 
 	void ChangeTopLine ()
 	{
-		bool plusBallSpawned = false;
 
 		double randNumPlusBlock = Random.Range (0, blockMap [0].Length - 1);
 
@@ -118,7 +141,7 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 
 			} else {
 
-				int curLevelCur = (CurLevel % 10 == 0) ? CurLevel * Random.Range (1, 3) : CurLevel;
+				int curLevelCur = (UIScreen.Ins.score % 10 == 0) ? UIScreen.Ins.score * Random.Range (1, 3) : UIScreen.Ins.score;
 
 				//int indexBlock = Random.Range (1, blockPrefabs.Length);
 
@@ -193,7 +216,8 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 
 		BlockWithText tmp = Instantiate<GameObject> (blocksForSpawn [blockIndex].blockPrefab.gameObject).GetComponent<BlockWithText> ();
 
-		tmp.transform.SetParent (blockHolder.transform);
+		tmp.transform.SetParent (blockHolder.transform, false);
+		tmp.transform.localScale *= .8f;
 
 		//float offset = (Screen.width - EdgeScreenCollisions.screenResolution.x) / 2f;
 
@@ -230,34 +254,27 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 
 		//Vector3 screenPos = Camera.main.ScreenToWorldPoint (new Vector3 (screenOffset, Screen.height - Screen.height * .08f - (screenOffset * (coordsY + 1)), 0));
 
-		Vector3 posBlock = new Vector3 (offsetBetweenBlocks.x * coordsX - (blockMap [0].Length / 2f * offsetBetweenBlocks.x - .03f), -offsetBetweenBlocks.y * (coordsY + 1), 0);
+		Vector3 posBlock = new Vector3 (offsetBetweenBlocks.x * coordsX - (blockMap [0].Length / 2f * offsetBetweenBlocks.x) + .015f, -offsetBetweenBlocks.y * (coordsY + 1) + ((blockMap.Length - 1) / 2f * offsetBetweenBlocks.y), 0);
 
 		return posBlock;
+	}
+
+	public Vector2 GetBlockHolerSize ()
+	{
+		return new Vector2 (offsetBetweenBlocks.x * blockMap [0].Length / 2f, (blockMap.Length + 1) / 2f * offsetBetweenBlocks.y);
 	}
 
 	public IEnumerator DestroyBlockWhenLevelEnd (GameObject obj, int destroyLevelCount)
 	{
 
-		int curLevel = GameManager.Instance.curScore;
+		int curLevel = UIScreen.Ins.score;
 
-		while (GameManager.Instance.curScore < curLevel + destroyLevelCount) {
+		while (UIScreen.Ins.score < curLevel + destroyLevelCount) {
 			yield return null;
 		}
 
 		Destroy (obj);
 
-	}
-
-
-	public int CurLevel {
-		get {
-			return GameManager.Instance.curScore;
-		}
-
-		set {
-			GameManager.Instance.curScore = value;
-			GameManager.Instance.UpdateCurScoreText ();
-		}
 	}
 
 	void OnValidate ()

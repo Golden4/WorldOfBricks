@@ -1,0 +1,68 @@
+{
+  "items": [
+    {
+      "key": "balls",
+      "value": "Мячи"
+    },
+    {
+      "key": "play",
+      "value": "Играть"
+    },
+    {
+      "key": "tap_to_continue",
+      "value": "Нажми, чтобы продолжить"
+    },
+    {
+      "key": "no",
+      "value": "Нет"
+    },
+    {
+      "key": "new_record",
+      "value": "Новый рекорд!"
+    },
+    {
+      "key": "shop",
+      "value": "Магазин"
+    },
+    {
+      "key": "audio",
+      "value": "Аудио"
+    },
+    {
+      "key": "control",
+      "value": "Управление"
+    },
+    {
+      "key": "quality",
+      "value": "Качество"
+    },
+    {
+      "key": "language",
+      "value": "Язык"
+    },
+    {
+      "key": "second_chance",
+      "value": "Продолжить?"
+    },
+    {
+      "key": "new_character",
+      "value": "Новый персонаж!"
+    },
+    {
+      "key": "top_score",
+      "value": "Рекорд"
+    },
+    {
+      "key": "all_characters",
+      "value": "Все персонажи"
+    },
+    {
+      "key": "gift_through",
+      "value": "Подарок через"
+    },
+    {
+      "key": "get_gift",
+      "value": "Получить подарок"
+    }
+  ]
+}

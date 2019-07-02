@@ -1,0 +1,68 @@
+{
+  "items": [
+    {
+      "key": "balls",
+      "value": "Balls"
+    },
+    {
+      "key": "play",
+      "value": "Play"
+    },
+    {
+      "key": "tap_to_continue",
+      "value": "Tap to continue"
+    },
+    {
+      "key": "no",
+      "value": "No"
+    },
+    {
+      "key": "new_record",
+      "value": "New record!"
+    },
+    {
+      "key": "shop",
+      "value": "Shop"
+    },
+    {
+      "key": "audio",
+      "value": "Audio"
+    },
+    {
+      "key": "control",
+      "value": "Control"
+    },
+    {
+      "key": "quality",
+      "value": "Quality"
+    },
+    {
+      "key": "language",
+      "value": "Language"
+    },
+    {
+      "key": "second_chance",
+      "value": "Second chance"
+    },
+    {
+      "key": "new_character",
+      "value": "New character!"
+    },
+    {
+      "key": "top_score",
+      "value": "Top"
+    },
+    {
+      "key": "all_characters",
+      "value": "All characters"
+    },
+    {
+      "key": "gift_through",
+      "value": "Gift through"
+    },
+    {
+      "key": "get_gift",
+      "value": "Get gift"
+    }
+  ]
+}

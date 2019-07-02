@@ -586,10 +586,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 7379d0dc-63ab-409a-94f7-c56fdab1d615
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: World Of Breaks
+  organizationId: goldena
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
