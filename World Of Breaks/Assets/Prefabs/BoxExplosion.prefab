@@ -157,6 +157,8 @@ MonoBehaviour:
     type: 3}
   canLooseBeforeDown: 1
   isDead: 0
+  isLoadingBlock: 0
+  bombIcon: {fileID: 7716944682379869830}
 --- !u!1 &1249939165609762
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +276,7 @@ Transform:
   m_GameObject: {fileID: 3324957578409625200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.615, y: 0.616, z: 0}
-  m_LocalScale: {x: 0.56382674, y: 0.56382674, z: 0.56382674}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6703132152741964377}
   m_RootOrder: 1
@@ -316,8 +318,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300002, guid: ef7a8e7536ab70e46ad74ecbe827291f, type: 3}
-  m_Color: {r: 1, g: 0.25943398, b: 0.25943398, a: 1}
+  m_Sprite: {fileID: 21300014, guid: 104bf7d99ecc9ab43aeb559beb4b76a4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

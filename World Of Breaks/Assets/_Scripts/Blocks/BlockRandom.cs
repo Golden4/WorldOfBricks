@@ -18,6 +18,5 @@ public class BlockRandom : BlockWithText
     public override void UpdateText()
     {
         textMesh.text = "?";
-        Shine();
     }
 }

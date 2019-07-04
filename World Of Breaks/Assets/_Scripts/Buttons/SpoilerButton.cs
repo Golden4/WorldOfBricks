@@ -6,15 +6,16 @@ using UnityEngine.UI;
 public class SpoilerButton : MonoBehaviour {
 
 	public GameObject spoilerParent;
-
+    public GUIAnim[] anims;
 	public bool isShow = false;
 
 
-	void Start ()
+	IEnumerator Start ()
 	{
-		Show ();
-
-		GetComponent <Button> ().onClick.AddListener (() => {
+		
+        Button btn = GetComponent<Button>();
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener (() => {
 
 			if (isShow) {
 				Close ();
@@ -24,24 +25,36 @@ public class SpoilerButton : MonoBehaviour {
 
 		});
 
-		Close ();
-	}
+        Show();
+        Close ();
+        yield return new WaitForSeconds(.2f);
+        btn.interactable = true;
+    }
 
     public bool isChangingColor;
 
 	public void Show ()
 	{
+        if (isShow)
+            return;
+
 		isShow = true;
         isChangingColor = GetComponent<ButtonIcon>().changingColor;
         GetComponent<ButtonIcon>().changingColor = false;
-
         spoilerParent.gameObject.SetActive (true);
-		GUIAnimSystem.Instance.MoveIn (spoilerParent.transform, true);
+
+        for (int i = 0; i < anims.Length; i++)
+        {
+            anims[i].MoveIn(GUIAnimSystem.eGUIMove.Self);
+        }
 	}
 
 	public void Close ()
 	{
-        if(isChangingColor && BuyCoinScreen.CanTakeGift())
+        if (!isShow)
+            return;
+
+        if (isChangingColor && BuyCoinScreen.CanTakeGift())
             GetComponent<ButtonIcon>().changingColor = true;
         else
             GetComponent<ButtonIcon>().changingColor = false;

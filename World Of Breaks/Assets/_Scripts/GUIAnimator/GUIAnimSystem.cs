@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class GUIAnimSystem : MonoBehaviour {
 	private static GUIAnimSystem instance;
 	public eAnimationMode m_AnimationMode = eAnimationMode.All;
-	public bool m_AutoAnimation = true;
+	public bool m_AutoAnimation = false;
 	[Range (0.5f, 10f)]
 	public float m_GUISpeed = 1f;
 	public float m_IdleTime = 50f;

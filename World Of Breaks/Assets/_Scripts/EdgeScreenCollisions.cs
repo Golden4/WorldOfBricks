@@ -45,8 +45,9 @@ public class EdgeScreenCollisions : MonoBehaviour {
 
 
         foreach (KeyValuePair<string,Transform> valPair in colliders) {
-			
-			if (valPair.Key == "Left" || valPair.Key == "Right") {
+            valPair.Value.tag = "Edge";
+
+            if (valPair.Key == "Left" || valPair.Key == "Right") {
 				//sr.size = new Vector2 (.05f, 1.0127f);
 				//if (valPair.Key == "Left") {
 				//	go.transform.localPosition = new Vector3 (.475f, 0);

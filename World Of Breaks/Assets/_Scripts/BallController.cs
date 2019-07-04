@@ -16,7 +16,7 @@ public class BallController : MonoBehaviour {
 	public Text ballCountText;
 	public Image mousePivotPointImage;
 	public static BallController Instance;
-
+    bool needReturnAllBalls;
 	bool canThrow = true;
 
 	enum MouseState
@@ -60,11 +60,25 @@ public class BallController : MonoBehaviour {
 	Vector3 curMousePos;
 	Vector3 dirMouse;
 	Vector3 dirToThrow;
+    float lastThrowTime;
 
-	void Update ()
+    void Update ()
 	{
-		if (!canThrow || UIScreen.Ins.playerLose)
-			return;
+
+        if (UIScreen.Ins.playerLose)
+            return;
+
+        if (!canThrow)
+        {
+            if (lastThrowTime + 2 < Time.time)
+            {
+                
+                UIScreen.Ins.ShowTimeAcceleratorBtn();
+            }
+            return;
+        }
+        
+		
 
         bool isMouseOnUIObject = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
 
@@ -120,14 +134,7 @@ public class BallController : MonoBehaviour {
                     }
                     else
                     {
-                        if (dirMouse.sqrMagnitude > 1000)
-                        {
-                            throwingDirectionImage.gameObject.SetActive(true);
-                            TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse);
-                        }
-                        else
-                            throwingDirectionImage.gameObject.SetActive(false);
-
+                        TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse);
                         
                     }
 
@@ -157,7 +164,8 @@ public class BallController : MonoBehaviour {
 	void ThrowBalls (Vector3 dir)
 	{
 		InstantiateBallsList ();
-		StartCoroutine (ThrowBallsCoroutine (dir));
+        needReturnAllBalls = false;
+        StartCoroutine (ThrowBallsCoroutine (dir));
 	}
 
     void CalcTimeBeweenBalls()
@@ -184,10 +192,19 @@ public class BallController : MonoBehaviour {
 
         List<Ball> ballList = new List<Ball>(ballsList);
 
+        UIScreen.Ins.EnableReturnBallsBtn(true);
+
+        lastThrowTime = Time.time;
+
         for (int i = 0; i < ballList.Count; i++) {
-            ballList[i].GoThrow (dir);
-			tmpBallCount--;
-			ballCountText.text = "x" + tmpBallCount;
+            if (needReturnAllBalls)
+                break;
+
+                ballList[i].GoThrow(dir);
+                tmpBallCount--;
+                ballCountText.text = "x" + tmpBallCount;
+            
+
 			yield return new WaitForSeconds (timeBetweenBalls);
 		}
 
@@ -195,9 +212,8 @@ public class BallController : MonoBehaviour {
 
         //ballCountText.gameObject.SetActive (false);
 
-        UIScreen.Ins.EnableReturnBallsBtn(true);
+        
 
-        float lastThrowTime = Time.time;
 
 		while (!canThrow) {
 			
@@ -211,11 +227,6 @@ public class BallController : MonoBehaviour {
 					canThrow = true;
 				}
 			}
-
-            if(lastThrowTime + 2 < Time.time)
-            {
-                UIScreen.Ins.ShowTimeAcceleratorBtn();
-            }
 
 			yield return null;
 		}
@@ -246,7 +257,7 @@ public class BallController : MonoBehaviour {
     {
 
         List<Ball> balls = new List<Ball>(ballsList);
-
+        needReturnAllBalls = true;
         for (int i = 0; i < balls.Count; i++)
         {
             balls[i].ReturnBall(); 

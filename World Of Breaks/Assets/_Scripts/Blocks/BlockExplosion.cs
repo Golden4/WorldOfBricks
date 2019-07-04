@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BlockExplosion : BlockWithText
 {
+
+    public SpriteRenderer bombIcon;
+
     protected override void Start()
     {
         base.Start();
@@ -14,6 +17,19 @@ public class BlockExplosion : BlockWithText
             BlocksController.Instance.blockMap[coordsY][coordsX].blockLife = blockLife;
             UpdateText();
         }
+        bombIcon.color = curColor;
+    }
+
+    protected override void TimerStart()
+    {
+        base.TimerStart();
+        bombIcon.color = Color.Lerp(Color.black, curColor, 1f - t);
+    }
+
+    protected override void TimerEnd()
+    {
+        base.TimerEnd();
+        bombIcon.color = curColor;
     }
 
     protected override void OnDead()

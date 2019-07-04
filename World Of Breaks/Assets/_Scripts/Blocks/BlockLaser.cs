@@ -21,51 +21,40 @@ public class BlockLaser : BlockWithText {
 	{
 		BlocksController.Instance.OnChangeTopLine += TryDie;
         t = 0;
+        timerSpeed = 3;
     }
 
-    float t;
-    void AnimateLineRenderer()
+    protected override void TimerStart()
     {
-        if (t > 0)
+        transform.GetChild(0).localScale = new Vector3(1 + t / 3f, 1 + t / 3f, 1);
+        if (laserVer != null && (typeOfLaserBlock == LaserType.Vertical || typeOfLaserBlock == LaserType.HorizontalAndVerical))
         {
-            t -= Time.deltaTime * 3;
-            transform.GetChild(0).localScale = new Vector3(1 + t / 3f, 1 + t / 3f, 1);
-            if (laserVer != null && (typeOfLaserBlock == LaserType.Vertical || typeOfLaserBlock == LaserType.HorizontalAndVerical))
-            {
-                if(!laserVer.gameObject.activeInHierarchy)
-                    laserVer.gameObject.SetActive(true);
+            if (!laserVer.gameObject.activeInHierarchy)
+                laserVer.gameObject.SetActive(true);
 
-                laserVer.transform.localScale = new Vector3(t, 1, 1);
-                
-            }
+            laserVer.transform.localScale = new Vector3(t, 1, 1);
 
-            if (laserHor != null && (typeOfLaserBlock == LaserType.Horizontal || typeOfLaserBlock == LaserType.HorizontalAndVerical))
-            {
-                if (!laserHor.gameObject.activeInHierarchy)
-                    laserHor.gameObject.SetActive(true);
+        }
 
-                laserHor.transform.localScale = new Vector3(1, t, 1);
-            }
-            
-        } else if (t <= -0.01f)
+        if (laserHor != null && (typeOfLaserBlock == LaserType.Horizontal || typeOfLaserBlock == LaserType.HorizontalAndVerical))
         {
-            t = 0;
-            transform.GetChild(0).localScale = new Vector3(1, 1, 1);
-            if (laserHor != null)
-                if (laserHor.gameObject.activeInHierarchy)
-                    laserHor.gameObject.SetActive(false);
+            if (!laserHor.gameObject.activeInHierarchy)
+                laserHor.gameObject.SetActive(true);
 
-            if (laserVer != null)
-                if (laserVer.gameObject.activeInHierarchy)
-                    laserVer.gameObject.SetActive(false);
+            laserHor.transform.localScale = new Vector3(1, t, 1);
         }
     }
 
-    void Update()
+    protected override void TimerEnd()
     {
+        transform.GetChild(0).localScale = new Vector3(1, 1, 1);
+        if (laserHor != null)
+            if (laserHor.gameObject.activeInHierarchy)
+                laserHor.gameObject.SetActive(false);
 
-        AnimateLineRenderer();
-
+        if (laserVer != null)
+            if (laserVer.gameObject.activeInHierarchy)
+                laserVer.gameObject.SetActive(false);
     }
 
 

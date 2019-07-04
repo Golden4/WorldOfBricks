@@ -19,25 +19,15 @@ public class BlockObstacle : BlockWithText {
 		Vector3 dir = Vector3.up + Vector3.left * Random.Range (-2f, 2f);
 		ball.ChangeDirection (dir.normalized);
 	}
-    float t;
-    void Update()
+
+    protected override void TimerStart()
     {
+        transform.GetChild(0).localScale = new Vector3(1 + t / 3f, 1 + t / 3f, 1);
+    }
 
-        if (t > 0)
-        {
-            t -= Time.deltaTime * 6;
-            
-
-            transform.GetChild(0).localScale = new Vector3(1 + t / 3f,1 + t / 3f,1);
-
-
-        }
-        else if (t <= -0.01f)
-        {
-            t = 0;
-            transform.GetChild(0).localScale = Vector3.one;
-        }
-
+    protected override void TimerEnd()
+    {
+        transform.GetChild(0).localScale = Vector3.one;
     }
 
     void OnDestroy ()

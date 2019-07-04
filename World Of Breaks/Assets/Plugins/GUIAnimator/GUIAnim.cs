@@ -1294,7 +1294,7 @@ public class GUIAnim : MonoBehaviour {
 
 	private void Start ()
 	{
-		if (((this != null) && (base.gameObject != null)) && !this.m_InitialDone) {
+		if (((this != null) && (base.gameObject != null)) && !this.m_InitialDone && GUIAnimSystem.Instance != null) {
 			this.m_InitialDone = true;
 			bool flag = true;
 			if (GUIAnimSystem.Instance.m_AutoAnimation) {

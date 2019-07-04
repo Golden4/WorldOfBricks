@@ -2350,7 +2350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &515584423
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2832,10 +2832,10 @@ RectTransform:
   m_Father: {fileID: 588322047}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -100}
+  m_SizeDelta: {x: 480, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &652205140
 MonoBehaviour:
@@ -9010,6 +9010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spoilerParent: {fileID: 1982024134}
+  anims: []
   isShow: 0
   isChangingColor: 0
 --- !u!114 &1987612404
@@ -9362,7 +9363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  throwingDirectionImage: {fileID: 299109710}
+  throwingDirectionImage: {fileID: 7749676971426698389, guid: 4bcc3bd473fc1394d851cb7c74323b63,
+    type: 3}
   thrDirImages: []
   trajectoryBtn: {fileID: 275103558}
   colliderMask:

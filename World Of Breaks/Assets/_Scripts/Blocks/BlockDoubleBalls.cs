@@ -11,24 +11,14 @@ public class BlockDoubleBalls : BlockWithText
         BlocksController.Instance.OnChangeTopLine += TryDie;
     }
 
-    float t;
-    void Update()
+    protected override void TimerStart()
     {
-        if (t > 0)
-        {
-            t -= Time.deltaTime * 6;
+        transform.GetChild(0).localScale = new Vector3(1 + t / 3f, 1 + t / 3f, 1);
+    }
 
-
-            transform.GetChild(0).localScale = new Vector3(1 + t / 3f, 1 + t / 3f, 1);
-
-
-        }
-        else if (t <= -0.01f)
-        {
-            t = 0;
-            transform.GetChild(0).localScale = Vector3.one;
-        }
-
+    protected override void TimerEnd()
+    {
+        transform.GetChild(0).localScale = Vector3.one;
     }
 
     public override void Hit(Ball ball)

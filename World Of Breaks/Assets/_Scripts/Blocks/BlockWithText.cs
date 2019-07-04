@@ -21,7 +21,7 @@ public class BlockWithText : MonoBehaviour {
 
 	public bool canLooseBeforeDown;
 
-	Color origColor;
+	protected Color curColor;
 
     public bool isDead;
 
@@ -32,16 +32,52 @@ public class BlockWithText : MonoBehaviour {
 		spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 		textMesh = GetComponentInChildren <TextMesh> ();
 		UpdateText ();
-		origColor = g.Evaluate ((BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife % 30) / 30f);
-		spriteRenderer.color = origColor;
-	}
+		curColor = g.Evaluate ((BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife % 30) / 30f);
+		spriteRenderer.color = curColor;
+    }
+
+    protected void ChangeSpriteColor(SpriteRenderer spriteRenderer)
+    {
+
+    }
 
 	public virtual void Hit (Ball ball)
 	{
 		Hit ();
 	}
 
-	public virtual void Hit ()
+    protected float t = 0;
+    protected float timerSpeed = 6;
+
+    void Update()
+    {
+
+        if (t > 0)
+        {
+            t -= Time.deltaTime * timerSpeed;
+
+            TimerStart();
+
+        }
+        else if (t <= -0.01f)
+        {
+            t = 0;
+
+            TimerEnd();
+        }
+
+    }
+
+    protected virtual void TimerStart()
+    {
+        spriteRenderer.color = Color.Lerp(Color.black, curColor, 1f - t);
+    }
+    protected virtual void TimerEnd()
+    {
+        spriteRenderer.color = curColor;
+    }
+
+    public virtual void Hit ()
 	{
         BlocksController.Instance.blockMap[coordsY][coordsX].blockLife = (BlocksController.Instance.blockMap[coordsY][coordsX].blockLife - 1 < 0)? 0 : BlocksController.Instance.blockMap[coordsY][coordsX].blockLife - 1;
 
@@ -50,9 +86,11 @@ public class BlockWithText : MonoBehaviour {
 			return;
 		}
 
-		origColor = g.Evaluate ((BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife % 30) / 30f);
+        t = 1;
 
-		spriteRenderer.color = origColor;
+		curColor = g.Evaluate ((BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife % 30) / 30f);
+
+		spriteRenderer.color = curColor;
 
 		UpdateText ();
 	}
@@ -60,14 +98,7 @@ public class BlockWithText : MonoBehaviour {
 	public virtual void UpdateText ()
 	{
 		textMesh.text = BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife.ToString ();
-		Shine ();
 		//spriteRenderer.color = g.Evaluate (BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife / 100);
-	}
-
-	public void Shine ()
-	{
-		StopCoroutine ("ShineCoroutine");
-		StartCoroutine ("ShineCoroutine");
 	}
 
 	public void Die ()
@@ -90,21 +121,5 @@ public class BlockWithText : MonoBehaviour {
         Destroy(gameObject);
 
     }
-
-	IEnumerator ShineCoroutine ()
-	{
-		float t = 1f;
-
-		while (t >= 0) {
-			
-			t -= Time.deltaTime / .1f;
-
-			spriteRenderer.color = Color.Lerp (Color.black, origColor, 1f - t);
-
-			yield return null;
-		}
-
-		spriteRenderer.color = origColor;
-	}
 
 }
