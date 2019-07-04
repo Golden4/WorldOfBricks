@@ -33,11 +33,11 @@ public class TrajectoryHelper : Helper
         trajectoryBtn.onClick.RemoveAllListeners();
         trajectoryBtn.onClick.AddListener(() =>
         {
-           // if (User.BuyWithCoin(50))
-            //{
+           if (User.BuyWithCoin(50))
+           {
                 isActive = true;
                 trajectoryBtn.GetComponent<ButtonIcon>().EnableBtn(false);
-            //}
+           }
         });
     }
 

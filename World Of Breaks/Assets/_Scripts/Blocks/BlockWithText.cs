@@ -108,14 +108,16 @@ public class BlockWithText : MonoBehaviour {
             return;
         isDead = true;
 
-        OnDead();
+        BlocksController.Instance.blockMap[coordsY][coordsX].blockLife = 0;
 
+        OnDead();
+        
         BlocksController.Instance.blockMap[coordsY][coordsX].blockIndex = -1;
     }
 
     protected virtual void OnDead()
     {
-        BlocksController.Instance.blockMap[coordsY][coordsX].blockLife = 0;
+        
         BlocksController.Instance.CalculateBlockLife();
         Destroy(Instantiate<GameObject>(destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
         Destroy(gameObject);

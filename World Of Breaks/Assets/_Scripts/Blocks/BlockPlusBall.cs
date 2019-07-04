@@ -16,8 +16,6 @@ public class BlockPlusBall : BlockWithText {
 
     protected override void OnDead ()
 	{
-        BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife = 0;
-
 		Transform text = transform.GetChild (0);
 		text.SetParent (null, false);
 		text.position = transform.position + (Vector3.up - Vector3.left) * .5f;

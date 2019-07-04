@@ -43,9 +43,9 @@ public class EdgeScreenCollisions : MonoBehaviour {
 		colliders ["Top"].position = new Vector3 (cameraPos.x, cameraPos.y + screenSize.y + (colliders ["Top"].localScale.y * 0.5f), zPosition);
 		colliders ["Bottom"].position = new Vector3 (cameraPos.x, cameraPos.y - screenSize.y - (colliders ["Bottom"].localScale.y * 0.5f), zPosition);
 
-
         foreach (KeyValuePair<string,Transform> valPair in colliders) {
-            valPair.Value.tag = "Edge";
+            if(valPair.Key != "Bottom")
+                valPair.Value.tag = "Edge";
 
             if (valPair.Key == "Left" || valPair.Key == "Right") {
 				//sr.size = new Vector2 (.05f, 1.0127f);

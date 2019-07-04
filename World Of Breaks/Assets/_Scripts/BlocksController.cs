@@ -290,10 +290,44 @@ public class BlocksController : MonoBehaviour {
 		}
 
 		Destroy (obj);
-
 	}
 
-	void OnValidate ()
+    public void DestroyLastLineBtn()
+    {
+        if (User.BuyWithCoin(10))
+        {
+            for (int i = blockMap.Length - 1; i >= 0; i--)
+            {
+                for (int j = 0; j < blockMap[i].Length; j++)
+                {
+                    if (blockMap[i][j].blockLife > 0)
+                    {
+                        DestroyLine(i);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public void DestroyLine(int line)
+    {
+        for (int j = 0; j < blockMap[line].Length; j++)
+        {
+            if (blockMap[line][j].blockLife > 0)
+            {
+                if (blockMap[line][j].blockComp != null)
+                {
+                    blockMap[line][j].blockComp.Die();
+                }
+
+            }
+
+        }
+    }
+
+
+    void OnValidate ()
 	{
 		foreach (var block in blocksForSpawn) {
 			if (block.blockPrefab != null && string.IsNullOrEmpty (block.name)) {

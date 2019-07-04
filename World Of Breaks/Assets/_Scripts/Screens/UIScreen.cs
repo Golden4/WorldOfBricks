@@ -87,7 +87,7 @@ public class UIScreen : ScreenBase {
     public void ShowTimeAcceleratorBtn()
     {
         if(!timeAcceleratorBtn.gameObject.activeInHierarchy)
-        timeAcceleratorBtn.gameObject.SetActive(true);
+            timeAcceleratorBtn.gameObject.SetActive(true);
     }
 
     void HideTimeAcceleratorBtn()
@@ -115,11 +115,13 @@ public class UIScreen : ScreenBase {
 
     public void TimeAcceleratorEnable()
     {
+        timeAcceleratorBtn.GetComponent<ButtonIcon>().EnableBtn(false);
         Time.timeScale = 2;
     }
 
     void TimeAcceleratorDisable()
     {
+        timeAcceleratorBtn.GetComponent<ButtonIcon>().EnableBtn(true);
         Time.timeScale = 1;
     }
 
