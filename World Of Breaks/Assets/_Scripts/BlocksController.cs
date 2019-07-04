@@ -326,6 +326,20 @@ public class BlocksController : MonoBehaviour {
         }
     }
 
+    public void DestroyAllBlocks()
+    {
+        for (int i = 0; i < blockMap.Length; i++)
+        {
+            for (int j = 0; j < blockMap[i].Length; j++)
+            {
+                if(blockMap[i][j].blockComp != null)
+                {
+                    blockMap[i][j].blockComp.Die();
+                }
+            }
+        }
+    }
+
 
     void OnValidate ()
 	{
@@ -376,7 +390,7 @@ public class Block {
 [System.Serializable]
 public class BlockForSpawn {
 	public string name;
-	[Range (0, 100)]
+	[Range (0, 200)]
 	public int chanceForSpawn;
 	public bool isRequired;
 	public BlockWithText blockPrefab;

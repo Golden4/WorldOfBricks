@@ -80,6 +80,22 @@ public class UIScreen : ScreenBase {
 
     private void Start()
     {
+        if (PlayerPrefs.HasKey("CurLevel"))
+        {
+            UpdateScore(PlayerPrefs.GetInt("CurLevel"));
+            newGame = false;
+        } else
+        {
+            newGame = true;
+        }
+
+        if (newGame)
+        {
+            PlayerPrefs.DeleteKey("CurLevel");
+            UpdateScore((UIScreen.Ins.checkpoint == 0) ? 1 : UIScreen.Ins.checkpoint);
+            SetCheckpoint(0);
+        }
+
         BlocksController.Instance.OnChangeTopLine += HideTimeAcceleratorBtn;
         BlocksController.Instance.OnChangeTopLine += TimeAcceleratorDisable;
     }

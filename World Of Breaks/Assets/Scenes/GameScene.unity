@@ -6698,7 +6698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -105.1, y: 56.5}
+  m_AnchoredPosition: {x: -105.1001, y: 56.5}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1320562186
@@ -9658,7 +9658,7 @@ MonoBehaviour:
     blockPrefab: {fileID: 114728228731968978, guid: ef539b873f9f1bf41ae292b27ac6d13a,
       type: 3}
   - name: Box
-    chanceForSpawn: 100
+    chanceForSpawn: 150
     isRequired: 0
     blockPrefab: {fileID: 114976207678739780, guid: 7b3e9b10836dacd43807a6fc534dcfe9,
       type: 3}
@@ -9668,7 +9668,7 @@ MonoBehaviour:
     blockPrefab: {fileID: 4538863868924165828, guid: e2957d373c09add439c9c281a375a0fd,
       type: 3}
   - name: BoxRandom
-    chanceForSpawn: 3
+    chanceForSpawn: 5
     isRequired: 0
     blockPrefab: {fileID: 1253563757071097051, guid: f933a17a80ccb5a46a0b6646ef118538,
       type: 3}

@@ -37,7 +37,7 @@ public class BallController : MonoBehaviour {
 	void Start ()
 	{
 		throwingDirectionImage.gameObject.SetActive (false);
-
+        
 		InstantiateBallsList ();
 		UpdateBallCountText ();
 	}
@@ -110,7 +110,7 @@ public class BallController : MonoBehaviour {
 				
 				curMousePos = Input.mousePosition;
 
-				dirMouse = -curMousePos + startMousePos;
+				dirMouse = ((InputMobileController.curInputType == InputMobileController.InputType.Touch)?1:-1) * (-curMousePos + startMousePos);
 
                 
 

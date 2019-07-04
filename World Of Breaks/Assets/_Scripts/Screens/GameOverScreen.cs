@@ -25,6 +25,7 @@ public class GameOverScreen : ScreenBase {
 		base.OnActivate ();
 		playerDieCount++;
 
+        BlocksController.Instance.DestroyAllBlocks();
         BlocksSaver.DeleteBlockMapKeys();
         UIScreen.newGame = true;
 

@@ -21,7 +21,11 @@ public class PauseScreen : ScreenBase {
 	{
 		Game.isPause = false;
 		Time.timeScale = 1;
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
+
+        if(UIScreen.Ins.playerLose)
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.GameOver);
+        else
+            ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
 	}
 
     public void ActivatePauseScreen()
