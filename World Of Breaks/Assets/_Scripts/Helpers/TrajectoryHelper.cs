@@ -49,7 +49,7 @@ public class TrajectoryHelper : Helper
     public void CalculateTrajectory(Vector2 startThrowPos, Vector2 dirMouse, float mouseHeightWorld)
     {
         
-        Vector2 pos = Camera.main.WorldToScreenPoint(startThrowPos);
+       // Vector2 pos = Camera.main.WorldToScreenPoint(startThrowPos);
 
         float heigth = mouseHeightWorld * 3;
 
@@ -60,7 +60,7 @@ public class TrajectoryHelper : Helper
 
         if (dirMouse.sqrMagnitude > 1000)
         {
-            SetTrajectory(thrDirImages[0], pos, dirMouse.normalized, ref heigth);
+            SetTrajectory(thrDirImages[0], startThrowPos, dirMouse.normalized, ref heigth);
         }
     }
 
@@ -68,10 +68,10 @@ public class TrajectoryHelper : Helper
 
     public void SetTrajectory(SpriteRenderer throwingDirectionImage,Vector2 startPos, Vector2 dir, ref float height)
     {
-        Vector3 startPosWorld = Camera.main.ScreenToWorldPoint(startPos + dir);
-        Vector3 endPosWorld = Camera.main.ScreenToWorldPoint(startPos) + (Vector3)dir*height;
+        Vector3 startPosWorld = startPos;
+        Vector3 endPosWorld = startPos + dir*height;
 
-        RaycastHit2D hit = Physics2D.Raycast(startPosWorld, (endPosWorld - startPosWorld).normalized, (endPosWorld - startPosWorld).magnitude, colliderMask);
+        RaycastHit2D hit = Physics2D.Raycast(startPosWorld + (Vector3)dir * .05f, (endPosWorld - startPosWorld).normalized, (endPosWorld - startPosWorld).magnitude, colliderMask);
 
         float distance;
         Vector3 reflectDir = Vector3.zero;
@@ -105,7 +105,7 @@ public class TrajectoryHelper : Helper
                 iter++;
                 thrDirImages[iter].gameObject.SetActive(true);
                 thrDirImages[iter].transform.SetParent(throwingDirectionImage.transform.parent,false);
-                SetTrajectory(thrDirImages[iter], Camera.main.WorldToScreenPoint(hit.point - dir.normalized * Ball.ballRadius), reflectDir.normalized, ref height);
+                SetTrajectory(thrDirImages[iter], hit.point /*- dir.normalized * Ball.ballRadius*/, reflectDir.normalized, ref height);
             } else
             {
                 throwingDirectionImage.transform.GetChild(0).gameObject.SetActive(true);

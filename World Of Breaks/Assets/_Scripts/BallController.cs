@@ -37,9 +37,9 @@ public class BallController : MonoBehaviour {
 	void Start ()
 	{
 		throwingDirectionImage.gameObject.SetActive (false);
-        
-		InstantiateBallsList ();
-		UpdateBallCountText ();
+        InstantiateBallsList ();
+        UpdateBallCountPos();
+        UpdateBallCountText ();
 	}
 
 	void InstantiateBallsList ()
@@ -239,17 +239,11 @@ public class BallController : MonoBehaviour {
 
         iTween.ScaleTo (ballCountText.gameObject, Vector3.one, .5f);
 
-		ballCountText.text = "x" + ballCount;
+        UpdateBallCountText();
 
-		Vector3 pos = Camera.main.WorldToScreenPoint (startThrowPos + Vector2.left * .5f) + Vector3.up * 7f;
-		if (pos.x < 0) {
-			pos.x += Mathf.Abs (pos.x) + 50;
-		}
+        UpdateBallCountPos();
 
-		ballCountText.transform.position = pos;
-
-
-		BlocksController.Instance.ShiftBlockMapDown ();
+        BlocksController.Instance.ShiftBlockMapDown ();
 		startPosChanged = false;
 	}
 
@@ -268,6 +262,17 @@ public class BallController : MonoBehaviour {
 	{
 		ballCount++;
 	}
+
+    public void UpdateBallCountPos()
+    {
+        Vector3 pos = Camera.main.WorldToScreenPoint(startThrowPos + Vector2.left * .5f) + Vector3.up * 7f;
+        if (pos.x < 0)
+        {
+            pos.x += Mathf.Abs(pos.x) + 50;
+        }
+
+        ballCountText.transform.position = pos;
+    }
 
 	void UpdateBallCountText ()
 	{

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 222212491884293832}
   - component: {fileID: 58841943705379822}
   - component: {fileID: 6719303265820389401}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: DoubleBalls
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4727011311784837685}
   - component: {fileID: 2653563783233855668}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
