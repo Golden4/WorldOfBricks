@@ -21,7 +21,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 
 	public int GetCurItemIndex {
 		get {
-			return (-Mathf.FloorToInt (sr.content.localPosition.x) + 18) / 200;
+			return (-Mathf.FloorToInt (sr.content.localPosition.x) + 75) / 200;
 		}
 	}
 
@@ -72,7 +72,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 
 		FocusToObject (GetCurItemIndex);
 
-		if (!dragging && sr.velocity.sqrMagnitude < 50) {
+		if (!dragging && Mathf.Abs(sr.velocity.x) < 50) {
 			SnapToObj (GetCurItemIndex);
 		}
 
@@ -111,7 +111,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 		Vector3 pos = sr.content.localPosition;
 		pos.x = -index * 200;
 		if (lerp)
-			sr.content.localPosition = Vector3.Lerp (sr.content.localPosition, pos, Time.deltaTime * 5);
+			sr.content.localPosition = Vector3.Lerp (sr.content.localPosition, pos, Time.deltaTime * 20);
 		else
 			sr.content.localPosition = pos;
 

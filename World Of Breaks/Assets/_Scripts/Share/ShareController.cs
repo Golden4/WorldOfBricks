@@ -10,20 +10,21 @@ public class ShareController : MonoBehaviour
     {
         if (!sharing)
         {
-            sharing = true;
+            
             StartCoroutine(TakeSSAndShare());
         }
     }
 
     private IEnumerator TakeSSAndShare()
     {
+        sharing = true;
         yield return new WaitForEndOfFrame();
 
         Texture2D ss = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         ss.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         ss.Apply();
 
-        string filePath = Path.Combine(Application.temporaryCachePath, "shared img.png");
+        string filePath = Path.Combine(Application.persistentDataPath, "shared_img.png");
         File.WriteAllBytes(filePath, ss.EncodeToPNG());
 
         // To avoid memory leaks
@@ -36,5 +37,8 @@ public class ShareController : MonoBehaviour
         // Share on WhatsApp only, if installed (Android only)
         //if( NativeShare.TargetExists( "com.whatsapp" ) )
         //	new NativeShare().AddFile( filePath ).SetText( "Hello world!" ).SetTarget( "com.whatsapp" ).Share();
+        sharing = false;
     }
+
+
 }

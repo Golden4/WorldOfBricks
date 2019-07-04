@@ -13,7 +13,7 @@ public class SceneController : MonoBehaviour {
 	static bool sceneLoading = false;
 
 	public static int nextSceneToLoad = 1;
-	const int loadingSceneIndex = 0;
+	const int loadingSceneIndex = 1;
 
 	void Start ()
 	{

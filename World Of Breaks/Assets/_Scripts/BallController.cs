@@ -79,11 +79,13 @@ public class BallController : MonoBehaviour {
 				mouseCurState = MouseState.mouseDragging;
 				startMousePos = Input.mousePosition;
 
-				mousePivotPointImage.gameObject.SetActive (true);
-				mousePivotPointImage.transform.position = startMousePos;
+                if (!isMouseOnUIObject)
+                {
+                    mousePivotPointImage.gameObject.SetActive(true);
+				    mousePivotPointImage.transform.position = startMousePos;
+                }
 
-
-				Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
+                Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
 				heigth.y = 10;
 
 				throwingDirectionImage.rectTransform.sizeDelta = heigth;

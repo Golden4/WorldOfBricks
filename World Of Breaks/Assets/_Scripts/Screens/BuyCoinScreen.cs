@@ -64,6 +64,8 @@ public class BuyCoinScreen : ScreenBase {
             {
                 if (PlayerPrefs.HasKey("giftTime"))
                     _nextGiveGiftTime = long.Parse(PlayerPrefs.GetString("giftTime"));
+                else
+                    _nextGiveGiftTime = 0;
             }
 
             return _nextGiveGiftTime;
@@ -123,7 +125,7 @@ public class BuyCoinScreen : ScreenBase {
 	{
 		if (CanTakeGift ()) {
 
-			nextGiveGiftTime = nextGiftTime.Ticks;
+			nextGiveGiftTime = DateTime.Now.Ticks + nextGiftTime.Ticks;
 
             //PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
 

@@ -10,7 +10,7 @@ public class BlockExplosion : BlockWithText
         if (!isLoadingBlock)
         {
             int blockLife = BlocksController.Instance.blockMap[coordsY][coordsX].blockLife;
-            blockLife = Mathf.Clamp(blockLife + Random.Range(0, blockLife), 1, blockLife * 2);
+            blockLife = Mathf.Clamp((blockLife + Random.Range(0, blockLife)), 1, blockLife * 2);
             BlocksController.Instance.blockMap[coordsY][coordsX].blockLife = blockLife;
             UpdateText();
         }
