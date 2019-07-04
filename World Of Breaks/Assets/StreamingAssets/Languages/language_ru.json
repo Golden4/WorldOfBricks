@@ -45,16 +45,8 @@
       "value": "Продолжить?"
     },
     {
-      "key": "new_character",
-      "value": "Новый персонаж!"
-    },
-    {
       "key": "top_score",
       "value": "Рекорд"
-    },
-    {
-      "key": "all_characters",
-      "value": "Все персонажи"
     },
     {
       "key": "gift_through",
@@ -63,6 +55,18 @@
     {
       "key": "get_gift",
       "value": "Получить подарок"
+    },
+    {
+      "key": "clear",
+      "value": "Чисто!"
+    },
+    {
+      "key": "checkpoint",
+      "value": "Чекпоинт"
+    },
+    {
+      "key": "new_checkpoint",
+      "value": "Новый чекпоинт"
     }
   ]
 }

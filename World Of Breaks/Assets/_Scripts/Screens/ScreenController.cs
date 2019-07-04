@@ -105,8 +105,7 @@ public class ScreenController : MonoBehaviour {
 
 	void OnApplicationQuit ()
 	{
-		
-	}
+    }
 
 	void OnApplicationFocus (bool pause)
 	{
@@ -116,8 +115,10 @@ public class ScreenController : MonoBehaviour {
 
 	void OnApplicationPause (bool pause)
 	{
-		if (!pause && curScene == CurScene.Game)
-			ActivateScreen (GameScreen.Pause);
+        if (!pause && curScene == CurScene.Game)
+        {
+            ActivateScreen (GameScreen.Pause);
+        }
 	}
 
 }

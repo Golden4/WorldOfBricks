@@ -25,7 +25,10 @@ public class GameOverScreen : ScreenBase {
 		base.OnActivate ();
 		playerDieCount++;
 
-		UIScreen.Ins.SetTopScore ();
+        BlocksSaver.DeleteBlockMapKeys();
+        UIScreen.newGame = true;
+
+        UIScreen.Ins.SetTopScore ();
 
 		if (UIScreen.Ins.newRecord) {
 			newRecordText.gameObject.SetActive (true);
@@ -55,7 +58,7 @@ public class GameOverScreen : ScreenBase {
 		//}
 
 		giftPanel.gameObject.SetActive (true);
-		if (BuyCoinScreen.Ins.CanTakeGift ()) {
+		if (BuyCoinScreen.CanTakeGift ()) {
 			giftBtn.gameObject.SetActive (true);
 			giftimerText.gameObject.SetActive (false);
 			giftPanel.transform.GetChild (0).GetComponent <Text> ().text = LocalizationManager.GetLocalizedText ("get_gift");
@@ -63,7 +66,7 @@ public class GameOverScreen : ScreenBase {
 			giftBtn.gameObject.SetActive (false);
 			giftimerText.gameObject.SetActive (true);
 			//string time = string.Format ("{0}", BuyCoinScreen.Ins.timeToGiveGift).Split ('.') [0];
-			string timeR = (BuyCoinScreen.Ins.timeToGiveGift.Minutes + 1) + "m";
+			string timeR = (BuyCoinScreen.timeToGiveGift.Minutes + 1) + "m";
 			giftimerText.text = timeR;
 			giftPanel.transform.GetChild (0).GetComponent <Text> ().text = LocalizationManager.GetLocalizedText ("gift_through");
 		}
@@ -72,8 +75,8 @@ public class GameOverScreen : ScreenBase {
 
 	void Update ()
 	{
-		if (!BuyCoinScreen.Ins.CanTakeGift ()) {
-			string timeR = (BuyCoinScreen.Ins.timeToGiveGift.Minutes + 1) + " m.";
+		if (!BuyCoinScreen.CanTakeGift ()) {
+			string timeR = (BuyCoinScreen.timeToGiveGift.Minutes + 1) + " m.";
 			giftimerText.text = timeR;
 		} else if (!giftBtn.gameObject.activeInHierarchy) {
 			giftBtn.gameObject.SetActive (true);

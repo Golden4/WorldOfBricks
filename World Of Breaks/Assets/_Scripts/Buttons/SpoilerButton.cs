@@ -9,6 +9,7 @@ public class SpoilerButton : MonoBehaviour {
 
 	public bool isShow = false;
 
+
 	void Start ()
 	{
 		Show ();
@@ -26,17 +27,26 @@ public class SpoilerButton : MonoBehaviour {
 		Close ();
 	}
 
+    public bool isChangingColor;
+
 	public void Show ()
 	{
 		isShow = true;
-		spoilerParent.gameObject.SetActive (true);
+        isChangingColor = GetComponent<ButtonIcon>().changingColor;
+        GetComponent<ButtonIcon>().changingColor = false;
+
+        spoilerParent.gameObject.SetActive (true);
 		GUIAnimSystem.Instance.MoveIn (spoilerParent.transform, true);
 	}
 
 	public void Close ()
 	{
-        
-		isShow = false;
+        if(isChangingColor && BuyCoinScreen.CanTakeGift())
+            GetComponent<ButtonIcon>().changingColor = true;
+        else
+            GetComponent<ButtonIcon>().changingColor = false;
+
+        isShow = false;
 		spoilerParent.gameObject.SetActive (false);
 	}
 

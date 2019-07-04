@@ -66,6 +66,12 @@ public class BallController : MonoBehaviour {
 		if (!canThrow || UIScreen.Ins.playerLose)
 			return;
 
+        bool isMouseOnUIObject = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+
+        if (isMouseOnUIObject)
+        {
+            mouseCurState = MouseState.mouseUp;
+        }
 
 		if (Input.GetMouseButton (0)) {
 			
@@ -76,7 +82,6 @@ public class BallController : MonoBehaviour {
 				mousePivotPointImage.gameObject.SetActive (true);
 				mousePivotPointImage.transform.position = startMousePos;
 
-				throwingDirectionImage.gameObject.SetActive (true);
 
 				Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
 				heigth.y = 10;
@@ -91,22 +96,37 @@ public class BallController : MonoBehaviour {
 
 				dirMouse = -curMousePos + startMousePos;
 
+                
+
                 Quaternion rotation = Quaternion.FromToRotation(Vector3.up, dirMouse.normalized);
 
                 if (Quaternion.Angle(rotation, Quaternion.Euler(Vector3.up)) < 90)
                 {
                     if (!TrajectoryHelper.Ins.isActive)
                     {
+                        if (dirMouse.sqrMagnitude > 1000)
+                            throwingDirectionImage.gameObject.SetActive(true);
+                        else
+                            throwingDirectionImage.gameObject.SetActive(false);
+
                         throwingDirectionImage.transform.rotation = rotation;
 
                         Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
-                        heigth.y = Mathf.Clamp(dirMouse.magnitude, 10, 150) * 4.5f + 100;
+                        heigth.y = Mathf.Clamp(dirMouse.magnitude, 1, 150) * 4.5f;
 
                         throwingDirectionImage.rectTransform.sizeDelta = heigth;
                     }
                     else
                     {
-                        TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse);
+                        if (dirMouse.sqrMagnitude > 1000)
+                        {
+                            throwingDirectionImage.gameObject.SetActive(true);
+                            TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse);
+                        }
+                        else
+                            throwingDirectionImage.gameObject.SetActive(false);
+
+                        
                     }
 
                     dirToThrow = dirMouse;
@@ -121,10 +141,12 @@ public class BallController : MonoBehaviour {
 			mousePivotPointImage.gameObject.SetActive (false);
 
 			throwingDirectionImage.gameObject.SetActive (false);
-            if (dirMouse.sqrMagnitude > 1000)
+
+            if (dirMouse.sqrMagnitude > 1000 && !isMouseOnUIObject)
             {
                 ThrowBalls(dirToThrow.normalized);
             }
+
             TrajectoryHelper.Ins.ShowTajectory(false);
         }
 
@@ -136,18 +158,34 @@ public class BallController : MonoBehaviour {
 		StartCoroutine (ThrowBallsCoroutine (dir));
 	}
 
+    void CalcTimeBeweenBalls()
+    {
+        float time = .1f - ballCount * .01f;
+        if (ballCount > 50)
+        {
+            timeBetweenBalls = .04f;
+        }
+        else
+        {
+            timeBetweenBalls = (time < .05) ? .05f : time;
+        }
+    }
+
 	IEnumerator ThrowBallsCoroutine (Vector3 dir)
 	{
 
 		canThrow = false;
 
-		int tmpBallCount = ballCount;
+        CalcTimeBeweenBalls();
 
-		for (int i = 0; i < ballsList.Count; i++) {
-			ballsList [i].GoThrow (dir);
+        int tmpBallCount = ballCount;
+
+        List<Ball> ballList = new List<Ball>(ballsList);
+
+        for (int i = 0; i < ballList.Count; i++) {
+            ballList[i].GoThrow (dir);
 			tmpBallCount--;
 			ballCountText.text = "x" + tmpBallCount;
-
 			yield return new WaitForSeconds (timeBetweenBalls);
 		}
 
@@ -172,7 +210,7 @@ public class BallController : MonoBehaviour {
 				}
 			}
 
-            if(lastThrowTime + 3 < Time.time)
+            if(lastThrowTime + 2 < Time.time)
             {
                 UIScreen.Ins.ShowTimeAcceleratorBtn();
             }
@@ -216,14 +254,6 @@ public class BallController : MonoBehaviour {
 	public void	BallCountPlus ()
 	{
 		ballCount++;
-		float time = .1f - ballCount * .01f;
-		if (ballCount > 50) {
-			timeBetweenBalls = .01f;
-		} else {
-			timeBetweenBalls = (time < .05) ? .05f : time;
-		}
-
-
 	}
 
 	void UpdateBallCountText ()

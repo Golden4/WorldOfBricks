@@ -12,8 +12,7 @@ public class EdgeScreenCollisions : MonoBehaviour {
 	void Start ()
 	{
 		Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
-
-
+        
 		System.Collections.Generic.Dictionary<string,Transform> colliders = new System.Collections.Generic.Dictionary<string,Transform> ();
 
 		colliders.Add ("Top", new GameObject ().transform);
@@ -29,8 +28,6 @@ public class EdgeScreenCollisions : MonoBehaviour {
 
 		foreach (KeyValuePair<string,Transform> valPair in colliders) {
 			valPair.Value.gameObject.AddComponent<BoxCollider2D> ();
-            Rigidbody2D rb = valPair.Value.gameObject.AddComponent<Rigidbody2D>();
-            rb.bodyType = RigidbodyType2D.Static;
             valPair.Value.name = valPair.Key + "Collider";
 			valPair.Value.parent = transform;
  
@@ -81,13 +78,13 @@ public class EdgeScreenCollisions : MonoBehaviour {
 
 
 		GameObject TopRight = new GameObject ("TopRight");
-		TopRight.transform.position = new Vector3 (cameraPos.x + screenSize.x, cameraPos.y + screenSize.y);
+		TopRight.transform.position = new Vector3 (cameraPos.x + screenSize.x + .1f, cameraPos.y + screenSize.y + .1f);
 		TopRight.transform.eulerAngles = new Vector3 (0, 0, 45);
 		TopRight.transform.parent = transform;
 		TopRight.transform.localScale = new Vector3 (.4f, .8f, 1);
 
 		GameObject TopLeft = new GameObject ("TopLeft");
-		TopLeft.transform.position = new Vector3 (cameraPos.x - screenSize.x, cameraPos.y + screenSize.y);
+		TopLeft.transform.position = new Vector3 (cameraPos.x - screenSize.x - .1f, cameraPos.y + screenSize.y + .1f);
 		TopLeft.transform.eulerAngles = new Vector3 (0, 0, 45);
 		TopLeft.transform.parent = transform;
 		TopLeft.transform.localScale = new Vector3 (.8f, .4f, 1);

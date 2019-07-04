@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BlockPlusBall : BlockWithText {
-
-	protected override void Start ()
+    protected override void Start ()
 	{
 		
 	}
@@ -12,13 +11,12 @@ public class BlockPlusBall : BlockWithText {
 	public override void Hit ()
 	{
 		BallController.Instance.BallCountPlus ();
-		Dead ();
+		Die ();
 	}
 
-	public override void Dead ()
+    protected override void OnDead ()
 	{
-		
-		BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife = 0;
+        BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife = 0;
 
 		Transform text = transform.GetChild (0);
 		text.SetParent (null, false);

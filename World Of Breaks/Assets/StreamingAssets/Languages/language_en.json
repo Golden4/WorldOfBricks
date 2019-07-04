@@ -45,16 +45,8 @@
       "value": "Second chance"
     },
     {
-      "key": "new_character",
-      "value": "New character!"
-    },
-    {
       "key": "top_score",
       "value": "Top"
-    },
-    {
-      "key": "all_characters",
-      "value": "All characters"
     },
     {
       "key": "gift_through",
@@ -63,6 +55,18 @@
     {
       "key": "get_gift",
       "value": "Get gift"
+    },
+    {
+      "key": "clear",
+      "value": "Clear"
+    },
+    {
+      "key": "checkpoint",
+      "value": "Checkpoint"
+    },
+    {
+      "key": "new_checkpoint",
+      "value": "New checkpoint"
     }
   ]
 }

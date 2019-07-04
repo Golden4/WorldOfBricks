@@ -9,10 +9,12 @@ public class MenuScreen : ScreenBase {
 	public static event System.Action OnStartGame;
 
 	public Button startGameBtn;
+    public Text checkPointText;
 
 	public Button freeCoinsBtn;
 
 	public Text gameTitleText;
+    public Image menuBall;
 
 	public static MenuScreen Ins;
 
@@ -126,7 +128,15 @@ public class MenuScreen : ScreenBase {
 		base.OnActivate ();
 		ShowGameTitle (true, true);
 		freeCoinsBtn.gameObject.SetActive (AdController.Ins.rewardedAdLoaded);
-	}
+        menuBall.sprite = Database.Get.playersData[User.GetInfo.curPlayerIndex].playerPrefab.GetComponent<SpriteRenderer>().sprite;
+
+        int _checkpoint = 0;
+
+        if (PlayerPrefs.HasKey("Checkpoint"))
+            _checkpoint = PlayerPrefs.GetInt("Checkpoint");
+
+        checkPointText.text = LocalizationManager.GetLocalizedText("checkpoint") + ": " + _checkpoint;
+    }
 
 	public override void OnDeactivate ()
 	{
@@ -137,7 +147,7 @@ public class MenuScreen : ScreenBase {
 
 	public void StartGame ()
 	{
-        SceneController.LoadSceneWithFade(1);
+        SceneController.LoadSceneWithFade(2);
 		//ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
 
 		ShowGameTitle (false, true);

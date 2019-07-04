@@ -23,6 +23,10 @@ public class BlockWithText : MonoBehaviour {
 
 	Color origColor;
 
+    public bool isDead;
+
+    public bool isLoadingBlock;
+
 	protected virtual void Start ()
 	{
 		spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
@@ -35,7 +39,6 @@ public class BlockWithText : MonoBehaviour {
 	public virtual void Hit (Ball ball)
 	{
 		Hit ();
-
 	}
 
 	public virtual void Hit ()
@@ -43,7 +46,7 @@ public class BlockWithText : MonoBehaviour {
         BlocksController.Instance.blockMap[coordsY][coordsX].blockLife = (BlocksController.Instance.blockMap[coordsY][coordsX].blockLife - 1 < 0)? 0 : BlocksController.Instance.blockMap[coordsY][coordsX].blockLife - 1;
 
 		if (BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife <= 0) {
-			Dead ();
+			Die ();
 			return;
 		}
 
@@ -54,7 +57,7 @@ public class BlockWithText : MonoBehaviour {
 		UpdateText ();
 	}
 
-	public void UpdateText ()
+	public virtual void UpdateText ()
 	{
 		textMesh.text = BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife.ToString ();
 		Shine ();
@@ -67,12 +70,25 @@ public class BlockWithText : MonoBehaviour {
 		StartCoroutine ("ShineCoroutine");
 	}
 
-	public virtual void Dead ()
+	public void Die ()
 	{
+
+        if (isDead)
+            return;
+        isDead = true;
+
+        OnDead();
+
+        BlocksController.Instance.blockMap[coordsY][coordsX].blockIndex = -1;
+    }
+
+    protected virtual void OnDead()
+    {
         BlocksController.Instance.blockMap[coordsY][coordsX].blockLife = 0;
         BlocksController.Instance.CalculateBlockLife();
-        Destroy (Instantiate<GameObject> (destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
-		Destroy (gameObject);
+        Destroy(Instantiate<GameObject>(destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
+        Destroy(gameObject);
+
     }
 
 	IEnumerator ShineCoroutine ()

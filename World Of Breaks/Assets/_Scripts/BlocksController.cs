@@ -2,34 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlocksController : SingletonGeneric<BlocksController> {
+public class BlocksController : MonoBehaviour {
 	
 	public Block[][] blockMap = new Block[10] [];
 	public BlockForSpawn[] blocksForSpawn;
 	public Vector2 offsetBetweenBlocks;
     public int blocksLife;
-
 	GameObject blockHolder;
 
 	public event System.Action OnChangeTopLine;
 
 	public Vector3 centerOfScreen;
 
-	void Start ()
+    public static BlocksController Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    void Start ()
 	{
         UIScreen.Ins.UpdateScore(1);
+
+        if (UIScreen.newGame)
+        {
+            BlocksSaver.DeleteBlockMapKeys();
+            UIScreen.Ins.UpdateScore((UIScreen.Ins.checkpoint==0)? 1 : UIScreen.Ins.checkpoint);
+            UIScreen.Ins.SetCheckpoint(0);
+        }
 
 		blockHolder = new GameObject ("BlockHolder");
 		//centerOfScreen = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2f, Screen.height - Screen.height * .08f, 10));
 		blockHolder.transform.position = Vector3.zero;// centerOfScreen;
-
-		Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
+        
 
 		InitializeBlockMap ();
-		//ShiftBlockMapDown ();
-		ChangeTopLine ();
-		ShowMapInConsole ();
-	}
+
+        if(!BlocksSaver.LoadBlocksMap(this))
+        {
+            ChangeTopLine();
+        }
+
+        ShowMapInConsole();
+    }
 
     public void CalculateBlockLife()
     {
@@ -130,24 +146,24 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 
 				spawnedBlock = SpawnBlock (i, 0, 0);
 
-				blockMap [0] [i] = new Block (0, spawnedBlock);
+				blockMap [0] [i] = new Block (0, 0, spawnedBlock);
 				continue;
 			}
 
 
 			double randNum = Random.Range (0f, 1f);
 
-			if (randNum < .5f) {
+			if (randNum < .3f) {
 
 			} else {
 
 				int curLevelCur = (UIScreen.Ins.score % 10 == 0) ? UIScreen.Ins.score * Random.Range (1, 3) : UIScreen.Ins.score;
 
-				//int indexBlock = Random.Range (1, blockPrefabs.Length);
+                int indexBlock = GetRandomBlockIndex();
 
-				spawnedBlock = SpawnBlock (i, 0, GetRandomBlockIndex ());
+                spawnedBlock = SpawnBlock (i, 0, indexBlock);
 
-				blockMap [0] [i] = new Block ((spawnedBlock.canLooseBeforeDown) ? curLevelCur : 0, spawnedBlock);
+				blockMap [0] [i] = new Block ((spawnedBlock.canLooseBeforeDown) ? curLevelCur : 0, indexBlock, spawnedBlock);
 
 				//blockMap [0] [i] = new Block ((index == 1) ? 0 : (BallController.Instance.ballCount > CurLevel + CurLevel / 2 && Random.Range (0f, 1f) < .5f) ? (CurLevel + 1) * 2 : CurLevel + 1, SpawnBlock (i, 0, index));
 
@@ -211,7 +227,7 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 		}
 	}
 
-	BlockWithText SpawnBlock (int coordsX, int coordsY, int blockIndex)
+	public BlockWithText SpawnBlock (int coordsX, int coordsY, int blockIndex)
 	{
 
 		BlockWithText tmp = Instantiate<GameObject> (blocksForSpawn [blockIndex].blockPrefab.gameObject).GetComponent<BlockWithText> ();
@@ -287,16 +303,39 @@ public class BlocksController : SingletonGeneric<BlocksController> {
 
 	}
 
+#if UNITY_EDITOR
+    void OnApplicationQuit()
+    {
+        if (blockMap != null)
+        {
+            BlocksSaver.SaveBlocksMap(blockMap, BallController.Instance);
+            PlayerPrefs.Save();
+        }
+
+    }
+#else
+	
+	void OnApplicationPause ()
+	{
+		BlocksSaver.SaveBlocksMap(blockMap, BallController.Instance);
+		PlayerPrefs.Save ();
+	}
+
+#endif
+
+
 }
 
 public class Block {
 	public int blockLife;
+    public int blockIndex;
 	public BlockWithText blockComp;
 
-	public Block (int life, BlockWithText block = null)
+	public Block (int life, int blockIndex = -1, BlockWithText block = null)
 	{
 		this.blockLife = life;
-		blockComp = block;
+        this.blockIndex = blockIndex;
+        blockComp = block;
 	}
 }
 

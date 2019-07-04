@@ -14,38 +14,107 @@ public class BlockLaser : BlockWithText {
 	public LaserType typeOfLaserBlock;
 	bool needDestroy;
 
-	protected override void Start ()
-	{
-		BlocksController.Instance.OnChangeTopLine += Dead;
-	}
+    public SpriteRenderer laserVer;
+    public SpriteRenderer laserHor;
 
-	public override void Hit ()
+    protected override void Start ()
+	{
+		BlocksController.Instance.OnChangeTopLine += TryDie;
+        t = 0;
+    }
+
+    float t;
+    void AnimateLineRenderer()
+    {
+        if (t > 0)
+        {
+            t -= Time.deltaTime * 3;
+            transform.GetChild(0).localScale = new Vector3(1 + t / 3f, 1 + t / 3f, 1);
+            if (laserVer != null && (typeOfLaserBlock == LaserType.Vertical || typeOfLaserBlock == LaserType.HorizontalAndVerical))
+            {
+                if(!laserVer.gameObject.activeInHierarchy)
+                    laserVer.gameObject.SetActive(true);
+
+                laserVer.transform.localScale = new Vector3(t, 1, 1);
+                
+            }
+
+            if (laserHor != null && (typeOfLaserBlock == LaserType.Horizontal || typeOfLaserBlock == LaserType.HorizontalAndVerical))
+            {
+                if (!laserHor.gameObject.activeInHierarchy)
+                    laserHor.gameObject.SetActive(true);
+
+                laserHor.transform.localScale = new Vector3(1, t, 1);
+            }
+            
+        } else if (t <= -0.01f)
+        {
+            t = 0;
+            transform.GetChild(0).localScale = new Vector3(1, 1, 1);
+            if (laserHor != null)
+                if (laserHor.gameObject.activeInHierarchy)
+                    laserHor.gameObject.SetActive(false);
+
+            if (laserVer != null)
+                if (laserVer.gameObject.activeInHierarchy)
+                    laserVer.gameObject.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+
+        AnimateLineRenderer();
+
+    }
+
+
+    public override void Hit ()
 	{
 		needDestroy = true;
-		if (typeOfLaserBlock == LaserType.Horizontal) {
-			
-			for (int i = 0; i < BlocksController.Instance.blockMap [0].Length; i++) {
+        t = 1;
+        if (typeOfLaserBlock == LaserType.Horizontal || typeOfLaserBlock == LaserType.HorizontalAndVerical) {
+            
+            for (int i = 0; i < BlocksController.Instance.blockMap [0].Length; i++) {
 
 				BlockWithText block = BlocksController.Instance.blockMap [coordsY] [i].blockComp;
 
-				if (block != null && block.GetType () != typeof(BlockLaser))
+				if (block != null && block.GetType () != typeof(BlockLaser) && block.canLooseBeforeDown)
 					block.Hit ();
 				
 			}
 		}
 
-		//if(typeOfLaserBlock == la)
+        if (typeOfLaserBlock == LaserType.Vertical || typeOfLaserBlock == LaserType.HorizontalAndVerical)
+        {
+
+            for (int i = 0; i < BlocksController.Instance.blockMap.Length; i++)
+            {
+
+                BlockWithText block = BlocksController.Instance.blockMap[i][coordsX].blockComp;
+
+                if (block != null && block.GetType() != typeof(BlockLaser) && block.canLooseBeforeDown)
+                    block.Hit();
+
+            }
+        }
+        
+    }
+
+    void TryDie()
+    {
+        if (needDestroy)
+            Die();
+    }
+
+    void OnDestroy ()
+	{
+		BlocksController.Instance.OnChangeTopLine -= TryDie;
 	}
 
-	void OnDestroy ()
+    protected override void OnDead ()
 	{
-		BlocksController.Instance.OnChangeTopLine -= Dead;
-	}
-
-	public override void Dead ()
-	{
-		if (needDestroy)
-			Destroy (gameObject);
+		Destroy (gameObject);
 	}
 
 

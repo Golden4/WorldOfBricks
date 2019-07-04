@@ -11,11 +11,23 @@ public class PauseScreen : ScreenBase {
 		Time.timeScale = 0;
 	}
 
-	public void Continue ()
+    public override void OnDeactivate()
+    {
+        Game.isPause = false;
+        Time.timeScale = 1;
+    }
+
+    public void Continue ()
 	{
 		Game.isPause = false;
 		Time.timeScale = 1;
 		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
 	}
+
+    public void ActivatePauseScreen()
+    {
+        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Pause);
+    }
+
 
 }

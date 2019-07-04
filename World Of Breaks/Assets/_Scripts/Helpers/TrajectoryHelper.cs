@@ -73,7 +73,10 @@ public class TrajectoryHelper : Helper
         {
             reflectDir = Vector3.Reflect(dir, hit.normal.normalized);
 
-            distance = Mathf.Abs(((Vector2)Camera.main.WorldToScreenPoint(hit.point) - startPos).magnitude);
+            distance = Mathf.Abs( Vector2.Distance(hit.point, startPosWorld));
+            Debug.Log(distance);
+            distance *= 88f;
+            Debug.Log(distance);
         } else {         
             distance = height;
         }
@@ -95,7 +98,7 @@ public class TrajectoryHelper : Helper
             iter++;
             thrDirImages[iter-1].gameObject.SetActive(true);
             thrDirImages[iter - 1].transform.SetParent(throwingDirectionImage.transform.parent,false);
-            SetTrajectory(thrDirImages[iter - 1], Camera.main.WorldToScreenPoint(hit.point- dir * Ball.ballRadius/2f), reflectDir.normalized, ref height);
+            SetTrajectory(thrDirImages[iter - 1], Camera.main.WorldToScreenPoint(hit.point - dir * Ball.ballRadius/2f), reflectDir.normalized, ref height);
             } else
             {
                 throwingDirectionImage.transform.GetChild(0).gameObject.SetActive(true);

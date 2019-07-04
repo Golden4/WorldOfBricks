@@ -11,7 +11,9 @@ public class BuyCoinScreen : ScreenBase {
 	public BuyCoinItem[] BuyCoinBtns;
 
 	public ButtonIcon buyCoinScreenBtn;
-	public Text giftTitle;
+    public ButtonIcon showMenuBtn;
+
+    public Text giftTitle;
 
 	public override void OnActivate ()
 	{
@@ -52,13 +54,33 @@ public class BuyCoinScreen : ScreenBase {
 
 	public TimeSpan nextGiftTime = new TimeSpan (0, 10, 0);
 
-	public DateTime nextGiveGiftTime;
+    static DateTime _nextGiveGiftTime;
 
-	public override void Init ()
+    static DateTime nextGiveGiftTime
+    {
+        get
+        {
+            if (_nextGiveGiftTime == new DateTime())
+            {
+                if (PlayerPrefs.HasKey("giftTime"))
+                    _nextGiveGiftTime = new DateTime(long.Parse(PlayerPrefs.GetString("giftTime")));
+            }
+
+            return _nextGiveGiftTime;
+        }
+
+        set
+        {
+            _nextGiveGiftTime = value;
+            PlayerPrefs.SetString("giftTime", nextGiveGiftTime.Ticks.ToString());
+        }
+    }
+
+    public override void Init ()
 	{
 		base.Init ();
-		if (PlayerPrefs.HasKey ("giftTime"))
-			nextGiveGiftTime = new DateTime (long.Parse (PlayerPrefs.GetString ("giftTime")));
+		//if (PlayerPrefs.HasKey ("giftTime"))
+			//nextGiveGiftTime = new DateTime (long.Parse (PlayerPrefs.GetString ("giftTime")));
 		getCoinsBtn.onClick.RemoveAllListeners ();
 		getCoinsBtn.onClick.AddListener (GiveGift);
 
@@ -102,7 +124,7 @@ public class BuyCoinScreen : ScreenBase {
 		if (CanTakeGift ()) {
 			nextGiveGiftTime = DateTime.Now.Add (nextGiftTime);
 
-			PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
+            //PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
 
 			int coinAmount = 50;
 			User.AddCoin (coinAmount);
@@ -117,12 +139,12 @@ public class BuyCoinScreen : ScreenBase {
 		}
 	}
 
-	public bool CanTakeGift ()
+	public static bool CanTakeGift ()
 	{
 		return nextGiveGiftTime.Ticks < DateTime.Now.Ticks;
 	}
 
-	public TimeSpan timeToGiveGift {
+	public static TimeSpan timeToGiveGift {
 		get {
 			return new DateTime ((nextGiveGiftTime - DateTime.Now).Ticks).TimeOfDay;
 		}
@@ -149,7 +171,8 @@ public class BuyCoinScreen : ScreenBase {
 	void OnCanTakeGift ()
 	{
 		buyCoinScreenBtn.changingColor = true;
-		getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = true;
+        showMenuBtn.changingColor = true;
+        getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = true;
 		getCoinsBtn.GetComponent <ButtonIcon> ().EnableBtn (true);
 		print ("OnCanTakeGift");
 		timer.gameObject.SetActive (false);
@@ -159,7 +182,8 @@ public class BuyCoinScreen : ScreenBase {
 	void OnDontTakeGift ()
 	{
 		buyCoinScreenBtn.changingColor = false;
-		getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = false;
+        showMenuBtn.changingColor = false;
+        getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = false;
 		getCoinsBtn.GetComponent <ButtonIcon> ().EnableBtn (false);
 		print ("OnDontTakeGift");
 		timer.gameObject.SetActive (true);

@@ -1,176 +1,150 @@
-﻿//using system.collections;
-//using system.collections.generic;
-//using unityengine;
-//using unityengine.ui;
-//using unityengine.purchasing;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Purchasing;
 
-//public class shopscreen : screenbase
-//{
+public class ShopScreen : ScreenBase {
 
-//    public gameobject itemsholder;
-//    public button openboxbtn;
+	public GameObject itemsHolder;
 
-//    public scrollsnap scrollsnap;
+	public ScrollSnap scrollSnap;
 
-//    public int curactiveitem
-//    {
-//        get
-//        {
-//            return scrollsnap.getcuritemindex;
-//        }
-//    }
+	public int curActiveItem {
+		get {
+			return scrollSnap.GetCurItemIndex;
+		}
+	}
 
-//    public int itemcount
-//    {
-//        get
-//        {
-//            return scrollsnap.items.length;
-//        }
-//    }
+	public int ItemCount {
+		get {
+			return scrollSnap.items.Length;
+		}
+	}
 
-//    public text itemnametext;
-//    public text itemabilitytext;
-//    public text itembiomeinfotext;
+	public Text itemNameText;
+	public Text itemAbilityText;
 
-//    public button selectandplaybtn;
+	public Button SelectAndPlayBtn;
 
-//    public button buybtn;
+	public Button BuyBtn;
 
-//    public override void init()
-//    {
-//        scrollsnap.init();
+	public override void Init ()
+	{
+		scrollSnap.Init ();
 
-//        scrollsnap.onchangeitemevent += onchangeitem;
+		scrollSnap.OnChangeItemEvent += OnChangeItem;
 
-//        selectandplaybtn.onclick.removealllisteners();
-//        selectandplaybtn.onclick.addlistener(() =>
-//        {
-//            selectandplay(curactiveitem);
-//            scenecontroller.restartlevel();
-//        });
+		SelectAndPlayBtn.onClick.RemoveAllListeners ();
+		SelectAndPlayBtn.onClick.AddListener (() => {
+			SelectAndPlay (curActiveItem);
+		});
 
-//        buybtn.onclick.removealllisteners();
-//        buybtn.onclick.addlistener(() =>
-//        {
-//            buypaiditem(curactiveitem);
-//        });
+		BuyBtn.onClick.RemoveAllListeners ();
+		BuyBtn.onClick.AddListener (() => {
+			BuyPaidItem (curActiveItem);
+		});
 
-//        for (int i = 0; i < itemcount; i++)
-//        {
-//            scrollsnap.setitemstate(i, user.getinfo.userdata[i].bought);
-//        }
+		for (int i = 0; i < ItemCount; i++) {
+			scrollSnap.SetItemState (i, User.GetInfo.userData [i].bought);
+		}
 
 
-//        purchasemanager.onpurchasenonconsumable += buypaiditemsuccess;
+		PurchaseManager.OnPurchaseNonConsumable += BuyPaidItemSuccess;
 
-//    }
+	}
 
-//    public override void onactivate()
-//    {
-//        for (int i = 0; i < itemcount; i++)
-//        {
-//            scrollsnap.setitemstate(i, user.getinfo.userdata[i].bought);
-//        }
+	public override void OnActivate ()
+	{
+		for (int i = 0; i < ItemCount; i++) {
+			scrollSnap.SetItemState (i, User.GetInfo.userData [i].bought);
+		}
 
-//        updateitemstate(curactiveitem);
+		UpdateItemState (curActiveItem);
 
 
-//        scrollsnap.snaptoobj(user.getinfo.curplayerindex, false);
+		scrollSnap.SnapToObj (User.GetInfo.curPlayerIndex, false);
 
-//        if (!user.getinfo.allcharactersbought() /*&& user.havecoin (100)*/)
-//            openboxbtn.gameobject.setactive(true);
-//        else
-//            openboxbtn.gameobject.setactive(false);
+		//Init LocalizedPrice
+		for (int i = 0; i < Database.Get.playersData.Length; i++) {
+			Database.Get.playersData [i].price = PurchaseManager.Ins.GetLocalizedPrice (Database.Get.playersData [i].purchaseID);
+		}
 
-//        //init localizedprice
-//        for (int i = 0; i < database.get.playersdata.length; i++)
-//        {
-//            database.get.playersdata[i].price = purchasemanager.ins.getlocalizedprice(database.get.playersdata[i].purchaseid);
-//        }
+	}
 
-//    }
+	public override void OnDeactivate ()
+	{
+		base.OnDeactivate ();
+	}
 
-//    public override void ondeactivate()
-//    {
-//        base.ondeactivate();
-//    }
+	public override void OnCleanUp ()
+	{
+		scrollSnap.OnChangeItemEvent -= OnChangeItem;
+		PurchaseManager.OnPurchaseNonConsumable -= BuyPaidItemSuccess;
+	}
 
-//    public override void oncleanup()
-//    {
-//        scrollsnap.onchangeitemevent -= onchangeitem;
-//        purchasemanager.onpurchasenonconsumable -= buypaiditemsuccess;
-//    }
+	void OnChangeItem (int index)
+	{
+		itemNameText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name);
+		itemAbilityText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name + "_desc");
+        
 
-//    void onchangeitem(int index)
-//    {
-//        itemnametext.text = localizationmanager.getlocalizedtext(database.get.playersdata[index].name);
-//        itemabilitytext.text = localizationmanager.getlocalizedtext(database.get.playersdata[index].name + "_desc");
+		UpdateItemState (index);
+	}
 
-//        itembiomeinfotext.text = localizationmanager.getlocalizedtext("biomes") + ": " + biomecontroller.ins.getbiomesliststring(index);
+	public void SelectAndPlay (int index)
+	{
+		User.SetPlayerIndex (index);
+	}
 
-//        updateitemstate(index);
-//    }
+	/*	public void BuyItemWithCoin (int index)
+	{
+		if (User.BuyWithCoin (Database.Get.playersData [index].price)) {
+			User.GetInfo.userData [index].bought = true;
+			UpdateItemState (index);
+			scrollSnap.SetItemState (index, User.GetInfo.userData [index].bought);
+			User.SaveUserInfo ();
+		}
+	}*/
 
-//    public void selectandplay(int index)
-//    {
-//        user.setplayerindex(index);
-//    }
+	public void BuyPaidItem (int index)
+	{
+		PurchaseManager.Ins.BuyNonConsumable (index);
+	}
 
-//    /*	public void buyitemwithcoin (int index)
-//	{
-//		if (user.buywithcoin (database.get.playersdata [index].price)) {
-//			user.getinfo.userdata [index].bought = true;
-//			updateitemstate (index);
-//			scrollsnap.setitemstate (index, user.getinfo.userdata [index].bought);
-//			user.saveuserinfo ();
-//		}
-//	}*/
+	public void BuyPaidItemSuccess (PurchaseEventArgs args)
+	{
+		string purchID = args.purchasedProduct.definition.id;
 
-//    public void buypaiditem(int index)
-//    {
-//        purchasemanager.ins.buynonconsumable(index);
-//    }
+		int index = 0;
 
-//    public void buypaiditemsuccess(purchaseeventargs args)
-//    {
-//        string purchid = args.purchasedproduct.definition.id;
+		for (int i = 0; i < PurchaseManager.Ins.NC_PRODUCTS.Length; i++) {
+			if (purchID == PurchaseManager.Ins.NC_PRODUCTS [i]) {
+				index = i;
+				break;
+			}
+		}
 
-//        int index = 0;
+		Debug.Log ("You bought " + purchID + "  id " + index + " NonCon");
+		User.GetInfo.userData [index].bought = true;
+		UpdateItemState (index);
+		scrollSnap.SetItemState (index, User.GetInfo.userData [index].bought);
+		User.SaveUserInfo ();
+	}
 
-//        for (int i = 0; i < purchasemanager.ins.nc_products.length; i++)
-//        {
-//            if (purchid == purchasemanager.ins.nc_products[i])
-//            {
-//                index = i;
-//                break;
-//            }
-//        }
+	public void UpdateItemState (int index)
+	{
+		bool bought = User.GetInfo.userData [index].bought;
 
-//        debug.log("you bought " + purchid + "  id " + index + " noncon");
-//        user.getinfo.userdata[index].bought = true;
-//        updateitemstate(index);
-//        scrollsnap.setitemstate(index, user.getinfo.userdata[index].bought);
-//        user.saveuserinfo();
-//    }
+		SelectAndPlayBtn.gameObject.SetActive (bought);
+		BuyBtn.gameObject.SetActive (!bought);
+		BuyBtn.GetComponentInChildren<Text> ().text = Database.Get.playersData [index].price.ToString ();
+	}
 
-//    public void updateitemstate(int index)
-//    {
-//        bool bought = user.getinfo.userdata[index].bought;
+	public void BackBtn ()
+	{
+		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Menu);
 
-//        selectandplaybtn.gameobject.setactive(bought);
-//        buybtn.gameobject.setactive(!bought);
-//        buybtn.getcomponentinchildren<text>().text = database.get.playersdata[index].price.tostring();
-//    }
+	}
 
-//    public void backbtn()
-//    {
-//        if (player.ins.isdead)
-//        {
-//            screencontroller.ins.activatescreen(screencontroller.gamescreen.gameover);
-//        }
-//        else
-//            screencontroller.ins.activatescreen(screencontroller.gamescreen.menu);
-
-//    }
-
-//}
+}

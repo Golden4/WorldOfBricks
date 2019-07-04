@@ -9,11 +9,13 @@ public class UIScreen : ScreenBase {
 
     public static event System.Action OnLoseEvent;
     public bool playerLose = false;
+    public static bool newGame;
 
     public Button timeAcceleratorBtn;
     public Button returnBallsBtn;
 
     public Text clearText;
+    public Text newCheckpointText;
 
     int _topScore = -1;
 
@@ -35,12 +37,40 @@ public class UIScreen : ScreenBase {
 		}
 	}
 
-	public Text topScoreText;
+    int _checkpoint = -1;
+
+    public int checkpoint
+    {
+        get
+        {
+            if (_checkpoint == -1)
+            {
+                if (PlayerPrefs.HasKey("Checkpoint"))
+                    _checkpoint = PlayerPrefs.GetInt("Checkpoint");
+                else
+                    _checkpoint = 0;
+            }
+
+            return _checkpoint;
+        }
+
+        private set
+        {
+            _checkpoint = value;
+            PlayerPrefs.SetInt("Checkpoint", value);
+        }
+    }
+
+    public Text topScoreText;
 
 	public int score = 0;
+
 	public Text scoreText;
+    public Text newRecordScoreText;
+
+    public Text checkpointText;
     
-	public bool newRecord;
+    public bool newRecord;
 
 	public override void Init ()
 	{
@@ -64,8 +94,19 @@ public class UIScreen : ScreenBase {
     public void ShowClearText()
     {
         clearText.gameObject.SetActive(true);
-        clearText.GetComponent<GUIAnim>().MoveIn(GUIAnimSystem.eGUIMove.Self);
-        clearText.GetComponent<GUIAnim>().MoveOut(GUIAnimSystem.eGUIMove.Self);
+
+        SetCheckpoint(score);
+
+        GUIAnim textAnim = clearText.GetComponent<GUIAnim>();
+        textAnim.m_ScaleIn.Actions.OnEnd.RemoveAllListeners();
+        textAnim.m_ScaleIn.Actions.OnEnd.AddListener(delegate
+        {
+            textAnim.MoveOut(GUIAnimSystem.eGUIMove.Self);
+        });
+
+        textAnim.MoveIn(GUIAnimSystem.eGUIMove.Self);
+
+        
     }
 
     public void TimeAcceleratorEnable()
@@ -97,23 +138,40 @@ public class UIScreen : ScreenBase {
 		}
 	}
 
-	bool gameStarted;
+    public void SetCheckpoint(int check)
+    {
+        checkpoint = check;
+        checkpointText.text =  LocalizationManager.GetLocalizedText("checkpoint") + ": " + checkpoint.ToString();
+        newCheckpointText.text = LocalizationManager.GetLocalizedText("new_checkpoint") + ": " + checkpoint.ToString();
+    }
+
+    bool gameStarted;
 
 	public override void OnActivate ()
 	{
-		topScoreText.text = LocalizationManager.GetLocalizedText ("top_score") + " " + topScore.ToString ();
+		topScoreText.text = LocalizationManager.GetLocalizedText ("top_score") + ": " + topScore.ToString ();
 
 		if (!gameStarted)
 			Game.OnGameStartedCall ();
 
 		gameStarted = true;
-	}
+
+        SetCheckpoint(checkpoint);
+    }
 
 	public void UpdateScore (int curScore)
 	{
 		score = curScore;
-		scoreText.text = curScore.ToString ();
-		
+        scoreText.text = curScore.ToString();
+
+        if(curScore > topScore)
+        {
+            newRecord = true;
+            newRecordScoreText.gameObject.SetActive(true);
+        } else
+        {
+            newRecordScoreText.gameObject.SetActive(false);
+        }
 	}
 
     public static void OnLoseEventCall()
