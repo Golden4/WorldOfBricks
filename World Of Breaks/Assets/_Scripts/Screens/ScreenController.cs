@@ -46,6 +46,7 @@ public class ScreenController : MonoBehaviour {
 
 	void Start ()
 	{
+        Time.timeScale = 1;
 		ActivateScreen (0);
 
 	}

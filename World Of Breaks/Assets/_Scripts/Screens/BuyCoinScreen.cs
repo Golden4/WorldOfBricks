@@ -8,7 +8,7 @@ public class BuyCoinScreen : ScreenBase {
 
 	public static BuyCoinScreen Ins;
 
-	public BuyCoinItem[] BuyCoinBtns;
+	public BuyCoinItem[] buyCoinBtns;
 
 	public ButtonIcon buyCoinScreenBtn;
     public ButtonIcon showMenuBtn;
@@ -19,13 +19,13 @@ public class BuyCoinScreen : ScreenBase {
 	{
 		base.OnActivate ();
 
-		for (int i = 0; i < BuyCoinBtns.Length; i++) {
-			BuyCoinBtns [i].priceText.text = PurchaseManager.Ins.GetLocalizedPrice (BuyCoinBtns [i].productID).ToString ();
+		for (int i = 0; i < buyCoinBtns.Length; i++) {
+			buyCoinBtns [i].priceText.text = PurchaseManager.Ins.GetLocalizedPrice (buyCoinBtns [i].productID).ToString ();
 			int index = i;
 
-			BuyCoinBtns [i].btn.onClick.RemoveAllListeners ();
+			buyCoinBtns [i].btn.onClick.RemoveAllListeners ();
 
-			BuyCoinBtns [i].btn.onClick.AddListener (() => BuyItem (BuyCoinBtns [index].productID));
+			buyCoinBtns [i].btn.onClick.AddListener (() => BuyItem (buyCoinBtns [index].productID));
 		}
 
 	}
@@ -54,16 +54,16 @@ public class BuyCoinScreen : ScreenBase {
 
 	public TimeSpan nextGiftTime = new TimeSpan (0, 10, 0);
 
-    static DateTime _nextGiveGiftTime;
+    static long _nextGiveGiftTime = -1;
 
-    static DateTime nextGiveGiftTime
+    static long nextGiveGiftTime
     {
         get
         {
-            if (_nextGiveGiftTime == new DateTime())
+            if (_nextGiveGiftTime == -1)
             {
                 if (PlayerPrefs.HasKey("giftTime"))
-                    _nextGiveGiftTime = new DateTime(long.Parse(PlayerPrefs.GetString("giftTime")));
+                    _nextGiveGiftTime = long.Parse(PlayerPrefs.GetString("giftTime"));
             }
 
             return _nextGiveGiftTime;
@@ -72,7 +72,7 @@ public class BuyCoinScreen : ScreenBase {
         set
         {
             _nextGiveGiftTime = value;
-            PlayerPrefs.SetString("giftTime", nextGiveGiftTime.Ticks.ToString());
+            PlayerPrefs.SetString("giftTime", nextGiveGiftTime.ToString());
         }
     }
 
@@ -103,7 +103,7 @@ public class BuyCoinScreen : ScreenBase {
 
 	void OnPurchaseConsumable (UnityEngine.Purchasing.PurchaseEventArgs args)
 	{
-		List<BuyCoinItem> list = new List<BuyCoinItem> (BuyCoinBtns);
+		List<BuyCoinItem> list = new List<BuyCoinItem> (buyCoinBtns);
 		int index = list.FindIndex (x => x.productID == args.purchasedProduct.definition.id);
 
 		int coinAmount = list [index].coinCount;
@@ -122,7 +122,8 @@ public class BuyCoinScreen : ScreenBase {
 	void GiveGift ()
 	{
 		if (CanTakeGift ()) {
-			nextGiveGiftTime = DateTime.Now.Add (nextGiftTime);
+
+			nextGiveGiftTime = nextGiftTime.Ticks;
 
             //PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
 
@@ -141,12 +142,12 @@ public class BuyCoinScreen : ScreenBase {
 
 	public static bool CanTakeGift ()
 	{
-		return nextGiveGiftTime.Ticks < DateTime.Now.Ticks;
+		return nextGiveGiftTime <= DateTime.Now.Ticks;
 	}
 
 	public static TimeSpan timeToGiveGift {
 		get {
-			return new DateTime ((nextGiveGiftTime - DateTime.Now).Ticks).TimeOfDay;
+			return new DateTime (nextGiveGiftTime - DateTime.Now.Ticks).TimeOfDay;
 		}
 	}
 
@@ -154,7 +155,7 @@ public class BuyCoinScreen : ScreenBase {
 
 	void Update ()
 	{
-		if ((nextGiveGiftTime - DateTime.Now).Ticks > 0) {
+		if ((nextGiveGiftTime - DateTime.Now.Ticks) > 0) {
 
 			if (!lastOnTakeGiftBool) {
 				lastOnTakeGiftBool = true;

@@ -72,7 +72,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 
 		FocusToObject (GetCurItemIndex);
 
-		if (!dragging && sr.velocity.sqrMagnitude < 20) {
+		if (!dragging && sr.velocity.sqrMagnitude < 50) {
 			SnapToObj (GetCurItemIndex);
 		}
 

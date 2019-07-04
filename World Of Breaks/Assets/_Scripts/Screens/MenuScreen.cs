@@ -44,6 +44,7 @@ public class MenuScreen : ScreenBase {
 
 	void Update ()
 	{
+        print(Time.timeScale);
 		if (AdController.Ins.needGiveReward) {
 			AdController.Ins.needGiveReward = false;
 
@@ -147,7 +148,7 @@ public class MenuScreen : ScreenBase {
 
 	public void StartGame ()
 	{
-        SceneController.LoadSceneWithFade(2);
+        SceneController.LoadSceneWithFade(1);
 		//ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
 
 		ShowGameTitle (false, true);

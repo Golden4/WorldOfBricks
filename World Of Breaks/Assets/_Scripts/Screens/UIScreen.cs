@@ -75,7 +75,11 @@ public class UIScreen : ScreenBase {
 	public override void Init ()
 	{
 		Ins = this;
+        
+    }
 
+    private void Start()
+    {
         BlocksController.Instance.OnChangeTopLine += HideTimeAcceleratorBtn;
         BlocksController.Instance.OnChangeTopLine += TimeAcceleratorDisable;
     }
