@@ -113,7 +113,6 @@ public class BallController : MonoBehaviour {
 				dirMouse = ((InputMobileController.curInputType == InputMobileController.InputType.Touch)?1:-1) * (-curMousePos + startMousePos);
 
                 
-
                 Quaternion rotation = Quaternion.FromToRotation(Vector3.up, dirMouse.normalized);
 
                 if (Quaternion.Angle(rotation, Quaternion.Euler(Vector3.up)) < 90)
@@ -134,7 +133,8 @@ public class BallController : MonoBehaviour {
                     }
                     else
                     {
-                        TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse);
+                        float mouseHeight = Mathf.Abs( Vector2.Distance((Vector2)Camera.main.ScreenToWorldPoint(curMousePos), (Vector2)Camera.main.ScreenToWorldPoint(startMousePos)));
+                        TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse, mouseHeight);
                         
                     }
 

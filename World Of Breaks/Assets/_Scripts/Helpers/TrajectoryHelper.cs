@@ -33,11 +33,11 @@ public class TrajectoryHelper : Helper
         trajectoryBtn.onClick.RemoveAllListeners();
         trajectoryBtn.onClick.AddListener(() =>
         {
-           if (User.BuyWithCoin(50))
-           {
+          // if (User.BuyWithCoin(50))
+           //{
                 isActive = true;
                 trajectoryBtn.GetComponent<ButtonIcon>().EnableBtn(false);
-           }
+          // }
         });
     }
 
@@ -46,12 +46,12 @@ public class TrajectoryHelper : Helper
 
     }
 
-    public void CalculateTrajectory(Vector2 startThrowPos, Vector2 dirMouse)
+    public void CalculateTrajectory(Vector2 startThrowPos, Vector2 dirMouse, float mouseHeightWorld)
     {
         
         Vector2 pos = Camera.main.WorldToScreenPoint(startThrowPos);
 
-        float heigth = dirMouse.magnitude;
+        float heigth = mouseHeightWorld * 3;
 
         ShowTajectory(false);
 
@@ -69,7 +69,7 @@ public class TrajectoryHelper : Helper
     public void SetTrajectory(SpriteRenderer throwingDirectionImage,Vector2 startPos, Vector2 dir, ref float height)
     {
         Vector3 startPosWorld = Camera.main.ScreenToWorldPoint(startPos + dir);
-        Vector3 endPosWorld = Camera.main.ScreenToWorldPoint(startPos + dir*height);
+        Vector3 endPosWorld = Camera.main.ScreenToWorldPoint(startPos) + (Vector3)dir*height;
 
         RaycastHit2D hit = Physics2D.Raycast(startPosWorld, (endPosWorld - startPosWorld).normalized, (endPosWorld - startPosWorld).magnitude, colliderMask);
 
@@ -96,7 +96,7 @@ public class TrajectoryHelper : Helper
             throwingDirectionImage.transform.rotation = rotation;
 
             throwingDirectionImage.transform.position = (Vector2)startPosWorld;
-
+            float oldHeight = distance;
             height -= distance;
             
             if(height > 0 && iter < 4 && hit.collider != null && !hit.collider.isTrigger && hit.collider.name != "BottomCollider")
@@ -105,12 +105,13 @@ public class TrajectoryHelper : Helper
                 iter++;
                 thrDirImages[iter].gameObject.SetActive(true);
                 thrDirImages[iter].transform.SetParent(throwingDirectionImage.transform.parent,false);
-                SetTrajectory(thrDirImages[iter], Camera.main.WorldToScreenPoint(hit.point - dir * Ball.ballRadius/2f), reflectDir.normalized, ref height);
+                SetTrajectory(thrDirImages[iter], Camera.main.WorldToScreenPoint(hit.point - dir.normalized * Ball.ballRadius), reflectDir.normalized, ref height);
             } else
             {
                 throwingDirectionImage.transform.GetChild(0).gameObject.SetActive(true);
+
                 Vector3 pos = throwingDirectionImage.transform.GetChild(0).transform.localPosition;
-                pos.y = height;
+                pos.y = oldHeight;
                 throwingDirectionImage.transform.GetChild(0).transform.localPosition = pos;
             }
         }
