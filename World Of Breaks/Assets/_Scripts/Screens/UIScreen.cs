@@ -97,18 +97,30 @@ public class UIScreen : ScreenBase {
         }
 
         BlocksController.Instance.OnChangeTopLine += HideTimeAcceleratorBtn;
-        BlocksController.Instance.OnChangeTopLine += TimeAcceleratorDisable;
     }
+
+    bool timeAcceleratorBtnEnabled;
 
     public void ShowTimeAcceleratorBtn()
     {
-        if(!timeAcceleratorBtn.gameObject.activeInHierarchy)
+        if (!timeAcceleratorBtnEnabled)
+        {
+            timeAcceleratorBtnEnabled = true;
             timeAcceleratorBtn.gameObject.SetActive(true);
+            timeAcceleratorBtn.GetComponent<ButtonIcon>().EnableBtn(true);
+            timeAcceleratorBtn.GetComponent<GUIAnim>().MoveIn(GUIAnimSystem.eGUIMove.Self);
+        }
+            
     }
 
     void HideTimeAcceleratorBtn()
     {
-        timeAcceleratorBtn.gameObject.SetActive(false);
+        if (timeAcceleratorBtnEnabled)
+        {
+            timeAcceleratorBtnEnabled = false;
+            timeAcceleratorBtn.GetComponent<GUIAnim>().MoveOut(GUIAnimSystem.eGUIMove.Self);
+            Time.timeScale = 1;
+        }
     }
 
     public void ShowClearText()
@@ -135,21 +147,22 @@ public class UIScreen : ScreenBase {
         Time.timeScale = 2;
     }
 
-    void TimeAcceleratorDisable()
-    {
-        timeAcceleratorBtn.GetComponent<ButtonIcon>().EnableBtn(true);
-        Time.timeScale = 1;
-    }
-
     public void EnableReturnBallsBtn(bool enable)
     {
-        returnBallsBtn.gameObject.SetActive(enable);
+        if (enable)
+        {
+            returnBallsBtn.gameObject.SetActive(true);
+            returnBallsBtn.GetComponent<GUIAnim>().MoveIn(GUIAnimSystem.eGUIMove.Self);
+        } else
+        {
+            returnBallsBtn.GetComponent<GUIAnim>().MoveOut(GUIAnimSystem.eGUIMove.Self);
+        }
+        
     }
 
     public override void OnCleanUp ()
 	{
         BlocksController.Instance.OnChangeTopLine -= HideTimeAcceleratorBtn;
-        BlocksController.Instance.OnChangeTopLine -= TimeAcceleratorDisable;
     }
 
 	public void SetTopScore ()

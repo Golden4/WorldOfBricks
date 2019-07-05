@@ -81,9 +81,12 @@ public class BuyCoinScreen : ScreenBase {
     public override void Init ()
 	{
 		base.Init ();
-		//if (PlayerPrefs.HasKey ("giftTime"))
-			//nextGiveGiftTime = new DateTime (long.Parse (PlayerPrefs.GetString ("giftTime")));
-		getCoinsBtn.onClick.RemoveAllListeners ();
+
+        Ins = this;
+
+        //if (PlayerPrefs.HasKey ("giftTime"))
+        //nextGiveGiftTime = new DateTime (long.Parse (PlayerPrefs.GetString ("giftTime")));
+        getCoinsBtn.onClick.RemoveAllListeners ();
 		getCoinsBtn.onClick.AddListener (GiveGift);
 
 		if (CanTakeGift ()) {
@@ -91,9 +94,8 @@ public class BuyCoinScreen : ScreenBase {
 		} else {
 			OnDontTakeGift ();
 		}
-
-		Ins = this;
-
+        
+        
 		PurchaseManager.OnPurchaseConsumable += OnPurchaseConsumable;
 	}
 
@@ -109,17 +111,21 @@ public class BuyCoinScreen : ScreenBase {
 		int index = list.FindIndex (x => x.productID == args.purchasedProduct.definition.id);
 
 		int coinAmount = list [index].coinCount;
-		print (index + "  " + coinAmount);
-
-		User.AddCoin (coinAmount);
+        
 
 		Vector3 fromPos = list [index].btn.transform.position;
 		Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
-		Utility.CoinsAnimate (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 50, fromPos, toPos, .5f, CoinUI.Ins.curve, () => {
+		Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 20, fromPos, toPos, 250 , .5f, CoinUI.Ins.curve, () => {
 			AudioManager.PlaySoundFromLibrary ("Coin");
 		});
-	}
+
+        Utility.Invoke(this, .9f, delegate
+        {
+            User.AddCoin(coinAmount);
+        });
+
+    }
 
 	void GiveGift ()
 	{
@@ -129,22 +135,25 @@ public class BuyCoinScreen : ScreenBase {
 
             //PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
 
-			int coinAmount = 50;
-			User.AddCoin (coinAmount);
+			int coinAmount = 25;
 
 			Vector3 fromPos = getCoinsBtn.transform.position;
-			Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
+            Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
-			Utility.CoinsAnimate (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 10, fromPos, toPos, .5f, CoinUI.Ins.curve, () => {
-				AudioManager.PlaySoundFromLibrary ("Coin");
-			});
+            Utility.CoinsAnimateRadial(CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, 250, .5f, CoinUI.Ins.curve, () => {
+                AudioManager.PlaySoundFromLibrary("Coin");
+            });
 
-		}
+            Utility.Invoke(this, .9f, delegate
+            {
+                User.AddCoin(coinAmount);
+            });
+        }
 	}
 
 	public static bool CanTakeGift ()
 	{
-		return nextGiveGiftTime <= DateTime.Now.Ticks;
+		return nextGiveGiftTime < DateTime.Now.Ticks;
 	}
 
 	public static TimeSpan timeToGiveGift {

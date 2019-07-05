@@ -75,7 +75,44 @@ public class Utility {
 
 	}
 
-	public static void MoveTo (MonoBehaviour m, Transform obj, Vector2 fromPos, Vector2 toPos, float time, AnimationCurve speedCurve, float delay, Action coinInTarget)
+    public static void CoinsAnimateRadial(MonoBehaviour m, GameObject prefab, Transform parent, int coinsCount, Vector2 fromPos, Vector2 toPos,float radius, float time, AnimationCurve speedCurve, Action coinInTarget)
+    {
+        GameObject[] objs = new GameObject[coinsCount];
+
+        for (int i = 0; i < coinsCount; i++)
+        {
+            objs[i] = MonoBehaviour.Instantiate(prefab) as GameObject;
+            objs[i].transform.SetParent(parent, false);
+            objs[i].transform.SetAsFirstSibling();
+
+            objs[i].transform.eulerAngles = new Vector3(0,0, UnityEngine.Random.Range(0, 360));
+        }
+
+        Vector2[] randPos = new Vector2[coinsCount];
+
+
+        for (int i = 0; i < coinsCount; i++)
+        {
+            randPos[i] = new Vector2(UnityEngine.Random.Range(radius, -radius), UnityEngine.Random.Range(radius, -radius)) + fromPos;
+            MoveTo(m, objs[i].transform, fromPos, randPos[i], time * UnityEngine.Random.Range(.5f, 1f), speedCurve, 0, null);
+        }
+
+        for (int i = 0; i < coinsCount; i++)
+        {
+            GameObject go = objs[i];
+            MoveTo(m, objs[i].transform, randPos[i], toPos, time, speedCurve, time , delegate {
+
+                if (coinInTarget != null)
+                    coinInTarget.Invoke();
+
+                MonoBehaviour.Destroy(go);
+
+            });
+        }
+
+    }
+
+    public static void MoveTo (MonoBehaviour m, Transform obj, Vector2 fromPos, Vector2 toPos, float time, AnimationCurve speedCurve, float delay, Action coinInTarget)
 	{
 		m.StartCoroutine (MoveToCoroutine (obj, fromPos, toPos, time, speedCurve, delay, coinInTarget));
 	}
@@ -93,7 +130,9 @@ public class Utility {
 
 		}
 
-		coinInTarget.Invoke ();
+        if(coinInTarget != null)
+		    coinInTarget.Invoke ();
+
 		obj.position = toPos;
 
 	}

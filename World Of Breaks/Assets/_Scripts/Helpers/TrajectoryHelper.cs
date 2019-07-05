@@ -33,11 +33,11 @@ public class TrajectoryHelper : Helper
         trajectoryBtn.onClick.RemoveAllListeners();
         trajectoryBtn.onClick.AddListener(() =>
         {
-          // if (User.BuyWithCoin(50))
-           //{
+           if (User.BuyWithCoin(50))
+           {
                 isActive = true;
                 trajectoryBtn.GetComponent<ButtonIcon>().EnableBtn(false);
-          // }
+           }
         });
     }
 
@@ -51,7 +51,7 @@ public class TrajectoryHelper : Helper
         
        // Vector2 pos = Camera.main.WorldToScreenPoint(startThrowPos);
 
-        float heigth = mouseHeightWorld * 3;
+        float heigth = mouseHeightWorld * 4;
 
         ShowTajectory(false);
 

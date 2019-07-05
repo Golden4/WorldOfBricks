@@ -72,7 +72,6 @@ public class BallController : MonoBehaviour {
         {
             if (lastThrowTime + 2 < Time.time)
             {
-                
                 UIScreen.Ins.ShowTimeAcceleratorBtn();
             }
             return;

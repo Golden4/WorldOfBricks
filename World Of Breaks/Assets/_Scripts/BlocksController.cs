@@ -106,10 +106,8 @@ public class BlocksController : MonoBehaviour {
 		}
 
         UIScreen.Ins.UpdateScore(++UIScreen.Ins.score);
-
-		Invoke ("ChangeTopLine", .2f);
-		//Invoke ("ShowMapInConsole", .2f);
-		Invoke ("CheckForLose", .2f);
+        Utility.Invoke(this, .2f, ChangeTopLine);
+		//Invoke ("ChangeTopLine", .2f);
 	}
 
 	void CheckForLose ()
@@ -173,7 +171,10 @@ public class BlocksController : MonoBehaviour {
 				iTween.FadeFrom (spawnedBlock.gameObject, 0, .5f);
 
 		}
-	}
+
+        CheckForLose();
+
+    }
 
 
 	int GetRandomBlockIndex ()
