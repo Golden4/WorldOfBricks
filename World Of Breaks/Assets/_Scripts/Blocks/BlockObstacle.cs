@@ -6,13 +6,12 @@ public class BlockObstacle : BlockWithText {
 
 	bool needDestroy = false;
 
-	protected override void Start ()
-	{
-		BlocksController.Instance.OnChangeTopLine += TryDie;
-
+    protected override void Start()
+    {
+        BlocksController.Instance.OnChangeTopLine += TryDie;
     }
 
-	public override void Hit (Ball ball)
+    public override void Hit (Ball ball)
 	{
         t = 1;
         needDestroy = true;

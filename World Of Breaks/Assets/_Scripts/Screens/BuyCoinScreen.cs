@@ -116,7 +116,7 @@ public class BuyCoinScreen : ScreenBase {
 		Vector3 fromPos = list [index].btn.transform.position;
 		Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
-		Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 20, fromPos, toPos, 250 , .5f, CoinUI.Ins.curve, () => {
+		Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 20, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
 			AudioManager.PlaySoundFromLibrary ("Coin");
 		});
 
@@ -135,12 +135,12 @@ public class BuyCoinScreen : ScreenBase {
 
             //PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
 
-			int coinAmount = 25;
+			int coinAmount = 15;
 
 			Vector3 fromPos = getCoinsBtn.transform.position;
             Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
-            Utility.CoinsAnimateRadial(CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, 250, .5f, CoinUI.Ins.curve, () => {
+            Utility.CoinsAnimateRadial(CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, Screen.width/3, .5f, CoinUI.Ins.curve, () => {
                 AudioManager.PlaySoundFromLibrary("Coin");
             });
 

@@ -56,9 +56,9 @@ public class TrajectoryHelper : Helper
         ShowTajectory(false);
 
          iter = 0;
-        thrDirImages[0].gameObject.SetActive(dirMouse.sqrMagnitude > 1000);
+        thrDirImages[0].gameObject.SetActive(mouseHeightWorld > .6f);
 
-        if (dirMouse.sqrMagnitude > 1000)
+        if (mouseHeightWorld > .6f)
         {
             SetTrajectory(thrDirImages[0], startThrowPos, dirMouse.normalized, ref heigth);
         }

@@ -58,13 +58,13 @@ public class MenuScreen : ScreenBase {
 			});
 		}
 
-		if (!AdController.Ins.rewardedAdLoaded) {
-			if (freeCoinsBtn.gameObject.activeInHierarchy)
-				freeCoinsBtn.gameObject.SetActive (false);
-		} else {
-			if (!freeCoinsBtn.gameObject.activeInHierarchy)
-				freeCoinsBtn.gameObject.SetActive (true);
-		}
+		//if (!AdController.Ins.rewardedAdLoaded) {
+		//	if (freeCoinsBtn.gameObject.activeInHierarchy)
+		//		freeCoinsBtn.gameObject.SetActive (false);
+		//} else {
+		//	if (!freeCoinsBtn.gameObject.activeInHierarchy)
+		//		freeCoinsBtn.gameObject.SetActive (true);
+		//}
 	}
 
 	/*void Update ()
@@ -127,7 +127,7 @@ public class MenuScreen : ScreenBase {
 	{
 		base.OnActivate ();
 		ShowGameTitle (true, true);
-		freeCoinsBtn.gameObject.SetActive (AdController.Ins.rewardedAdLoaded);
+		//freeCoinsBtn.gameObject.SetActive (AdController.Ins.rewardedAdLoaded);
         menuBall.sprite = Database.Get.playersData[User.GetInfo.curPlayerIndex].playerPrefab.GetComponent<SpriteRenderer>().sprite;
 
         int _checkpoint = 0;

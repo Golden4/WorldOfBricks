@@ -67,6 +67,22 @@
     {
       "key": "new_checkpoint",
       "value": "Новый чекпоинт"
+    },
+    {
+      "key": "classic_ball",
+      "value": "Классический мяч"
+    },
+    {
+      "key": "classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "ball",
+      "value": "Мяч"
+    },
+    {
+      "key": "ball_desc",
+      "value": ""
     }
   ]
 }

@@ -6,7 +6,6 @@ public class BlockExplosion : BlockWithText
 {
 
     public SpriteRenderer bombIcon;
-
     protected override void Start()
     {
         base.Start();

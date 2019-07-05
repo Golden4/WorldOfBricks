@@ -61,6 +61,7 @@ public class BallController : MonoBehaviour {
 	Vector3 dirMouse;
 	Vector3 dirToThrow;
     float lastThrowTime;
+    float dirMouseMagnitudeWorld;
 
     void Update ()
 	{
@@ -77,8 +78,6 @@ public class BallController : MonoBehaviour {
             return;
         }
         
-		
-
         bool isMouseOnUIObject = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
 
         if (isMouseOnUIObject)
@@ -89,76 +88,103 @@ public class BallController : MonoBehaviour {
 		if (Input.GetMouseButton (0)) {
 			
 			if (mouseCurState == MouseState.mouseUp) {
-				mouseCurState = MouseState.mouseDragging;
-				startMousePos = Input.mousePosition;
-
+				
                 if (!isMouseOnUIObject)
                 {
-                    mousePivotPointImage.gameObject.SetActive(true);
-				    mousePivotPointImage.transform.position = startMousePos;
+                    mouseCurState = MouseState.mouseDragging;
+                    MouseDown();
                 }
-
-                Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
-				heigth.y = 10;
-
-				throwingDirectionImage.rectTransform.sizeDelta = heigth;
-
-				throwingDirectionImage.transform.position = Camera.main.WorldToScreenPoint (startThrowPos);
-
-			} else if (mouseCurState == MouseState.mouseDragging) {
-				
-				curMousePos = Input.mousePosition;
-
-				dirMouse = ((InputMobileController.curInputType == InputMobileController.InputType.Touch)?1:-1) * (-curMousePos + startMousePos);
-
                 
-                Quaternion rotation = Quaternion.FromToRotation(Vector3.up, dirMouse.normalized);
+            } else if (mouseCurState == MouseState.mouseDragging) {
 
-                if (Quaternion.Angle(rotation, Quaternion.Euler(Vector3.up)) < 90)
-                {
-                    if (!TrajectoryHelper.Ins.isActive)
-                    {
-                        if (dirMouse.sqrMagnitude > 1000)
-                            throwingDirectionImage.gameObject.SetActive(true);
-                        else
-                            throwingDirectionImage.gameObject.SetActive(false);
-
-                        throwingDirectionImage.transform.rotation = rotation;
-
-                        Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
-                        heigth.y = Mathf.Clamp(dirMouse.magnitude, 1, 150) * 4.5f;
-
-                        throwingDirectionImage.rectTransform.sizeDelta = heigth;
-                    }
-                    else
-                    {
-                        float mouseHeight = Mathf.Abs( Vector2.Distance((Vector2)Camera.main.ScreenToWorldPoint(curMousePos), (Vector2)Camera.main.ScreenToWorldPoint(startMousePos)));
-                        TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse, mouseHeight);
-                        
-                    }
-
-                    dirToThrow = dirMouse;
-                }
+                if(!isMouseOnUIObject)
+                    MouseHold();
 
             }
 
 		} else if (mouseCurState == MouseState.mouseDragging) {
 			
 			mouseCurState = MouseState.mouseUp;
-
-			mousePivotPointImage.gameObject.SetActive (false);
-
-			throwingDirectionImage.gameObject.SetActive (false);
-
-            if (dirMouse.sqrMagnitude > 1000 && !isMouseOnUIObject)
-            {
-                ThrowBalls(dirToThrow.normalized);
-            }
-
-            TrajectoryHelper.Ins.ShowTajectory(false);
+            
+            MouseUp(dirMouseMagnitudeWorld > .6f && !isMouseOnUIObject && validDir);
         }
 
 	}
+
+    bool validDir;
+
+    void MouseDown()
+    {
+        startMousePos = Input.mousePosition;
+        
+        mousePivotPointImage.gameObject.SetActive(true);
+        mousePivotPointImage.transform.position = startMousePos;
+        
+        Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
+        heigth.y = 10;
+
+        throwingDirectionImage.rectTransform.sizeDelta = heigth;
+
+        throwingDirectionImage.transform.position = Camera.main.WorldToScreenPoint(startThrowPos);
+    }
+
+    void MouseHold()
+    {
+        curMousePos = Input.mousePosition;
+
+        dirMouse = ((InputMobileController.curInputType == InputMobileController.InputType.Touch) ? 1 : -1) * (-curMousePos + startMousePos);
+        dirMouseMagnitudeWorld = Mathf.Abs(Vector2.Distance((Vector2)Camera.main.ScreenToWorldPoint(curMousePos), (Vector2)Camera.main.ScreenToWorldPoint(startMousePos)));
+
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, dirMouse.normalized);
+
+        if (Quaternion.Angle(rotation, Quaternion.Euler(Vector3.up)) < 85)
+        {
+            validDir = true;
+            if (!TrajectoryHelper.Ins.isActive)
+            {
+                if (dirMouseMagnitudeWorld > .6f)
+                    throwingDirectionImage.gameObject.SetActive(true);
+                else
+                    throwingDirectionImage.gameObject.SetActive(false);
+
+                throwingDirectionImage.transform.rotation = rotation;
+
+                Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
+                heigth.y = Mathf.Clamp(dirMouse.magnitude, 1, 150) * 4.5f;
+
+                throwingDirectionImage.rectTransform.sizeDelta = heigth;
+            }
+
+            else
+            {
+                TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse, dirMouseMagnitudeWorld);
+
+            }
+
+            dirToThrow = dirMouse;
+        } else
+        {
+            validDir = false;
+            MouseUp(false);
+
+            mousePivotPointImage.gameObject.SetActive(true);
+            
+        }
+    }
+
+    void MouseUp(bool needThrow)
+    {
+        mousePivotPointImage.gameObject.SetActive(false);
+
+        throwingDirectionImage.gameObject.SetActive(false);
+
+        if (needThrow)
+        {
+            ThrowBalls(dirToThrow.normalized);
+        }
+
+        TrajectoryHelper.Ins.ShowTajectory(false);
+    }
 
 	void ThrowBalls (Vector3 dir)
 	{
@@ -192,6 +218,7 @@ public class BallController : MonoBehaviour {
         List<Ball> ballList = new List<Ball>(ballsList);
 
         UIScreen.Ins.EnableReturnBallsBtn(true);
+        UIScreen.Ins.HideTimeAcceleratorBtn();
 
         lastThrowTime = Time.time;
 

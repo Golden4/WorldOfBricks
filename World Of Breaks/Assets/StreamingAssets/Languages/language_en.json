@@ -67,6 +67,22 @@
     {
       "key": "new_checkpoint",
       "value": "New checkpoint"
+    },
+    {
+      "key": "classic_ball",
+      "value": "Classic ball"
+    },
+    {
+      "key": "classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "ball",
+      "value": "Ball"
+    },
+    {
+      "key": "ball_desc",
+      "value": ""
     }
   ]
 }

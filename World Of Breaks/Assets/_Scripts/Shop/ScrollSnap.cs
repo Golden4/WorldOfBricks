@@ -13,15 +13,19 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 
 	public event System.Action<int> OnChangeItemEvent;
 
+    public float itemsSize;
+
+    public int distanceItems = 100;
+
 	public float ContentSize {
 		get {
-			return 200 + 210 * items.Length;
+			return distanceItems * (items.Length-1) + 500;
 		}
 	}
 
 	public int GetCurItemIndex {
 		get {
-			return (-Mathf.FloorToInt (sr.content.localPosition.x) + 75) / 200;
+			return Mathf.Abs((Mathf.FloorToInt (sr.content.localPosition.x+250)) - distanceItems/2) / distanceItems;
 		}
 	}
 
@@ -42,7 +46,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 		for (int i = 0; i < Database.Get.playersData.Length; i++) {
             items [i] = Instantiate(ballPrefab.gameObject);
 			items [i].transform.SetParent (itemsHolder);
-			items [i].transform.localPosition = Vector3.right * 200 * i;
+			items [i].transform.localPosition = Vector3.right * distanceItems * i;
 			items [i].transform.localEulerAngles = Vector3.zero;
 			//items [i].layer = LayerMask.NameToLayer ("ShopItem");
 
@@ -69,29 +73,19 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 
 	void Update ()
 	{
-
-		FocusToObject (GetCurItemIndex);
+        FocusToObject (GetCurItemIndex);
+        print(sr.content.localPosition.x);
 
 		if (!dragging && Mathf.Abs(sr.velocity.x) < 50) {
 			SnapToObj (GetCurItemIndex);
 		}
 
 		if (lastItemIndex != GetCurItemIndex) {
-
-            if (lastItemIndex >= 0)
-            {
-                items[lastItemIndex].GetComponent<Animation>().Stop();
-                items[lastItemIndex].transform.localPosition = Vector3.right * 200 * lastItemIndex;
-            }
-
-            items[GetCurItemIndex].GetComponent<Animation>().Play();
-            lastItemIndex = GetCurItemIndex;
-
-
             if (OnChangeItemEvent != null)
 				OnChangeItemEvent (GetCurItemIndex);
+            lastItemIndex = GetCurItemIndex;
 
-		}
+        }
 
 	}
 
@@ -109,7 +103,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 	public void SnapToObj (int index, bool lerp = true)
 	{
 		Vector3 pos = sr.content.localPosition;
-		pos.x = -index * 200;
+		pos.x = -index * distanceItems-250;
 		if (lerp)
 			sr.content.localPosition = Vector3.Lerp (sr.content.localPosition, pos, Time.deltaTime * 20);
 		else

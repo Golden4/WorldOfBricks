@@ -113,7 +113,7 @@ public class UIScreen : ScreenBase {
             
     }
 
-    void HideTimeAcceleratorBtn()
+    public void HideTimeAcceleratorBtn()
     {
         if (timeAcceleratorBtnEnabled)
         {
@@ -121,6 +121,12 @@ public class UIScreen : ScreenBase {
             timeAcceleratorBtn.GetComponent<GUIAnim>().MoveOut(GUIAnimSystem.eGUIMove.Self);
             Time.timeScale = 1;
         }
+    }
+
+    public void TimeAcceleratorEnable()
+    {
+        timeAcceleratorBtn.GetComponent<ButtonIcon>().EnableBtn(false);
+        Time.timeScale = 2;
     }
 
     public void ShowClearText()
@@ -141,11 +147,7 @@ public class UIScreen : ScreenBase {
         
     }
 
-    public void TimeAcceleratorEnable()
-    {
-        timeAcceleratorBtn.GetComponent<ButtonIcon>().EnableBtn(false);
-        Time.timeScale = 2;
-    }
+
 
     public void EnableReturnBallsBtn(bool enable)
     {

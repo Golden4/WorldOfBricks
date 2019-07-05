@@ -131,7 +131,9 @@ public class BlocksController : MonoBehaviour {
 
 	}
 
-	void ChangeTopLine ()
+    System.Random rand = new System.Random();
+
+    void ChangeTopLine ()
 	{
 
 		double randNumPlusBlock = Random.Range (0, blockMap [0].Length - 1);
@@ -149,9 +151,10 @@ public class BlocksController : MonoBehaviour {
 			}
 
 
-			double randNum = Random.Range (0f, 1f);
+            double randNum = rand.NextDouble();
 
-			if (randNum < .3f) {
+
+            if (randNum < .2f) {
 
 			} else {
 
@@ -179,16 +182,16 @@ public class BlocksController : MonoBehaviour {
 
 	int GetRandomBlockIndex ()
 	{
-		float RandomNum = Random.Range (0f, GetSummChance ());
+		int RandomNum = rand.Next (0, GetSummChance ());
 
 		int i = 0;
-		float sum = 0;
+		int sum = 0;
 
 		while (sum <= RandomNum) {
 			
 			if (!blocksForSpawn [i].isRequired) {
 
-				sum += blocksForSpawn [i].chanceForSpawn / 100f;
+				sum += blocksForSpawn [i].chanceForSpawn;
 			}
 
 			i++;
@@ -201,17 +204,17 @@ public class BlocksController : MonoBehaviour {
 	}
 
 
-	float GetSummChance ()
+	int GetSummChance ()
 	{
 
-		float summ = 0;
+		int summ = 0;
 
 		for (int i = 0; i < blocksForSpawn.Length; i++) {
 			if (!blocksForSpawn [i].isRequired)
 				summ += blocksForSpawn [i].chanceForSpawn;
 		}
 
-		return summ / 100f;
+		return summ;
 
 	}
 

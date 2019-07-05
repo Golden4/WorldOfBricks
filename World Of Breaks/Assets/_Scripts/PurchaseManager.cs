@@ -121,7 +121,6 @@ public class PurchaseManager : MonoBehaviour, IStoreListener {
 	public string GetLocalizedPrice (string productId)
 	{
 		if (IsInitialized ()) {
-			print (m_StoreController.products.WithID (productId).metadata.localizedDescription);
 
 			return m_StoreController.products.WithID (productId).metadata.localizedPriceString;
 		} else {

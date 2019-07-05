@@ -85,7 +85,7 @@ public class ShopScreen : ScreenBase {
 
 	void OnChangeItem (int index)
 	{
-		itemNameText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name);
+        itemNameText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name);
 		itemAbilityText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name + "_desc");
         
 
@@ -132,11 +132,22 @@ public class ShopScreen : ScreenBase {
 		User.SaveUserInfo ();
 	}
 
-	public void UpdateItemState (int index)
+    int lastItemIndex = -1;
+
+    public void UpdateItemState (int index)
 	{
 		bool bought = User.GetInfo.userData [index].bought;
 
-		SelectAndPlayBtn.gameObject.SetActive (bought);
+        if (lastItemIndex >= 0)
+        {
+            scrollSnap.items[lastItemIndex].GetComponent<Animation>().Stop();
+            scrollSnap.items[lastItemIndex].transform.localPosition = Vector3.right * scrollSnap.distanceItems * lastItemIndex;
+        }
+
+        scrollSnap.items[index].GetComponent<Animation>().Play();
+        lastItemIndex = index;
+
+        SelectAndPlayBtn.gameObject.SetActive (bought);
 		BuyBtn.gameObject.SetActive (!bought);
 		BuyBtn.GetComponentInChildren<Text> ().text = Database.Get.playersData [index].price.ToString ();
 	}

@@ -13,23 +13,78 @@ MonoBehaviour:
   m_Name: Database
   m_EditorClassIdentifier: 
   playersData:
-  - name: classicball
-    purchaseID: 
-    price: 0$
+  - name: classic_ball
+    purchaseID: ball_1
+    price: $0.01
     playerPrefab: {fileID: 114018454480816664, guid: 0346d12c3d6aa6140b5ac5de1277dceb,
       type: 3}
   - name: ball
-    purchaseID: 
-    price: 0$
+    purchaseID: ball_2
+    price: $0.01
     playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
       type: 3}
   - name: ball
-    purchaseID: 
-    price: 0$
+    purchaseID: ball_1
+    price: $0.01
     playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
       type: 3}
   - name: ball
-    purchaseID: 
-    price: 0$
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
+    playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
+      type: 3}
+  - name: ball
+    purchaseID: ball_1
+    price: $0.01
     playerPrefab: {fileID: 114018454480816664, guid: c4303522f2ff8e142b7e8743f1a84e3d,
       type: 3}
