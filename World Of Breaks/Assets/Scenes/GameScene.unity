@@ -4597,8 +4597,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -100}
-  m_SizeDelta: {x: 480, y: 180}
+  m_AnchoredPosition: {x: 249.99998, y: -100}
+  m_SizeDelta: {x: 479.99997, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &652205140
 MonoBehaviour:
@@ -9708,7 +9708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1643801844
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9746,6 +9746,7 @@ MonoBehaviour:
   continueAdBtn: {fileID: 469139918}
   continueTimer: {fileID: 363734879}
   givedSecondChance: 0
+  mr: {fileID: 0}
 --- !u!114 &1643801846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12107,14 +12108,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.43529412, g: 0.44762293, b: 0.972549, a: 0.6901961}
+  m_Color: {r: 0.5393058, g: 0, b: 0.7169812, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 37c37691495c70f45911cecc61b71b7a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bae000c67c99e2b43be44099a36684c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BlocksController : MonoBehaviour {
-	
-	public Block[][] blockMap = new Block[10] [];
+
+    int blocksWidth = 10;
+    int blocksHeight = 8;
+
+	public Block[][] blockMap;
 	public BlockForSpawn[] blocksForSpawn;
 	public Vector2 offsetBetweenBlocks;
     public int blocksLife;
@@ -69,8 +72,9 @@ public class BlocksController : MonoBehaviour {
 
 	void InitializeBlockMap ()
 	{
-		for (int i = 0; i < blockMap.Length; i++) {
-			blockMap [i] = new Block[8];
+        blockMap = new Block[blocksWidth][];
+        for (int i = 0; i < blockMap.Length; i++) {
+			blockMap [i] = new Block[blocksHeight];
 			for (int j = 0; j < blockMap [i].Length; j++) {
 				blockMap [i] [j] = new Block (0);
 			}

@@ -11,7 +11,7 @@ public class EdgeScreenCollisions : MonoBehaviour {
 
 	void Start ()
 	{
-		Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
+		//Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
         
 		System.Collections.Generic.Dictionary<string,Transform> colliders = new System.Collections.Generic.Dictionary<string,Transform> ();
 

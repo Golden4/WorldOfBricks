@@ -20,20 +20,25 @@ public class ContinueScreen : ScreenBase {
 		continueAdBtn.onClick.AddListener (RespawnPlayer);
 	}
 
-	public override void OnActivate ()
-	{
-		base.OnActivate ();
-		lastTime = Time.time + .4f;
-		continueAdPanel.gameObject.SetActive (true);
-		continueAdPanel.GetComponent <GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
+    public MeshRenderer mr;
 
-		/*
+    public override void OnActivate()
+    {
+        base.OnActivate();
+
+        ShareController.CaptureScreenshot();
+
+        lastTime = Time.time + .4f;
+        continueAdPanel.gameObject.SetActive(true);
+        continueAdPanel.GetComponent<GUIAnim>().MoveIn(GUIAnimSystem.eGUIMove.Self);
+        
+        /*
 		continueAdBtn.gameObject.SetActive (true);
 		GUIAnimSystem.Instance.MoveIn (transform, true);
 		continueAdBtn.GetComponent <ButtonIcon> ().EnableBtn (AdController.Ins.interstitialLoaded);
 	} else {
 		continueAdPanel.gameObject.SetActive (false);*/
-	}
+    }
 
 	public void CloseContinueScreen ()
 	{
