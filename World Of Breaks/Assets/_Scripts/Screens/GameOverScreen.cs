@@ -26,7 +26,9 @@ public class GameOverScreen : ScreenBase {
 		playerDieCount++;
 
         BlocksController.Instance.DestroyAllBlocks();
+
         BlocksSaver.DeleteBlockMapKeys();
+
         UIScreen.newGame = true;
 
         UIScreen.Ins.SetTopScore ();
@@ -97,6 +99,7 @@ public class GameOverScreen : ScreenBase {
 
 	public void RestartLevel ()
 	{
+        UIScreen.newGame = true;
 		SceneController.RestartLevel ();
 	}
 

@@ -72,28 +72,34 @@ public class UIScreen : ScreenBase {
     
     public bool newRecord;
 
-	public override void Init ()
-	{
-		Ins = this;
-        
+    public override void Init()
+    {
+        Ins = this;
     }
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey("CurLevel"))
-        {
-            UpdateScore(PlayerPrefs.GetInt("CurLevel"));
-            newGame = false;
-        } else
-        {
-            newGame = true;
-        }
+        //if (PlayerPrefs.HasKey("CurLevel"))
+        //{
+        //    UpdateScore(PlayerPrefs.GetInt("CurLevel"));
+        //    newGame = false;
+        //} else
+        //{
+        //    newGame = true;
+        //}
+
+        //if (newGame)
+        //{
+        //    PlayerPrefs.DeleteKey("CurLevel");
+        //    UpdateScore(UIScreen.Ins.checkpoint);
+        //    SetCheckpoint(0);
+        //}
 
         if (newGame)
         {
-            PlayerPrefs.DeleteKey("CurLevel");
-            UpdateScore((UIScreen.Ins.checkpoint == 0) ? 1 : UIScreen.Ins.checkpoint);
-            SetCheckpoint(0);
+            BlocksSaver.DeleteBlockMapKeys();
+            UIScreen.Ins.UpdateScore(UIScreen.Ins.checkpoint);
+            UIScreen.Ins.SetCheckpoint(0);
         }
 
         BlocksController.Instance.OnChangeTopLine += HideTimeAcceleratorBtn;

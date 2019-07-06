@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class ContinueScreen : ScreenBase {
 	[SerializeField] Transform continueAdPanel;
 	[SerializeField] Button continueAdBtn;
+    [SerializeField] Button continueCoinBtn;
 
-	[SerializeField] Image continueTimer;
+    [SerializeField] Image continueTimer;
 	float lastTime;
 	float waitTime = 5;
 
@@ -18,7 +19,14 @@ public class ContinueScreen : ScreenBase {
 		base.Init ();
 		continueAdBtn.onClick.RemoveAllListeners ();
 		continueAdBtn.onClick.AddListener (RespawnPlayer);
-	}
+        continueCoinBtn.onClick.RemoveAllListeners();
+        continueCoinBtn.onClick.AddListener(delegate
+        {
+            if (User.BuyWithCoin(25))
+                RespawnPlayer();
+        }
+        );
+    }
 
     public MeshRenderer mr;
 
@@ -61,21 +69,22 @@ public class ContinueScreen : ScreenBase {
 
 	void RespawnPlayer ()
 	{
-		continueAdBtn.GetComponent <ButtonIcon> ().EnableBtn (false);
+		//continueAdBtn.GetComponent <ButtonIcon> ().EnableBtn (false);
 
-		if (AdController.Ins.interstitialLoaded && !givedSecondChance) {
-			givedSecondChance = true;
+		//if (AdController.Ins.interstitialLoaded && !givedSecondChance) {
+			//givedSecondChance = true;
 			RetryGame ();
 
 			if (AdController.Ins != null)
 				AdController.Ins.ShowInterstitialAD ();
-		}
+		//}
 	}
 
 	public void RetryGame ()
 	{
 		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
-
+        BlocksController.Instance.DestroyLastLine(false);
+        UIScreen.Ins.playerLose = false;
 		//Player.Ins.Retry ();
 	}
 

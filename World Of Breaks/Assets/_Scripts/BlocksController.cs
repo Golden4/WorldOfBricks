@@ -18,6 +18,7 @@ public class BlocksController : MonoBehaviour {
 	public Vector3 centerOfScreen;
 
     public static BlocksController Instance;
+    public bool canSaveBlockMap;
 
     private void Awake()
     {
@@ -25,29 +26,18 @@ public class BlocksController : MonoBehaviour {
     }
 
     void Start ()
-	{
-        UIScreen.Ins.UpdateScore(1);
-
-        if (UIScreen.newGame)
-        {
-            BlocksSaver.DeleteBlockMapKeys();
-            UIScreen.Ins.UpdateScore((UIScreen.Ins.checkpoint==0)? 1 : UIScreen.Ins.checkpoint);
-            UIScreen.Ins.SetCheckpoint(0);
-        }
-
+	{      
 		blockHolder = new GameObject ("BlockHolder");
 		//centerOfScreen = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2f, Screen.height - Screen.height * .08f, 10));
 		blockHolder.transform.position = Vector3.zero;// centerOfScreen;
-        
 
 		InitializeBlockMap ();
 
-        if(!BlocksSaver.LoadBlocksMap(this))
+        if (!UIScreen.newGame && !BlocksSaver.LoadBlocksMap(this))
         {
-            ChangeTopLine();
         }
-
-        ShowMapInConsole();
+        ShiftBlockMapDown();
+        canSaveBlockMap = true;
     }
 
     public void CalculateBlockLife()
@@ -83,7 +73,7 @@ public class BlocksController : MonoBehaviour {
 
 	public void ShiftBlockMapDown ()
 	{
-		for (int i = blockMap.Length - 2; i >= 0; i--) {
+        for (int i = blockMap.Length - 2; i >= 0; i--) {
 			System.Array.Copy (blockMap [i], blockMap [i + 1], blockMap [0].Length);
 		}
 
@@ -93,8 +83,6 @@ public class BlocksController : MonoBehaviour {
 				if (blockMap [i] [j].blockComp == null)
 					continue;
 				blockMap [i] [j].blockComp.coordsY = i;
-
-
 
 				Vector3 localPos = blockMap [i] [j].blockComp.transform.localPosition;
 				localPos.y = ConvertCoordToPos (i).y;
@@ -109,6 +97,7 @@ public class BlocksController : MonoBehaviour {
 			OnChangeTopLine ();
 		}
 
+        CheckForLose();
         UIScreen.Ins.UpdateScore(++UIScreen.Ins.score);
         Utility.Invoke(this, .2f, ChangeTopLine);
 		//Invoke ("ChangeTopLine", .2f);
@@ -139,8 +128,7 @@ public class BlocksController : MonoBehaviour {
 
     void ChangeTopLine ()
 	{
-
-		double randNumPlusBlock = Random.Range (0, blockMap [0].Length - 1);
+        double randNumPlusBlock = Random.Range (0, blockMap [0].Length - 1);
 
 		for (int i = 0; i < blockMap [0].Length; i++) {
 
@@ -179,7 +167,7 @@ public class BlocksController : MonoBehaviour {
 
 		}
 
-        CheckForLose();
+        
 
     }
 
@@ -302,27 +290,33 @@ public class BlocksController : MonoBehaviour {
 
     public void DestroyLastLineBtn()
     {
-        if (User.BuyWithCoin(10))
+        if (User.BuyWithCoin(20))
         {
+            DestroyLastLine(true);
+        }
+    }
+
+    public void DestroyLastLine(bool checkBlockLife = true)
+    {
+        
             for (int i = blockMap.Length - 1; i >= 0; i--)
             {
                 for (int j = 0; j < blockMap[i].Length; j++)
                 {
                     if (blockMap[i][j].blockLife > 0)
                     {
-                        DestroyLine(i);
+                        DestroyLine(i, checkBlockLife);
                         return;
                     }
                 }
             }
-        }
     }
 
-    public void DestroyLine(int line)
+    public void DestroyLine(int line, bool checkBlockLife = true)
     {
         for (int j = 0; j < blockMap[line].Length; j++)
         {
-            if (blockMap[line][j].blockLife > 0)
+            if (!checkBlockLife || blockMap[line][j].blockLife > 0)
             {
                 if (blockMap[line][j].blockComp != null)
                 {
@@ -336,6 +330,7 @@ public class BlocksController : MonoBehaviour {
 
     public void DestroyAllBlocks()
     {
+        canSaveBlockMap = false;
         for (int i = 0; i < blockMap.Length; i++)
         {
             for (int j = 0; j < blockMap[i].Length; j++)
@@ -359,10 +354,19 @@ public class BlocksController : MonoBehaviour {
 
 	}
 
+    private void OnDestroy()
+    {
+        if (blockMap != null && canSaveBlockMap)
+        {
+            BlocksSaver.SaveBlocksMap(blockMap, BallController.Instance);
+            PlayerPrefs.Save();
+        }
+    }
+
 #if UNITY_EDITOR
     void OnApplicationQuit()
     {
-        if (blockMap != null)
+        if (blockMap != null && canSaveBlockMap)
         {
             BlocksSaver.SaveBlocksMap(blockMap, BallController.Instance);
             PlayerPrefs.Save();
@@ -373,8 +377,11 @@ public class BlocksController : MonoBehaviour {
 	
 	void OnApplicationPause ()
 	{
-		BlocksSaver.SaveBlocksMap(blockMap, BallController.Instance);
-		PlayerPrefs.Save ();
+		if (blockMap != null && canSaveBlockMap)
+        {
+            BlocksSaver.SaveBlocksMap(blockMap, BallController.Instance);
+            PlayerPrefs.Save();
+        }
 	}
 
 #endif
