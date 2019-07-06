@@ -83,6 +83,22 @@
     {
       "key": "ball_desc",
       "value": ""
+    },
+    {
+      "key": "tile_map_size",
+      "value": "Tile map size"
+    },
+    {
+      "key": "small",
+      "value": "Small"
+    },
+    {
+      "key": "medium",
+      "value": "Medium"
+    },
+    {
+      "key": "big",
+      "value": "Big"
     }
   ]
 }

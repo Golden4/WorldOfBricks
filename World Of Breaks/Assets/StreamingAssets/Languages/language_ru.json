@@ -83,6 +83,22 @@
     {
       "key": "ball_desc",
       "value": ""
+    },
+    {
+      "key": "tile_map_size",
+      "value": "Размер карты блоков"
+    },
+    {
+      "key": "small",
+      "value": "Маленький"
+    },
+    {
+      "key": "medium",
+      "value": "Средний"
+    },
+    {
+      "key": "big",
+      "value": "Большой"
     }
   ]
 }

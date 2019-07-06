@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class BlocksController : MonoBehaviour {
 
-    int blocksWidth = 10;
-    int blocksHeight = 8;
+    [System.Serializable]
+    public class TilePresets
+    {
+        public int blocksWidth = 10;
+        public int blocksHeight = 8;
+        public float cameraSize;
+        public Vector2 startBallPos;
+    }
 
+    public TilePresets[] presets;
+    public TilePresets curPreset;
 	public Block[][] blockMap;
 	public BlockForSpawn[] blocksForSpawn;
 	public Vector2 offsetBetweenBlocks;
@@ -31,7 +39,10 @@ public class BlocksController : MonoBehaviour {
 		//centerOfScreen = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2f, Screen.height - Screen.height * .08f, 10));
 		blockHolder.transform.position = Vector3.zero;// centerOfScreen;
 
-		InitializeBlockMap ();
+        curPreset = presets[(int) TileSizeScreen.tileSize];
+        Camera.main.orthographicSize = curPreset.cameraSize;
+
+        InitializeBlockMap ();
 
         if (!UIScreen.newGame && !BlocksSaver.LoadBlocksMap(this))
         {
@@ -62,9 +73,9 @@ public class BlocksController : MonoBehaviour {
 
 	void InitializeBlockMap ()
 	{
-        blockMap = new Block[blocksWidth][];
+        blockMap = new Block[curPreset.blocksWidth][];
         for (int i = 0; i < blockMap.Length; i++) {
-			blockMap [i] = new Block[blocksHeight];
+			blockMap [i] = new Block[curPreset.blocksHeight];
 			for (int j = 0; j < blockMap [i].Length; j++) {
 				blockMap [i] [j] = new Block (0);
 			}
@@ -290,13 +301,15 @@ public class BlocksController : MonoBehaviour {
 
     public void DestroyLastLineBtn()
     {
-        if (User.BuyWithCoin(20))
+        int coinAmount = 20;
+
+        if (User.HaveCoin(coinAmount) && DestroyLastLine(true))
         {
-            DestroyLastLine(true);
+           User.BuyWithCoin(coinAmount);
         }
     }
 
-    public void DestroyLastLine(bool checkBlockLife = true)
+    public bool DestroyLastLine(bool checkBlockLife = true)
     {
         
             for (int i = blockMap.Length - 1; i >= 0; i--)
@@ -306,10 +319,11 @@ public class BlocksController : MonoBehaviour {
                     if (blockMap[i][j].blockLife > 0)
                     {
                         DestroyLine(i, checkBlockLife);
-                        return;
+                        return true;
                     }
                 }
             }
+        return false;
     }
 
     public void DestroyLine(int line, bool checkBlockLife = true)

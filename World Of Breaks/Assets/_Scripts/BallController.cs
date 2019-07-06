@@ -9,8 +9,8 @@ public class BallController : MonoBehaviour {
 	public List<Ball> ballsList;
 	public float ballSpeed = 3;
 	public int ballCount = 2;
-	public Vector2 startThrowPos = new Vector2 (-.5f, -3.75f);
-	public bool startPosChanged = false;
+	public Vector2 startThrowPos;
+    public bool startPosChanged = false;
 	public float timeBetweenBalls = .1f;
 	public Image throwingDirectionImage;
 	public Text ballCountText;
@@ -36,11 +36,16 @@ public class BallController : MonoBehaviour {
 
 	void Start ()
 	{
-		throwingDirectionImage.gameObject.SetActive (false);
+        ballPrefab = Database.Get.playersData[User.GetInfo.curPlayerIndex].playerPrefab;
+
+        ChangeStartThrowPos(0);
+
+        throwingDirectionImage.gameObject.SetActive (false);
         InstantiateBallsList ();
         UpdateBallCountPos();
         UpdateBallCountText ();
-	}
+        
+    }
 
 	void InstantiateBallsList ()
 	{
@@ -237,9 +242,7 @@ public class BallController : MonoBehaviour {
 		iTween.ScaleTo (ballCountText.gameObject, Vector3.zero, .5f);
 
         //ballCountText.gameObject.SetActive (false);
-
         
-
 
 		while (!canThrow) {
 			
@@ -304,5 +307,14 @@ public class BallController : MonoBehaviour {
 	{
 		ballCountText.text = "x" + ballCount;
 	}
+
+    public void ChangeStartThrowPos(float x)
+    {
+        Vector3 cameraPos = Camera.main.transform.position;
+
+        float x1 = Mathf.Clamp(x, EdgeScreenCollisions.GetScreenEdgeLeft().x + Ball.ballRadius, EdgeScreenCollisions.GetScreenEdgeRight().x - Ball.ballRadius);
+
+        startThrowPos = EdgeScreenCollisions.GetScreenEdgeBottom() + Vector2.up * Ball.ballRadius + Vector2.right * x1;
+    }
 
 }

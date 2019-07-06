@@ -120,7 +120,7 @@ public class BuyCoinScreen : ScreenBase {
 			AudioManager.PlaySoundFromLibrary ("Coin");
 		});
 
-        Utility.Invoke(this, .9f, delegate
+        Utility.Invoke(CoinUI.Ins, .9f, delegate
         {
             User.AddCoin(coinAmount);
         });
@@ -144,7 +144,7 @@ public class BuyCoinScreen : ScreenBase {
                 AudioManager.PlaySoundFromLibrary("Coin");
             });
 
-            Utility.Invoke(this, .9f, delegate
+            Utility.Invoke(CoinUI.Ins, .9f, delegate
             {
                 User.AddCoin(coinAmount);
             });

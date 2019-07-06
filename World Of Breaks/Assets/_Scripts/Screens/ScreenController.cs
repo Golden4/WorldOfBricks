@@ -9,6 +9,7 @@ public class ScreenController : MonoBehaviour {
         Menu,
         Shop,
         BuyCoin,
+        TileSize,
         UI,
         GameOver,
         Pause,

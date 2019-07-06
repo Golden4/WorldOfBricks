@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CoinUI : MonoBehaviour {
 	public static CoinUI Ins;
 	public Text coinText;
+    Color origColor;
 
 	public Image coinImage;
     public GUIAnim plusCoinText;
@@ -19,7 +20,9 @@ public class CoinUI : MonoBehaviour {
     private void Start()
     {
         ShowCoinCount(User.Coins, User.Coins);
+        origColor = coinText.color;
         User.OnCoinChangedEvent += ShowCoinCount;
+        User.OnCoinChangedFailedEvent += BuyFailed;
     }
 
     /*	void Update ()
@@ -45,7 +48,23 @@ public class CoinUI : MonoBehaviour {
     void OnDestroy ()
 	{
 		User.OnCoinChangedEvent -= ShowCoinCount;
-	}
+        User.OnCoinChangedFailedEvent -= BuyFailed;
+    }
+
+    void BuyFailed(int coin)
+    {
+        coinText.color = Color.red;
+        coinText.transform.localScale = Vector3.one * 1.1f;
+        StopCoroutine("ChangeColorCorutine");
+        StartCoroutine("ChangeColorCorutine");
+    }
+
+    IEnumerator ChangeColorCorutine()
+    {
+        yield return new WaitForSeconds(.5f);
+        coinText.transform.localScale = Vector3.one;
+        coinText.color = origColor;
+    }
     
 
 	void ShowCoinCount (int fromValue, int toValue)

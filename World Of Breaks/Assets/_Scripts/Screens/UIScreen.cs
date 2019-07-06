@@ -125,8 +125,8 @@ public class UIScreen : ScreenBase {
         {
             timeAcceleratorBtnEnabled = false;
             timeAcceleratorBtn.GetComponent<GUIAnim>().MoveOut(GUIAnimSystem.eGUIMove.Self);
-            Time.timeScale = 1;
         }
+        Time.timeScale = 1;
     }
 
     public void TimeAcceleratorEnable()
@@ -149,8 +149,6 @@ public class UIScreen : ScreenBase {
         });
 
         textAnim.MoveIn(GUIAnimSystem.eGUIMove.Self);
-
-        
     }
 
 

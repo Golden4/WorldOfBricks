@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EdgeScreenCollisions : MonoBehaviour {
-	public float colThickness = 4f;
+    public static EdgeScreenCollisions Ins;
+    public float colThickness = 4f;
 	public float zPosition = 0f;
 	private Vector2 screenSize;
 	public Sprite edgeSprite;
-	//public static Vector2 screenResolution;
+    //public static Vector2 screenResolution;
+    private void Awake()
+    {
+        Ins = this;
+    }
 
-	void Start ()
+    void Start ()
 	{
-		//Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
-        
-		System.Collections.Generic.Dictionary<string,Transform> colliders = new System.Collections.Generic.Dictionary<string,Transform> ();
+       
+        //Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
+
+        System.Collections.Generic.Dictionary<string,Transform> colliders = new System.Collections.Generic.Dictionary<string,Transform> ();
 
 		colliders.Add ("Top", new GameObject ().transform);
 		colliders.Add ("Bottom", new GameObject ().transform);
@@ -110,7 +116,31 @@ public class EdgeScreenCollisions : MonoBehaviour {
 
 	}
 
-	void Update ()
+    public static Vector2 GetScreenEdgeTop()
+    {
+        Vector3 cameraPos = Camera.main.transform.position;
+        return new Vector2(cameraPos.x, cameraPos.y + BlocksController.Instance.GetBlockHolerSize().y);
+    }
+
+    public static Vector2 GetScreenEdgeBottom()
+    {
+        Vector3 cameraPos = Camera.main.transform.position;
+        return new Vector2(cameraPos.x, cameraPos.y - BlocksController.Instance.GetBlockHolerSize().y);
+    }
+
+    public static Vector2 GetScreenEdgeLeft()
+    {
+        Vector3 cameraPos = Camera.main.transform.position;
+        return new Vector2(cameraPos.x - BlocksController.Instance.GetBlockHolerSize().x, cameraPos.y);
+    }
+
+    public static Vector2 GetScreenEdgeRight()
+    {
+        Vector3 cameraPos = Camera.main.transform.position;
+        return new Vector2(cameraPos.x + BlocksController.Instance.GetBlockHolerSize().x, cameraPos.y);
+    }
+
+    void Update ()
 	{
 		
 

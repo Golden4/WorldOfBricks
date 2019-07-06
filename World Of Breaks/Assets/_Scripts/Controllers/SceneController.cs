@@ -37,6 +37,7 @@ public class SceneController : MonoBehaviour {
 	public static void LoadSceneWithFade (int index)
 	{
 		Init ();
+        Time.timeScale = 1;
 		Ins.StartCoroutine (LoadSceneCoroutine (index, true));
 	}
 

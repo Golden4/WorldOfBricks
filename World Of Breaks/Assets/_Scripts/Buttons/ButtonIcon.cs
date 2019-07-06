@@ -23,7 +23,7 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
 
 	public void OnPointerDown (PointerEventData eventData)
 	{
-		if (btnEnabled) {
+		if (btnEnabled && transform.childCount > 0) {
 			if (prevPos == Vector3.zero)
 				prevPos = transform.GetChild (0).localPosition;
 		
@@ -34,7 +34,7 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
 
 	public void OnPointerUp (PointerEventData eventData)
 	{
-		if (btnEnabled)
+		if (btnEnabled && transform.childCount > 0)
 			transform.GetChild (0).localPosition = prevPos;
 	}
 

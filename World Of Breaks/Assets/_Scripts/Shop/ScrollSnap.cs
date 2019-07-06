@@ -74,7 +74,6 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 	void Update ()
 	{
         FocusToObject (GetCurItemIndex);
-        print(sr.content.localPosition.x);
 
 		if (!dragging && Mathf.Abs(sr.velocity.x) < 50) {
 			SnapToObj (GetCurItemIndex);

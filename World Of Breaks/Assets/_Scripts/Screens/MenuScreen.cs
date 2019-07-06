@@ -37,7 +37,7 @@ public class MenuScreen : ScreenBase {
 		}*/
 
 		startGameBtn.onClick.RemoveAllListeners ();
-		startGameBtn.onClick.AddListener (StartGame);
+		startGameBtn.onClick.AddListener (ShowTileSizeScreen);
 		//freeCoinsBtn.gameObject.GetComponent<ButtonIcon> ().EnableBtn (true);
 
 	}
@@ -94,12 +94,19 @@ public class MenuScreen : ScreenBase {
 			} else {
 				gameTitleText.GetComponent <GUIAnim> ().MoveOut ();
 			}
-		}
+		} else
+        {
+            if (show)
+            {
 
-		if (!fade && !show) {
-			gameTitleText.enabled = false;
-			gameTitleText.GetComponent <GUIAnim> ().MoveOut ();
-		}
+                gameTitleText.enabled = true;
+            }
+            else
+            {
+
+                gameTitleText.enabled = false;
+            }
+        }
 
 	}
 
@@ -122,13 +129,14 @@ public class MenuScreen : ScreenBase {
 		});*/
 
 	}
-
+    public Sprite spsar;
 	public override void OnActivate ()
 	{
 		base.OnActivate ();
 		ShowGameTitle (true, true);
-		//freeCoinsBtn.gameObject.SetActive (AdController.Ins.rewardedAdLoaded);
-        menuBall.sprite = Database.Get.playersData[User.GetInfo.curPlayerIndex].playerPrefab.GetComponent<SpriteRenderer>().sprite;
+        //freeCoinsBtn.gameObject.SetActive (AdController.Ins.rewardedAdLoaded);
+        Sprite spr = Database.Get.playersData[User.GetInfo.curPlayerIndex].playerPrefab.GetComponentInChildren<SpriteRenderer>().sprite;
+        menuBall.sprite = spr;
 
         int _checkpoint = 0;
 
@@ -148,13 +156,18 @@ public class MenuScreen : ScreenBase {
 	public void StartGame ()
 	{
         SceneController.LoadSceneWithFade(2);
-		//ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
-
+        //ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
+        UIScreen.newGame = true;
 		ShowGameTitle (false, true);
 
 		if (OnStartGame != null)
 			OnStartGame.Invoke ();
 	}
+
+    public void ShowTileSizeScreen()
+    {
+        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.TileSize);
+    }
 
 	public void ShowShopScreen ()
 	{

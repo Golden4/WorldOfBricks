@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Utility {
 
@@ -27,12 +28,12 @@ public class Utility {
 
 	}
 
-	public static void Invoke (MonoBehaviour t, float delay, Action action)
-	{
-		t.StartCoroutine (InvokeCoroutine (action, delay));
-	}
+    public static void Invoke(MonoBehaviour t, float delay, UnityAction action)
+    {
+        t.StartCoroutine(InvokeCoroutine(action, delay));
+    }
 
-	static IEnumerator InvokeCoroutine (Action action, float delay)
+    static IEnumerator InvokeCoroutine (UnityAction action, float delay)
 	{
 		yield return new WaitForSeconds (delay);
 

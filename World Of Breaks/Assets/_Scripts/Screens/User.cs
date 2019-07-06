@@ -53,8 +53,9 @@ public static class User {
 	}
 
 	public static event Action<int,int> OnCoinChangedEvent;
+    public static event Action<int> OnCoinChangedFailedEvent;
 
-	static UserInfo dataUser;
+    static UserInfo dataUser;
 
 	static bool Loaded;
 
@@ -99,8 +100,10 @@ public static class User {
 			Coins -= coinAmount;
 			return true;
 		} else {
-			
-			return false;
+
+            if (OnCoinChangedFailedEvent != null)
+                OnCoinChangedFailedEvent(Coins);
+            return false;
 		}
 	}
 

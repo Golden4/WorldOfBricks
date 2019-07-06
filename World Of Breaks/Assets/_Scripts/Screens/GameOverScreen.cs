@@ -9,7 +9,7 @@ public class GameOverScreen : ScreenBase {
 	[SerializeField] Button giftBtn;
 	[SerializeField] Text giftimerText;
 
-	public Text newRecordText;
+    public Text newRecordText;
 	public Text newRecordCountText;
 	public static int playerDieCount = 0;
 
@@ -108,5 +108,9 @@ public class GameOverScreen : ScreenBase {
 		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.BuyCoin);
 	}
 
+    public void ActivateMenu()
+    {
+        SceneController.LoadSceneWithFade(0);
+    }
 
 }
