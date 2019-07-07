@@ -5,30 +5,20 @@ using UnityEngine.UI;
 
 public class ChallengesScreen : ScreenBase
 {
-
     public Transform challengesHolder;
     public GameObject challengePrefab;
 
-    public ChallengeInfo[] challengeInfos;
-
-    [System.Serializable]
-    public class ChallengeInfo {
-
-    }
-
-    public static int curChallengeIndex;
     
-
     private void Start()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < Database.GetChall.challengesData.Length; i++)
         {
             GameObject go = Instantiate(challengePrefab);
             go.transform.SetParent(challengesHolder, false);
             go.gameObject.SetActive(true);
             go.GetComponentInChildren<Text>().text = (i + 1).ToString();
             int index = i;
-            go.GetComponent<Button>().onClick.AddListener( delegate { StartChallenges(index); });
+            go.GetComponent<Button>().onClick.AddListener( delegate { StartChallenges(index, Database.GetChall.challengesData[index]); });
         }
         
         //for (int i = 0; i < maps.GetLength(0); i++)
@@ -55,11 +45,11 @@ public class ChallengesScreen : ScreenBase
 
     }
 
-    void StartChallenges(int indexChallenge)
+    void StartChallenges(int indexChallenge, ChallengesInfo.ChallengeInfo info)
     {
-        Game.isChallenge = true;
-        curChallengeIndex = indexChallenge;
-        MenuScreen.Ins.StartGame();
+        Game.curChallengeIndex = indexChallenge;
+        Game.curChallengeInfo = info;
+        MenuScreen.Ins.StartGame(true, true);
     }
 
 

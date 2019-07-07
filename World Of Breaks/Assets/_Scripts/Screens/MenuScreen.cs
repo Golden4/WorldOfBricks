@@ -153,12 +153,13 @@ public class MenuScreen : ScreenBase {
 		ShowGameTitle (false, false);
 	}
 
-	public void StartGame ()
+	public void StartGame (bool newGame, bool isChallenge)
 	{
         SceneController.LoadSceneWithFade(2);
         //ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
-        UIScreen.newGame = true;
-		ShowGameTitle (false, true);
+        UIScreen.newGame = newGame;
+        Game.isChallenge = isChallenge;
+        ShowGameTitle (false, true);
 
 		if (OnStartGame != null)
 			OnStartGame.Invoke ();

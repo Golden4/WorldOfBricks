@@ -21,4 +21,25 @@ public static class Database {
 			return data;
 		}
 	}
+
+    static ChallengesInfo dataChall;
+
+    static bool LoadedChall;
+
+    public static ChallengesInfo GetChall
+    {
+        get
+        {
+            if (dataChall == null && !LoadedChall)
+            {
+                LoadedChall = true;
+                ChallengesInfo pi = Resources.Load<ChallengesInfo>("Data/ChallengesInfo");
+
+                dataChall = pi;
+            }
+
+            return dataChall;
+        }
+    }
+
 }

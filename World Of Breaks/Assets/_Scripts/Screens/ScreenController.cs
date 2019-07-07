@@ -14,7 +14,8 @@ public class ScreenController : MonoBehaviour {
         GameOver,
         Pause,
         Continue,
-        Challeges
+        Challeges,
+        ChallegesResult
     }
 
     public enum CurScene

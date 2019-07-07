@@ -502,9 +502,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   challengesHolder: {fileID: 1047996271}
   challengePrefab: {fileID: 1375414568}
-  challengeInfos: []
-  mapTexture: {fileID: 0}
-  col: {r: 0, g: 0, b: 0, a: 1}
+  challengeInfos:
+  - lifeCount: 3
+    ballCount: 5
+  - lifeCount: 2
+    ballCount: 5
+  - lifeCount: 3
+    ballCount: 5
 --- !u!114 &42138206
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -36,6 +36,9 @@ public class BallController : MonoBehaviour {
 
 	void Start ()
 	{
+        if (Game.isChallenge)
+            ballCount = Game.curChallengeInfo.ballCount;
+
         ballPrefab = Database.Get.playersData[User.GetInfo.curPlayerIndex].playerPrefab;
 
         ChangeStartThrowPos(0);
@@ -272,10 +275,12 @@ public class BallController : MonoBehaviour {
 
         UpdateBallCountPos();
 
-        if(!Game.isChallenge)
-            BlocksController.Instance.ShiftBlockMapDown ();
+        if (!Game.isChallenge)
+            BlocksController.Instance.ShiftBlockMapDown();
+        else BlocksController.Instance.ChallengeProgress();
 
-		startPosChanged = false;
+
+        startPosChanged = false;
 	}
 
     public void ReturnAllBalls()

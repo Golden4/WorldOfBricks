@@ -25,7 +25,6 @@ public static class User {
 				OnCoinChangedEvent (_coins, value);
 
 			_coins = value;
-
 		}
 	}
 
@@ -84,8 +83,6 @@ public static class User {
 
 			return dataUser;
 		}
-
-
 	}
 
 	public static void SetPlayerIndex (int index)
@@ -131,9 +128,7 @@ public static class User {
 
 		} else {
 			dataUser = data;
-
-
-
+            
 			if (dataUser.userData.Length < Database.Get.playersData.Length) {
 
 				UserInfo.UserData[] dataTemp = new UserInfo.UserData [Database.Get.playersData.Length];
@@ -150,5 +145,7 @@ public static class User {
 
 		}
 	}
+
+
 
 }

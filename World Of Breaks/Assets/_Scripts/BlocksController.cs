@@ -39,8 +39,11 @@ public class BlocksController : MonoBehaviour {
 		blockHolder = new GameObject ("BlockHolder");
 		//centerOfScreen = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2f, Screen.height - Screen.height * .08f, 10));
 		blockHolder.transform.position = Vector3.zero;// centerOfScreen;
+        if(!Game.isChallenge)
+            curPreset = presets[(int)TileSizeScreen.tileSize];
+        else
+            curPreset = presets[(int)1];
 
-        curPreset = presets[(int) 1];
         Camera.main.orthographicSize = curPreset.cameraSize;
 
         InitializeBlockMap ();
@@ -55,7 +58,7 @@ public class BlocksController : MonoBehaviour {
             canSaveBlockMap = true;
         } else
         {
-            blockMap = textureToBlockMap(challengesMapTexture, 2, 10, 8);
+            blockMap = textureToBlockMap(challengesMapTexture, Game.curChallengeIndex, 10, 8);
         }
     }
 
@@ -74,9 +77,11 @@ public class BlocksController : MonoBehaviour {
 
         if (blocksLife <= 0)
         {
-            UIScreen.Ins.ShowClearText();
+            if (!Game.isChallenge)
+                UIScreen.Ins.ShowClearText();
+            else
+                UIScreen.Ins.ChallengeCompleted();
         }
-
     }
 
 	void InitializeBlockMap ()
@@ -92,7 +97,7 @@ public class BlocksController : MonoBehaviour {
 
 	public void ShiftBlockMapDown ()
 	{
-        for (int i = blockMap.Length - 2; i >= 0; i--) {
+            for (int i = blockMap.Length - 2; i >= 0; i--) {
 			System.Array.Copy (blockMap [i], blockMap [i + 1], blockMap [0].Length);
 		}
 
@@ -112,13 +117,17 @@ public class BlocksController : MonoBehaviour {
 			}
 		}
 
-		if (OnChangeTopLine != null) {
-			OnChangeTopLine ();
-		}
+        
+            if (OnChangeTopLine != null)
+            {
+                OnChangeTopLine();
+            }
 
-        CheckForLose();
-        UIScreen.Ins.UpdateScore(++UIScreen.Ins.score);
-        Utility.Invoke(this, .2f, ChangeTopLine);
+            CheckForLose();
+            UIScreen.Ins.UpdateScore(++UIScreen.Ins.score);
+            Utility.Invoke(this, .2f, ChangeTopLine);
+
+        
 		//Invoke ("ChangeTopLine", .2f);
 	}
 
@@ -140,8 +149,22 @@ public class BlocksController : MonoBehaviour {
 				}
 			}
 		}
-
 	}
+
+    public void ChallengeProgress()
+    {
+        UIScreen.Ins.UpdateScore(--UIScreen.Ins.score);
+
+        if (OnChangeTopLine != null)
+        {
+            OnChangeTopLine();
+        }
+
+        if (UIScreen.Ins.playerWin)
+            UIScreen.OnWinEventCall();
+        else if (UIScreen.Ins.playerLose || UIScreen.Ins.score <= 0)
+            UIScreen.OnLoseEventCall();
+    }
 
     System.Random rand = new System.Random();
 
@@ -200,7 +223,7 @@ public class BlocksController : MonoBehaviour {
 
             for (int j = 0; j < blockMap[i].Length; j++)
             {
-                Color col = texture.GetPixel(j + index * blocksHeight, texture.height - 1 -  i);
+                Color col = texture.GetPixel(j + index * blocksHeight, blocksWidth * 2 - 1 -  i);
                 float h, s, v;
                 Color.RGBToHSV(col, out h, out s, out v);
                 
@@ -219,7 +242,6 @@ public class BlocksController : MonoBehaviour {
                 {
                     col = texture.GetPixel(j + index * blocksHeight, blocksWidth - 1 - i);
                     int lifeCount = Mathf.FloorToInt(col.r * 255);
-                    print(col + "   " + lifeCount + "   " + col.r);
                     BlockWithText go = SpawnBlock(j, i, blockIndex);
                     go.isLoadingBlock = true;
                     blockMap[i][j] = new Block(lifeCount, blockIndex, go);

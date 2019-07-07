@@ -20,7 +20,7 @@ public class TileSizeScreen : ScreenBase
     public void SetTileSize(TileSize size)
     {
         tileSize = size;
-        MenuScreen.Ins.StartGame();
+        MenuScreen.Ins.StartGame(true, false);
     }
 
     private void Start()

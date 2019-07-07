@@ -8,7 +8,9 @@ public class UIScreen : ScreenBase {
 	public static UIScreen Ins;
 
     public static event System.Action OnLoseEvent;
+    public static event System.Action OnWinEvent;
     public bool playerLose = false;
+    public bool playerWin;
     public static bool newGame;
 
     public Button timeAcceleratorBtn;
@@ -94,12 +96,17 @@ public class UIScreen : ScreenBase {
         //    UpdateScore(UIScreen.Ins.checkpoint);
         //    SetCheckpoint(0);
         //}
-
-        if (newGame)
+        if (!Game.isChallenge) {
+            if (newGame)
+            {
+                BlocksSaver.DeleteBlockMapKeys();
+                UpdateScore(UIScreen.Ins.checkpoint);
+                SetCheckpoint(0);
+            }
+        } else
         {
-            BlocksSaver.DeleteBlockMapKeys();
-            UIScreen.Ins.UpdateScore(UIScreen.Ins.checkpoint);
-            UIScreen.Ins.SetCheckpoint(0);
+            checkpointText.gameObject.SetActive(false);
+            UIScreen.Ins.UpdateScore(Game.curChallengeInfo.lifeCount);
         }
 
         BlocksController.Instance.OnChangeTopLine += HideTimeAcceleratorBtn;
@@ -140,8 +147,9 @@ public class UIScreen : ScreenBase {
         clearText.gameObject.SetActive(true);
 
         SetCheckpoint(score);
+        clearText.text = LocalizationManager.GetLocalizedText("clear");
 
-        GUIAnim textAnim = clearText.GetComponent<GUIAnim>();
+         GUIAnim textAnim = clearText.GetComponent<GUIAnim>();
         textAnim.m_ScaleIn.Actions.OnEnd.RemoveAllListeners();
         textAnim.m_ScaleIn.Actions.OnEnd.AddListener(delegate
         {
@@ -151,7 +159,23 @@ public class UIScreen : ScreenBase {
         textAnim.MoveIn(GUIAnimSystem.eGUIMove.Self);
     }
 
+    public void ChallengeCompleted()
+    {
+        clearText.gameObject.SetActive(true);
+        clearText.text = "Great!";// LocalizationManager.GetLocalizedText("clear");
+        newCheckpointText.gameObject.SetActive(false);
 
+        GUIAnim textAnim = clearText.GetComponent<GUIAnim>();
+        textAnim.m_ScaleIn.Actions.OnEnd.RemoveAllListeners();
+        textAnim.m_ScaleIn.Actions.OnEnd.AddListener(delegate
+        {
+            textAnim.MoveOut(GUIAnimSystem.eGUIMove.Self);
+        });
+        UIScreen.Ins.playerWin = true;
+
+        textAnim.MoveIn(GUIAnimSystem.eGUIMove.Self);
+        
+    }
 
     public void EnableReturnBallsBtn(bool enable)
     {
@@ -190,7 +214,14 @@ public class UIScreen : ScreenBase {
 
 	public override void OnActivate ()
 	{
-		topScoreText.text = LocalizationManager.GetLocalizedText ("top_score") + ": " + topScore.ToString ();
+        if (!Game.isChallenge)
+        {
+            topScoreText.gameObject.SetActive(true);
+            topScoreText.text = LocalizationManager.GetLocalizedText("top_score") + ": " + topScore.ToString();
+        } else
+        {
+            topScoreText.gameObject.SetActive(false);
+        }
 
 		if (!gameStarted)
 			Game.OnGameStartedCall ();
@@ -222,7 +253,24 @@ public class UIScreen : ScreenBase {
             OnLoseEvent();
         }
         Ins.playerLose = true;
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Continue);
+
+        if(Game.isChallenge)
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+        else
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Continue);
         
     }
+
+    public static void OnWinEventCall()
+    {
+        if (OnWinEvent != null)
+        {
+            OnWinEvent();
+        }
+
+        Ins.playerWin = true;
+        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+
+    }
+
 }
