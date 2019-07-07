@@ -173,4 +173,9 @@ public class MenuScreen : ScreenBase {
 	{
 		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Shop);
 	}
+
+    public void ShowChallengesScreen()
+    {
+        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Challeges);
+    }
 }

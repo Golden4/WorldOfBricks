@@ -13,10 +13,6 @@
       "value": "Нажми, чтобы продолжить"
     },
     {
-      "key": "no",
-      "value": "Нет"
-    },
-    {
       "key": "new_record",
       "value": "Новый рекорд!"
     },
@@ -67,6 +63,14 @@
     {
       "key": "new_checkpoint",
       "value": "Новый чекпоинт"
+    },
+    {
+      "key": "my_personal_record",
+      "value": "Мой личный рекорд"
+    },
+    {
+      "key": "my_score",
+      "value": "Мой счет"
     },
     {
       "key": "classic_ball",

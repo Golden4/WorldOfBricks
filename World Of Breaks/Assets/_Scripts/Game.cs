@@ -14,6 +14,7 @@ public static class Game {
 	//}
 
 	public static bool isPause;
+    public static bool isChallenge;
 
 	public static void OnGameStartedCall ()
 	{

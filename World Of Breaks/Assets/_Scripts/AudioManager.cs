@@ -54,7 +54,16 @@ public class AudioManager : MonoBehaviour {
 
 	public static void PlaySoundFromLibrary (string name)
 	{
-		Ins.PlaySound (Ins.soundLibrary.GetSoundByName (name));
+        try
+        {
+            Ins.PlaySound(Ins.soundLibrary.GetSoundByName(name));
+        }
+        catch (System.Exception except)
+        {
+            Debug.LogError(except);
+            throw;
+        }
+		
 	}
 
 	public static void PlaySoundAtPosition (Sound sound, Vector3 pos)

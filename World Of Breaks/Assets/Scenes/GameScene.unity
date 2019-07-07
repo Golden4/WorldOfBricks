@@ -13648,6 +13648,8 @@ MonoBehaviour:
   blocksLife: 0
   centerOfScreen: {x: 0, y: 0, z: 0}
   canSaveBlockMap: 0
+  challengesMapTexture: {fileID: 2800000, guid: 9cadda53e1b9f3d409d4ffa4c0a61270,
+    type: 3}
 --- !u!114 &1994630151
 MonoBehaviour:
   m_ObjectHideFlags: 0

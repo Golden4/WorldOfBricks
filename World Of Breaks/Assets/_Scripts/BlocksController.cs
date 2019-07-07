@@ -27,6 +27,7 @@ public class BlocksController : MonoBehaviour {
 
     public static BlocksController Instance;
     public bool canSaveBlockMap;
+    public Texture2D challengesMapTexture;
 
     private void Awake()
     {
@@ -39,16 +40,23 @@ public class BlocksController : MonoBehaviour {
 		//centerOfScreen = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2f, Screen.height - Screen.height * .08f, 10));
 		blockHolder.transform.position = Vector3.zero;// centerOfScreen;
 
-        curPreset = presets[(int) TileSizeScreen.tileSize];
+        curPreset = presets[(int) 1];
         Camera.main.orthographicSize = curPreset.cameraSize;
 
         InitializeBlockMap ();
 
-        if (!UIScreen.newGame && !BlocksSaver.LoadBlocksMap(this))
+        if (!Game.isChallenge)
         {
+            if (!UIScreen.newGame && !BlocksSaver.LoadBlocksMap(this))
+            {
+            }
+
+            ShiftBlockMapDown();
+            canSaveBlockMap = true;
+        } else
+        {
+            blockMap = textureToBlockMap(challengesMapTexture, 2, 10, 8);
         }
-        ShiftBlockMapDown();
-        canSaveBlockMap = true;
     }
 
     public void CalculateBlockLife()
@@ -183,7 +191,47 @@ public class BlocksController : MonoBehaviour {
     }
 
 
-	int GetRandomBlockIndex ()
+    public Block[][] textureToBlockMap(Texture2D texture, int index, int blocksWidth = 10, int blocksHeight = 8)
+    {
+        Block[][] blockMap = new Block[blocksWidth][];
+        for (int i = 0; i < blockMap.Length; i++)
+        {
+            blockMap[i] = new Block[blocksHeight];
+
+            for (int j = 0; j < blockMap[i].Length; j++)
+            {
+                Color col = texture.GetPixel(j + index * blocksHeight, texture.height - 1 -  i);
+                float h, s, v;
+                Color.RGBToHSV(col, out h, out s, out v);
+                
+                int blockIndex = Mathf.FloorToInt(h * 360 / 20);
+
+                if(blockIndex == 0)
+                {
+                    blockIndex = -1;
+                }
+
+               // print(i + "   " +j+ "  " + col + "  " + blockIndex);
+
+                if (blockIndex == -1)
+                    blockMap[i][j] = new Block(0);
+                else
+                {
+                    col = texture.GetPixel(j + index * blocksHeight, blocksWidth - 1 - i);
+                    int lifeCount = Mathf.FloorToInt(col.r * 255);
+                    print(col + "   " + lifeCount + "   " + col.r);
+                    BlockWithText go = SpawnBlock(j, i, blockIndex);
+                    go.isLoadingBlock = true;
+                    blockMap[i][j] = new Block(lifeCount, blockIndex, go);
+                }
+            }
+        }
+
+        return blockMap;
+    }
+
+
+    int GetRandomBlockIndex ()
 	{
 		int RandomNum = rand.Next (0, GetSummChance ());
 

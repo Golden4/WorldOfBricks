@@ -13,10 +13,6 @@
       "value": "Tap to continue"
     },
     {
-      "key": "no",
-      "value": "No"
-    },
-    {
       "key": "new_record",
       "value": "New record!"
     },
@@ -67,6 +63,14 @@
     {
       "key": "new_checkpoint",
       "value": "New checkpoint"
+    },
+    {
+      "key": "my_personal_record",
+      "value": "My personal record"
+    },
+    {
+      "key": "my_score",
+      "value": "My score"
     },
     {
       "key": "classic_ball",

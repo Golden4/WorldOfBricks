@@ -272,7 +272,9 @@ public class BallController : MonoBehaviour {
 
         UpdateBallCountPos();
 
-        BlocksController.Instance.ShiftBlockMapDown ();
+        if(!Game.isChallenge)
+            BlocksController.Instance.ShiftBlockMapDown ();
+
 		startPosChanged = false;
 	}
 

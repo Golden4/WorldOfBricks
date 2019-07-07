@@ -13,7 +13,8 @@ public class ScreenController : MonoBehaviour {
         UI,
         GameOver,
         Pause,
-        Continue
+        Continue,
+        Challeges
     }
 
     public enum CurScene

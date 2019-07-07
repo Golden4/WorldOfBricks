@@ -73,7 +73,6 @@ public class GameOverScreen : ScreenBase {
 			giftimerText.text = timeR;
 			giftPanel.transform.GetChild (0).GetComponent <Text> ().text = LocalizationManager.GetLocalizedText ("gift_through");
 		}
-
 	}
 
 	void Update ()
@@ -105,7 +104,7 @@ public class GameOverScreen : ScreenBase {
 
 	public void GiftBtn ()
 	{
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.BuyCoin);
+        BuyCoinScreen.GiveGift(15, giftBtn.transform.position);
 	}
 
     public void ActivateMenu()

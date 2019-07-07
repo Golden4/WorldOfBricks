@@ -52,7 +52,7 @@ public class BuyCoinScreen : ScreenBase {
 
 	public Text timer;
 
-	public TimeSpan nextGiftTime = new TimeSpan (0, 10, 0);
+	static TimeSpan nextGiftTime = new TimeSpan (0, 10, 0);
 
     static long _nextGiveGiftTime = -1;
 
@@ -87,7 +87,10 @@ public class BuyCoinScreen : ScreenBase {
         //if (PlayerPrefs.HasKey ("giftTime"))
         //nextGiveGiftTime = new DateTime (long.Parse (PlayerPrefs.GetString ("giftTime")));
         getCoinsBtn.onClick.RemoveAllListeners ();
-		getCoinsBtn.onClick.AddListener (GiveGift);
+		getCoinsBtn.onClick.AddListener(delegate
+        {
+            GiveGift(15, getCoinsBtn.transform.position);
+        });
 
 		if (CanTakeGift ()) {
 			OnCanTakeGift ();
@@ -112,7 +115,6 @@ public class BuyCoinScreen : ScreenBase {
 
 		int coinAmount = list [index].coinCount;
         
-
 		Vector3 fromPos = list [index].btn.transform.position;
 		Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
@@ -127,17 +129,15 @@ public class BuyCoinScreen : ScreenBase {
 
     }
 
-	void GiveGift ()
+	public static void GiveGift (int coinAmount, Vector3 fromPos)
 	{
 		if (CanTakeGift ()) {
 
 			nextGiveGiftTime = DateTime.Now.Ticks + nextGiftTime.Ticks;
 
             //PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
-
-			int coinAmount = 15;
-
-			Vector3 fromPos = getCoinsBtn.transform.position;
+            
+            
             Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
             Utility.CoinsAnimateRadial(CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, Screen.width/3, .5f, CoinUI.Ins.curve, () => {
@@ -150,6 +150,7 @@ public class BuyCoinScreen : ScreenBase {
             });
         }
 	}
+
 
 	public static bool CanTakeGift ()
 	{
