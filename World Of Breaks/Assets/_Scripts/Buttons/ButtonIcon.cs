@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
+public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
+{
 
 	public bool changingColor = false;
 	public float changingTime = 0.3f;
@@ -19,7 +20,9 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
 	private int colorIndex;
 	public bool btnEnabled = true;
 
-	Vector3 prevPos = Vector3.zero;
+    string clickSoundName = "ButtonClick1";
+
+    Vector3 prevPos = Vector3.zero;
 
 	public void OnPointerDown (PointerEventData eventData)
 	{
@@ -38,7 +41,13 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
 			transform.GetChild (0).localPosition = prevPos;
 	}
 
-	void Start ()
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(!string.IsNullOrEmpty(clickSoundName))
+            AudioManager.PlaySoundFromLibrary(clickSoundName);
+    }
+
+    void Start ()
 	{
 		image = GetComponent <Image> ();
 

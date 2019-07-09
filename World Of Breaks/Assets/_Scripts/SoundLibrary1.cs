@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundLibrary : MonoBehaviour {
+public class SoundLibrary1 : MonoBehaviour {
 
 	public SoundArray[] sounds;
 

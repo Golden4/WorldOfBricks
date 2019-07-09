@@ -4,37 +4,59 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour {
-	public static AudioManager Ins;
+    private static AudioManager _Ins;
 
-	AudioSource source;
+    public static AudioManager Ins
+    {
+        get
+        {
+            if (_Ins == null)
+            {
+                GameObject manager = Resources.Load("Prefabs/AudioManager") as GameObject;
+                AudioManager audioManager = Instantiate(manager).GetComponent<AudioManager>();
+                _Ins = audioManager;
+            }
+
+            return _Ins;
+        }
+    }
+
+    AudioSource source;
 
 	public SoundLibrary soundLibrary;
 
-	void Awake ()
+    void Awake()
+    {
+        if (_Ins == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            _Ins = this;
+        }
+        else if (this != _Ins)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        source = gameObject.AddComponent<AudioSource>();
+
+        soundLibrary = GetComponent<SoundLibrary>();
+
+    }
+
+    public static void PlaySound (Sound sound)
 	{
-		if (Ins == null) {
-			Ins = this;
-			DontDestroyOnLoad (gameObject);
-		} else if (Ins != this) {
-			Destroy (gameObject);
-			return;
-		}
+        if (!audioEnabled)
+            return;
 
-		source = gameObject.AddComponent<AudioSource> ();
-
-		soundLibrary = GetComponent <SoundLibrary> ();
-	}
-
-	public static void PlaySound (Sound sound)
-	{
-		Ins.PlaySound (sound.clip);
+        sound.PlaySound(Ins.source);
 	}
 
 	public void PlaySound (AudioClip sound)
 	{
 		if (!audioEnabled)
 			return;
-		
+
 		source.PlayOneShot (sound);
 	}
 
@@ -56,7 +78,8 @@ public class AudioManager : MonoBehaviour {
 	{
         try
         {
-            Ins.PlaySound(Ins.soundLibrary.GetSoundByName(name));
+            Debug.Log(Ins.soundLibrary + "   "  + name);
+            Debug.Log(Ins.soundLibrary.GetSoundByName(name));
         }
         catch (System.Exception except)
         {
@@ -98,7 +121,19 @@ public class Sound {
 	public AudioClip clip;
 	public bool loop;
 
-	public Sound (AudioClip clip)
+    [Range(0, 1.5f)]
+    public float volume = 0.7f;
+
+    [Range(0.5f, 1.5f)]
+    public float pitch = 1f;
+
+    [Range(0f, 0.5f)]
+    public float randomVolume = 0.1f;
+
+    [Range(0f, 0.5f)]
+    public float randomPitch = 0.1f;
+
+    public Sound (AudioClip clip)
 	{
 		this.clip = clip;
 		loop = false;
@@ -120,5 +155,13 @@ public class Sound {
 	{
 		AudioManager.PlaySoundAtObject (this, go);
 	}
-	
+
+    public void PlaySound(AudioSource source)
+    {
+        source.clip = clip;
+        source.volume = volume * (1 + Random.Range(-randomVolume / 2f, randomVolume / 2f));
+        source.pitch = pitch * (1 + Random.Range(-randomPitch / 2f, randomPitch / 2f));
+        source.Play();
+    }
+
 }

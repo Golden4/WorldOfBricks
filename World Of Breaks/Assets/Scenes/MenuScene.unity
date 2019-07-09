@@ -354,6 +354,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &39795829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,6 +690,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &87718158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1454,6 +1456,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &223010986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3983,6 +3986,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &438340717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4316,6 +4320,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &480709747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4613,6 +4618,7 @@ MonoBehaviour:
   colorToChange: {r: 1, g: 0.9696857, b: 0, a: 1}
   colorToChangeOutline: {r: 0.5660378, g: 0.5482797, b: 0, a: 1}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &507161268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5123,6 +5129,7 @@ MonoBehaviour:
   colorToChange: {r: 1, g: 0.9696857, b: 0, a: 1}
   colorToChangeOutline: {r: 0.5660378, g: 0.5482797, b: 0, a: 1}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &548009392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10117,6 +10124,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &607529652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10823,6 +10831,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &624246636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10928,101 +10937,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624246633}
   m_CullTransparentMesh: 0
---- !u!1 &632165356
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 632165357}
-  - component: {fileID: 632165358}
-  - component: {fileID: 632165359}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &632165357
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632165356}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &632165358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632165356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c03acf5d5731b63468cbb31b2b409c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundLibrary: {fileID: 0}
---- !u!114 &632165359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632165356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47329503a90e8d3448a46d84b0749986, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Jump
-    sounds:
-    - {fileID: 8300000, guid: a117f48ba5eff7343ae61824950cce86, type: 3}
-    - {fileID: 8300000, guid: e10f13e7daa64c248a91b6271f1e2b47, type: 3}
-    - {fileID: 8300000, guid: f4db1fe97d1a3ee42bcf345347fc36ea, type: 3}
-  - name: Dead
-    sounds:
-    - {fileID: 8300000, guid: 0836fdba0fe8c10449782fc9cdd5699f, type: 3}
-    - {fileID: 8300000, guid: e57994f55e4a8d54eab07b0a898698d2, type: 3}
-    - {fileID: 8300000, guid: 09ee5ae235752f94193b8fb7a7962a7a, type: 3}
-    - {fileID: 8300000, guid: 52e8062f62b702845a35bc1b84661a76, type: 3}
-  - name: Coin
-    sounds:
-    - {fileID: 8300000, guid: 23c47df3cd97ad44aa1956b63b1d831a, type: 3}
-    - {fileID: 8300000, guid: 080ff5dc99c9e154990c8be78bec4e2e, type: 3}
-    - {fileID: 8300000, guid: b3496062d8d301a4b940b95f23e20b71, type: 3}
-    - {fileID: 8300000, guid: b9de0c1bab0d69c47b6fee9b4244c798, type: 3}
-  - name: WaterSplash
-    sounds:
-    - {fileID: 8300000, guid: a474ca4ce2f42e14bafbea2c1725d5a7, type: 3}
-  - name: SnowJump
-    sounds:
-    - {fileID: 8300000, guid: c9498c860c6dcb84099a5a91f3565f33, type: 3}
-    - {fileID: 8300000, guid: 05d9d3ff732ae2642b89b065216a06a0, type: 3}
-    - {fileID: 8300000, guid: beee5a8f6ee527141bd8cfb06e1f066e, type: 3}
-    - {fileID: 8300000, guid: 9a4817fb08f27ba498c004a4bfa50739, type: 3}
-    - {fileID: 8300000, guid: 3474e5f2907a1674da72b5f493a71c39, type: 3}
-    - {fileID: 8300000, guid: 2c543e0c1e520d0418d9609d10321f1c, type: 3}
-    - {fileID: 8300000, guid: 8ae5ccf71ac66ab49add86277f17500a, type: 3}
-    - {fileID: 8300000, guid: 9a860064edb341843b5967ae66853feb, type: 3}
-  - name: BearTrap
-    sounds:
-    - {fileID: 8300000, guid: df0fecdea2494794cbc70e8feefadd87, type: 3}
-  - name: WoodJump
-    sounds:
-    - {fileID: 8300000, guid: 842062b43efa33c4d8ae5e6177cc959b, type: 3}
-    - {fileID: 8300000, guid: 27cab6116eb3fe4438fd634f0f37c0e9, type: 3}
 --- !u!1 &633127999
 GameObject:
   m_ObjectHideFlags: 0
@@ -13115,6 +13029,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &862964528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13501,6 +13416,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &894469548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13749,6 +13665,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &904942421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14658,6 +14575,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &922202507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20131,6 +20049,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1063889247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20383,6 +20302,7 @@ MonoBehaviour:
   colorToChange: {r: 1, g: 0.9696857, b: 0, a: 1}
   colorToChangeOutline: {r: 0.5660378, g: 0.5482797, b: 0, a: 1}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1085155159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20712,6 +20632,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!1 &1091192892
 GameObject:
   m_ObjectHideFlags: 0
@@ -22349,6 +22270,7 @@ MonoBehaviour:
   colorToChange: {r: 1, g: 0.9696857, b: 0, a: 1}
   colorToChangeOutline: {r: 0.5660378, g: 0.5482797, b: 0, a: 1}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1218627985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22593,6 +22515,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!1 &1249191043
 GameObject:
   m_ObjectHideFlags: 0
@@ -22761,6 +22684,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1254140760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23145,6 +23069,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1259424600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23435,6 +23360,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1261474313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24431,6 +24357,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1375414571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25116,6 +25043,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!1 &1417766882
 GameObject:
   m_ObjectHideFlags: 0
@@ -27914,6 +27842,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1611573674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28193,6 +28122,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1618747575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28403,6 +28333,7 @@ MonoBehaviour:
   colorToChange: {r: 1, g: 0.9696857, b: 0, a: 1}
   colorToChangeOutline: {r: 0.5660378, g: 0.5482797, b: 0, a: 1}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1646714336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28732,6 +28663,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!43 &1692127335
 Mesh:
   m_ObjectHideFlags: 0
@@ -29656,6 +29588,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!1 &1811271275
 GameObject:
   m_ObjectHideFlags: 0
@@ -29884,6 +29817,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!1 &1822495170
 GameObject:
   m_ObjectHideFlags: 0
@@ -30202,6 +30136,7 @@ MonoBehaviour:
   colorToChange: {r: 1, g: 0.9696857, b: 0, a: 1}
   colorToChangeOutline: {r: 0.5660378, g: 0.5482797, b: 0, a: 1}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1865174994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31132,6 +31067,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1970351962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31356,6 +31292,7 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &1972872218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32060,6 +31997,7 @@ MonoBehaviour:
   colorToChange: {r: 1, g: 0.9696857, b: 0, a: 1}
   colorToChangeOutline: {r: 0.5660378, g: 0.5482797, b: 0, a: 1}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &2004235792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32308,6 +32246,7 @@ MonoBehaviour:
   colorToChange: {r: 1, g: 0.9696857, b: 0, a: 1}
   colorToChangeOutline: {r: 0.5660378, g: 0.5482797, b: 0, a: 1}
   btnEnabled: 1
+  clickSoundName: ButonClick1
 --- !u!114 &2021069617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37841,3 +37780,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946b24527ecfa5f429cb386076aee53e, type: 3}
+--- !u!1001 &5769849184351543575
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5769849183892140795, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769849183892140794, guid: 28e645c22d8f63d458626d507f48200b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 28e645c22d8f63d458626d507f48200b, type: 3}
