@@ -19,3 +19,7 @@ MonoBehaviour:
     ballCount: 3
   - lifeCount: 2
     ballCount: 5
+  - lifeCount: 3
+    ballCount: 30
+  - lifeCount: 2
+    ballCount: 10

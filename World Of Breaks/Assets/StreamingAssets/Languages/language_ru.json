@@ -9,6 +9,10 @@
       "value": "Играть"
     },
     {
+      "key": "challenges",
+      "value": "Челенджи"
+    },
+    {
       "key": "tap_to_continue",
       "value": "Нажми, чтобы продолжить"
     },
@@ -54,7 +58,7 @@
     },
     {
       "key": "clear",
-      "value": "Чисто!"
+      "value": "Отлично!"
     },
     {
       "key": "checkpoint",
@@ -101,8 +105,25 @@
       "value": "Средний"
     },
     {
+      "key": "medium_unlock",
+      "value": "Набрать 100 очков в маленьком"
+    }
+	,
+    {
+      "key": "medium_unlocked",
+      "value": "Средний размер карты разблокирован"
+    },
+    {
       "key": "big",
       "value": "Большой"
+    },
+    {
+      "key": "big_unlock",
+      "value": "Набрать 150 очков в среднем"
+    },
+    {
+      "key": "big_unlocked",
+      "value": "Большой размер карты разблокирован"
     }
   ]
 }

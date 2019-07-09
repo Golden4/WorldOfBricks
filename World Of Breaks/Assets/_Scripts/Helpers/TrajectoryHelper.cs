@@ -33,7 +33,7 @@ public class TrajectoryHelper : Helper
         trajectoryBtn.onClick.RemoveAllListeners();
         trajectoryBtn.onClick.AddListener(() =>
         {
-           if (User.BuyWithCoin(50))
+           if (User.BuyWithCoin(30))
            {
                 isActive = true;
                 trajectoryBtn.GetComponent<ButtonIcon>().EnableBtn(false);
@@ -80,7 +80,7 @@ public class TrajectoryHelper : Helper
         {
             reflectDir = Vector3.Reflect(dir, hit.normal.normalized);
 
-            distance = Mathf.Abs( Vector2.Distance(hit.point, startPosWorld));
+            distance = Mathf.Abs( Vector2.Distance(hit.point - dir.normalized * Ball.ballRadius, startPosWorld));
             
         } else
         {
@@ -105,7 +105,7 @@ public class TrajectoryHelper : Helper
                 iter++;
                 thrDirImages[iter].gameObject.SetActive(true);
                 thrDirImages[iter].transform.SetParent(throwingDirectionImage.transform.parent,false);
-                SetTrajectory(thrDirImages[iter], hit.point /*- dir.normalized * Ball.ballRadius*/, reflectDir.normalized, ref height);
+                SetTrajectory(thrDirImages[iter], hit.point - dir.normalized * Ball.ballRadius, reflectDir.normalized, ref height);
             } else
             {
                 throwingDirectionImage.transform.GetChild(0).gameObject.SetActive(true);

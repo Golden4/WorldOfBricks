@@ -70,7 +70,8 @@ public class BlocksController : MonoBehaviour {
         {
             for (int j = 0; j < blockMap[i].Length; j++)
             {
-                blocksLife += blockMap[i][j].blockLife;
+                if(blockMap[i][j].blockComp != null && blockMap[i][j].blockComp.canLooseBeforeDown)
+                    blocksLife += blockMap[i][j].blockLife;
             }
         }
         
@@ -123,10 +124,33 @@ public class BlocksController : MonoBehaviour {
                 OnChangeTopLine();
             }
 
-            CheckForLose();
-            UIScreen.Ins.UpdateScore(++UIScreen.Ins.score);
-            Utility.Invoke(this, .2f, ChangeTopLine);
 
+           
+
+
+        CheckForLose();
+        UIScreen.Ins.UpdateScore(++UIScreen.Ins.score);
+
+        if (UIScreen.Ins.score >= 100)
+        {
+            if(TileSizeScreen.tileSize == TileSizeScreen.TileSize.Small && TileSizeScreen.tileSizeLocked.tileSizeLocked[0])
+            {
+                TileSizeScreen.UnlockTile(0);
+                UIScreen.Ins.ShowPopUpText(LocalizationManager.GetLocalizedText("medium_unlocked"));
+            }
+        }
+
+        if(UIScreen.Ins.score >= 150)
+
+            if (TileSizeScreen.tileSize == TileSizeScreen.TileSize.Medium && TileSizeScreen.tileSizeLocked.tileSizeLocked[1])
+            {
+                TileSizeScreen.UnlockTile(1);
+                UIScreen.Ins.ShowPopUpText(LocalizationManager.GetLocalizedText("big_unlocked"));
+            }
+
+
+        Utility.Invoke(this, .2f, ChangeTopLine);
+        
         
 		//Invoke ("ChangeTopLine", .2f);
 	}

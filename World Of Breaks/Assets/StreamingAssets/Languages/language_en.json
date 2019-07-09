@@ -9,6 +9,10 @@
       "value": "Play"
     },
     {
+      "key": "challenges",
+      "value": "Challenges"
+    },
+    {
       "key": "tap_to_continue",
       "value": "Tap to continue"
     },
@@ -54,7 +58,7 @@
     },
     {
       "key": "clear",
-      "value": "Clear"
+      "value": "Clear!"
     },
     {
       "key": "checkpoint",
@@ -101,8 +105,25 @@
       "value": "Medium"
     },
     {
+      "key": "medium_unlock",
+      "value": "Reach score 100 on small"
+    }
+	,
+    {
+      "key": "medium_unlocked",
+      "value": "Map Size Medium Unlocked"
+    },
+    {
       "key": "big",
       "value": "Big"
+    },
+    {
+      "key": "big_unlock",
+      "value": "Reach score 150 on medium"
+    },
+    {
+      "key": "big_unlocked",
+      "value": "Map Size Big Unlocked"
     }
   ]
 }

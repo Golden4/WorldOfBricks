@@ -85,6 +85,26 @@ public static class User {
 		}
 	}
 
+    static ChallDataInfo challengesData;
+
+    static bool challengesLoaded;
+
+    public static ChallDataInfo GetChallengesData
+    {
+        get
+        {
+            if (challengesData == null && !challengesLoaded)
+            {
+                challengesLoaded = true;
+
+                LoadChallengesDataInfoFromFileOrCreateNew();
+
+            }
+
+            return challengesData;
+        }
+    }
+
 	public static void SetPlayerIndex (int index)
 	{
 		GetInfo.curPlayerIndex = index;
@@ -145,6 +165,49 @@ public static class User {
 
 		}
 	}
+
+    public static void SaveChallengesData()
+    {
+        if (challengesData != null)
+            JsonSaver.SaveData("ChallengesUserData", challengesData);
+    }
+
+    public static void LoadChallengesDataInfoFromFileOrCreateNew()
+    {
+        ChallDataInfo data = JsonSaver.LoadData<ChallDataInfo>("ChallengesUserData");
+
+        if (data == null)
+        {
+            challengesData = new ChallDataInfo();
+            SaveChallengesData();
+
+        }
+
+        else
+        {
+            challengesData = data;
+
+            if (challengesData.challData.Length < Database.GetChall.challengesData.Length)
+            {
+
+                bool[] dataTemp = new bool[Database.GetChall.challengesData.Length];
+
+                for (int i = 0; i < Database.GetChall.challengesData.Length; i++)
+                {
+                    if (i < challengesData.challData.Length)
+                    {
+                        dataTemp[i] = challengesData.challData[i];
+                    }
+                    else
+                        dataTemp[i] = false;
+                }
+
+                challengesData.challData = dataTemp;
+                SaveChallengesData();
+            }
+
+        }
+    }
 
 
 

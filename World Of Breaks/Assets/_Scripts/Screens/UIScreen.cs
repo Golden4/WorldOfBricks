@@ -47,10 +47,7 @@ public class UIScreen : ScreenBase {
         {
             if (_checkpoint == -1)
             {
-                if (PlayerPrefs.HasKey("Checkpoint"))
-                    _checkpoint = PlayerPrefs.GetInt("Checkpoint");
-                else
-                    _checkpoint = 0;
+                LoadCheckpoint(TileSizeScreen.tileSize);
             }
 
             return _checkpoint;
@@ -59,7 +56,7 @@ public class UIScreen : ScreenBase {
         private set
         {
             _checkpoint = value;
-            PlayerPrefs.SetInt("Checkpoint", value);
+            SaveCheckpoint(_checkpoint,TileSizeScreen.tileSize);
         }
     }
 
@@ -144,26 +141,31 @@ public class UIScreen : ScreenBase {
 
     public void ShowClearText()
     {
-        clearText.gameObject.SetActive(true);
-
         SetCheckpoint(score);
-        clearText.text = LocalizationManager.GetLocalizedText("clear");
-
-         GUIAnim textAnim = clearText.GetComponent<GUIAnim>();
-        textAnim.m_ScaleIn.Actions.OnEnd.RemoveAllListeners();
-        textAnim.m_ScaleIn.Actions.OnEnd.AddListener(delegate
-        {
-            textAnim.MoveOut(GUIAnimSystem.eGUIMove.Self);
-        });
-
-        textAnim.MoveIn(GUIAnimSystem.eGUIMove.Self);
+        ShowPopUpText(LocalizationManager.GetLocalizedText("clear"), LocalizationManager.GetLocalizedText("new_checkpoint") + ": " + checkpoint.ToString());
     }
 
     public void ChallengeCompleted()
     {
+
+        UIScreen.Ins.playerWin = true;
+        ShowPopUpText("Great!");
+        
+        
+    }
+
+    public void ShowPopUpText(string popUpText, string secondText ="")
+    {
+        if(secondText == "")
+            newCheckpointText.gameObject.SetActive(false);
+        else
+        {
+            newCheckpointText.gameObject.SetActive(true);
+            newCheckpointText.text = secondText;
+        }
+
         clearText.gameObject.SetActive(true);
-        clearText.text = "Great!";// LocalizationManager.GetLocalizedText("clear");
-        newCheckpointText.gameObject.SetActive(false);
+        clearText.text = popUpText;
 
         GUIAnim textAnim = clearText.GetComponent<GUIAnim>();
         textAnim.m_ScaleIn.Actions.OnEnd.RemoveAllListeners();
@@ -171,10 +173,8 @@ public class UIScreen : ScreenBase {
         {
             textAnim.MoveOut(GUIAnimSystem.eGUIMove.Self);
         });
-        UIScreen.Ins.playerWin = true;
 
         textAnim.MoveIn(GUIAnimSystem.eGUIMove.Self);
-        
     }
 
     public void EnableReturnBallsBtn(bool enable)
@@ -207,7 +207,19 @@ public class UIScreen : ScreenBase {
     {
         checkpoint = check;
         checkpointText.text =  LocalizationManager.GetLocalizedText("checkpoint") + ": " + checkpoint.ToString();
-        newCheckpointText.text = LocalizationManager.GetLocalizedText("new_checkpoint") + ": " + checkpoint.ToString();
+    }
+
+    void LoadCheckpoint(TileSizeScreen.TileSize tileSize)
+    {
+        if (PlayerPrefs.HasKey("Checkpoint" + (int)tileSize))
+            _checkpoint = PlayerPrefs.GetInt("Checkpoint" + (int)tileSize);
+        else
+            _checkpoint = 0;
+    }
+
+    void SaveCheckpoint(int value,TileSizeScreen.TileSize tileSize)
+    {
+        PlayerPrefs.SetInt("Checkpoint"+(int)tileSize, value);
     }
 
     bool gameStarted;

@@ -9,7 +9,6 @@ public class MenuScreen : ScreenBase {
 	public static event System.Action OnStartGame;
 
 	public Button startGameBtn;
-    public Text checkPointText;
 
 	public Button freeCoinsBtn;
 
@@ -142,8 +141,7 @@ public class MenuScreen : ScreenBase {
 
         if (PlayerPrefs.HasKey("Checkpoint"))
             _checkpoint = PlayerPrefs.GetInt("Checkpoint");
-
-        checkPointText.text = LocalizationManager.GetLocalizedText("checkpoint") + ": " + _checkpoint;
+        
     }
 
 	public override void OnDeactivate ()

@@ -24,6 +24,8 @@ public class ChallengeResultScreen : ScreenBase
 
             retryBtn.gameObject.SetActive(false);
             resultText.text = "Challenge " + (Game.curChallengeIndex + 1) + "\nCompleted!";
+            User.GetChallengesData.challData[Game.curChallengeIndex] = true;
+            User.SaveChallengesData();
         }
 
         else if (UIScreen.Ins.playerLose)

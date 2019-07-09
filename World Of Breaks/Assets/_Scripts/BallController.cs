@@ -38,6 +38,7 @@ public class BallController : MonoBehaviour {
 	{
         if (Game.isChallenge)
             ballCount = Game.curChallengeInfo.ballCount;
+        else ballCount = UIScreen.Ins.score;
 
         ballPrefab = Database.Get.playersData[User.GetInfo.curPlayerIndex].playerPrefab;
 

@@ -59,3 +59,44 @@ public class UserInfo {
 		this.curPlayerIndex = curPlayerIndex;
 	}
 }
+
+[System.Serializable]
+public class ChallDataInfo
+{
+
+    public bool[] _challData;
+
+    public bool[] challData
+    {
+        get
+        {
+            return _challData;
+        }
+
+        set
+        {
+            _challData = value;
+        }
+    }
+
+    public ChallDataInfo()
+    {
+        _challData = new bool[Database.GetChall.challengesData.Length];
+
+        for (int i = 0; i < _challData.Length; i++)
+        {
+            _challData[i] = false;
+        }
+        
+        ResetValues();
+    }
+
+    public void ResetValues()
+    {
+        for (int i = 0; i < challData.Length; i++)
+        {
+            challData[i] = false;
+        }
+    }
+
+}
