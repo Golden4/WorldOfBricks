@@ -18,11 +18,11 @@ public class ContinueScreen : ScreenBase {
 	{
 		base.Init ();
 		continueAdBtn.onClick.RemoveAllListeners ();
-		continueAdBtn.onClick.AddListener (RespawnPlayer);
+		continueAdBtn.onClick.AddListener (RespawnPlayerVideo);
 		continueCoinBtn.onClick.RemoveAllListeners ();
 		continueCoinBtn.onClick.AddListener (delegate {
 			if (User.BuyWithCoin (25))
-				RespawnPlayer ();
+				RetryGame ();
 		}
 		);
 	}
@@ -36,13 +36,20 @@ public class ContinueScreen : ScreenBase {
 		lastTime = Time.time + .4f;
 		continueAdPanel.gameObject.SetActive (true);
 		continueAdPanel.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
-        
+		AdManager.onInterstitialClosedEvent += RetryGame;
 		/*
 		continueAdBtn.gameObject.SetActive (true);
 		GUIAnimSystem.Instance.MoveIn (transform, true);
 		continueAdBtn.GetComponent <ButtonIcon> ().EnableBtn (AdController.Ins.interstitialLoaded);
 	} else {
 		continueAdPanel.gameObject.SetActive (false);*/
+	}
+
+	public override void OnDeactivate ()
+	{
+		base.OnDeactivate ();
+		AdManager.onInterstitialClosedEvent -= RetryGame;
+
 	}
 
 	public void CloseContinueScreen ()
@@ -64,17 +71,10 @@ public class ContinueScreen : ScreenBase {
 		continueTimer.fillAmount = 1 - ((Time.time - lastTime) / waitTime);
 	}
 
-	void RespawnPlayer ()
+	void RespawnPlayerVideo ()
 	{
-		//continueAdBtn.GetComponent <ButtonIcon> ().EnableBtn (false);
-
-		//if (AdController.Ins.interstitialLoaded && !givedSecondChance) {
-		//givedSecondChance = true;
-		RetryGame ();
-
-		if (AdController.Ins != null)
-			AdController.Ins.ShowInterstitialAD ();
-		//}
+		if (AdManager.Ins != null)
+			AdManager.Ins.showInterstitial ();
 	}
 
 	public void RetryGame ()

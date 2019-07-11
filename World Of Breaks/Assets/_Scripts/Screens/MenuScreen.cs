@@ -10,10 +10,8 @@ public class MenuScreen : ScreenBase {
 
 	public Button startGameBtn;
 
-	public Button freeCoinsBtn;
-
 	public Text gameTitleText;
-    public Image menuBall;
+	public Image menuBall;
 
 	public static MenuScreen Ins;
 
@@ -29,8 +27,8 @@ public class MenuScreen : ScreenBase {
 		ShowGameTitle (true, true);
 		//if (AdController.Ins.RewardedADLoaded ()) {
 
-		freeCoinsBtn.onClick.RemoveAllListeners ();
-		freeCoinsBtn.onClick.AddListener (GetFreeCoins);
+		/*freeCoinsBtn.onClick.RemoveAllListeners ();
+		freeCoinsBtn.onClick.AddListener (GetFreeCoins);*/
 		/*} else {
 			freeCoinsBtn.gameObject.SetActive (false);
 		}*/
@@ -43,7 +41,7 @@ public class MenuScreen : ScreenBase {
 
 	void Update ()
 	{
-		if (AdController.Ins.needGiveReward) {
+/*		if (AdController.Ins.needGiveReward) {
 			AdController.Ins.needGiveReward = false;
 
 			int coinAmount = 15;
@@ -55,7 +53,7 @@ public class MenuScreen : ScreenBase {
 			Utility.CoinsAnimate (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount, fromPos, toPos, .5f, CoinUI.Ins.curve, () => {
 				AudioManager.PlaySoundFromLibrary ("Coin");
 			});
-		}
+		}*/
 
 		//if (!AdController.Ins.rewardedAdLoaded) {
 		//	if (freeCoinsBtn.gameObject.activeInHierarchy)
@@ -93,26 +91,22 @@ public class MenuScreen : ScreenBase {
 			} else {
 				gameTitleText.GetComponent <GUIAnim> ().MoveOut ();
 			}
-		} else
-        {
-            if (show)
-            {
+		} else {
+			if (show) {
 
-                gameTitleText.enabled = true;
-            }
-            else
-            {
+				gameTitleText.enabled = true;
+			} else {
 
-                gameTitleText.enabled = false;
-            }
-        }
+				gameTitleText.enabled = false;
+			}
+		}
 
 	}
 
 	void GetFreeCoins ()
 	{
-		if (AdController.Ins != null) {
-			AdController.Ins.ShowRewardedAD ();
+		if (AdManager.Ins != null) {
+			AdManager.Ins.showRewardedVideo ();
 		}
 		//freeCoinsBtn.gameObject.GetComponent<ButtonIcon> ().EnableBtn (false);
 
@@ -128,21 +122,23 @@ public class MenuScreen : ScreenBase {
 		});*/
 
 	}
-    public Sprite spsar;
+
+	public Sprite spsar;
+
 	public override void OnActivate ()
 	{
 		base.OnActivate ();
 		ShowGameTitle (true, true);
-        //freeCoinsBtn.gameObject.SetActive (AdController.Ins.rewardedAdLoaded);
-        Sprite spr = Database.Get.playersData[User.GetInfo.curPlayerIndex].playerPrefab.GetComponentInChildren<SpriteRenderer>().sprite;
-        menuBall.sprite = spr;
+		//freeCoinsBtn.gameObject.SetActive (AdController.Ins.rewardedAdLoaded);
+		Sprite spr = Database.Get.playersData [User.GetInfo.curPlayerIndex].playerPrefab.GetComponentInChildren<SpriteRenderer> ().sprite;
+		menuBall.sprite = spr;
 
-        int _checkpoint = 0;
+		int _checkpoint = 0;
 
-        if (PlayerPrefs.HasKey("Checkpoint"))
-            _checkpoint = PlayerPrefs.GetInt("Checkpoint");
+		if (PlayerPrefs.HasKey ("Checkpoint"))
+			_checkpoint = PlayerPrefs.GetInt ("Checkpoint");
         
-    }
+	}
 
 	public override void OnDeactivate ()
 	{
@@ -153,28 +149,28 @@ public class MenuScreen : ScreenBase {
 
 	public void StartGame (bool newGame, bool isChallenge)
 	{
-        SceneController.LoadSceneWithFade(2);
-        //ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
-        UIScreen.newGame = newGame;
-        Game.isChallenge = isChallenge;
-        ShowGameTitle (false, true);
+		SceneController.LoadSceneWithFade (2);
+		//ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
+		UIScreen.newGame = newGame;
+		Game.isChallenge = isChallenge;
+		ShowGameTitle (false, true);
 
 		if (OnStartGame != null)
 			OnStartGame.Invoke ();
 	}
 
-    public void ShowTileSizeScreen()
-    {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.TileSize);
-    }
+	public void ShowTileSizeScreen ()
+	{
+		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.TileSize);
+	}
 
 	public void ShowShopScreen ()
 	{
 		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Shop);
 	}
 
-    public void ShowChallengesScreen()
-    {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Challeges);
-    }
+	public void ShowChallengesScreen ()
+	{
+		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Challeges);
+	}
 }

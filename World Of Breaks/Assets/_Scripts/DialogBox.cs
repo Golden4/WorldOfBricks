@@ -52,7 +52,7 @@ public class DialogBox : MonoBehaviour {
 
 	}
 
-	static void Hide ()
+	public static void Hide ()
 	{
 		instance.anim.MoveOut (GUIAnimSystem.eGUIMove.SelfAndChildren);
 		Utility.Invoke (instance, .8f, () => {

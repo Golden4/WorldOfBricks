@@ -10,13 +10,13 @@ public class BallController : MonoBehaviour {
 	public float ballSpeed = 3;
 	public int ballCount = 2;
 	public Vector2 startThrowPos;
-    public bool startPosChanged = false;
+	public bool startPosChanged = false;
 	public float timeBetweenBalls = .1f;
 	public Image throwingDirectionImage;
 	public Text ballCountText;
 	public Image mousePivotPointImage;
 	public static BallController Instance;
-    bool needReturnAllBalls;
+	bool needReturnAllBalls;
 	bool canThrow = true;
 
 	enum MouseState
@@ -36,20 +36,21 @@ public class BallController : MonoBehaviour {
 
 	void Start ()
 	{
-        if (Game.isChallenge)
-            ballCount = Game.curChallengeInfo.ballCount;
-        else ballCount = UIScreen.Ins.score;
+		if (Game.isChallenge)
+			ballCount = Game.curChallengeInfo.ballCount;
+		else
+			ballCount = UIScreen.Ins.score;
 
-        ballPrefab = Database.Get.playersData[User.GetInfo.curPlayerIndex].playerPrefab;
+		ballPrefab = Database.Get.playersData [User.GetInfo.curPlayerIndex].playerPrefab;
 
-        ChangeStartThrowPos(0);
+		ChangeStartThrowPos (0);
 
-        throwingDirectionImage.gameObject.SetActive (false);
-        InstantiateBallsList ();
-        UpdateBallCountPos();
-        UpdateBallCountText ();
+		throwingDirectionImage.gameObject.SetActive (false);
+		InstantiateBallsList ();
+		UpdateBallCountPos ();
+		UpdateBallCountText ();
         
-    }
+	}
 
 	void InstantiateBallsList ()
 	{
@@ -69,175 +70,162 @@ public class BallController : MonoBehaviour {
 	Vector3 curMousePos;
 	Vector3 dirMouse;
 	Vector3 dirToThrow;
-    float lastThrowTime;
-    float dirMouseMagnitudeWorld;
+	float lastThrowTime;
+	float dirMouseMagnitudeWorld;
 
-    void Update ()
+	void Update ()
 	{
 
-        if (UIScreen.Ins.playerLose)
-            return;
+		if (UIScreen.Ins.playerLose)
+			return;
 
-        if (!canThrow)
-        {
-            if (lastThrowTime + 2 < Time.time)
-            {
-                UIScreen.Ins.ShowTimeAcceleratorBtn();
-            }
-            return;
-        }
+		if (!canThrow) {
+			if (lastThrowTime + 2 < Time.time) {
+				UIScreen.Ins.ShowTimeAcceleratorBtn ();
+			}
+			return;
+		}
         
-        bool isMouseOnUIObject = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+		bool isMouseOnUIObject = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject ();
 
-        if (isMouseOnUIObject)
-        {
-            mouseCurState = MouseState.mouseUp;
-        }
+		if (isMouseOnUIObject) {
+			mouseCurState = MouseState.mouseUp;
+		}
 
 		if (Input.GetMouseButton (0)) {
 			
 			if (mouseCurState == MouseState.mouseUp) {
 				
-                if (!isMouseOnUIObject)
-                {
-                    mouseCurState = MouseState.mouseDragging;
-                    MouseDown();
-                }
+				if (!isMouseOnUIObject) {
+					mouseCurState = MouseState.mouseDragging;
+					MouseDown ();
+				}
                 
-            } else if (mouseCurState == MouseState.mouseDragging) {
+			} else if (mouseCurState == MouseState.mouseDragging) {
 
-                if(!isMouseOnUIObject)
-                    MouseHold();
+				if (!isMouseOnUIObject)
+					MouseHold ();
 
-            }
+			}
 
 		} else if (mouseCurState == MouseState.mouseDragging) {
 			
 			mouseCurState = MouseState.mouseUp;
             
-            MouseUp(dirMouseMagnitudeWorld > .6f && !isMouseOnUIObject && validDir);
-        }
+			MouseUp (dirMouseMagnitudeWorld > .6f && !isMouseOnUIObject && validDir);
+		}
 
 	}
 
-    bool validDir;
+	bool validDir;
 
-    void MouseDown()
-    {
-        startMousePos = Input.mousePosition;
+	void MouseDown ()
+	{
+		startMousePos = Input.mousePosition;
         
-        mousePivotPointImage.gameObject.SetActive(true);
-        mousePivotPointImage.transform.position = startMousePos;
+		mousePivotPointImage.gameObject.SetActive (true);
+		mousePivotPointImage.transform.position = startMousePos;
         
-        Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
-        heigth.y = 10;
+		Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
+		heigth.y = 10;
 
-        throwingDirectionImage.rectTransform.sizeDelta = heigth;
+		throwingDirectionImage.rectTransform.sizeDelta = heigth;
 
-        throwingDirectionImage.transform.position = Camera.main.WorldToScreenPoint(startThrowPos);
-    }
+		throwingDirectionImage.transform.position = Camera.main.WorldToScreenPoint (startThrowPos);
+	}
 
-    void MouseHold()
-    {
-        curMousePos = Input.mousePosition;
+	void MouseHold ()
+	{
+		curMousePos = Input.mousePosition;
 
-        dirMouse = ((InputMobileController.curInputType == InputMobileController.InputType.Touch) ? 1 : -1) * (-curMousePos + startMousePos);
-        dirMouseMagnitudeWorld = Mathf.Abs(Vector2.Distance((Vector2)Camera.main.ScreenToWorldPoint(curMousePos), (Vector2)Camera.main.ScreenToWorldPoint(startMousePos)));
+		dirMouse = ((InputMobileController.curInputType == InputMobileController.InputType.Touch) ? 1 : -1) * (-curMousePos + startMousePos);
+		dirMouseMagnitudeWorld = Mathf.Abs (Vector2.Distance ((Vector2)Camera.main.ScreenToWorldPoint (curMousePos), (Vector2)Camera.main.ScreenToWorldPoint (startMousePos)));
 
-        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, dirMouse.normalized);
+		Quaternion rotation = Quaternion.FromToRotation (Vector3.up, dirMouse.normalized);
 
-        if (Quaternion.Angle(rotation, Quaternion.Euler(Vector3.up)) < 85)
-        {
-            validDir = true;
-            if (!TrajectoryHelper.Ins.isActive)
-            {
-                if (dirMouseMagnitudeWorld > .6f)
-                    throwingDirectionImage.gameObject.SetActive(true);
-                else
-                    throwingDirectionImage.gameObject.SetActive(false);
+		if (Quaternion.Angle (rotation, Quaternion.Euler (Vector3.up)) < 85) {
+			validDir = true;
+			if (!TrajectoryHelper.Ins.isActive) {
+				if (dirMouseMagnitudeWorld > .6f)
+					throwingDirectionImage.gameObject.SetActive (true);
+				else
+					throwingDirectionImage.gameObject.SetActive (false);
 
-                throwingDirectionImage.transform.rotation = rotation;
+				throwingDirectionImage.transform.rotation = rotation;
 
-                Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
-                heigth.y = Mathf.Clamp(dirMouse.magnitude, 1, 150) * 4.5f;
+				Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
+				heigth.y = Mathf.Clamp (dirMouse.magnitude, 1, 150) * 4.5f;
 
-                throwingDirectionImage.rectTransform.sizeDelta = heigth;
-            }
+				throwingDirectionImage.rectTransform.sizeDelta = heigth;
+			} else {
+				TrajectoryHelper.Ins.CalculateTrajectory (startThrowPos, dirMouse, dirMouseMagnitudeWorld);
 
-            else
-            {
-                TrajectoryHelper.Ins.CalculateTrajectory(startThrowPos, dirMouse, dirMouseMagnitudeWorld);
+			}
 
-            }
+			dirToThrow = dirMouse;
+		} else {
+			validDir = false;
+			MouseUp (false);
 
-            dirToThrow = dirMouse;
-        } else
-        {
-            validDir = false;
-            MouseUp(false);
-
-            mousePivotPointImage.gameObject.SetActive(true);
+			mousePivotPointImage.gameObject.SetActive (true);
             
-        }
-    }
+		}
+	}
 
-    void MouseUp(bool needThrow)
-    {
-        mousePivotPointImage.gameObject.SetActive(false);
+	void MouseUp (bool needThrow)
+	{
+		mousePivotPointImage.gameObject.SetActive (false);
 
-        throwingDirectionImage.gameObject.SetActive(false);
+		throwingDirectionImage.gameObject.SetActive (false);
 
-        if (needThrow)
-        {
-            ThrowBalls(dirToThrow.normalized);
-        }
+		if (needThrow) {
+			ThrowBalls (dirToThrow.normalized);
+		}
 
-        TrajectoryHelper.Ins.ShowTajectory(false);
-    }
+		TrajectoryHelper.Ins.ShowTajectory (false);
+	}
 
 	void ThrowBalls (Vector3 dir)
 	{
 		InstantiateBallsList ();
-        needReturnAllBalls = false;
-        StartCoroutine (ThrowBallsCoroutine (dir));
+		needReturnAllBalls = false;
+		UIScreen.Ins.HideTutorial ();
+		StartCoroutine (ThrowBallsCoroutine (dir));
 	}
 
-    void CalcTimeBeweenBalls()
-    {
-        float time = .1f - ballCount * .01f;
-        if (ballCount > 50)
-        {
-            timeBetweenBalls = .04f;
-        }
-        else
-        {
-            timeBetweenBalls = (time < .05) ? .05f : time;
-        }
-    }
+	void CalcTimeBeweenBalls ()
+	{
+		float time = .1f - ballCount * .01f;
+		if (ballCount > 50) {
+			timeBetweenBalls = .04f;
+		} else {
+			timeBetweenBalls = (time < .05) ? .05f : time;
+		}
+	}
 
 	IEnumerator ThrowBallsCoroutine (Vector3 dir)
 	{
 
 		canThrow = false;
 
-        CalcTimeBeweenBalls();
+		CalcTimeBeweenBalls ();
 
-        int tmpBallCount = ballCount;
+		int tmpBallCount = ballCount;
 
-        List<Ball> ballList = new List<Ball>(ballsList);
+		List<Ball> ballList = new List<Ball> (ballsList);
 
-        UIScreen.Ins.EnableReturnBallsBtn(true);
-        UIScreen.Ins.HideTimeAcceleratorBtn();
+		UIScreen.Ins.EnableReturnBallsBtn (true);
+		UIScreen.Ins.HideTimeAcceleratorBtn ();
 
-        lastThrowTime = Time.time;
+		lastThrowTime = Time.time;
 
-        for (int i = 0; i < ballList.Count; i++) {
-            if (needReturnAllBalls)
-                break;
+		for (int i = 0; i < ballList.Count; i++) {
+			if (needReturnAllBalls)
+				break;
 
-                ballList[i].GoThrow(dir);
-                tmpBallCount--;
-                ballCountText.text = "x" + tmpBallCount;
+			ballList [i].GoThrow (dir);
+			tmpBallCount--;
+			ballCountText.text = "x" + tmpBallCount;
             
 
 			yield return new WaitForSeconds (timeBetweenBalls);
@@ -245,7 +233,7 @@ public class BallController : MonoBehaviour {
 
 		iTween.ScaleTo (ballCountText.gameObject, Vector3.zero, .5f);
 
-        //ballCountText.gameObject.SetActive (false);
+		//ballCountText.gameObject.SetActive (false);
         
 
 		while (!canThrow) {
@@ -264,65 +252,64 @@ public class BallController : MonoBehaviour {
 			yield return null;
 		}
 
-        UIScreen.Ins.EnableReturnBallsBtn(false);
+		UIScreen.Ins.EnableReturnBallsBtn (false);
 
-        //ballCountText.gameObject.SetActive (true);
+		//ballCountText.gameObject.SetActive (true);
 
-        //iTween.FadeFrom (ballCountText.gameObject, 0, .5f);
+		//iTween.FadeFrom (ballCountText.gameObject, 0, .5f);
 
-        iTween.ScaleTo (ballCountText.gameObject, Vector3.one, .5f);
+		iTween.ScaleTo (ballCountText.gameObject, Vector3.one, .5f);
 
-        UpdateBallCountText();
+		UpdateBallCountText ();
 
-        UpdateBallCountPos();
+		UpdateBallCountPos ();
 
-        if (!Game.isChallenge)
-            BlocksController.Instance.ShiftBlockMapDown();
-        else BlocksController.Instance.ChallengeProgress();
+		if (!Game.isChallenge)
+			BlocksController.Instance.ShiftBlockMapDown ();
+		else
+			BlocksController.Instance.ChallengeProgress ();
 
 
-        startPosChanged = false;
+		startPosChanged = false;
 	}
 
-    public void ReturnAllBalls()
-    {
+	public void ReturnAllBalls ()
+	{
 
-        List<Ball> balls = new List<Ball>(ballsList);
-        needReturnAllBalls = true;
-        for (int i = 0; i < balls.Count; i++)
-        {
-            balls[i].ReturnBall(); 
-        }
-    }
+		List<Ball> balls = new List<Ball> (ballsList);
+		needReturnAllBalls = true;
+		for (int i = 0; i < balls.Count; i++) {
+			balls [i].ReturnBall (); 
+		}
+	}
 
 	public void	BallCountPlus ()
 	{
 		ballCount++;
 	}
 
-    public void UpdateBallCountPos()
-    {
-        Vector3 pos = Camera.main.WorldToScreenPoint(startThrowPos + Vector2.left * .5f) + Vector3.up * 7f;
-        if (pos.x < 0)
-        {
-            pos.x += Mathf.Abs(pos.x) + 50;
-        }
+	public void UpdateBallCountPos ()
+	{
+		Vector3 pos = Camera.main.WorldToScreenPoint (startThrowPos + Vector2.left * .5f) + Vector3.up * 7f;
+		if (pos.x < 0) {
+			pos.x += Mathf.Abs (pos.x) + 50;
+		}
 
-        ballCountText.transform.position = pos;
-    }
+		ballCountText.transform.position = pos;
+	}
 
 	void UpdateBallCountText ()
 	{
 		ballCountText.text = "x" + ballCount;
 	}
 
-    public void ChangeStartThrowPos(float x)
-    {
-        Vector3 cameraPos = Camera.main.transform.position;
+	public void ChangeStartThrowPos (float x)
+	{
+		Vector3 cameraPos = Camera.main.transform.position;
 
-        float x1 = Mathf.Clamp(x, EdgeScreenCollisions.GetScreenEdgeLeft().x + Ball.ballRadius, EdgeScreenCollisions.GetScreenEdgeRight().x - Ball.ballRadius);
+		float x1 = Mathf.Clamp (x, EdgeScreenCollisions.GetScreenEdgeLeft ().x + Ball.ballRadius, EdgeScreenCollisions.GetScreenEdgeRight ().x - Ball.ballRadius);
 
-        startThrowPos = EdgeScreenCollisions.GetScreenEdgeBottom() + Vector2.up * Ball.ballRadius + Vector2.right * x1;
-    }
+		startThrowPos = EdgeScreenCollisions.GetScreenEdgeBottom () + Vector2.up * Ball.ballRadius + Vector2.right * x1;
+	}
 
 }

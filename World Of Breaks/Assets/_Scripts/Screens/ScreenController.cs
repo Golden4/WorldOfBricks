@@ -112,13 +112,13 @@ public class ScreenController : MonoBehaviour {
 
 	void OnApplicationFocus (bool pause)
 	{
-		if (pause && curActiveScreen == GameScreen.UI)
+		if (pause && curActiveScreen == GameScreen.UI && curScene == CurScene.Game)
 			ActivateScreen (GameScreen.Pause);
 	}
 
 	void OnApplicationPause (bool pause)
 	{
-		if (!pause && curActiveScreen == GameScreen.UI) {
+		if (!pause && curActiveScreen == GameScreen.UI && curScene == CurScene.Game) {
 			ActivateScreen (GameScreen.Pause);
 		}
 	}

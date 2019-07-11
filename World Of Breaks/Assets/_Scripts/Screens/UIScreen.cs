@@ -68,6 +68,8 @@ public class UIScreen : ScreenBase {
     
 	public bool newRecord;
 
+	public GameObject tutorialPrefab;
+
 	public override void Init ()
 	{
 		Ins = this;
@@ -142,9 +144,10 @@ public class UIScreen : ScreenBase {
 
 	public void ChallengeCompleted ()
 	{
-
-		UIScreen.Ins.playerWin = true;
-		ShowPopUpText ("Great!");
+		if (!UIScreen.Ins.playerLose) {
+			UIScreen.Ins.playerWin = true;
+			ShowPopUpText ("Great!");
+		}
 	}
 
 	public void ShowPopUpText (string popUpText, string secondText = "")
@@ -213,6 +216,24 @@ public class UIScreen : ScreenBase {
 
 	bool gameStarted;
 
+	GameObject tutrlTemp;
+
+	void ShowTutorial ()
+	{
+		if (!PlayerPrefs.HasKey ("TutorialComplete")) {
+			tutrlTemp = Instantiate (tutorialPrefab);
+			tutrlTemp.transform.SetParent (transform, false);
+		}
+	}
+
+	public void HideTutorial ()
+	{
+		if (tutrlTemp != null)
+			Destroy (tutrlTemp);
+		
+		PlayerPrefs.SetString ("TutorialComplete", "yes");
+	}
+
 	public override void OnActivate ()
 	{
 		if (!Game.isChallenge) {
@@ -224,6 +245,9 @@ public class UIScreen : ScreenBase {
 
 		if (!gameStarted)
 			Game.OnGameStartedCall ();
+		
+		ShowTutorial ();
+
 
 		gameStarted = true;
 

@@ -70,11 +70,16 @@ public class PurchaseManager : MonoBehaviour, IStoreListener {
 
 	public void InitializePurchasing ()
 	{
-		NC_PRODUCTS = new string[Database.Get.playersData.Length];
-
+		List<string> strs = new List<string> ();
 		for (int i = 0; i < Database.Get.playersData.Length; i++) {
-			NC_PRODUCTS [i] = Database.Get.playersData [i].purchaseID;
+
+			if (Database.Get.playersData [i].buyType == ItemsInfo.BuyType.RealMoney) {
+				strs.Add (Database.Get.playersData [i].purchaseID);
+			}
 		}
+
+		NC_PRODUCTS = strs.ToArray ();
+
 
 		C_PRODUCTS = new string[] { "coins_1", "coins_2", "coins_3" };
 
@@ -114,8 +119,13 @@ public class PurchaseManager : MonoBehaviour, IStoreListener {
 
 	public void BuyNonConsumable (int index)
 	{
-		currentProductIndex = index;
-		BuyProductID (NC_PRODUCTS [index]);
+		for (int i = 0; i < NC_PRODUCTS.Length; i++) {
+			if (Database.Get.playersData [index].purchaseID == NC_PRODUCTS [i]) {
+				currentProductIndex = i;
+			}
+		}
+
+		BuyProductID (NC_PRODUCTS [currentProductIndex]);
 	}
 
 	public string GetLocalizedPrice (string productId)

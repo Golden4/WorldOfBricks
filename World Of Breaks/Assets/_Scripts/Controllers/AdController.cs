@@ -5,14 +5,21 @@ using UnityEngine;
 /*using GoogleMobileAds.Api;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;*/
-using GoogleMobileAds.Api;
-using System;
+/*using GoogleMobileAds.Api;
+using System;*/
 
 public class AdController : MonoBehaviour {
-	 
+	public static AdController Ins;
+
+	public bool bannerViewLoaded;
+	public bool interstitialLoaded;
+	public bool interstitialAllLoaded;
+	public bool rewardedAdLoaded;
+	public bool needGiveReward;
+
 	public bool testMode = true;
 
-	#if UNITY_ANDROID
+	/*#if UNITY_ANDROID
 	string adInterstitialID = "ca-app-pub-8878808814241755/6374843101";
 	string adInterstitialAllID = "ca-app-pub-8878808814241755/2444615260";
 	string adBannerID = "ca-app-pub-8878808814241755/1477739641";
@@ -29,15 +36,11 @@ public class AdController : MonoBehaviour {
 	public BannerView bannerView;
 	public InterstitialAd interstitial;
 	public InterstitialAd interstitialAll;
-	public RewardedAd rewardedAd;
+	public RewardedAd rewardedAd;*/
 
-	public bool bannerViewLoaded;
-	public bool interstitialLoaded;
-	public bool interstitialAllLoaded;
-	public bool rewardedAdLoaded;
-	public bool needGiveReward;
+	
 
-	public static AdController Ins;
+	
 
 	void Awake ()
 	{
@@ -52,7 +55,7 @@ public class AdController : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 	}
 
-	void Start ()
+	/*void Start ()
 	{
 			
 		MobileAds.Initialize (appID);
@@ -71,16 +74,16 @@ public class AdController : MonoBehaviour {
 			GameOverScreen.playerDieCount = 0;
 			ShowInterstitialAllAD ();
 		}
-	}
+	}*/
 
 	public void ShowInterstitialAD ()
 	{
-		if (interstitial.IsLoaded ()) {
+		/*if (interstitial.IsLoaded ()) {
 			interstitial.Show ();
-		}
+		}*/
 	}
 
-	public void ShowInterstitialAllAD ()
+	/*public void ShowInterstitialAllAD ()
 	{
 		if (interstitialAll.IsLoaded ()) {
 			interstitialAll.Show ();
@@ -90,14 +93,14 @@ public class AdController : MonoBehaviour {
 	public void ShowBannerAD ()
 	{
 		RequestBanner ();
-	}
+	}*/
 
 	public void ShowRewardedAD ()
 	{
-		if (this.rewardedAd.IsLoaded ())
-			this.rewardedAd.Show ();
+		/*if (this.rewardedAd.IsLoaded ())
+			this.rewardedAd.Show ();*/
 	}
-
+	/*
 	private void RequestBanner ()
 	{
 		bannerView = new BannerView (adBannerID, AdSize.Banner, AdPosition.Top);
@@ -316,18 +319,12 @@ public class AdController : MonoBehaviour {
 	public void HandleUserEarnedReward (object sender, Reward args)
 	{
 		
-		/*string type = args.Type;
-		double amount = args.Amount;*/
 		needGiveReward = true;
-
-		/*MonoBehaviour.print (
-			"HandleRewardedAdRewarded event received for "
-			+ amount.ToString () + " " + type);*/
 	}
 
 	void OnDestroy ()
 	{
 		SceneController.OnRestartLevel -= RequestAds;
 	}
-
+*/
 }

@@ -62,7 +62,6 @@ public class ShopScreen : ScreenBase {
 		}
 
 		PurchaseManager.OnPurchaseNonConsumable += BuyPaidItemSuccess;
-
 	}
 
 	public override void OnActivate ()
@@ -72,15 +71,24 @@ public class ShopScreen : ScreenBase {
 		}
 
 		UpdateItemState (curActiveItem);
-
-
 		scrollSnap.SnapToObj (User.GetInfo.curPlayerIndex, false);
 
+		AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
+
+	}
+
+	void onRewardedVideoFinishedEvent ()
+	{
+		if (videoItemindex >= 0) {
+			BuyItemSuccess (videoItemindex);
+			DialogBox.Hide ();
+		}
 	}
 
 	public override void OnDeactivate ()
 	{
 		base.OnDeactivate ();
+		AdManager.onRewardedVideoFinishedEvent -= onRewardedVideoFinishedEvent;
 	}
 
 	public override void OnCleanUp ()
@@ -134,9 +142,14 @@ public class ShopScreen : ScreenBase {
 		}
 	}
 
+	int videoItemindex = -1;
+
 	public void BuyVideoItem (int index)
 	{
 		DialogBox.Show ("Loading video...", null, null, false, true);
+		videoItemindex = index;
+		if (AdManager.Ins != null)
+			AdManager.Ins.showRewardedVideo ();
 	}
 
 	public void BuyPaidItemSuccess (PurchaseEventArgs args)
@@ -145,8 +158,8 @@ public class ShopScreen : ScreenBase {
 
 		int index = 0;
 
-		for (int i = 0; i < PurchaseManager.Ins.NC_PRODUCTS.Length; i++) {
-			if (purchID == PurchaseManager.Ins.NC_PRODUCTS [i]) {
+		for (int i = 0; i < Database.Get.playersData.Length; i++) {
+			if (purchID == Database.Get.playersData [i].purchaseID) {
 				index = i;
 				break;
 			}

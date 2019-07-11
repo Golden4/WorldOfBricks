@@ -63,16 +63,18 @@ public class SceneController : MonoBehaviour {
 	{
 		Ins.image.raycastTarget = true;
 
+		if (fadeIn) {
+			yield return FadeImage (Ins.image, true, .2f);
+		}
+
 		AsyncOperation ao = SceneManager.LoadSceneAsync (index);
 		ao.allowSceneActivation = false;
 
 		sceneLoading = true;
 
-		if (fadeIn) {
-			yield return FadeImage (Ins.image, true, .2f);
-		}
+		yield return null;
 
-		while (ao.isDone) {
+		while (ao.progress <= .89f) {
 			yield return null;
 		}
 
@@ -81,7 +83,7 @@ public class SceneController : MonoBehaviour {
 		Ins.image.raycastTarget = false;
 
 		sceneLoading = false;
-		yield return new WaitForSecondsRealtime (0.01f);
+		yield return new WaitForSecondsRealtime (0.05f);
 		yield return FadeImage (Ins.image, false, .2f);
 	}
 
