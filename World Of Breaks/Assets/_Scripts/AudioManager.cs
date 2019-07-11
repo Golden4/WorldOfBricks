@@ -4,52 +4,58 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour {
-    private static AudioManager _Ins;
+	private static AudioManager _Ins;
 
-    public static AudioManager Ins
-    {
-        get
-        {
-            if (_Ins == null)
-            {
-                GameObject manager = Resources.Load("Prefabs/AudioManager") as GameObject;
-                AudioManager audioManager = Instantiate(manager).GetComponent<AudioManager>();
-                _Ins = audioManager;
-            }
+	public static AudioManager Ins {
+		get {
+			if (_Ins == null) {
+				GameObject manager = Resources.Load ("Prefabs/AudioManager") as GameObject;
+				AudioManager audioManager = Instantiate (manager).GetComponent<AudioManager> ();
+				_Ins = audioManager;
+			}
 
-            return _Ins;
-        }
-    }
+			return _Ins;
+		}
+	}
 
-    AudioSource source;
+	AudioSource[] source = new AudioSource[5];
 
 	public SoundLibrary soundLibrary;
 
-    void Awake()
-    {
-        if (_Ins == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            _Ins = this;
-        }
-        else if (this != _Ins)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        source = gameObject.AddComponent<AudioSource>();
-
-        soundLibrary = GetComponent<SoundLibrary>();
-
-    }
-
-    public static void PlaySound (Sound sound)
+	void Awake ()
 	{
-        if (!audioEnabled)
-            return;
+		if (_Ins == null) {
+			DontDestroyOnLoad (gameObject);
+			_Ins = this;
+		} else if (this != _Ins) {
+			Destroy (gameObject);
+			return;
+		}
 
-        sound.PlaySound(Ins.source);
+		for (int i = 0; i < 5; i++) {
+			source [i] = gameObject.AddComponent<AudioSource> ();
+		}
+
+		soundLibrary = GetComponent<SoundLibrary> ();
+
+	}
+
+	public static void PlaySound (Sound sound)
+	{
+		if (!audioEnabled)
+			return;
+		
+		sound.PlaySound (Ins.GetAvaibleSource ());
+	}
+
+	public AudioSource GetAvaibleSource ()
+	{
+		for (int i = 0; i < source.Length; i++) {
+			if (!source [i].isPlaying) {
+				return source [i];
+			}
+		}
+		return source [0];
 	}
 
 	public void PlaySound (AudioClip sound)
@@ -57,7 +63,7 @@ public class AudioManager : MonoBehaviour {
 		if (!audioEnabled)
 			return;
 
-		source.PlayOneShot (sound);
+		source [0].PlayOneShot (sound);
 	}
 
 	public static bool audioEnabled = true;
@@ -74,18 +80,19 @@ public class AudioManager : MonoBehaviour {
 //		print ("Audio " + enable);
 	}
 
+	static float lastPlayTime;
+
 	public static void PlaySoundFromLibrary (string name)
 	{
-        try
-        {
-            Debug.Log(Ins.soundLibrary + "   "  + name);
-            Debug.Log(Ins.soundLibrary.GetSoundByName(name));
-        }
-        catch (System.Exception except)
-        {
-            Debug.LogError(except);
-            throw;
-        }
+		try {
+			lastPlayTime = Time.time;
+			Sound sound = Ins.soundLibrary.GetSoundByName (name);
+			PlaySound (sound);
+
+		} catch (System.Exception except) {
+			Debug.LogError (except);
+			throw;
+		}
 		
 	}
 
@@ -121,19 +128,19 @@ public class Sound {
 	public AudioClip clip;
 	public bool loop;
 
-    [Range(0, 1.5f)]
-    public float volume = 0.7f;
+	[Range (0, 1.5f)]
+	public float volume = 0.7f;
 
-    [Range(0.5f, 1.5f)]
-    public float pitch = 1f;
+	[Range (0.5f, 1.5f)]
+	public float pitch = 1f;
 
-    [Range(0f, 0.5f)]
-    public float randomVolume = 0.1f;
+	[Range (0f, 0.5f)]
+	public float randomVolume = 0.1f;
 
-    [Range(0f, 0.5f)]
-    public float randomPitch = 0.1f;
+	[Range (0f, 0.5f)]
+	public float randomPitch = 0.1f;
 
-    public Sound (AudioClip clip)
+	public Sound (AudioClip clip)
 	{
 		this.clip = clip;
 		loop = false;
@@ -156,12 +163,12 @@ public class Sound {
 		AudioManager.PlaySoundAtObject (this, go);
 	}
 
-    public void PlaySound(AudioSource source)
-    {
-        source.clip = clip;
-        source.volume = volume * (1 + Random.Range(-randomVolume / 2f, randomVolume / 2f));
-        source.pitch = pitch * (1 + Random.Range(-randomPitch / 2f, randomPitch / 2f));
-        source.Play();
-    }
+	public void PlaySound (AudioSource source)
+	{
+		source.clip = clip;
+		source.volume = volume * (1 + Random.Range (-randomVolume / 2f, randomVolume / 2f));
+		source.pitch = pitch * (1 + Random.Range (-randomPitch / 2f, randomPitch / 2f));
+		source.Play ();
+	}
 
 }

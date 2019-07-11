@@ -28,10 +28,10 @@ public class ShopScreen : ScreenBase {
 	public Button SelectAndPlayBtn;
 
 	public Button buyPaidBtn;
-    public Button buyCoinBtn;
-    public Button buyVideoBtn;
+	public Button buyCoinBtn;
+	public Button buyVideoBtn;
 
-    public override void Init ()
+	public override void Init ()
 	{
 		scrollSnap.Init ();
 
@@ -47,20 +47,19 @@ public class ShopScreen : ScreenBase {
 			BuyPaidItem (curActiveItem);
 		});
 
-        buyCoinBtn.onClick.RemoveAllListeners();
-        buyCoinBtn.onClick.AddListener(() => {
-            BuyCoinItem(curActiveItem);
-        });
+		buyCoinBtn.onClick.RemoveAllListeners ();
+		buyCoinBtn.onClick.AddListener (() => {
+			BuyCoinItem (curActiveItem);
+		});
 
-        buyVideoBtn.onClick.RemoveAllListeners();
-        buyVideoBtn.onClick.AddListener(() => {
-            BuyVideoItem(curActiveItem);
-        });
+		buyVideoBtn.onClick.RemoveAllListeners ();
+		buyVideoBtn.onClick.AddListener (() => {
+			BuyVideoItem (curActiveItem);
+		});
 
-        for (int i = 0; i < ItemCount; i++) {
+		for (int i = 0; i < ItemCount; i++) {
 			scrollSnap.SetItemState (i, User.GetInfo.userData [i].bought);
 		}
-
 
 		PurchaseManager.OnPurchaseNonConsumable += BuyPaidItemSuccess;
 
@@ -92,7 +91,7 @@ public class ShopScreen : ScreenBase {
 
 	void OnChangeItem (int index)
 	{
-        itemNameText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name);
+		itemNameText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name);
 		itemAbilityText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name + "_desc");
         
 
@@ -102,7 +101,7 @@ public class ShopScreen : ScreenBase {
 	public void SelectAndPlay (int index)
 	{
 		User.SetPlayerIndex (index);
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Menu);
+		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Menu);
 	}
 
 	/*	public void BuyItemWithCoin (int index)
@@ -120,29 +119,27 @@ public class ShopScreen : ScreenBase {
 		PurchaseManager.Ins.BuyNonConsumable (index);
 	}
 
-    public void BuyCoinItem(int index)
-    {
+	public void BuyCoinItem (int index)
+	{
 
-        if (string.IsNullOrEmpty(Database.Get.playersData[index].price))
-        {
-            Debug.LogError("Not set coinAmount " + index);
-            return;
-        }
+		if (string.IsNullOrEmpty (Database.Get.playersData [index].price)) {
+			Debug.LogError ("Not set coinAmount " + index);
+			return;
+		}
 
-        int coinAmount = int.Parse(Database.Get.playersData[index].price);
+		int coinAmount = int.Parse (Database.Get.playersData [index].price);
         
-        if (User.BuyWithCoin(coinAmount))
-        {
-            BuyItemSuccess(index);
-        }
-    }
+		if (User.BuyWithCoin (coinAmount)) {
+			BuyItemSuccess (index);
+		}
+	}
 
-    public void BuyVideoItem(int index)
-    {
+	public void BuyVideoItem (int index)
+	{
+		DialogBox.Show ("Loading video...", null, null, false, true);
+	}
 
-    }
-
-    public void BuyPaidItemSuccess (PurchaseEventArgs args)
+	public void BuyPaidItemSuccess (PurchaseEventArgs args)
 	{
 		string purchID = args.purchasedProduct.definition.id;
 
@@ -156,77 +153,73 @@ public class ShopScreen : ScreenBase {
 		}
 
 		Debug.Log ("You bought " + purchID + "  id " + index + " NonCon");
-        BuyItemSuccess(index);
-    }
+		BuyItemSuccess (index);
+	}
 
-    void BuyItemSuccess(int index)
-    {
-        User.GetInfo.userData[index].bought = true;
-        UpdateItemState(index);
-        scrollSnap.SetItemState(index, User.GetInfo.userData[index].bought);
-        User.SaveUserInfo();
-    }
+	void BuyItemSuccess (int index)
+	{
+		User.GetInfo.userData [index].bought = true;
+		UpdateItemState (index);
+		scrollSnap.SetItemState (index, User.GetInfo.userData [index].bought);
+		User.SaveUserInfo ();
+	}
 
-    int lastItemIndex = -1;
+	int lastItemIndex = -1;
 
-    public void UpdateItemState (int index)
+	public void UpdateItemState (int index)
 	{
 		bool bought = User.GetInfo.userData [index].bought;
 
-        if (lastItemIndex >= 0)
-        {
+		if (lastItemIndex >= 0) {
             
-            scrollSnap.items[lastItemIndex].GetComponent<Animation>().Stop();
-            scrollSnap.items[lastItemIndex].transform.localPosition = Vector3.right * scrollSnap.distanceItems * lastItemIndex;
-        }
-        scrollSnap.items[index].GetComponent<Animation>().enabled = true;
-        scrollSnap.items[index].GetComponent<Animation>().Play();
-        lastItemIndex = index;
+			scrollSnap.items [lastItemIndex].GetComponent<Animation> ().Stop ();
+			scrollSnap.items [lastItemIndex].transform.localPosition = Vector3.right * scrollSnap.distanceItems * lastItemIndex;
+		}
+		scrollSnap.items [index].GetComponent<Animation> ().enabled = true;
+		scrollSnap.items [index].GetComponent<Animation> ().Play ();
+		lastItemIndex = index;
 
-        SelectAndPlayBtn.gameObject.SetActive(bought);
-        ShowBuyBtb(!bought, Database.Get.playersData[index].buyType, index);
+		SelectAndPlayBtn.gameObject.SetActive (bought);
+		ShowBuyBtb (!bought, Database.Get.playersData [index].buyType, index);
         
 	}
 
-    Button ShowBuyBtb(bool show,ItemsInfo.BuyType type = ItemsInfo.BuyType.Coin, int indexPlayer = -1)
-    {
-        Button[] btns = new Button[]
-            {
-                buyCoinBtn,
-                buyPaidBtn,
-                buyVideoBtn
-            };
+	Button ShowBuyBtb (bool show, ItemsInfo.BuyType type = ItemsInfo.BuyType.Coin, int indexPlayer = -1)
+	{
+		Button[] btns = new Button[] {
+			buyCoinBtn,
+			buyPaidBtn,
+			buyVideoBtn
+		};
 
-        for (int i = 0; i < btns.Length; i++)
-        {
-            if(show)
-                btns[i].gameObject.SetActive((int)type == i);
-            else
-                btns[i].gameObject.SetActive(false);
-        }
+		for (int i = 0; i < btns.Length; i++) {
+			if (show)
+				btns [i].gameObject.SetActive ((int)type == i);
+			else
+				btns [i].gameObject.SetActive (false);
+		}
 
-        if (!show)
-            return null;
+		if (!show)
+			return null;
 
-        switch (type)
-        {
-            case ItemsInfo.BuyType.Coin:
-                btns[(int)type].GetComponentInChildren<Text>().text = Database.Get.playersData[indexPlayer].price;
-                break;
-            case ItemsInfo.BuyType.RealMoney:
-                btns[(int)type].GetComponentInChildren<Text>().text = PurchaseManager.Ins.GetLocalizedPrice(Database.Get.playersData[indexPlayer].purchaseID);
-                break;
-            case ItemsInfo.BuyType.Video:
+		switch (type) {
+		case ItemsInfo.BuyType.Coin:
+			btns [(int)type].GetComponentInChildren<Text> ().text = Database.Get.playersData [indexPlayer].price;
+			break;
+		case ItemsInfo.BuyType.RealMoney:
+			btns [(int)type].GetComponentInChildren<Text> ().text = PurchaseManager.Ins.GetLocalizedPrice (Database.Get.playersData [indexPlayer].purchaseID);
+			break;
+		case ItemsInfo.BuyType.Video:
 
-                break;
+			break;
 
-            default:
-                break;
-        }
+		default:
+			break;
+		}
 
-        return btns[(int)type];
+		return btns [(int)type];
 
-    }
+	}
 
 	public void BackBtn ()
 	{

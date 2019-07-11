@@ -61,27 +61,90 @@ MonoBehaviour:
   - groupName: ButtonClick1
     clips:
     - name: ButtonClick11
-      clip: {fileID: 8300000, guid: 27193262e2089d741a22850a5fa4e451, type: 3}
-      loop: 0
-      volume: 1
-      pitch: 1
-      randomVolume: 0
-      randomPitch: 0
-  - groupName: ButtonClick2
-    clips:
-    - name: ButtonClick21
       clip: {fileID: 8300000, guid: 26e7649a9b4871c4dbed48355f0d210e, type: 3}
       loop: 0
       volume: 1
       pitch: 1
       randomVolume: 0
-      randomPitch: 0
-  - groupName: ButtonClick3
+      randomPitch: 0.5
+  - groupName: Ball1
     clips:
-    - name: ButtonClick31
-      clip: {fileID: 8300000, guid: 30c44538a092e8346a96f67a23e60f3d, type: 3}
+    - name: Ball11
+      clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
+      loop: 0
+      volume: 1
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.2
+  - groupName: Coin
+    clips:
+    - name: Coin1
+      clip: {fileID: 8300000, guid: ddd6f51067316cb45b4893df3cc69b02, type: 3}
+      loop: 0
+      volume: 1
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.1
+  - groupName: Laser
+    clips:
+    - name: Laser1
+      clip: {fileID: 8300000, guid: eac44288ee9608d48bb751c995ea104d, type: 3}
+      loop: 0
+      volume: 0.3
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.3
+  - groupName: PopUp
+    clips:
+    - name: PopUp1
+      clip: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
+      loop: 0
+      volume: 1
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.3
+  - groupName: Success
+    clips:
+    - name: Success1
+      clip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+      loop: 0
+      volume: 1
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.1
+  - groupName: Plus
+    clips:
+    - name: Plus1
+      clip: {fileID: 8300000, guid: 335020490e35acb45803a381e7da1d1a, type: 3}
+      loop: 0
+      volume: 0.7
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0
+  - groupName: Failed
+    clips:
+    - name: Failed1
+      clip: {fileID: 8300000, guid: 724131bc8a7f34041bb9f1701f0cb58d, type: 3}
       loop: 0
       volume: 1
       pitch: 1
       randomVolume: 0
       randomPitch: 0
+  - groupName: Explode
+    clips:
+    - name: Explode1
+      clip: {fileID: 8300000, guid: 25f09f343f52f9d46a418deb4a23366b, type: 3}
+      loop: 0
+      volume: 1.409
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0
+  - groupName: Destroy
+    clips:
+    - name: Destroy1
+      clip: {fileID: 8300000, guid: 65fc1473d75b1d148978cfbd75a3b1b8, type: 3}
+      loop: 0
+      volume: 1
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.1

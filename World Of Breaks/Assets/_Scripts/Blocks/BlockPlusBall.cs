@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BlockPlusBall : BlockWithText {
-    protected override void Start ()
+	protected override void Start ()
 	{
 		
 	}
 
 	public override void Hit ()
 	{
+		AudioManager.PlaySoundFromLibrary ("Plus");
+
 		BallController.Instance.BallCountPlus ();
 		Die ();
 	}
 
-    protected override void OnDead ()
+	protected override void OnDead ()
 	{
 		Transform text = transform.GetChild (0);
 		text.SetParent (null, false);

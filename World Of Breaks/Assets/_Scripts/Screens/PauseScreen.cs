@@ -11,27 +11,45 @@ public class PauseScreen : ScreenBase {
 		Time.timeScale = 0;
 	}
 
-    public override void OnDeactivate()
-    {
-        Game.isPause = false;
-        Time.timeScale = 1;
-    }
+	public override void OnDeactivate ()
+	{
+		Game.isPause = false;
+		Time.timeScale = 1;
+	}
 
-    public void Continue ()
+	public void Continue ()
 	{
 		Game.isPause = false;
 		Time.timeScale = 1;
 
-        if(UIScreen.Ins.playerLose)
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.GameOver);
-        else
-            ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
+		if (UIScreen.Ins.playerLose)
+			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
+		else
+			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
 	}
 
-    public void ActivatePauseScreen()
-    {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Pause);
-    }
+	public void ActivatePauseScreen ()
+	{
+		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Pause);
+	}
+
+	public void ActivateMenu ()
+	{
+
+		BlocksSaver.DeleteBlockMapKeys ();
+
+		UIScreen.newGame = true;
+		UIScreen.Ins.playerLose = true;
+		BlocksController.Instance.DestroyAllBlocks ();
+
+		UIScreen.Ins.SetTopScore ();
+
+		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
+
+		Utility.Invoke (ScreenController.Ins, .5f, () => {
+			SceneController.LoadSceneWithFade (1);
+		});
+	}
 
 
 }

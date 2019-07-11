@@ -12,8 +12,16 @@ public class SceneController : MonoBehaviour {
 
 	static bool sceneLoading = false;
 
-	public static int nextSceneToLoad = 1;
-	const int loadingSceneIndex = 1;
+	public static int nextSceneToLoad {
+		get {
+			if (PlayerPrefs.HasKey ("BlocksMap")) {
+				return 2;
+			}
+			return 1;
+		}
+	}
+
+	const int loadingSceneIndex = 0;
 
 	void Start ()
 	{
@@ -37,7 +45,7 @@ public class SceneController : MonoBehaviour {
 	public static void LoadSceneWithFade (int index)
 	{
 		Init ();
-        Time.timeScale = 1;
+		Time.timeScale = 1;
 		Ins.StartCoroutine (LoadSceneCoroutine (index, true));
 	}
 

@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class ContinueScreen : ScreenBase {
 	[SerializeField] Transform continueAdPanel;
 	[SerializeField] Button continueAdBtn;
-    [SerializeField] Button continueCoinBtn;
+	[SerializeField] Button continueCoinBtn;
 
-    [SerializeField] Image continueTimer;
+	[SerializeField] Image continueTimer;
 	float lastTime;
 	float waitTime = 5;
 
@@ -19,34 +19,31 @@ public class ContinueScreen : ScreenBase {
 		base.Init ();
 		continueAdBtn.onClick.RemoveAllListeners ();
 		continueAdBtn.onClick.AddListener (RespawnPlayer);
-        continueCoinBtn.onClick.RemoveAllListeners();
-        continueCoinBtn.onClick.AddListener(delegate
-        {
-            if (User.BuyWithCoin(25))
-                RespawnPlayer();
-        }
-        );
-    }
+		continueCoinBtn.onClick.RemoveAllListeners ();
+		continueCoinBtn.onClick.AddListener (delegate {
+			if (User.BuyWithCoin (25))
+				RespawnPlayer ();
+		}
+		);
+	}
 
-    public MeshRenderer mr;
+	public MeshRenderer mr;
 
-    public override void OnActivate()
-    {
-        base.OnActivate();
+	public override void OnActivate ()
+	{
+		base.OnActivate ();
 
-        ShareController.CaptureScreenshot();
-
-        lastTime = Time.time + .4f;
-        continueAdPanel.gameObject.SetActive(true);
-        continueAdPanel.GetComponent<GUIAnim>().MoveIn(GUIAnimSystem.eGUIMove.Self);
+		lastTime = Time.time + .4f;
+		continueAdPanel.gameObject.SetActive (true);
+		continueAdPanel.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
         
-        /*
+		/*
 		continueAdBtn.gameObject.SetActive (true);
 		GUIAnimSystem.Instance.MoveIn (transform, true);
 		continueAdBtn.GetComponent <ButtonIcon> ().EnableBtn (AdController.Ins.interstitialLoaded);
 	} else {
 		continueAdPanel.gameObject.SetActive (false);*/
-    }
+	}
 
 	public void CloseContinueScreen ()
 	{
@@ -72,19 +69,19 @@ public class ContinueScreen : ScreenBase {
 		//continueAdBtn.GetComponent <ButtonIcon> ().EnableBtn (false);
 
 		//if (AdController.Ins.interstitialLoaded && !givedSecondChance) {
-			//givedSecondChance = true;
-			RetryGame ();
+		//givedSecondChance = true;
+		RetryGame ();
 
-			if (AdController.Ins != null)
-				AdController.Ins.ShowInterstitialAD ();
+		if (AdController.Ins != null)
+			AdController.Ins.ShowInterstitialAD ();
 		//}
 	}
 
 	public void RetryGame ()
 	{
 		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
-        BlocksController.Instance.DestroyLastLine(false);
-        UIScreen.Ins.playerLose = false;
+		BlocksController.Instance.DestroyLastLine (false);
+		UIScreen.Ins.playerLose = false;
 		//Player.Ins.Retry ();
 	}
 

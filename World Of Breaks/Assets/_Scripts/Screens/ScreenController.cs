@@ -3,38 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenController : MonoBehaviour {
-    public static ScreenController Ins;
+	public static ScreenController Ins;
 
-    public enum GameScreen {
-        Menu,
-        Shop,
-        BuyCoin,
-        TileSize,
-        UI,
-        GameOver,
-        Pause,
-        Continue,
-        Challeges,
-        ChallegesResult
-    }
+	public enum GameScreen
+	{
+		Menu,
+		Shop,
+		BuyCoin,
+		TileSize,
+		UI,
+		GameOver,
+		Pause,
+		Continue,
+		Challeges,
+		ChallegesResult
+	}
 
-    public enum CurScene
-    {
-        Menu,
-        Game
-    }
+	public enum CurScene
+	{
+		Menu,
+		Game
+	}
 
-    public CurScene curScene;
+	public CurScene curScene;
 
-    public List<ScreenList> screensList = new List<ScreenList>();
+	public List<ScreenList> screensList = new List<ScreenList> ();
 
-    [System.Serializable]
-    public class ScreenList {
-        public GameScreen screenType;
-        public ScreenBase screen;
-    }
+	[System.Serializable]
+	public class ScreenList {
+		public GameScreen screenType;
+		public ScreenBase screen;
+	}
 
-    public static GameScreen curActiveScreen;
+	public static GameScreen curActiveScreen;
 
 	public static event System.Action<ScreenBase> OnChangeScreenEvent;
 
@@ -42,16 +43,15 @@ public class ScreenController : MonoBehaviour {
 	{
 		Ins = this;
 
-        for (int i = 0; i < screensList.Count; i++) {
+		for (int i = 0; i < screensList.Count; i++) {
 			screensList [i].screen.Init ();
 		}
 	}
 
 	void Start ()
 	{
-        Time.timeScale = 1;
+		Time.timeScale = 1;
 		ActivateScreen (0);
-
 	}
 
 	public static T GetScreen<T> () where T : ScreenBase
@@ -78,7 +78,8 @@ public class ScreenController : MonoBehaviour {
 
 	public void ActivateScreen (GameScreen screen)
 	{
-        int index = screensList.FindIndex(x => x.screenType == screen);
+		curActiveScreen = (GameScreen)screen;
+		int index = screensList.FindIndex (x => x.screenType == screen);
 		ActivateScreen (index);
 	}
 
@@ -91,8 +92,6 @@ public class ScreenController : MonoBehaviour {
 				screensList [i].screen.Deactivate ();
 			}
 		}
-		
-		curActiveScreen = (GameScreen)screen;
 
 		if (OnChangeScreenEvent != null) {
 			OnChangeScreenEvent.Invoke (screensList [screen].screen);
@@ -109,7 +108,7 @@ public class ScreenController : MonoBehaviour {
 
 	void OnApplicationQuit ()
 	{
-    }
+	}
 
 	void OnApplicationFocus (bool pause)
 	{
@@ -119,10 +118,9 @@ public class ScreenController : MonoBehaviour {
 
 	void OnApplicationPause (bool pause)
 	{
-        if (!pause && curActiveScreen == GameScreen.UI)
-        {
-            ActivateScreen (GameScreen.Pause);
-        }
+		if (!pause && curActiveScreen == GameScreen.UI) {
+			ActivateScreen (GameScreen.Pause);
+		}
 	}
 
 }

@@ -9,8 +9,8 @@ public class BlockTriangle : BlockWithText {
 	{
 		base.Start ();
 
-		int randomRotate = Random.Range (0, 5);
-		transform.GetChild (0).eulerAngles = new Vector3 (0, 0, randomRotate * 90);
+		//int randomRotate = Random.Range (0, 5);
+		//transform.GetChild (0).eulerAngles = new Vector3 (0, 0, randomRotate * 90);
 
 		textMesh.transform.rotation = Quaternion.Euler (Vector3.zero);
 

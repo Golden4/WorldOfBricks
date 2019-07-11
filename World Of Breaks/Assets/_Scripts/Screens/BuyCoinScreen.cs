@@ -11,9 +11,9 @@ public class BuyCoinScreen : ScreenBase {
 	public BuyCoinItem[] buyCoinBtns;
 
 	public ButtonIcon buyCoinScreenBtn;
-    public ButtonIcon showMenuBtn;
+	public ButtonIcon showMenuBtn;
 
-    public Text giftTitle;
+	public Text giftTitle;
 
 	public override void OnActivate ()
 	{
@@ -54,43 +54,38 @@ public class BuyCoinScreen : ScreenBase {
 
 	static TimeSpan nextGiftTime = new TimeSpan (0, 10, 0);
 
-    static long _nextGiveGiftTime = -1;
+	static long _nextGiveGiftTime = -1;
 
-    static long nextGiveGiftTime
-    {
-        get
-        {
-            if (_nextGiveGiftTime == -1)
-            {
-                if (PlayerPrefs.HasKey("giftTime"))
-                    _nextGiveGiftTime = long.Parse(PlayerPrefs.GetString("giftTime"));
-                else
-                    _nextGiveGiftTime = 0;
-            }
+	static long nextGiveGiftTime {
+		get {
+			if (_nextGiveGiftTime == -1) {
+				if (PlayerPrefs.HasKey ("giftTime"))
+					_nextGiveGiftTime = long.Parse (PlayerPrefs.GetString ("giftTime"));
+				else
+					_nextGiveGiftTime = 0;
+			}
 
-            return _nextGiveGiftTime;
-        }
+			return _nextGiveGiftTime;
+		}
 
-        set
-        {
-            _nextGiveGiftTime = value;
-            PlayerPrefs.SetString("giftTime", nextGiveGiftTime.ToString());
-        }
-    }
+		set {
+			_nextGiveGiftTime = value;
+			PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.ToString ());
+		}
+	}
 
-    public override void Init ()
+	public override void Init ()
 	{
 		base.Init ();
 
-        Ins = this;
+		Ins = this;
 
-        //if (PlayerPrefs.HasKey ("giftTime"))
-        //nextGiveGiftTime = new DateTime (long.Parse (PlayerPrefs.GetString ("giftTime")));
-        getCoinsBtn.onClick.RemoveAllListeners ();
-		getCoinsBtn.onClick.AddListener(delegate
-        {
-            GiveGift(15, getCoinsBtn.transform.position);
-        });
+		//if (PlayerPrefs.HasKey ("giftTime"))
+		//nextGiveGiftTime = new DateTime (long.Parse (PlayerPrefs.GetString ("giftTime")));
+		getCoinsBtn.onClick.RemoveAllListeners ();
+		getCoinsBtn.onClick.AddListener (delegate {
+			GiveGift (15, getCoinsBtn.transform.position);
+		});
 
 		if (CanTakeGift ()) {
 			OnCanTakeGift ();
@@ -119,15 +114,14 @@ public class BuyCoinScreen : ScreenBase {
 		Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
 		Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 20, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
-			AudioManager.PlaySoundFromLibrary ("Coin");
+			
 		});
 
-        Utility.Invoke(CoinUI.Ins, .9f, delegate
-        {
-            User.AddCoin(coinAmount);
-        });
+		Utility.Invoke (CoinUI.Ins, .9f, delegate {
+			User.AddCoin (coinAmount);
+		});
 
-    }
+	}
 
 	public static void GiveGift (int coinAmount, Vector3 fromPos)
 	{
@@ -135,20 +129,19 @@ public class BuyCoinScreen : ScreenBase {
 
 			nextGiveGiftTime = DateTime.Now.Ticks + nextGiftTime.Ticks;
 
-            //PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
+			//PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
             
             
-            Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
+			Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
-            Utility.CoinsAnimateRadial(CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, Screen.width/3, .5f, CoinUI.Ins.curve, () => {
-                AudioManager.PlaySoundFromLibrary("Coin");
-            });
+			Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
+                
+			});
 
-            Utility.Invoke(CoinUI.Ins, .9f, delegate
-            {
-                User.AddCoin(coinAmount);
-            });
-        }
+			Utility.Invoke (CoinUI.Ins, .9f, delegate {
+				User.AddCoin (coinAmount);
+			});
+		}
 	}
 
 
@@ -184,8 +177,8 @@ public class BuyCoinScreen : ScreenBase {
 	void OnCanTakeGift ()
 	{
 		buyCoinScreenBtn.changingColor = true;
-        showMenuBtn.changingColor = true;
-        getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = true;
+		showMenuBtn.changingColor = true;
+		getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = true;
 		getCoinsBtn.GetComponent <ButtonIcon> ().EnableBtn (true);
 		print ("OnCanTakeGift");
 		timer.gameObject.SetActive (false);
@@ -195,18 +188,18 @@ public class BuyCoinScreen : ScreenBase {
 	void OnDontTakeGift ()
 	{
 		buyCoinScreenBtn.changingColor = false;
-        showMenuBtn.changingColor = false;
-        getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = false;
+		showMenuBtn.changingColor = false;
+		getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = false;
 		getCoinsBtn.GetComponent <ButtonIcon> ().EnableBtn (false);
 		print ("OnDontTakeGift");
 		timer.gameObject.SetActive (true);
 		giftTitle.text = LocalizationManager.GetLocalizedText ("gift_through");
 	}
 
-    public void BackBtn()
-    {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Menu);
-    }
+	public void BackBtn ()
+	{
+		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Menu);
+	}
 
 
 }

@@ -9,7 +9,7 @@ public class GameOverScreen : ScreenBase {
 	[SerializeField] Button giftBtn;
 	[SerializeField] Text giftimerText;
 
-    public Text newRecordText;
+	public Text newRecordText;
 	public Text newRecordCountText;
 	public static int playerDieCount = 0;
 
@@ -25,13 +25,13 @@ public class GameOverScreen : ScreenBase {
 		base.OnActivate ();
 		playerDieCount++;
 
-        BlocksController.Instance.DestroyAllBlocks();
+		BlocksController.Instance.DestroyAllBlocks ();
 
-        BlocksSaver.DeleteBlockMapKeys();
+		BlocksSaver.DeleteBlockMapKeys ();
 
-        UIScreen.newGame = true;
+		UIScreen.newGame = true;
 
-        UIScreen.Ins.SetTopScore ();
+		UIScreen.Ins.SetTopScore ();
 
 		if (UIScreen.Ins.newRecord) {
 			newRecordText.gameObject.SetActive (true);
@@ -98,18 +98,20 @@ public class GameOverScreen : ScreenBase {
 
 	public void RestartLevel ()
 	{
-        UIScreen.newGame = true;
+		UIScreen.newGame = true;
 		SceneController.RestartLevel ();
 	}
 
 	public void GiftBtn ()
 	{
-        BuyCoinScreen.GiveGift(15, giftBtn.transform.position);
+		BuyCoinScreen.GiveGift (15, giftBtn.transform.position);
 	}
 
-    public void ActivateMenu()
-    {
-        SceneController.LoadSceneWithFade(0);
-    }
+	public void ActivateMenu ()
+	{
+
+		SceneController.LoadSceneWithFade (1);
+       
+	}
 
 }

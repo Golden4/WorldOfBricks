@@ -42,7 +42,7 @@
   </files>
   <settings>
     <setting name="androidAbis" value="armeabi-v7a,x86" />
-    <setting name="bundleId" value="com.xUnknown.WorldOfBreaks" />
+    <setting name="bundleId" value="com.xUnknown.WorldOfBricks" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="False" />
     <setting name="gradleTemplateEnabled" value="False" />
