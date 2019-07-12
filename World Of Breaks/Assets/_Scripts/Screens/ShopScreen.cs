@@ -72,9 +72,6 @@ public class ShopScreen : ScreenBase {
 
 		UpdateItemState (curActiveItem);
 		scrollSnap.SnapToObj (User.GetInfo.curPlayerIndex, false);
-
-		AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
-
 	}
 
 	void onRewardedVideoFinishedEvent ()
@@ -82,13 +79,15 @@ public class ShopScreen : ScreenBase {
 		if (videoItemindex >= 0) {
 			BuyItemSuccess (videoItemindex);
 			DialogBox.Hide ();
+			clicked = false;
+			AdManager.onRewardedVideoFinishedEvent -= onRewardedVideoFinishedEvent;
 		}
 	}
 
 	public override void OnDeactivate ()
 	{
 		base.OnDeactivate ();
-		AdManager.onRewardedVideoFinishedEvent -= onRewardedVideoFinishedEvent;
+
 	}
 
 	public override void OnCleanUp ()
@@ -143,13 +142,19 @@ public class ShopScreen : ScreenBase {
 	}
 
 	int videoItemindex = -1;
+	bool clicked;
 
 	public void BuyVideoItem (int index)
 	{
 		DialogBox.Show ("Loading video...", null, null, false, true);
 		videoItemindex = index;
-		if (AdManager.Ins != null)
+		if (AdManager.Ins != null) {
 			AdManager.Ins.showRewardedVideo ();
+			if (!clicked) {
+				clicked = true;
+				AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
+			}
+		}
 	}
 
 	public void BuyPaidItemSuccess (PurchaseEventArgs args)
@@ -184,12 +189,13 @@ public class ShopScreen : ScreenBase {
 		bool bought = User.GetInfo.userData [index].bought;
 
 		if (lastItemIndex >= 0) {
-            
 			scrollSnap.items [lastItemIndex].GetComponent<Animation> ().Stop ();
 			scrollSnap.items [lastItemIndex].transform.localPosition = Vector3.right * scrollSnap.distanceItems * lastItemIndex;
 		}
-		scrollSnap.items [index].GetComponent<Animation> ().enabled = true;
-		scrollSnap.items [index].GetComponent<Animation> ().Play ();
+		if (bought) {
+			scrollSnap.items [index].GetComponent<Animation> ().enabled = true;
+			scrollSnap.items [index].GetComponent<Animation> ().Play ();
+		}
 		lastItemIndex = index;
 
 		SelectAndPlayBtn.gameObject.SetActive (bought);

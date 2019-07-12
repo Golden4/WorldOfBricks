@@ -7,7 +7,20 @@ public class PurchaseManager : MonoBehaviour, IStoreListener {
 	private static IStoreController m_StoreController;
 	private static IExtensionProvider m_StoreExtensionProvider;
 	private int currentProductIndex;
-	public static PurchaseManager Ins;
+
+	private static PurchaseManager _Ins;
+
+	public static PurchaseManager Ins {
+		get {
+			if (_Ins == null) {
+				GameObject manager = Resources.Load ("Prefabs/PurchaseManager") as GameObject;
+				PurchaseManager purchManager = Instantiate (manager).GetComponent<PurchaseManager> ();
+				_Ins = purchManager;
+			}
+
+			return _Ins;
+		}
+	}
 
 	public string[] NC_PRODUCTS;
 
@@ -29,9 +42,9 @@ public class PurchaseManager : MonoBehaviour, IStoreListener {
 	private void Awake ()
 	{
 
-		if (Ins == null)
-			Ins = this;
-		else if (Ins != this) {
+		if (_Ins == null)
+			_Ins = this;
+		else if (_Ins != this) {
 			Destroy (gameObject);
 			return;
 		}

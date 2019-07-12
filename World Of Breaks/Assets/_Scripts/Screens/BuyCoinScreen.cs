@@ -169,15 +169,17 @@ public class BuyCoinScreen : ScreenBase {
 
 			timer.text = string.Format ("{0}", timeToGiveGift).Split ('.') [0];
 		} else if (lastOnTakeGiftBool) {
-			lastOnTakeGiftBool = false;
-			OnCanTakeGift ();
-		}
+				lastOnTakeGiftBool = false;
+				OnCanTakeGift ();
+			}
 	}
 
 	void OnCanTakeGift ()
 	{
-		buyCoinScreenBtn.changingColor = true;
-		showMenuBtn.changingColor = true;
+		if (buyCoinScreenBtn != null)
+			buyCoinScreenBtn.changingColor = true;
+		if (showMenuBtn != null)
+			showMenuBtn.changingColor = true;
 		getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = true;
 		getCoinsBtn.GetComponent <ButtonIcon> ().EnableBtn (true);
 		print ("OnCanTakeGift");
@@ -187,8 +189,10 @@ public class BuyCoinScreen : ScreenBase {
 
 	void OnDontTakeGift ()
 	{
-		buyCoinScreenBtn.changingColor = false;
-		showMenuBtn.changingColor = false;
+		if (buyCoinScreenBtn != null)
+			buyCoinScreenBtn.changingColor = false;
+		if (showMenuBtn != null)
+			showMenuBtn.changingColor = false;
 		getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = false;
 		getCoinsBtn.GetComponent <ButtonIcon> ().EnableBtn (false);
 		print ("OnDontTakeGift");
@@ -198,7 +202,10 @@ public class BuyCoinScreen : ScreenBase {
 
 	public void BackBtn ()
 	{
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Menu);
+		if (ScreenController.Ins.curScene == ScreenController.CurScene.Menu)
+			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Menu);
+		if (ScreenController.Ins.curScene == ScreenController.CurScene.Game)
+			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Pause);
 	}
 
 

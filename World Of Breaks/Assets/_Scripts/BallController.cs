@@ -19,8 +19,7 @@ public class BallController : MonoBehaviour {
 	bool needReturnAllBalls;
 	bool canThrow = true;
 
-	enum MouseState
-	{
+	enum MouseState {
 		mouseDragging,
 		mouseUp
 	}
@@ -38,17 +37,19 @@ public class BallController : MonoBehaviour {
 	{
 		if (Game.isChallenge)
 			ballCount = Game.curChallengeInfo.ballCount;
-		else
-			ballCount = UIScreen.Ins.score;
-
-		ballPrefab = Database.Get.playersData [User.GetInfo.curPlayerIndex].playerPrefab;
+		else if (UIScreen.newGame)
+				ballCount = UIScreen.Ins.score;
+		SpriteRenderer ballPrebSpr = ballPrefab.GetComponent <SpriteRenderer> ();
+		ballPrebSpr.sprite = Database.Get.playersData [User.GetInfo.curPlayerIndex].ballSprite;
+		ballPrebSpr.size = Vector2.one * Database.Get.playersData [User.GetInfo.curPlayerIndex].ballRadius * 2;
+		ballPrebSpr.transform.localScale = Vector2.one;
+		Ball.ballRadius = Database.Get.playersData [User.GetInfo.curPlayerIndex].ballRadius;
 
 		ChangeStartThrowPos (0);
 
 		throwingDirectionImage.gameObject.SetActive (false);
 		InstantiateBallsList ();
-		UpdateBallCountPos ();
-		UpdateBallCountText ();
+		UpdateBallCount ();
         
 	}
 
@@ -72,6 +73,7 @@ public class BallController : MonoBehaviour {
 	Vector3 dirToThrow;
 	float lastThrowTime;
 	float dirMouseMagnitudeWorld;
+	bool isMouseOnUIObject;
 
 	void Update ()
 	{
@@ -86,34 +88,36 @@ public class BallController : MonoBehaviour {
 			return;
 		}
         
-		bool isMouseOnUIObject = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject ();
 
-		if (isMouseOnUIObject) {
-			mouseCurState = MouseState.mouseUp;
-		}
-
-		if (Input.GetMouseButton (0)) {
+		if (Input.GetMouseButton (0) || Input.GetMouseButtonDown (0)) {
 			
 			if (mouseCurState == MouseState.mouseUp) {
 				
-				if (!isMouseOnUIObject) {
-					mouseCurState = MouseState.mouseDragging;
+				#if UNITY_ANDROID && !UNITY_EDITOR
+				isMouseOnUIObject = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject (Input.GetTouch (0).fingerId);
+				#else
+				isMouseOnUIObject = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject ();
+				#endif
+
+				mouseCurState = MouseState.mouseDragging;
+
+				if (!isMouseOnUIObject)
 					MouseDown ();
-				}
+				
                 
 			} else if (mouseCurState == MouseState.mouseDragging) {
 
-				if (!isMouseOnUIObject)
-					MouseHold ();
+					if (!isMouseOnUIObject)
+						MouseHold ();
 
-			}
+				}
 
 		} else if (mouseCurState == MouseState.mouseDragging) {
 			
-			mouseCurState = MouseState.mouseUp;
+				mouseCurState = MouseState.mouseUp;
             
-			MouseUp (dirMouseMagnitudeWorld > .6f && !isMouseOnUIObject && validDir);
-		}
+				MouseUp (dirMouseMagnitudeWorld > .6f && !isMouseOnUIObject && validDir);
+			}
 
 	}
 
@@ -226,8 +230,6 @@ public class BallController : MonoBehaviour {
 			ballList [i].GoThrow (dir);
 			tmpBallCount--;
 			ballCountText.text = "x" + tmpBallCount;
-            
-
 			yield return new WaitForSeconds (timeBetweenBalls);
 		}
 
@@ -260,9 +262,7 @@ public class BallController : MonoBehaviour {
 
 		iTween.ScaleTo (ballCountText.gameObject, Vector3.one, .5f);
 
-		UpdateBallCountText ();
-
-		UpdateBallCountPos ();
+		UpdateBallCount ();
 
 		if (!Game.isChallenge)
 			BlocksController.Instance.ShiftBlockMapDown ();
@@ -288,7 +288,7 @@ public class BallController : MonoBehaviour {
 		ballCount++;
 	}
 
-	public void UpdateBallCountPos ()
+	public void UpdateBallCount ()
 	{
 		Vector3 pos = Camera.main.WorldToScreenPoint (startThrowPos + Vector2.left * .5f) + Vector3.up * 7f;
 		if (pos.x < 0) {
@@ -296,10 +296,6 @@ public class BallController : MonoBehaviour {
 		}
 
 		ballCountText.transform.position = pos;
-	}
-
-	void UpdateBallCountText ()
-	{
 		ballCountText.text = "x" + ballCount;
 	}
 

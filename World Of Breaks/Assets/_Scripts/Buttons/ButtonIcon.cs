@@ -86,14 +86,14 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 					}
 				}
 			} else if (!changingColor && image.color != colorOrig) {
-				image.color = colorOrig;
-				if (outline != null) 
-					outline.effectColor = colorOrigOutline;
-			}
+					image.color = colorOrig;
+					if (outline != null)
+						outline.effectColor = colorOrigOutline;
+				}
 
 		} else {
 			if (t > 0) {
-				t -= Time.deltaTime / changingTime;
+				t -= Time.unscaledDeltaTime / changingTime;
 				image.color = Color.Lerp (colorToChange, colorOrig, Mathf.Abs (t - 1));
 
 				if (outline != null)
@@ -103,13 +103,13 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 					t = -1;
 
 			} else if (t <= 0.01f)
-			if (!changingColor) {
-				t = 0;
-				image.color = colorOrig;
-					if (outline != null) 
-						outline.effectColor = colorOrigOutline;
-			} else
-				t = 2;
+					if (!changingColor) {
+						t = 0;
+						image.color = colorOrig;
+						if (outline != null)
+							outline.effectColor = colorOrigOutline;
+					} else
+						t = 2;
             
 		}
 	}

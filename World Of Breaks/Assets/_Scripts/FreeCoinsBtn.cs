@@ -1,29 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FreeCoinsBtn : MonoBehaviour {
-	
+	Button btn;
+
 	void Start ()
 	{
-		AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
+		btn = GetComponent <Button> ();
+		btn.onClick.RemoveAllListeners ();
+		btn.onClick.AddListener (ShowAd);
+
+	}
+
+	bool clicked;
+
+	void ShowAd ()
+	{
+		if (AdManager.Ins != null) {
+			AdManager.Ins.showRewardedVideo ();
+
+			if (!clicked) {
+				clicked = true;
+				AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
+			}
+		}
 	}
 
 	void onRewardedVideoFinishedEvent ()
 	{
 		int coinAmount = 5;
 		User.AddCoin (coinAmount);
-
-		Vector3 fromPos = transform.position;
-		Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
-
-		Utility.CoinsAnimate (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount, fromPos, toPos, .5f, CoinUI.Ins.curve, () => {
-			
-		});
+		clicked = false;
+		AdManager.onRewardedVideoFinishedEvent -= onRewardedVideoFinishedEvent;
 	}
 
 	void OnDestroy ()
 	{
-		AdManager.onRewardedVideoFinishedEvent -= onRewardedVideoFinishedEvent;
+		
 	}
 }

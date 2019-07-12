@@ -7,12 +7,27 @@ using System;
 
 public class AdManager : MonoBehaviour, IInterstitialAdListener, IRewardedVideoAdListener {
 
-	public static AdManager Ins;
+	public static AdManager Ins {
+		get {
+			if (_Ins == null) {
+				GameObject manager = Resources.Load ("Prefabs/AdManager") as GameObject;
+				AdManager adManager = Instantiate (manager).GetComponent<AdManager> ();
+				adManager.Init ();
+				_Ins = adManager;
+			}
+
+			return _Ins;
+		}
+	}
+
+	bool isInit;
+
+	static AdManager _Ins;
 
 	#if UNITY_ANDROID
 	public string appKey = "9fc4231d0bc2ab13fac589b653287a74135a09438613c596";
 	
-#else
+	#else
 	public string appKey = "";
 	#endif
 
@@ -20,23 +35,52 @@ public class AdManager : MonoBehaviour, IInterstitialAdListener, IRewardedVideoA
 
 	void Awake ()
 	{
-		if (Ins == null)
-			Ins = this;
-		else if (Ins != this) {
-			Destroy (gameObject);
-			return;
-		}
-
-		testMode = Debug.isDebugBuild;
-
-		DontDestroyOnLoad (gameObject);
+		if (_Ins == null) {
+			_Ins = this;
+			DontDestroyOnLoad (gameObject);
+		} else if (_Ins != this) {
+				Destroy (gameObject);
+				return;
+			}
 	}
 
-	void Start ()
+	public void Init ()
 	{
-		Appodeal.setTesting (testMode);
+		if (!isInit) {
+			
+			testMode = Debug.isDebugBuild;
+			Appodeal.disableLocationPermissionCheck ();
+			Appodeal.setTesting (testMode);
+			Appodeal.initialize (appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO, false);
+			Appodeal.setInterstitialCallbacks (this);
+			Appodeal.setRewardedVideoCallbacks (this);
 
-		Appodeal.initialize (appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO | Appodeal.MREC, false);
+			isInit = true;
+		}
+	}
+
+	public void Start ()
+	{
+		Init ();
+	}
+
+	bool isRewardedVideoFinished;
+	bool isInterstitialClosed;
+
+	void Update ()
+	{
+		if (isRewardedVideoFinished) {
+			isRewardedVideoFinished = false;
+			if (onRewardedVideoFinishedEvent != null)
+				onRewardedVideoFinishedEvent ();
+		}
+
+		if (isInterstitialClosed) {
+			isInterstitialClosed = false;
+			if (onInterstitialClosedEvent != null)
+				onInterstitialClosedEvent ();
+		}
+		
 	}
 
 	public static event Action onInterstitialClosedEvent;
@@ -57,6 +101,7 @@ public class AdManager : MonoBehaviour, IInterstitialAdListener, IRewardedVideoA
 
 	public void onInterstitialFailedToLoad ()
 	{
+		
 	}
 
 	public void onInterstitialShown ()
@@ -65,8 +110,7 @@ public class AdManager : MonoBehaviour, IInterstitialAdListener, IRewardedVideoA
 
 	public void onInterstitialClosed ()
 	{
-		if (onInterstitialClosedEvent != null)
-			onInterstitialClosedEvent ();
+		isInterstitialClosed = true;
 	}
 
 	public void onInterstitialClicked ()
@@ -81,10 +125,10 @@ public class AdManager : MonoBehaviour, IInterstitialAdListener, IRewardedVideoA
 
 	public void showRewardedVideo ()
 	{
-		Debug.Log ("Predicted eCPM for Rewarded Video: " + Appodeal.getPredictedEcpm (Appodeal.REWARDED_VIDEO));
-		Debug.Log ("Reward currency: " + Appodeal.getRewardParameters ().Key + ", amount: " + Appodeal.getRewardParameters ().Value);
-		if (Appodeal.canShow (Appodeal.REWARDED_VIDEO)) {
+		if (Appodeal.isLoaded (Appodeal.REWARDED_VIDEO) && !Appodeal.isPrecache (Appodeal.REWARDED_VIDEO)) {
 			Appodeal.show (Appodeal.REWARDED_VIDEO);
+		} else {
+			Appodeal.cache (Appodeal.REWARDED_VIDEO);
 		}
 	}
 
@@ -103,8 +147,7 @@ public class AdManager : MonoBehaviour, IInterstitialAdListener, IRewardedVideoA
 
 	public void onRewardedVideoFinished (double amount, string name)
 	{
-		if (onRewardedVideoFinishedEvent != null)
-			onRewardedVideoFinishedEvent ();
+		isRewardedVideoFinished = true;
 	}
 
 	public void onRewardedVideoClosed (bool finished)
@@ -119,5 +162,4 @@ public class AdManager : MonoBehaviour, IInterstitialAdListener, IRewardedVideoA
 	public void onRewardedVideoClicked ()
 	{
 	}
-
 }

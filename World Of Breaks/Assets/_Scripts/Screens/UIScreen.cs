@@ -220,7 +220,7 @@ public class UIScreen : ScreenBase {
 
 	void ShowTutorial ()
 	{
-		if (!PlayerPrefs.HasKey ("TutorialComplete")) {
+		if (tutrlTemp == null && !PlayerPrefs.HasKey ("TutorialComplete")) {
 			tutrlTemp = Instantiate (tutorialPrefab);
 			tutrlTemp.transform.SetParent (transform, false);
 		}
@@ -228,10 +228,10 @@ public class UIScreen : ScreenBase {
 
 	public void HideTutorial ()
 	{
-		if (tutrlTemp != null)
+		if (tutrlTemp != null) {
 			Destroy (tutrlTemp);
-		
-		PlayerPrefs.SetString ("TutorialComplete", "yes");
+			PlayerPrefs.SetString ("TutorialComplete", "yes");
+		}
 	}
 
 	public override void OnActivate ()
@@ -272,6 +272,7 @@ public class UIScreen : ScreenBase {
 		if (OnLoseEvent != null) {
 			OnLoseEvent ();
 		}
+
 		Ins.playerLose = true;
 
 		if (Game.isChallenge)
