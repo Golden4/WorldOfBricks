@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EdgeScreenCollisions : MonoBehaviour {
-    public static EdgeScreenCollisions Ins;
-    public float colThickness = 4f;
+	public static EdgeScreenCollisions Ins;
+	public float colThickness = 4f;
 	public float zPosition = 0f;
 	private Vector2 screenSize;
 	public Sprite edgeSprite;
-    //public static Vector2 screenResolution;
-    private void Awake()
-    {
-        Ins = this;
-    }
+	//public static Vector2 screenResolution;
+	private void Awake ()
+	{
+		Ins = this;
+	}
 
-    void Start ()
+	void Start ()
 	{
        
-        //Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
+		//Screen.SetResolution (Mathf.RoundToInt (Screen.height / 16f * 10f), Screen.height, false);
 
-        System.Collections.Generic.Dictionary<string,Transform> colliders = new System.Collections.Generic.Dictionary<string,Transform> ();
+		System.Collections.Generic.Dictionary<string,Transform> colliders = new System.Collections.Generic.Dictionary<string,Transform> ();
 
 		colliders.Add ("Top", new GameObject ().transform);
 		colliders.Add ("Bottom", new GameObject ().transform);
@@ -34,7 +34,7 @@ public class EdgeScreenCollisions : MonoBehaviour {
 
 		foreach (KeyValuePair<string,Transform> valPair in colliders) {
 			valPair.Value.gameObject.AddComponent<BoxCollider2D> ();
-            valPair.Value.name = valPair.Key + "Collider";
+			valPair.Value.name = valPair.Key + "Collider";
 			valPair.Value.parent = transform;
  
 			if (valPair.Key == "Left" || valPair.Key == "Right")
@@ -49,11 +49,11 @@ public class EdgeScreenCollisions : MonoBehaviour {
 		colliders ["Top"].position = new Vector3 (cameraPos.x, cameraPos.y + screenSize.y + (colliders ["Top"].localScale.y * 0.5f), zPosition);
 		colliders ["Bottom"].position = new Vector3 (cameraPos.x, cameraPos.y - screenSize.y - (colliders ["Bottom"].localScale.y * 0.5f), zPosition);
 
-        foreach (KeyValuePair<string,Transform> valPair in colliders) {
-            if(valPair.Key != "Bottom")
-                valPair.Value.tag = "Edge";
+		foreach (KeyValuePair<string,Transform> valPair in colliders) {
+			if (valPair.Key != "Bottom")
+				valPair.Value.tag = "Edge";
 
-            if (valPair.Key == "Left" || valPair.Key == "Right") {
+			if (valPair.Key == "Left" || valPair.Key == "Right") {
 				//sr.size = new Vector2 (.05f, 1.0127f);
 				//if (valPair.Key == "Left") {
 				//	go.transform.localPosition = new Vector3 (.475f, 0);
@@ -62,14 +62,14 @@ public class EdgeScreenCollisions : MonoBehaviour {
 				//}
 			} else {
 
-                GameObject go = new GameObject("EdgeSprite" + valPair.Key);
-                go.transform.SetParent(colliders[valPair.Key].transform, false);
-                go.transform.localScale = Vector3.one;
-                SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-                sr.sprite = edgeSprite;
-                sr.drawMode = SpriteDrawMode.Sliced;
+				GameObject go = new GameObject ("EdgeSprite" + valPair.Key);
+				go.transform.SetParent (colliders [valPair.Key].transform, false);
+				go.transform.localScale = Vector3.one;
+				SpriteRenderer sr = go.AddComponent<SpriteRenderer> ();
+				sr.sprite = edgeSprite;
+				sr.drawMode = SpriteDrawMode.Sliced;
 
-                sr.size = new Vector2 (1f, .05f);
+				sr.size = new Vector2 (1f, .05f);
 				if (valPair.Key == "Top") {
 					go.transform.localPosition = new Vector3 (0, -.475f);
 				} else {
@@ -108,39 +108,41 @@ public class EdgeScreenCollisions : MonoBehaviour {
 		BottomLeft.transform.parent = transform;
 		BottomLeft.transform.localScale = new Vector3 (.3f, .3f, 1);*/
 
-		TopRight.AddComponent<BoxCollider2D> ();
-		TopLeft.AddComponent<BoxCollider2D> ();
+		CircleCollider2D cc = TopRight.AddComponent<CircleCollider2D> ();
+		cc.radius = .3f;
+		cc = TopLeft.AddComponent<CircleCollider2D> ();
+		cc.radius = .3f;
 		/*BottomLeft.AddComponent<BoxCollider2D> ();
 		BottomRight.AddComponent<BoxCollider2D> ();*/
 
 
 	}
 
-    public static Vector2 GetScreenEdgeTop()
-    {
-        Vector3 cameraPos = Camera.main.transform.position;
-        return new Vector2(cameraPos.x, cameraPos.y + BlocksController.Instance.GetBlockHolerSize().y);
-    }
+	public static Vector2 GetScreenEdgeTop ()
+	{
+		Vector3 cameraPos = Camera.main.transform.position;
+		return new Vector2 (cameraPos.x, cameraPos.y + BlocksController.Instance.GetBlockHolerSize ().y);
+	}
 
-    public static Vector2 GetScreenEdgeBottom()
-    {
-        Vector3 cameraPos = Camera.main.transform.position;
-        return new Vector2(cameraPos.x, cameraPos.y - BlocksController.Instance.GetBlockHolerSize().y);
-    }
+	public static Vector2 GetScreenEdgeBottom ()
+	{
+		Vector3 cameraPos = Camera.main.transform.position;
+		return new Vector2 (cameraPos.x, cameraPos.y - BlocksController.Instance.GetBlockHolerSize ().y);
+	}
 
-    public static Vector2 GetScreenEdgeLeft()
-    {
-        Vector3 cameraPos = Camera.main.transform.position;
-        return new Vector2(cameraPos.x - BlocksController.Instance.GetBlockHolerSize().x, cameraPos.y);
-    }
+	public static Vector2 GetScreenEdgeLeft ()
+	{
+		Vector3 cameraPos = Camera.main.transform.position;
+		return new Vector2 (cameraPos.x - BlocksController.Instance.GetBlockHolerSize ().x, cameraPos.y);
+	}
 
-    public static Vector2 GetScreenEdgeRight()
-    {
-        Vector3 cameraPos = Camera.main.transform.position;
-        return new Vector2(cameraPos.x + BlocksController.Instance.GetBlockHolerSize().x, cameraPos.y);
-    }
+	public static Vector2 GetScreenEdgeRight ()
+	{
+		Vector3 cameraPos = Camera.main.transform.position;
+		return new Vector2 (cameraPos.x + BlocksController.Instance.GetBlockHolerSize ().x, cameraPos.y);
+	}
 
-    void Update ()
+	void Update ()
 	{
 		
 
