@@ -3,24 +3,10 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using System.Collections.Generic;
 
-public class PurchaseManager : MonoBehaviour, IStoreListener {
+public class PurchaseManager : SingletonResourse<PurchaseManager> , IStoreListener {
 	private static IStoreController m_StoreController;
 	private static IExtensionProvider m_StoreExtensionProvider;
 	private int currentProductIndex;
-
-	private static PurchaseManager _Ins;
-
-	public static PurchaseManager Ins {
-		get {
-			if (_Ins == null) {
-				GameObject manager = Resources.Load ("Prefabs/PurchaseManager") as GameObject;
-				PurchaseManager purchManager = Instantiate (manager).GetComponent<PurchaseManager> ();
-				_Ins = purchManager;
-			}
-
-			return _Ins;
-		}
-	}
 
 	public string[] NC_PRODUCTS;
 
@@ -39,24 +25,9 @@ public class PurchaseManager : MonoBehaviour, IStoreListener {
 	/// </summary>
 	public static event OnFailedPurchase PurchaseFailed;
 
-	private void Awake ()
+	public override void OnInit ()
 	{
-
-		if (_Ins == null)
-			_Ins = this;
-		else if (_Ins != this) {
-			Destroy (gameObject);
-			return;
-		}
-
-		InitializePurchasing ();
-		DontDestroyOnLoad (gameObject);
-		SceneController.OnRestartLevel += TryInit;
-	}
-
-	void OnDestroy ()
-	{
-		SceneController.OnRestartLevel -= TryInit;
+		TryInit ();
 	}
 
 	/// <summary>
@@ -74,10 +45,11 @@ public class PurchaseManager : MonoBehaviour, IStoreListener {
 		}
 	}
 
-	void TryInit ()
+	public void TryInit ()
 	{
 		if (!IsInitialized ()) {
 			InitializePurchasing ();
+			DontDestroyOnLoad (gameObject);
 		}
 	}
 
@@ -185,9 +157,9 @@ public class PurchaseManager : MonoBehaviour, IStoreListener {
 		if (C_PRODUCTS.Length > 0 && currentProductIndex < C_PRODUCTS.Length && String.Equals (args.purchasedProduct.definition.id, C_PRODUCTS [currentProductIndex], StringComparison.Ordinal))
 			OnSuccessC (args);
 		else if (NC_PRODUCTS.Length > 0 && String.Equals (args.purchasedProduct.definition.id, NC_PRODUCTS [currentProductIndex], StringComparison.Ordinal))
-			OnSuccessNC (args);
-		else
-			Debug.Log (string.Format ("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
+				OnSuccessNC (args);
+			else
+				Debug.Log (string.Format ("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
 		return PurchaseProcessingResult.Complete;
 	}
 

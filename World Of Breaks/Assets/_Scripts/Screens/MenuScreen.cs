@@ -15,9 +15,9 @@ public class MenuScreen : ScreenBase {
 
 	public static MenuScreen Ins;
 
-	public override void Init ()
+	public override void OnInit ()
 	{
-		base.Init ();
+		base.OnInit ();
 		Ins = this;
 	}
 
@@ -123,8 +123,6 @@ public class MenuScreen : ScreenBase {
 
 	}
 
-	public Sprite spsar;
-
 	public override void OnActivate ()
 	{
 		base.OnActivate ();
@@ -136,7 +134,6 @@ public class MenuScreen : ScreenBase {
 
 		if (PlayerPrefs.HasKey ("Checkpoint"))
 			_checkpoint = PlayerPrefs.GetInt ("Checkpoint");
-        
 	}
 
 	public override void OnDeactivate ()

@@ -31,7 +31,7 @@ public class ShopScreen : ScreenBase {
 	public Button buyCoinBtn;
 	public Button buyVideoBtn;
 
-	public override void Init ()
+	public override void OnInit ()
 	{
 		scrollSnap.Init ();
 
@@ -212,9 +212,9 @@ public class ShopScreen : ScreenBase {
 		};
 
 		for (int i = 0; i < btns.Length; i++) {
-			if (show)
+			if (show) {
 				btns [i].gameObject.SetActive ((int)type == i);
-			else
+			} else
 				btns [i].gameObject.SetActive (false);
 		}
 

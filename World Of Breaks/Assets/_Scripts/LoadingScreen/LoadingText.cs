@@ -15,7 +15,8 @@ public class LoadingText : MonoBehaviour {
 	void Start ()
 	{
 		loadingTime = 0;
-		AdManager.Ins.Init ();
+		AdManager.Ins.OnInit ();
+		PurchaseManager.Ins.TryInit ();
 		StartCoroutine (PingPongText (SceneController.nextSceneToLoad, loadingText, 0.7f));
 
 	}

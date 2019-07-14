@@ -5,24 +5,7 @@ using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
 using System;
 
-public class AdManager : MonoBehaviour, IInterstitialAdListener, IRewardedVideoAdListener {
-
-	public static AdManager Ins {
-		get {
-			if (_Ins == null) {
-				GameObject manager = Resources.Load ("Prefabs/AdManager") as GameObject;
-				AdManager adManager = Instantiate (manager).GetComponent<AdManager> ();
-				adManager.Init ();
-				_Ins = adManager;
-			}
-
-			return _Ins;
-		}
-	}
-
-	bool isInit;
-
-	static AdManager _Ins;
+public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, IRewardedVideoAdListener {
 
 	#if UNITY_ANDROID
 	public string appKey = "9fc4231d0bc2ab13fac589b653287a74135a09438613c596";
@@ -33,35 +16,15 @@ public class AdManager : MonoBehaviour, IInterstitialAdListener, IRewardedVideoA
 
 	public bool testMode = true;
 
-	void Awake ()
+	public override void OnInit ()
 	{
-		if (_Ins == null) {
-			_Ins = this;
-			DontDestroyOnLoad (gameObject);
-		} else if (_Ins != this) {
-				Destroy (gameObject);
-				return;
-			}
-	}
-
-	public void Init ()
-	{
-		if (!isInit) {
-			
-			testMode = Debug.isDebugBuild;
-			Appodeal.disableLocationPermissionCheck ();
-			Appodeal.setTesting (testMode);
-			Appodeal.initialize (appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO, false);
-			Appodeal.setInterstitialCallbacks (this);
-			Appodeal.setRewardedVideoCallbacks (this);
-
-			isInit = true;
-		}
-	}
-
-	public void Start ()
-	{
-		Init ();
+		DontDestroyOnLoad (gameObject);
+		testMode = Debug.isDebugBuild;
+		Appodeal.disableLocationPermissionCheck ();
+		Appodeal.setTesting (testMode);
+		Appodeal.initialize (appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO, false);
+		Appodeal.setInterstitialCallbacks (this);
+		Appodeal.setRewardedVideoCallbacks (this);
 	}
 
 	bool isRewardedVideoFinished;

@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class ScreenBase : MonoBehaviour {
 	
+	protected GUIAnim[] anims;
+	protected bool animate = true;
+
 	[System.NonSerialized]
 	public bool isActive;
 
-	public virtual void Init ()
+	public void Init ()
+	{
+		OnInit ();
+
+		if (animate) {
+			anims = GetComponentsInChildren <GUIAnim> ();
+		}
+	}
+
+	public virtual void OnInit ()
 	{
 		
 	}
@@ -16,6 +28,13 @@ public class ScreenBase : MonoBehaviour {
 	{
 		isActive = true;
 		gameObject.SetActive (true);
+
+		if (animate && anims != null) {
+			for (int i = 0; i < anims.Length; i++) {
+				anims [i].MoveIn (GUIAnimSystem.eGUIMove.Self);
+			}
+		}
+
 		OnActivate ();
 	}
 
@@ -30,6 +49,7 @@ public class ScreenBase : MonoBehaviour {
 
 	public virtual void OnActivate ()
 	{
+		
 	}
 
 	public virtual void OnDeactivate ()

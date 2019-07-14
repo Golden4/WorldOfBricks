@@ -5,8 +5,7 @@ using UnityEngine;
 public class ScreenController : MonoBehaviour {
 	public static ScreenController Ins;
 
-	public enum GameScreen
-	{
+	public enum GameScreen {
 		Menu,
 		Shop,
 		BuyCoin,
@@ -19,8 +18,7 @@ public class ScreenController : MonoBehaviour {
 		ChallegesResult
 	}
 
-	public enum CurScene
-	{
+	public enum CurScene {
 		Menu,
 		Game
 	}

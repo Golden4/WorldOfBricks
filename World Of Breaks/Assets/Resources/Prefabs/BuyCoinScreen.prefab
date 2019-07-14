@@ -65,7 +65,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ac9cbc493c1169c499f6f0fdec95938a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e3a118b4f0d2bd47b1966b8df1db88d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 8818405113324899735}
   - component: {fileID: 8818405113324899732}
   - component: {fileID: 8818405113324899733}
+  - component: {fileID: 970296105}
   m_Layer: 5
   m_Name: OpenBtn
   m_TagString: Untagged
@@ -227,6 +228,356 @@ MonoBehaviour:
   colorToChange: {r: 1, g: 0.9696857, b: 0, a: 1}
   colorToChangeOutline: {r: 0.5660378, g: 0.5482797, b: 0, a: 1}
   btnEnabled: 1
+--- !u!114 &970296105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818405113324899723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee9cd40fbd34a54f815e28adc9cd6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CameraBottomEdge: 0
+  m_CameraLeftEdge: 0
+  m_CameraRightEdge: 0
+  m_CameraTopEdge: 0
+  m_CanvasWorldBottomCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopRight: {x: 0, y: 0, z: 0}
+  m_FadeIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    FadeChildren: 0
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_FadeLast: 0
+    Min: 0
+    Max: 1
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeOriginal: 0
+  m_FadeOriginalTextOutline: 0
+  m_FadeOriginalTextShadow: 0
+  m_FadeOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeVariable: 0
+  m_MoveIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveFrom: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveOriginal: {x: 0, y: 0, z: 0}
+  m_MoveOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveTo: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveVariable: 0
+  m_RotationIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationOriginal: {x: 0, y: 0, z: 0, w: 0}
+  m_RotationOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationVariable: 0
+  m_ScaleIn:
+    Enable: 1
+    Animating: 0
+    Began: 0
+    Delay: 0
+    Done: 0
+    EaseType: 27
+    ScaleBegin: {x: 0, y: 0, z: 0}
+    Time: 0.3
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_ScaleLast: {x: 0, y: 0, z: 0}
+    Min: {x: 1, y: 1, z: 1}
+    Max: {x: 1.05, y: 1.05, z: 1.05}
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleOriginal: {x: 0, y: 0, z: 0}
+  m_ScaleOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 26
+    ScaleBegin: {x: 1, y: 1, z: 1}
+    ScaleEnd: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleVariable: 0
+  m_TotalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!1 &8818405113412473486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,6 +1576,7 @@ GameObject:
   - component: {fileID: 8818405114709166187}
   - component: {fileID: 8818405114709166184}
   - component: {fileID: 8818405114709166185}
+  - component: {fileID: 9549866}
   m_Layer: 5
   m_Name: BuyCoins
   m_TagString: Untagged
@@ -1364,6 +1716,356 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+--- !u!114 &9549866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818405114709166191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee9cd40fbd34a54f815e28adc9cd6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CameraBottomEdge: 0
+  m_CameraLeftEdge: 0
+  m_CameraRightEdge: 0
+  m_CameraTopEdge: 0
+  m_CanvasWorldBottomCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopRight: {x: 0, y: 0, z: 0}
+  m_FadeIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    FadeChildren: 0
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_FadeLast: 0
+    Min: 0
+    Max: 1
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeOriginal: 0
+  m_FadeOriginalTextOutline: 0
+  m_FadeOriginalTextShadow: 0
+  m_FadeOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeVariable: 0
+  m_MoveIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveFrom: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveOriginal: {x: 0, y: 0, z: 0}
+  m_MoveOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveTo: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveVariable: 0
+  m_RotationIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationOriginal: {x: 0, y: 0, z: 0, w: 0}
+  m_RotationOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationVariable: 0
+  m_ScaleIn:
+    Enable: 1
+    Animating: 0
+    Began: 0
+    Delay: 0
+    Done: 0
+    EaseType: 27
+    ScaleBegin: {x: 0, y: 0, z: 0}
+    Time: 0.3
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_ScaleLast: {x: 0, y: 0, z: 0}
+    Min: {x: 1, y: 1, z: 1}
+    Max: {x: 1.05, y: 1.05, z: 1.05}
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleOriginal: {x: 0, y: 0, z: 0}
+  m_ScaleOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 26
+    ScaleBegin: {x: 1, y: 1, z: 1}
+    ScaleEnd: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleVariable: 0
+  m_TotalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!1 &8818405114734561397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,6 +2080,7 @@ GameObject:
   - component: {fileID: 8818405114734561393}
   - component: {fileID: 8818405114734561398}
   - component: {fileID: 8818405114734561399}
+  - component: {fileID: 2016594946}
   m_Layer: 5
   m_Name: BuyCoins (2)
   m_TagString: Untagged
@@ -1517,6 +2220,356 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+--- !u!114 &2016594946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818405114734561397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee9cd40fbd34a54f815e28adc9cd6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CameraBottomEdge: 0
+  m_CameraLeftEdge: 0
+  m_CameraRightEdge: 0
+  m_CameraTopEdge: 0
+  m_CanvasWorldBottomCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopRight: {x: 0, y: 0, z: 0}
+  m_FadeIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    FadeChildren: 0
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_FadeLast: 0
+    Min: 0
+    Max: 1
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeOriginal: 0
+  m_FadeOriginalTextOutline: 0
+  m_FadeOriginalTextShadow: 0
+  m_FadeOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeVariable: 0
+  m_MoveIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveFrom: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveOriginal: {x: 0, y: 0, z: 0}
+  m_MoveOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveTo: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveVariable: 0
+  m_RotationIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationOriginal: {x: 0, y: 0, z: 0, w: 0}
+  m_RotationOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationVariable: 0
+  m_ScaleIn:
+    Enable: 1
+    Animating: 0
+    Began: 0
+    Delay: 0
+    Done: 0
+    EaseType: 27
+    ScaleBegin: {x: 0, y: 0, z: 0}
+    Time: 0.3
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_ScaleLast: {x: 0, y: 0, z: 0}
+    Min: {x: 1, y: 1, z: 1}
+    Max: {x: 1.05, y: 1.05, z: 1.05}
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleOriginal: {x: 0, y: 0, z: 0}
+  m_ScaleOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 26
+    ScaleBegin: {x: 1, y: 1, z: 1}
+    ScaleEnd: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleVariable: 0
+  m_TotalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!1 &8818405114859486060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,6 +2584,7 @@ GameObject:
   - component: {fileID: 8818405114859486056}
   - component: {fileID: 8818405114859486057}
   - component: {fileID: 8818405114859486062}
+  - component: {fileID: 2000063990}
   m_Layer: 9
   m_Name: BackBtn
   m_TagString: Untagged
@@ -1681,6 +2735,356 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+--- !u!114 &2000063990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818405114859486060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee9cd40fbd34a54f815e28adc9cd6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CameraBottomEdge: 0
+  m_CameraLeftEdge: 0
+  m_CameraRightEdge: 0
+  m_CameraTopEdge: 0
+  m_CanvasWorldBottomCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopRight: {x: 0, y: 0, z: 0}
+  m_FadeIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    FadeChildren: 0
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_FadeLast: 0
+    Min: 0
+    Max: 1
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeOriginal: 0
+  m_FadeOriginalTextOutline: 0
+  m_FadeOriginalTextShadow: 0
+  m_FadeOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeVariable: 0
+  m_MoveIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveFrom: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveOriginal: {x: 0, y: 0, z: 0}
+  m_MoveOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveTo: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveVariable: 0
+  m_RotationIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationOriginal: {x: 0, y: 0, z: 0, w: 0}
+  m_RotationOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationVariable: 0
+  m_ScaleIn:
+    Enable: 1
+    Animating: 0
+    Began: 0
+    Delay: 0
+    Done: 0
+    EaseType: 27
+    ScaleBegin: {x: 0, y: 0, z: 0}
+    Time: 0.3
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_ScaleLast: {x: 0, y: 0, z: 0}
+    Min: {x: 1, y: 1, z: 1}
+    Max: {x: 1.05, y: 1.05, z: 1.05}
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleOriginal: {x: 0, y: 0, z: 0}
+  m_ScaleOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 26
+    ScaleBegin: {x: 1, y: 1, z: 1}
+    ScaleEnd: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleVariable: 0
+  m_TotalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!1 &8818405114902573779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,6 +3602,7 @@ GameObject:
   - component: {fileID: 8818405115173893513}
   - component: {fileID: 8818405115173893518}
   - component: {fileID: 8818405115173893519}
+  - component: {fileID: 90770758}
   m_Layer: 5
   m_Name: BuyCoins (1)
   m_TagString: Untagged
@@ -2337,3 +3742,353 @@ MonoBehaviour:
   colorToChange: {r: 0, g: 0, b: 0, a: 0}
   colorToChangeOutline: {r: 0, g: 0, b: 0, a: 0}
   btnEnabled: 1
+--- !u!114 &90770758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818405115173893517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee9cd40fbd34a54f815e28adc9cd6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CameraBottomEdge: 0
+  m_CameraLeftEdge: 0
+  m_CameraRightEdge: 0
+  m_CameraTopEdge: 0
+  m_CanvasWorldBottomCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldBottomRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldMiddleRight: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopCenter: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopLeft: {x: 0, y: 0, z: 0}
+  m_CanvasWorldTopRight: {x: 0, y: 0, z: 0}
+  m_FadeIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    FadeChildren: 0
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_FadeLast: 0
+    Min: 0
+    Max: 1
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeOriginal: 0
+  m_FadeOriginalTextOutline: 0
+  m_FadeOriginalTextShadow: 0
+  m_FadeOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    Fade: 0
+    FadeChildren: 0
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_FadeVariable: 0
+  m_MoveIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveFrom: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveOriginal: {x: 0, y: 0, z: 0}
+  m_MoveOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginPos: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndPos: {x: 0, y: 0, z: 0}
+    MoveTo: 2
+    Position: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_MoveVariable: 0
+  m_RotationIn:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 27
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationOriginal: {x: 0, y: 0, z: 0, w: 0}
+  m_RotationOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    BeginRotation: {x: 0, y: 0, z: 0}
+    Done: 0
+    EaseType: 26
+    EndRotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_RotationVariable: 0
+  m_ScaleIn:
+    Enable: 1
+    Animating: 0
+    Began: 0
+    Delay: 0
+    Done: 0
+    EaseType: 27
+    ScaleBegin: {x: 0, y: 0, z: 0}
+    Time: 0.3
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleLoop:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 21
+    IsOverriding: 0
+    IsOverridingDelayTimeCount: 0
+    m_ScaleLast: {x: 0, y: 0, z: 0}
+    Min: {x: 1, y: 1, z: 1}
+    Max: {x: 1.05, y: 1.05, z: 1.05}
+    Time: 1
+    Delay: 0
+    Sound:
+      m_AudioClip: {fileID: 0}
+      m_AudioSource: {fileID: 0}
+      m_Loop: 0
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleOriginal: {x: 0, y: 0, z: 0}
+  m_ScaleOut:
+    Enable: 0
+    Animating: 0
+    Began: 0
+    Done: 0
+    EaseType: 26
+    ScaleBegin: {x: 1, y: 1, z: 1}
+    ScaleEnd: {x: 0, y: 0, z: 0}
+    Time: 1
+    Delay: 0
+    Sounds:
+      m_Begin: {fileID: 0}
+      m_AfterDelay: {fileID: 0}
+      m_End: {fileID: 0}
+    Actions:
+      OnBegin:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnAfterDelay:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      OnEnd:
+        m_PersistentCalls:
+          m_Calls: []
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+  m_ScaleVariable: 0
+  m_TotalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}

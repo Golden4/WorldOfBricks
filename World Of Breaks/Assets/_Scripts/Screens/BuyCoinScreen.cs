@@ -28,6 +28,8 @@ public class BuyCoinScreen : ScreenBase {
 			buyCoinBtns [i].btn.onClick.AddListener (() => BuyItem (buyCoinBtns [index].productID));
 		}
 
+
+
 	}
 
 	public void ShowBuyCoinScreen ()
@@ -74,9 +76,9 @@ public class BuyCoinScreen : ScreenBase {
 		}
 	}
 
-	public override void Init ()
+	public override void OnInit ()
 	{
-		base.Init ();
+		base.OnInit ();
 
 		Ins = this;
 
@@ -95,6 +97,7 @@ public class BuyCoinScreen : ScreenBase {
         
         
 		PurchaseManager.OnPurchaseConsumable += OnPurchaseConsumable;
+		anims = GetComponentsInChildren <GUIAnim> ();
 	}
 
 	public override void OnCleanUp ()
@@ -134,7 +137,7 @@ public class BuyCoinScreen : ScreenBase {
             
 			Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
-			Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
+			Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
                 
 			});
 

@@ -4,91 +4,110 @@ using UnityEngine;
 
 public class BlocksController : MonoBehaviour {
 
-    [System.Serializable]
-    public class TilePresets
-    {
-        public int blocksWidth = 10;
-        public int blocksHeight = 8;
-        public float cameraSize;
-        public Vector2 startBallPos;
-    }
+	[System.Serializable]
+	public class TilePresets {
+		public int blocksWidth = 10;
+		public int blocksHeight = 8;
+		public float cameraSize;
 
-    public TilePresets[] presets;
-    public TilePresets curPreset;
+		public TilePresets (int blocksWidth, int blocksHeight, float cameraSize)
+		{
+			this.blocksWidth = blocksWidth;
+			this.blocksHeight = blocksHeight;
+			this.cameraSize = cameraSize;
+		}
+
+		public TilePresets ()
+		{
+		}
+		
+
+	}
+
+	public int presetIndex;
+	public TilePresets[] presets;
+
+	public TilePresets curPreset {
+		
+		get {
+			if (!Game.isChallenge)
+				return presets [presetIndex];
+			else
+				return challPreset;
+		}
+	}
+
+	public TilePresets challPreset = new TilePresets (10, 8, 4.95f);
+
 	public Block[][] blockMap;
 	public BlockForSpawn[] blocksForSpawn;
 	public Vector2 offsetBetweenBlocks;
-    public int blocksLife;
+	public int blocksLife;
 	GameObject blockHolder;
 
 	public event System.Action OnChangeTopLine;
 
 	public Vector3 centerOfScreen;
 
-    public static BlocksController Instance;
-    public bool canSaveBlockMap;
-    public Texture2D challengesMapTexture;
+	public static BlocksController Instance;
+	public bool canSaveBlockMap;
+	public Texture2D challengesMapTexture;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+	private void Awake ()
+	{
+		Instance = this;
+	}
 
-    void Start ()
+	void Start ()
 	{      
 		blockHolder = new GameObject ("BlockHolder");
 		//centerOfScreen = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2f, Screen.height - Screen.height * .08f, 10));
 		blockHolder.transform.position = Vector3.zero;// centerOfScreen;
-        if(!Game.isChallenge)
-            curPreset = presets[(int)TileSizeScreen.tileSize];
-        else
-            curPreset = presets[(int)1];
 
-        Camera.main.orthographicSize = curPreset.cameraSize;
+		if (!Game.isChallenge)
+			presetIndex = (int)TileSizeScreen.tileSize;
+		else
+			presetIndex = 0;
 
-        InitializeBlockMap ();
+		Camera.main.orthographicSize = curPreset.cameraSize;
 
-        if (!Game.isChallenge)
-        {
-            if (!UIScreen.newGame && !BlocksSaver.LoadBlocksMap(this))
-            {
-            }
+		InitializeBlockMap ();
 
-            ShiftBlockMapDown();
-            canSaveBlockMap = true;
-        } else
-        {
-            blockMap = textureToBlockMap(challengesMapTexture, Game.curChallengeIndex, 10, 8);
-        }
-    }
+		if (!Game.isChallenge) {
+			if (!UIScreen.newGame && !BlocksSaver.LoadBlocksMap (this)) {
+			}
 
-    public void CalculateBlockLife()
-    {
-        blocksLife = 0;
+			ShiftBlockMapDown ();
+			canSaveBlockMap = true;
+		} else {
+			blockMap = textureToBlockMap (challengesMapTexture, Game.curChallengeIndex, curPreset.blocksWidth, curPreset.blocksHeight);
+		}
+	}
 
-        for (int i = 0; i < blockMap.Length; i++)
-        {
-            for (int j = 0; j < blockMap[i].Length; j++)
-            {
-                if(blockMap[i][j].blockComp != null && blockMap[i][j].blockComp.canLooseBeforeDown)
-                    blocksLife += blockMap[i][j].blockLife;
-            }
-        }
+	public void CalculateBlockLife ()
+	{
+		blocksLife = 0;
+
+		for (int i = 0; i < blockMap.Length; i++) {
+			for (int j = 0; j < blockMap [i].Length; j++) {
+				if (blockMap [i] [j].blockComp != null && blockMap [i] [j].blockComp.canLooseBeforeDown)
+					blocksLife += blockMap [i] [j].blockLife;
+			}
+		}
         
 
-        if (blocksLife <= 0)
-        {
-            if (!Game.isChallenge)
-                UIScreen.Ins.ShowClearText();
-            else
-                UIScreen.Ins.ChallengeCompleted();
-        }
-    }
+		if (blocksLife <= 0) {
+			if (!Game.isChallenge)
+				UIScreen.Ins.ShowClearText ();
+			else
+				UIScreen.Ins.ChallengeCompleted ();
+		}
+	}
 
 	void InitializeBlockMap ()
 	{
-        blockMap = new Block[curPreset.blocksWidth][];
-        for (int i = 0; i < blockMap.Length; i++) {
+		blockMap = new Block[curPreset.blocksWidth][];
+		for (int i = 0; i < blockMap.Length; i++) {
 			blockMap [i] = new Block[curPreset.blocksHeight];
 			for (int j = 0; j < blockMap [i].Length; j++) {
 				blockMap [i] [j] = new Block (0);
@@ -98,7 +117,7 @@ public class BlocksController : MonoBehaviour {
 
 	public void ShiftBlockMapDown ()
 	{
-            for (int i = blockMap.Length - 2; i >= 0; i--) {
+		for (int i = blockMap.Length - 2; i >= 0; i--) {
 			System.Array.Copy (blockMap [i], blockMap [i + 1], blockMap [0].Length);
 		}
 
@@ -119,37 +138,32 @@ public class BlocksController : MonoBehaviour {
 		}
 
         
-            if (OnChangeTopLine != null)
-            {
-                OnChangeTopLine();
-            }
+		if (OnChangeTopLine != null) {
+			OnChangeTopLine ();
+		}
 
 
            
 
 
-        CheckForLose();
-        UIScreen.Ins.UpdateScore(++UIScreen.Ins.score);
+		CheckForLose ();
+		UIScreen.Ins.UpdateScore (++UIScreen.Ins.score);
 
-        if (UIScreen.Ins.score >= 100)
-        {
-            if(TileSizeScreen.tileSize == TileSizeScreen.TileSize.Small && TileSizeScreen.tileSizeLocked.tileSizeLocked[0])
-            {
-                TileSizeScreen.UnlockTile(0);
-                UIScreen.Ins.ShowPopUpText(LocalizationManager.GetLocalizedText("medium_unlocked"));
-            }
-        }
+		if (UIScreen.Ins.score >= 100) {
+			if (TileSizeScreen.tileSize == TileSizeScreen.TileSize.Small && TileSizeScreen.tileSizeLocked.tileSizeLocked [0]) {
+				TileSizeScreen.UnlockTile (0);
+				UIScreen.Ins.ShowPopUpText (LocalizationManager.GetLocalizedText ("medium_unlocked"));
+			}
+		}
 
-        if(UIScreen.Ins.score >= 150)
-
-            if (TileSizeScreen.tileSize == TileSizeScreen.TileSize.Medium && TileSizeScreen.tileSizeLocked.tileSizeLocked[1])
-            {
-                TileSizeScreen.UnlockTile(1);
-                UIScreen.Ins.ShowPopUpText(LocalizationManager.GetLocalizedText("big_unlocked"));
-            }
+		if (UIScreen.Ins.score >= 150)
+			if (TileSizeScreen.tileSize == TileSizeScreen.TileSize.Medium && TileSizeScreen.tileSizeLocked.tileSizeLocked [1]) {
+				TileSizeScreen.UnlockTile (1);
+				UIScreen.Ins.ShowPopUpText (LocalizationManager.GetLocalizedText ("big_unlocked"));
+			}
 
 
-        Utility.Invoke(this, .2f, ChangeTopLine);
+		Utility.Invoke (this, .2f, ChangeTopLine);
         
         
 		//Invoke ("ChangeTopLine", .2f);
@@ -160,7 +174,7 @@ public class BlocksController : MonoBehaviour {
 		for (int i = 0; i < blockMap [0].Length; i++) {
 
 			if (blockMap [blockMap.Length - 1] [i].blockLife > 0) {
-                UIScreen.OnLoseEventCall();
+				UIScreen.OnLoseEventCall ();
 				break;
 			}
 		}
@@ -175,26 +189,25 @@ public class BlocksController : MonoBehaviour {
 		}
 	}
 
-    public void ChallengeProgress()
-    {
-        UIScreen.Ins.UpdateScore(--UIScreen.Ins.score);
-
-        if (OnChangeTopLine != null)
-        {
-            OnChangeTopLine();
-        }
-
-        if (UIScreen.Ins.playerWin)
-            UIScreen.OnWinEventCall();
-        else if (UIScreen.Ins.playerLose || UIScreen.Ins.score <= 0)
-            UIScreen.OnLoseEventCall();
-    }
-
-    System.Random rand = new System.Random();
-
-    void ChangeTopLine ()
+	public void ChallengeProgress ()
 	{
-        double randNumPlusBlock = Random.Range (0, blockMap [0].Length - 1);
+		UIScreen.Ins.UpdateScore (--UIScreen.Ins.score);
+
+		if (OnChangeTopLine != null) {
+			OnChangeTopLine ();
+		}
+
+		if (UIScreen.Ins.playerWin)
+			UIScreen.OnWinEventCall ();
+		else if (UIScreen.Ins.playerLose || UIScreen.Ins.score <= 0)
+				UIScreen.OnLoseEventCall ();
+	}
+
+	System.Random rand = new System.Random ();
+
+	void ChangeTopLine ()
+	{
+		double randNumPlusBlock = Random.Range (0, blockMap [0].Length - 1);
 
 		for (int i = 0; i < blockMap [0].Length; i++) {
 
@@ -209,18 +222,18 @@ public class BlocksController : MonoBehaviour {
 			}
 
 
-            double randNum = rand.NextDouble();
+			double randNum = rand.NextDouble ();
 
 
-            if (randNum < .2f) {
+			if (randNum < .2f) {
 
 			} else {
 
 				int curLevelCur = (UIScreen.Ins.score % 10 == 0) ? UIScreen.Ins.score * Random.Range (1, 3) : UIScreen.Ins.score;
 
-                int indexBlock = GetRandomBlockIndex();
+				int indexBlock = GetRandomBlockIndex ();
 
-                spawnedBlock = SpawnBlock (i, 0, indexBlock);
+				spawnedBlock = SpawnBlock (i, 0, indexBlock);
 
 				blockMap [0] [i] = new Block ((spawnedBlock.canLooseBeforeDown) ? curLevelCur : 0, indexBlock, spawnedBlock);
 
@@ -235,49 +248,45 @@ public class BlocksController : MonoBehaviour {
 
         
 
-    }
+	}
 
 
-    public Block[][] textureToBlockMap(Texture2D texture, int index, int blocksWidth = 10, int blocksHeight = 8)
-    {
-        Block[][] blockMap = new Block[blocksWidth][];
-        for (int i = 0; i < blockMap.Length; i++)
-        {
-            blockMap[i] = new Block[blocksHeight];
+	public Block[][] textureToBlockMap (Texture2D texture, int index, int blocksWidth = 10, int blocksHeight = 8)
+	{
+		Block[][] blockMap = new Block[blocksWidth][];
+		for (int i = 0; i < blockMap.Length; i++) {
+			blockMap [i] = new Block[blocksHeight];
 
-            for (int j = 0; j < blockMap[i].Length; j++)
-            {
-                Color col = texture.GetPixel(j + index * blocksHeight, blocksWidth * 2 - 1 -  i);
-                float h, s, v;
-                Color.RGBToHSV(col, out h, out s, out v);
+			for (int j = 0; j < blockMap [i].Length; j++) {
+				Color col = texture.GetPixel (j + index * blocksHeight, blocksWidth * 2 - 1 - i);
+				float h, s, v;
+				Color.RGBToHSV (col, out h, out s, out v);
                 
-                int blockIndex = Mathf.FloorToInt(h * 360 / 20);
+				int blockIndex = Mathf.FloorToInt (h * 360 / 20);
 
-                if(blockIndex == 0)
-                {
-                    blockIndex = -1;
-                }
+				if (blockIndex == 0) {
+					blockIndex = -1;
+				}
 
-               // print(i + "   " +j+ "  " + col + "  " + blockIndex);
+				// print(i + "   " +j+ "  " + col + "  " + blockIndex);
 
-                if (blockIndex == -1)
-                    blockMap[i][j] = new Block(0);
-                else
-                {
-                    col = texture.GetPixel(j + index * blocksHeight, blocksWidth - 1 - i);
-                    int lifeCount = Mathf.FloorToInt(col.r * 255);
-                    BlockWithText go = SpawnBlock(j, i, blockIndex);
-                    go.isLoadingBlock = true;
-                    blockMap[i][j] = new Block(lifeCount, blockIndex, go);
-                }
-            }
-        }
+				if (blockIndex == -1)
+					blockMap [i] [j] = new Block (0);
+				else {
+					col = texture.GetPixel (j + index * blocksHeight, blocksWidth - 1 - i);
+					int lifeCount = Mathf.FloorToInt (col.r * 255);
+					BlockWithText go = SpawnBlock (j, i, blockIndex);
+					go.isLoadingBlock = true;
+					blockMap [i] [j] = new Block (lifeCount, blockIndex, go);
+				}
+			}
+		}
 
-        return blockMap;
-    }
+		return blockMap;
+	}
 
 
-    int GetRandomBlockIndex ()
+	int GetRandomBlockIndex ()
 	{
 		int RandomNum = rand.Next (0, GetSummChance ());
 
@@ -393,66 +402,59 @@ public class BlocksController : MonoBehaviour {
 		Destroy (obj);
 	}
 
-    public void DestroyLastLineBtn()
-    {
-        int coinAmount = 20;
+	public void DestroyLastLineBtn ()
+	{
+		if (Game.isChallenge)
+			return;
 
-        if (User.HaveCoin(coinAmount) && DestroyLastLine(true))
-        {
-           User.BuyWithCoin(coinAmount);
-        }
-    }
+		int coinAmount = 20;
 
-    public bool DestroyLastLine(bool checkBlockLife = true)
-    {
+		if (User.HaveCoin (coinAmount) && DestroyLastLine (true)) {
+			User.BuyWithCoin (coinAmount);
+		}
+	}
+
+	public bool DestroyLastLine (bool checkBlockLife = true)
+	{
         
-            for (int i = blockMap.Length - 1; i >= 0; i--)
-            {
-                for (int j = 0; j < blockMap[i].Length; j++)
-                {
-                    if (blockMap[i][j].blockLife > 0)
-                    {
-                        DestroyLine(i, checkBlockLife);
-                        return true;
-                    }
-                }
-            }
-        return false;
-    }
+		for (int i = blockMap.Length - 1; i >= 0; i--) {
+			for (int j = 0; j < blockMap [i].Length; j++) {
+				if (blockMap [i] [j].blockLife > 0) {
+					DestroyLine (i, checkBlockLife);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
-    public void DestroyLine(int line, bool checkBlockLife = true)
-    {
-        for (int j = 0; j < blockMap[line].Length; j++)
-        {
-            if (!checkBlockLife || blockMap[line][j].blockLife > 0)
-            {
-                if (blockMap[line][j].blockComp != null)
-                {
-                    blockMap[line][j].blockComp.Die();
-                }
+	public void DestroyLine (int line, bool checkBlockLife = true)
+	{
+		for (int j = 0; j < blockMap [line].Length; j++) {
+			if (!checkBlockLife || blockMap [line] [j].blockLife > 0) {
+				if (blockMap [line] [j].blockComp != null) {
+					blockMap [line] [j].blockComp.Die ();
+				}
 
-            }
+			}
 
-        }
-    }
+		}
+	}
 
-    public void DestroyAllBlocks()
-    {
-        canSaveBlockMap = false;
-        for (int i = 0; i < blockMap.Length; i++)
-        {
-            for (int j = 0; j < blockMap[i].Length; j++)
-            {
-                if(blockMap[i][j].blockComp != null)
-                {
-                    blockMap[i][j].blockComp.Die();
-                }
-            }
-        }
-    }
+	public void DestroyAllBlocks ()
+	{
+		canSaveBlockMap = false;
+		for (int i = 0; i < blockMap.Length; i++) {
+			for (int j = 0; j < blockMap [i].Length; j++) {
+				if (blockMap [i] [j].blockComp != null) {
+					blockMap [i] [j].blockComp.Die ();
+				}
+			}
+		}
+	}
 
 
-    void OnValidate ()
+	void OnValidate ()
 	{
 		foreach (var block in blocksForSpawn) {
 			if (block.blockPrefab != null && string.IsNullOrEmpty (block.name)) {
@@ -462,36 +464,37 @@ public class BlocksController : MonoBehaviour {
 
 	}
 
-    private void OnDestroy()
-    {
-        if (blockMap != null && canSaveBlockMap)
-        {
-            BlocksSaver.SaveBlocksMap(blockMap, BallController.Instance);
-            PlayerPrefs.Save();
-        }
-    }
+	void SaveOrDeleteBlocksMap ()
+	{
+		if (ScreenController.curActiveScreen == ScreenController.GameScreen.Continue) {
+			BlocksSaver.DeleteBlockMapKeys ();
+			PlayerPrefs.Save ();
+		} else if (blockMap != null && canSaveBlockMap) {
+				BlocksSaver.SaveBlocksMap (blockMap, BallController.Instance);
+				PlayerPrefs.Save ();
+			}
+	}
 
-#if UNITY_EDITOR
-    void OnApplicationQuit()
-    {
-        if (blockMap != null && canSaveBlockMap)
-        {
-            BlocksSaver.SaveBlocksMap(blockMap, BallController.Instance);
-            PlayerPrefs.Save();
-        }
+	private void OnDestroy ()
+	{
+		SaveOrDeleteBlocksMap ();
+	}
 
-    }
-#else
+	#if UNITY_EDITOR
+	void OnApplicationQuit ()
+	{
+
+		SaveOrDeleteBlocksMap ();
+
+	}
+	#else
 	
 	void OnApplicationPause ()
 	{
-		if (blockMap != null && canSaveBlockMap)
-        {
-            BlocksSaver.SaveBlocksMap(blockMap, BallController.Instance);
-            PlayerPrefs.Save();
-        }
-	}
 
+	SaveOrDeleteBlocksMap ();
+
+	}
 #endif
 
 
@@ -499,14 +502,14 @@ public class BlocksController : MonoBehaviour {
 
 public class Block {
 	public int blockLife;
-    public int blockIndex;
+	public int blockIndex;
 	public BlockWithText blockComp;
 
 	public Block (int life, int blockIndex = -1, BlockWithText block = null)
 	{
 		this.blockLife = life;
-        this.blockIndex = blockIndex;
-        blockComp = block;
+		this.blockIndex = blockIndex;
+		blockComp = block;
 	}
 }
 

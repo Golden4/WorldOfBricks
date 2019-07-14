@@ -110,6 +110,11 @@ PlayerSettings:
   xboxOneDisableEsram: 0
   xboxOnePresentImmediateThreshold: 0
   switchQueueCommandMemory: 1048576
+  switchQueueControlMemory: 16384
+  switchQueueComputeMemory: 262144
+  switchNVNShaderPoolsGranularity: 33554432
+  switchNVNDefaultPoolsGranularity: 16777216
+  switchNVNOtherPoolsGranularity: 16777216
   vulkanEnableSetSRGBWrite: 0
   m_SupportedAspectRatios:
     4:3: 1
@@ -236,11 +241,12 @@ PlayerSettings:
   tvOSManualSigningProvisioningProfileType: 0
   appleEnableAutomaticSigning: 0
   iOSRequireARKit: 0
+  iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
   clonedFromGUID: 5f34be1353de5cf4398729fda238591b
   templatePackageId: com.unity.template.2d@1.0.2
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  AndroidTargetArchitectures: 7
+  AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
@@ -495,6 +501,7 @@ PlayerSettings:
   switchAllowsRuntimeAddOnContentInstall: 0
   switchDataLossConfirmation: 0
   switchUserAccountLockEnabled: 0
+  switchSystemResourceMemory: 16777216
   switchSupportedNpadStyles: 3
   switchNativeFsCacheSize: 32
   switchIsHoldTypeHorizontal: 0
@@ -598,7 +605,7 @@ PlayerSettings:
   scriptingDefineSymbols: {}
   platformArchitecture: {}
   scriptingBackend:
-    Android: 1
+    Android: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}

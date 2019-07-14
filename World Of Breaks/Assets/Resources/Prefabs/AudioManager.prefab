@@ -70,7 +70,7 @@ MonoBehaviour:
   - groupName: Ball1
     clips:
     - name: Ball11
-      clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
+      clip: {fileID: 8300000, guid: f75216383ddb9094091d8ac963267bc1, type: 3}
       loop: 0
       volume: 1
       pitch: 1
@@ -145,6 +145,33 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: 65fc1473d75b1d148978cfbd75a3b1b8, type: 3}
       loop: 0
       volume: 1
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.1
+  - groupName: DoubleBall
+    clips:
+    - name: DoubleBall1
+      clip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+      loop: 0
+      volume: 1
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.2
+  - groupName: Reflection
+    clips:
+    - name: Reflection1
+      clip: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+      loop: 0
+      volume: 0.7
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.1
+  - groupName: Obstacle
+    clips:
+    - name: Obstacle1
+      clip: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+      loop: 0
+      volume: 0.7
       pitch: 1
       randomVolume: 0
       randomPitch: 0.1

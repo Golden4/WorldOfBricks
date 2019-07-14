@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class GameOverScreen : ScreenBase {
 
-	[SerializeField] Transform giftPanel;
-	[SerializeField] Button giftBtn;
-	[SerializeField] Text giftimerText;
+	public static GameOverScreen Ins;
 
 	public Text newRecordText;
 	public Text newRecordCountText;
 	public static int playerDieCount = 0;
 
-	public override void Init ()
+	public PanelsController pc;
+
+	public override void OnInit ()
 	{
-		base.Init ();
-		giftBtn.onClick.RemoveAllListeners ();
-		giftBtn.onClick.AddListener (GiftBtn);
+		Ins = this;
+		pc.GetComponentInChildren <PanelsController> ();
+
 	}
 
 	public override void OnActivate ()
@@ -28,6 +28,7 @@ public class GameOverScreen : ScreenBase {
 		BlocksController.Instance.DestroyAllBlocks ();
 
 		BlocksSaver.DeleteBlockMapKeys ();
+		PlayerPrefs.DeleteKey ("TileSize");
 
 		UIScreen.newGame = true;
 
@@ -35,14 +36,12 @@ public class GameOverScreen : ScreenBase {
 
 		if (UIScreen.Ins.newRecord) {
 			newRecordText.gameObject.SetActive (true);
-			newRecordText.GetComponent <GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
 
 		} else {
 			newRecordText.gameObject.SetActive (false);
 		}
 
 		newRecordCountText.text = UIScreen.Ins.score.ToString ();
-		newRecordCountText.GetComponent <GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
 
 
 		//if (!User.GetInfo.AllCharactersBought ()) {
@@ -60,30 +59,8 @@ public class GameOverScreen : ScreenBase {
 		//	openBoxPanel.gameObject.SetActive (false);
 		//}
 
-		giftPanel.gameObject.SetActive (true);
-		if (BuyCoinScreen.CanTakeGift ()) {
-			giftBtn.gameObject.SetActive (true);
-			giftimerText.gameObject.SetActive (false);
-			giftPanel.transform.GetChild (0).GetComponent <Text> ().text = LocalizationManager.GetLocalizedText ("get_gift");
-		} else {
-			giftBtn.gameObject.SetActive (false);
-			giftimerText.gameObject.SetActive (true);
-			//string time = string.Format ("{0}", BuyCoinScreen.Ins.timeToGiveGift).Split ('.') [0];
-			string timeR = (BuyCoinScreen.timeToGiveGift.Minutes + 1) + "m";
-			giftimerText.text = timeR;
-			giftPanel.transform.GetChild (0).GetComponent <Text> ().text = LocalizationManager.GetLocalizedText ("gift_through");
-		}
-	}
-
-	void Update ()
-	{
-		if (!BuyCoinScreen.CanTakeGift ()) {
-			string timeR = (BuyCoinScreen.timeToGiveGift.Minutes + 1) + " m.";
-			giftimerText.text = timeR;
-		} else if (!giftBtn.gameObject.activeInHierarchy) {
-			giftBtn.gameObject.SetActive (true);
-			giftimerText.gameObject.SetActive (false);
-		}
+		pc.ShowGiftPanel ();
+		pc.ShowBallsPanel ();
 	}
 
 	public override void OnCleanUp ()
@@ -102,16 +79,10 @@ public class GameOverScreen : ScreenBase {
 		SceneController.RestartLevel ();
 	}
 
-	public void GiftBtn ()
-	{
-		BuyCoinScreen.GiveGift (15, giftBtn.transform.position);
-	}
 
 	public void ActivateMenu ()
 	{
-
 		SceneController.LoadSceneWithFade (1);
-       
 	}
 
 }

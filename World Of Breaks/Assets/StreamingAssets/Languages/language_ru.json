@@ -10,7 +10,7 @@
     },
     {
       "key": "challenges",
-      "value": "Челенджи"
+      "value": "Испытания"
     },
     {
       "key": "tap_to_continue",
@@ -62,11 +62,11 @@
     },
     {
       "key": "checkpoint",
-      "value": "Чекпоинт"
+      "value": "Контр. точка"
     },
     {
       "key": "new_checkpoint",
-      "value": "Новый чекпоинт"
+      "value": "Новая контр. точка"
     },
     {
       "key": "my_personal_record",
@@ -77,20 +77,12 @@
       "value": "Мой счет"
     },
     {
-      "key": "classic_ball",
-      "value": "Классический мяч"
+      "key": "reward",
+      "value": "Награда"
     },
     {
-      "key": "classic_ball_desc",
-      "value": ""
-    },
-    {
-      "key": "ball",
-      "value": "Мяч"
-    },
-    {
-      "key": "ball_desc",
-      "value": ""
+      "key": "loading",
+      "value": "Загрузка..."
     },
     {
       "key": "tile_map_size",
@@ -107,8 +99,7 @@
     {
       "key": "medium_unlock",
       "value": "Набрать 100 очков в маленьком"
-    }
-	,
+    },
     {
       "key": "medium_unlocked",
       "value": "Средний размер карты разблокирован"
@@ -124,6 +115,206 @@
     {
       "key": "big_unlocked",
       "value": "Большой размер карты разблокирован"
+    },
+    {
+      "key": "classic_ball",
+      "value": "Классический мяч"
+    },
+    {
+      "key": "classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "red_classic_ball",
+      "value": "Красный классический мяч"
+    },
+    {
+      "key": "red_classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "blue_classic_ball",
+      "value": "Синий классический мяч"
+    },
+    {
+      "key": "blue_classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "green_classic_ball",
+      "value": "Зеленый классический мяч"
+    },
+    {
+      "key": "green_classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "yellow_classic_ball",
+      "value": "Желтый класический мяч"
+    },
+    {
+      "key": "yellow_classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "tennis_ball",
+      "value": "Теннисный мяч"
+    },
+    {
+      "key": "tennis_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "soccer_ball",
+      "value": "Футбольный мяч"
+    },
+    {
+      "key": "soccer_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "basketball_ball",
+      "value": "Баскетбольный мяч"
+    },
+    {
+      "key": "basketball_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "volleyball_ball",
+      "value": "Волейбольный мяч"
+    },
+    {
+      "key": "volleyball_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "baseball_ball",
+      "value": "Бейсбольный мяч"
+    },
+    {
+      "key": "baseball_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "golf_ball",
+      "value": "Мяч для гольфа"
+    },
+    {
+      "key": "golf_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "billiard_ball",
+      "value": "Бильярдный шар"
+    },
+    {
+      "key": "billiard_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "yin_yang_ball",
+      "value": "Мяч Инь Янь"
+    },
+    {
+      "key": "yin_yang_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "happy_face",
+      "value": "Счастливое лмцо"
+    },
+    {
+      "key": "happy_face_desc",
+      "value": ""
+    },
+    {
+      "key": "smiley_face",
+      "value": "Улыбающееся лицо"
+    },
+    {
+      "key": "smiley_face_desc",
+      "value": ""
+    },
+    {
+      "key": "face_with_sunglasses",
+      "value": "Лицо с солнечными очками"
+    },
+    {
+      "key": "face_with_sunglasses_desc",
+      "value": ""
+    },
+    {
+      "key": "pile_of_poo",
+      "value": "Навозная куча xD"
+    },
+    {
+      "key": "pile_of_poo_desc",
+      "value": ""
+    },
+    {
+      "key": "astonished_face",
+      "value": "Удивленное лицо"
+    },
+    {
+      "key": "astonished_face_desc",
+      "value": ""
+    },
+    {
+      "key": "donut",
+      "value": "Пончик"
+    },
+    {
+      "key": "donut_desc",
+      "value": ""
+    },
+    {
+      "key": "watermelon",
+      "value": "Арбуз"
+    },
+    {
+      "key": "watermelon_desc",
+      "value": ""
+    },
+    {
+      "key": "orange",
+      "value": "Апельсин"
+    },
+    {
+      "key": "orange_desc",
+      "value": ""
+    },
+    {
+      "key": "earth",
+      "value": "Земля"
+    },
+    {
+      "key": "earth_desc",
+      "value": ""
+    },
+    {
+      "key": "sun",
+      "value": "Солнце"
+    },
+    {
+      "key": "sun_desc",
+      "value": ""
+    },
+    {
+      "key": "moon",
+      "value": "Луна"
+    },
+    {
+      "key": "moon_desc",
+      "value": ""
+    },
+    {
+      "key": "mars",
+      "value": "Марс"
+    },
+    {
+      "key": "mars_desc",
+      "value": ""
     }
   ]
 }

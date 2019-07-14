@@ -70,7 +70,7 @@ public class UIScreen : ScreenBase {
 
 	public GameObject tutorialPrefab;
 
-	public override void Init ()
+	public override void OnInit ()
 	{
 		Ins = this;
 	}
@@ -92,6 +92,7 @@ public class UIScreen : ScreenBase {
 		//    UpdateScore(UIScreen.Ins.checkpoint);
 		//    SetCheckpoint(0);
 		//}
+
 		if (!Game.isChallenge) {
 			if (newGame) {
 				BlocksSaver.DeleteBlockMapKeys ();

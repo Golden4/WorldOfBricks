@@ -3,49 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AudioManager : MonoBehaviour {
-	private static AudioManager _Ins;
-
-	public static AudioManager Ins {
-		get {
-			if (_Ins == null) {
-				GameObject manager = Resources.Load ("Prefabs/AudioManager") as GameObject;
-				AudioManager audioManager = Instantiate (manager).GetComponent<AudioManager> ();
-				_Ins = audioManager;
-			}
-
-			return _Ins;
-		}
-	}
+public class AudioManager : SingletonResourse<AudioManager> {
 
 	AudioSource[] source = new AudioSource[5];
 
 	public SoundLibrary soundLibrary;
 
-	void Awake ()
+	public override void OnInit ()
 	{
-		if (_Ins == null) {
-			DontDestroyOnLoad (gameObject);
-			_Ins = this;
-		} else if (this != _Ins) {
-			Destroy (gameObject);
-			return;
-		}
-
+		DontDestroyOnLoad (gameObject);
 		for (int i = 0; i < 5; i++) {
 			source [i] = gameObject.AddComponent<AudioSource> ();
 		}
-
+		Debug.Log ("Initttt" + typeof(AudioManager).Name);
 		soundLibrary = GetComponent<SoundLibrary> ();
-
 	}
 
 	public static void PlaySound (Sound sound)
 	{
 		if (!audioEnabled)
 			return;
-		
-		sound.PlaySound (Ins.GetAvaibleSource ());
+		if (sound != null && sound.clip != null)
+			sound.PlaySound (Ins.GetAvaibleSource ());
 	}
 
 	public AudioSource GetAvaibleSource ()
@@ -80,14 +59,15 @@ public class AudioManager : MonoBehaviour {
 //		print ("Audio " + enable);
 	}
 
-	static float lastPlayTime;
-
 	public static void PlaySoundFromLibrary (string name)
 	{
 		try {
-			lastPlayTime = Time.time;
 			Sound sound = Ins.soundLibrary.GetSoundByName (name);
-			PlaySound (sound);
+
+			if (sound != null && sound.clip != null)
+				PlaySound (sound);
+			else
+				Debug.LogError (name + "Sound not found");
 
 		} catch (System.Exception except) {
 			Debug.LogError (except);
@@ -129,16 +109,20 @@ public class Sound {
 	public bool loop;
 
 	[Range (0, 1.5f)]
-	public float volume = 0.7f;
+	public float volume = 1f;
 
 	[Range (0.5f, 1.5f)]
 	public float pitch = 1f;
 
 	[Range (0f, 0.5f)]
-	public float randomVolume = 0.1f;
+	public float randomVolume;
 
 	[Range (0f, 0.5f)]
-	public float randomPitch = 0.1f;
+	public float randomPitch = 0.2f;
+
+	public Sound ()
+	{
+	}
 
 	public Sound (AudioClip clip)
 	{

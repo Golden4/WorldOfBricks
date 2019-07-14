@@ -14,9 +14,9 @@ public class ContinueScreen : ScreenBase {
 
 	public bool givedSecondChance = false;
 
-	public override void Init ()
+	public override void OnInit ()
 	{
-		base.Init ();
+		base.OnInit ();
 		continueAdBtn.onClick.RemoveAllListeners ();
 		continueAdBtn.onClick.AddListener (RespawnPlayerVideo);
 		continueCoinBtn.onClick.RemoveAllListeners ();

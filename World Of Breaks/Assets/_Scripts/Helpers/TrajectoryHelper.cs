@@ -17,9 +17,11 @@ public class TrajectoryHelper : Helper {
 		Ins = this;
 	}
 
+	int sectionCount = 4;
+
 	private void Start ()
 	{
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < sectionCount; i++) {
 			SpriteRenderer newThrDir = Instantiate<SpriteRenderer> (throwingDirectionImage);
 			thrDirImages.Add (newThrDir);
 		}
@@ -71,7 +73,7 @@ public class TrajectoryHelper : Helper {
 		float distance;
 		Vector3 reflectDir = Vector3.zero;
 
-		if (hit.collider != null) {
+		if (hit.collider != null && iter < sectionCount - 1) {
 			reflectDir = Vector3.Reflect (dir, hit.normal.normalized);
 
 			distance = Mathf.Abs (Vector2.Distance (hit.point - dir.normalized * Ball.ballRadius, startPosWorld));
@@ -92,7 +94,7 @@ public class TrajectoryHelper : Helper {
 		float oldHeight = distance;
 		height -= distance;
             
-		if (height > 0 && iter < 4 && hit.collider != null && !hit.collider.isTrigger && hit.collider.name != "BottomCollider") {
+		if (height > 0 && iter < sectionCount - 1 && hit.collider != null && !hit.collider.isTrigger && hit.collider.name != "BottomCollider") {
 			throwingDirectionImage.transform.GetChild (0).gameObject.SetActive (false);
 			iter++;
 			thrDirImages [iter].gameObject.SetActive (true);
@@ -109,7 +111,7 @@ public class TrajectoryHelper : Helper {
 
 	public void ShowTajectory (bool show)
 	{
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < sectionCount; i++) {
 			thrDirImages [i].gameObject.SetActive (show);
 		}
 	}

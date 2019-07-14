@@ -93,7 +93,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 	{
 		for (int i = 0; i < items.Length; i++) {
 
-			float targetScale = (i == index) ? 1.6f : 1;
+			float targetScale = (i == index) ? 2f : 1;
 
 			items [i].transform.localScale = Vector3.Lerp (items [i].transform.localScale, Vector3.one * targetScale, Time.deltaTime * 8);
 		}

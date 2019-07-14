@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   challengesData:
   - lifeCount: 3
-    ballCount: 3
+    ballCount: 30
+    reward: 25
   - lifeCount: 2
     ballCount: 3
+    reward: 25
   - lifeCount: 2
     ballCount: 5
+    reward: 25
   - lifeCount: 3
     ballCount: 30
+    reward: 25
   - lifeCount: 2
     ballCount: 10
+    reward: 25

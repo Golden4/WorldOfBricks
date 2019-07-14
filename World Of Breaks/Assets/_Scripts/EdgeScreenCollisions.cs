@@ -41,8 +41,7 @@ public class EdgeScreenCollisions : MonoBehaviour {
 				valPair.Value.localScale = new Vector3 (colThickness, screenSize.y * 2, colThickness);
 			else
 				valPair.Value.localScale = new Vector3 (screenSize.x * 2, colThickness, colThickness);
-		}  
-
+		} 
 
 		colliders ["Right"].position = new Vector3 (cameraPos.x + screenSize.x + (colliders ["Right"].localScale.x * 0.5f), cameraPos.y, zPosition);
 		colliders ["Left"].position = new Vector3 (cameraPos.x - screenSize.x - (colliders ["Left"].localScale.x * 0.5f), cameraPos.y, zPosition);
@@ -53,22 +52,24 @@ public class EdgeScreenCollisions : MonoBehaviour {
 			if (valPair.Key != "Bottom")
 				valPair.Value.tag = "Edge";
 
+			GameObject go = new GameObject ("EdgeSprite" + valPair.Key);
+			go.transform.SetParent (colliders [valPair.Key].transform, false);
+			go.transform.localScale = Vector3.one;
+			SpriteRenderer sr = go.AddComponent<SpriteRenderer> ();
+			sr.sprite = edgeSprite;
+			sr.drawMode = SpriteDrawMode.Sliced;
+
 			if (valPair.Key == "Left" || valPair.Key == "Right") {
-				//sr.size = new Vector2 (.05f, 1.0127f);
-				//if (valPair.Key == "Left") {
-				//	go.transform.localPosition = new Vector3 (.475f, 0);
-				//} else {
-				//	go.transform.localPosition = new Vector3 (-.475f, 0);
-				//}
+				sr.size = new Vector2 (.005f, 1.0127f);
+				sr.color = Color.gray;
+				if (valPair.Key == "Left") {
+					
+					go.transform.localPosition = new Vector3 (.497f, 0);
+				} else {
+					go.transform.localPosition = new Vector3 (-.497f, 0);
+				}
 			} else {
-
-				GameObject go = new GameObject ("EdgeSprite" + valPair.Key);
-				go.transform.SetParent (colliders [valPair.Key].transform, false);
-				go.transform.localScale = Vector3.one;
-				SpriteRenderer sr = go.AddComponent<SpriteRenderer> ();
-				sr.sprite = edgeSprite;
-				sr.drawMode = SpriteDrawMode.Sliced;
-
+				
 				sr.size = new Vector2 (1f, .05f);
 				if (valPair.Key == "Top") {
 					go.transform.localPosition = new Vector3 (0, -.475f);
@@ -80,22 +81,21 @@ public class EdgeScreenCollisions : MonoBehaviour {
 			
 
 		}
-
-
-
-
+			
+			
 		GameObject TopRight = new GameObject ("TopRight");
 		TopRight.transform.position = new Vector3 (cameraPos.x + screenSize.x + .1f, cameraPos.y + screenSize.y + .1f);
 		TopRight.transform.eulerAngles = new Vector3 (0, 0, 45);
 		TopRight.transform.parent = transform;
 		TopRight.transform.localScale = new Vector3 (.4f, .8f, 1);
+		TopRight.tag = "Edge";
 
 		GameObject TopLeft = new GameObject ("TopLeft");
 		TopLeft.transform.position = new Vector3 (cameraPos.x - screenSize.x - .1f, cameraPos.y + screenSize.y + .1f);
 		TopLeft.transform.eulerAngles = new Vector3 (0, 0, 45);
 		TopLeft.transform.parent = transform;
 		TopLeft.transform.localScale = new Vector3 (.8f, .4f, 1);
-
+		TopLeft.tag = "Edge";
 /*		GameObject BottomRight = new GameObject ("BottomCollider");
 		BottomRight.transform.position = new Vector3 (cameraPos.x + screenSize.x, cameraPos.y - screenSize.y);
 		BottomRight.transform.eulerAngles = new Vector3 (0, 0, 45);

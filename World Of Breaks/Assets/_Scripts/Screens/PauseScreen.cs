@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class PauseScreen : ScreenBase {
 
+
+
+	public override void OnInit ()
+	{
+		base.OnInit ();
+
+	}
+
 	public override void OnActivate ()
 	{
 		Game.isPause = true;

@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
-public class ChallengesInfo : ScriptableObject
-{
-    public ChallengeInfo[] challengesData;
+[CreateAssetMenu ()]
+public class ChallengesInfo : ScriptableObject {
+	public ChallengeInfo[] challengesData;
 
-    [System.Serializable]
-    public class ChallengeInfo
-    {
-        public int lifeCount;
-        public int ballCount;
-    }
+	[System.Serializable]
+	public class ChallengeInfo {
+		public int lifeCount;
+		public int ballCount;
+		public int reward = 25;
+	}
 }

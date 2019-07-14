@@ -22,6 +22,7 @@ public class ItemsInfo : ScriptableObject {
 		//public Ball playerPrefab;
 		public Sprite ballSprite;
 		public float ballRadius = .1f;
+		public Sound hitSound;
 	}
 
 }

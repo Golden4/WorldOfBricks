@@ -46,7 +46,7 @@
     },
     {
       "key": "top_score",
-      "value": "Top"
+      "value": "Highscore"
     },
     {
       "key": "gift_through",
@@ -77,20 +77,12 @@
       "value": "My score"
     },
     {
-      "key": "classic_ball",
-      "value": "Classic ball"
+      "key": "reward",
+      "value": "Reward"
     },
     {
-      "key": "classic_ball_desc",
-      "value": ""
-    },
-    {
-      "key": "ball",
-      "value": "Ball"
-    },
-    {
-      "key": "ball_desc",
-      "value": ""
+      "key": "loading",
+      "value": "Loading..."
     },
     {
       "key": "tile_map_size",
@@ -107,8 +99,7 @@
     {
       "key": "medium_unlock",
       "value": "Reach score 100 on small"
-    }
-	,
+    },
     {
       "key": "medium_unlocked",
       "value": "Map Size Medium Unlocked"
@@ -124,6 +115,206 @@
     {
       "key": "big_unlocked",
       "value": "Map Size Big Unlocked"
+    },
+    {
+      "key": "classic_ball",
+      "value": "Classic ball"
+    },
+    {
+      "key": "classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "red_classic_ball",
+      "value": "Red classic ball"
+    },
+    {
+      "key": "red_classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "blue_classic_ball",
+      "value": "Blue classic ball"
+    },
+    {
+      "key": "blue_classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "green_classic_ball",
+      "value": "Green classic ball"
+    },
+    {
+      "key": "green_classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "yellow_classic_ball",
+      "value": "Yellow classic ball"
+    },
+    {
+      "key": "yellow_classic_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "tennis_ball",
+      "value": "Tennis ball"
+    },
+    {
+      "key": "tennis_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "soccer_ball",
+      "value": "Soccer ball"
+    },
+    {
+      "key": "soccer_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "basketball_ball",
+      "value": "Basketball ball"
+    },
+    {
+      "key": "basketball_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "volleyball_ball",
+      "value": "Volleyball ball"
+    },
+    {
+      "key": "volleyball_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "baseball_ball",
+      "value": "Baseball ball"
+    },
+    {
+      "key": "baseball_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "golf_ball",
+      "value": "Golf ball"
+    },
+    {
+      "key": "golf_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "billiard_ball",
+      "value": "Billiard ball"
+    },
+    {
+      "key": "billiard_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "yin_yang_ball",
+      "value": "Yin Yang ball"
+    },
+    {
+      "key": "yin_yang_ball_desc",
+      "value": ""
+    },
+    {
+      "key": "happy_face",
+      "value": "Happy face"
+    },
+    {
+      "key": "happy_face_desc",
+      "value": ""
+    },
+    {
+      "key": "smiley_face",
+      "value": "Smiley face"
+    },
+    {
+      "key": "smiley_face_desc",
+      "value": ""
+    },
+    {
+      "key": "face_with_sunglasses",
+      "value": "Face with sunglasses"
+    },
+    {
+      "key": "face_with_sunglasses_desc",
+      "value": ""
+    },
+    {
+      "key": "pile_of_poo",
+      "value": "Pile of poo"
+    },
+    {
+      "key": "pile_of_poo_desc",
+      "value": ""
+    },
+    {
+      "key": "astonished_face",
+      "value": "Astonished face"
+    },
+    {
+      "key": "astonished_face_desc",
+      "value": ""
+    },
+    {
+      "key": "donut",
+      "value": "Donut"
+    },
+    {
+      "key": "donut_desc",
+      "value": ""
+    },
+    {
+      "key": "watermelon",
+      "value": "Watermelon"
+    },
+    {
+      "key": "watermelon_desc",
+      "value": ""
+    },
+    {
+      "key": "orange",
+      "value": "Orange"
+    },
+    {
+      "key": "orange_desc",
+      "value": ""
+    },
+    {
+      "key": "earth",
+      "value": "Earth"
+    },
+    {
+      "key": "earth_desc",
+      "value": ""
+    },
+    {
+      "key": "sun",
+      "value": "Sun"
+    },
+    {
+      "key": "sun_desc",
+      "value": ""
+    },
+    {
+      "key": "moon",
+      "value": "Moon"
+    },
+    {
+      "key": "moon_desc",
+      "value": ""
+    },
+    {
+      "key": "mars",
+      "value": "Mars"
+    },
+    {
+      "key": "mars_desc",
+      "value": ""
     }
   ]
 }
