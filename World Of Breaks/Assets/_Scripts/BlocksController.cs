@@ -20,8 +20,6 @@ public class BlocksController : MonoBehaviour {
 		public TilePresets ()
 		{
 		}
-		
-
 	}
 
 	public int presetIndex;
@@ -55,6 +53,8 @@ public class BlocksController : MonoBehaviour {
 
 	public int blockDestroyCount = 0;
 
+	public int maxScore;
+
 	private void Awake ()
 	{
 		Instance = this;
@@ -84,6 +84,9 @@ public class BlocksController : MonoBehaviour {
 		} else {
 			blockMap = textureToBlockMap (challengesMapTexture, Game.curChallengeIndex, curPreset.blocksWidth, curPreset.blocksHeight);
 		}
+
+		if (Game.isChallenge)
+			maxScore = GetMaxScore ();
 	}
 
 	public void CalculateBlockLife ()
@@ -92,7 +95,7 @@ public class BlocksController : MonoBehaviour {
 
 		for (int i = 0; i < blockMap.Length; i++) {
 			for (int j = 0; j < blockMap [i].Length; j++) {
-				if (blockMap [i] [j].blockComp != null && blockMap [i] [j].blockComp.canLooseBeforeDown)
+				if (blockMap [i] [j].blockComp != null && blockMap [i] [j].blockComp.canLooseDown)
 					blocksLife += blockMap [i] [j].blockLife;
 			}
 		}
@@ -201,8 +204,6 @@ public class BlocksController : MonoBehaviour {
 
 	void ChangeTopLine ()
 	{
-		blockDestroyCount = 0;
-
 		double randNumPlusBlock = Random.Range (0, blockMap [0].Length - 1);
 
 		for (int i = 0; i < blockMap [0].Length; i++) {
@@ -220,8 +221,7 @@ public class BlocksController : MonoBehaviour {
 
 			double randNum = rand.NextDouble ();
 
-
-			if (randNum < .2f) {
+			if (randNum < .1f) {
 
 			} else {
 
@@ -231,7 +231,7 @@ public class BlocksController : MonoBehaviour {
 
 				spawnedBlock = SpawnBlock (i, 0, indexBlock);
 
-				blockMap [0] [i] = new Block ((spawnedBlock.canLooseBeforeDown) ? curLevelCur : 0, indexBlock, spawnedBlock);
+				blockMap [0] [i] = new Block ((spawnedBlock.canLooseDown) ? curLevelCur : 0, indexBlock, spawnedBlock);
 
 				//blockMap [0] [i] = new Block ((index == 1) ? 0 : (BallController.Instance.ballCount > CurLevel + CurLevel / 2 && Random.Range (0f, 1f) < .5f) ? (CurLevel + 1) * 2 : CurLevel + 1, SpawnBlock (i, 0, index));
 
@@ -241,9 +241,23 @@ public class BlocksController : MonoBehaviour {
 				iTween.FadeFrom (spawnedBlock.gameObject, 0, .5f);
 
 		}
+	}
 
-        
+	public int GetMaxScore ()
+	{
+		int blockDestroyCount = 0;
+		int sum = 0;
+		for (int i = 0; i < blockMap.Length; i++) {
+			for (int j = 0; j < blockMap [i].Length; j++) {
+				if (blockMap [i] [j].blockComp != null && blockMap [i] [j].blockComp.canLooseDown) {
+					blockDestroyCount += 10;
+					blockDestroyCount = blockDestroyCount % 200;
+					sum += blockDestroyCount;
+				}
+			}
+		}
 
+		return sum;
 	}
 
 
@@ -449,7 +463,6 @@ public class BlocksController : MonoBehaviour {
 			}
 		}
 	}
-
 
 	void OnValidate ()
 	{

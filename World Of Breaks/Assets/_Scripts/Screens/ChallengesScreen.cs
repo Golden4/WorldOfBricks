@@ -23,32 +23,51 @@ public class ChallengesScreen : ScreenBase {
 			go.GetComponent<Button> ().onClick.AddListener (delegate {
 				StartChallenges (index, Database.GetChall.challengesData [index]);
 			});
+
 			challList.Add (go.GetComponent<Button> ());
-			UpdateButtonState (i);
+			UpdateButtonState (i, User.GetChallengesData.challData [i]);
 		}
 	}
 
 	int canPlayChallenegesCount = 0;
 
-	void UpdateButtonState (int index)
+	void UpdateButtonState (int index, int count)
 	{
 		Image spriteState = challList [index].transform.Find ("StateIcon").GetComponent<Image> ();
-        
-		if (User.GetChallengesData.challData [index]) {
-			spriteState.gameObject.SetActive (true);
-			spriteState.sprite = complitedSprite;
-			spriteState.color = Color.green;
+
+		if (User.GetChallengesData.challData [index] > 0) {
+			ShowStars (true, index, count);
 			challList [index].GetComponent<ButtonIcon> ().EnableBtn (true);
-		} else if (/*index > 0 && User.GetChallengesData.challData[index - 1] || */canPlayChallenegesCount < 3 && !User.GetChallengesData.challData [index] || index == 0 && !User.GetChallengesData.challData [index]) {
+		} else if (canPlayChallenegesCount < 3 && User.GetChallengesData.challData [index] == 0 || index == 0 && User.GetChallengesData.challData [index] == 0) {
 				canPlayChallenegesCount++;
+				ShowStars (true, index, count);
 				spriteState.gameObject.SetActive (false);
 				challList [index].GetComponent<ButtonIcon> ().EnableBtn (true);
 			} else {
+				ShowStars (false, index);
 				spriteState.gameObject.SetActive (true);
 				spriteState.sprite = lockedSprite;
 				spriteState.color = Color.black;
 				challList [index].GetComponent<ButtonIcon> ().EnableBtn (false);
 			}
+
+
+	}
+
+	void ShowStars (bool show, int index, int count = 0)
+	{
+		if (show) {
+			
+			Image[] stars = new Image[3];
+
+			for (int i = 0; i < 3; i++) {
+				stars [i] = challList [index].transform.GetChild (0).GetChild (i).GetChild (0).GetComponent<Image> ();
+
+				stars [i].gameObject.SetActive (i < count);
+			}
+		} else {
+			challList [index].transform.GetChild (0).gameObject.SetActive (false);
+		}
 	}
 
 	void StartChallenges (int indexChallenge, ChallengesInfo.ChallengeInfo info)

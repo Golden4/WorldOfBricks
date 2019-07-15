@@ -74,6 +74,8 @@ public class UIScreen : ScreenBase {
 	public GameObject tutorialPrefab;
 	public ButtonIcon destroyLastLineBtn;
 
+	public StarsBarPanel starsBarPanel;
+
 	public override void OnInit ()
 	{
 		Ins = this;
@@ -103,6 +105,8 @@ public class UIScreen : ScreenBase {
 				UpdateScore (UIScreen.Ins.checkpoint);
 				SetCheckpoint (0);
 			}
+			starsBarPanel.gameObject.SetActive (false);
+
 		} else {
 			checkpointText.gameObject.SetActive (false);
 			UIScreen.Ins.UpdateScore (Game.curChallengeInfo.lifeCount);
@@ -247,8 +251,6 @@ public class UIScreen : ScreenBase {
 		if (!Game.isChallenge) {
 			topScoreText.gameObject.SetActive (true);
 			topScoreText.text = LocalizationManager.GetLocalizedText ("top_score") + ": " + topScore.ToString ();
-		} else {
-			topScoreText.gameObject.SetActive (false);
 		}
 
 		if (!gameStarted)
@@ -271,14 +273,18 @@ public class UIScreen : ScreenBase {
 			levelText.text = LocalizationManager.GetLocalizedText ("level") + ": " + curLevel.ToString ();
 		} else {
 			levelText.gameObject.SetActive (false);
-			playerScoreText.text = LocalizationManager.GetLocalizedText ("attempts") + "\n" + curLevel.ToString ();
+			topScoreText.gameObject.SetActive (true);
+			topScoreText.text = LocalizationManager.GetLocalizedText ("attempts") + ": " + curLevel.ToString ();
 		}
+
+
 		
 		if (curLevel > topScore && !Game.isChallenge) {
 			newRecord = true;
 			newRecordScoreText.gameObject.SetActive (true);
 		} else {
 			newRecordScoreText.gameObject.SetActive (false);
+
 		}
 	}
 
@@ -292,6 +298,9 @@ public class UIScreen : ScreenBase {
 		
 		t = 1;
 		playerScore += value;
+
+		if (Game.isChallenge)
+			starsBarPanel.SetProgress (ChallengeResultScreen.progressPersent);
 	}
 
 	void Update ()

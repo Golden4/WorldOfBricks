@@ -19,7 +19,7 @@ public class BlockWithText : MonoBehaviour {
 
 	public ParticleSystem destroyParticle;
 
-	public bool canLooseBeforeDown;
+	public bool canLooseDown;
 
 	protected Color curColor;
 
@@ -122,7 +122,14 @@ public class BlockWithText : MonoBehaviour {
 	{
 		if (!justDestroy) {
 			BlocksController.Instance.blockDestroyCount++;
-			int scoreToAdd = BlocksController.Instance.blockDestroyCount * (UIScreen.Ins.level + 10) / 10;
+			int multiplier;
+
+			if (!Game.isChallenge)
+				multiplier = (UIScreen.Ins.level + 10) / 10;
+			else
+				multiplier = 10;
+
+			int scoreToAdd = BlocksController.Instance.blockDestroyCount * multiplier;
 			textMesh.transform.SetParent (null, false);
 			textMesh.transform.position = transform.position + (Vector3.up - Vector3.left) * .5f + Vector3.back;
 			textMesh.transform.localEulerAngles = Vector3.zero;
@@ -137,6 +144,7 @@ public class BlockWithText : MonoBehaviour {
 			UIScreen.Ins.AddPlayerScore (scoreToAdd);
 			BlocksController.Instance.CalculateBlockLife ();
 		}
+
 
 		AudioManager.PlaySoundFromLibrary ("Destroy");
 		Destroy (Instantiate<GameObject> (destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);

@@ -123,7 +123,6 @@ public class BuyCoinScreen : ScreenBase {
 		Utility.Invoke (CoinUI.Ins, .9f, delegate {
 			User.AddCoin (coinAmount);
 		});
-
 	}
 
 	public static void GiveGift (int coinAmount, Vector3 fromPos)
@@ -185,7 +184,6 @@ public class BuyCoinScreen : ScreenBase {
 			showMenuBtn.changingColor = true;
 		getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = true;
 		getCoinsBtn.GetComponent <ButtonIcon> ().EnableBtn (true);
-		print ("OnCanTakeGift");
 		timer.gameObject.SetActive (false);
 		giftTitle.text = LocalizationManager.GetLocalizedText ("get_gift");
 	}
@@ -194,11 +192,12 @@ public class BuyCoinScreen : ScreenBase {
 	{
 		if (buyCoinScreenBtn != null)
 			buyCoinScreenBtn.changingColor = false;
+		
 		if (showMenuBtn != null)
 			showMenuBtn.changingColor = false;
+		
 		getCoinsBtn.GetComponent <ButtonIcon> ().changingColor = false;
 		getCoinsBtn.GetComponent <ButtonIcon> ().EnableBtn (false);
-		print ("OnDontTakeGift");
 		timer.gameObject.SetActive (true);
 		giftTitle.text = LocalizationManager.GetLocalizedText ("gift_through");
 	}

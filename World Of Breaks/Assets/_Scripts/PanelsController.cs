@@ -73,12 +73,9 @@ public class PanelsController : MonoBehaviour {
 
 			int count = ballsIndex.Count;
 
-			Debug.Log (count);
-
 			while (count > ballsShowCount) {
 				ballsIndex.RemoveAt (Random.Range (0, count));
 				count--;
-				Debug.Log (count + "   " + Random.Range (0, count));
 			}
 
 			if (ballsIndex.Count > 0) {

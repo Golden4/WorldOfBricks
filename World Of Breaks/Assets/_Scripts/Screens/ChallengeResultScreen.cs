@@ -8,7 +8,23 @@ public class ChallengeResultScreen : ScreenBase {
 	public Text resultText;
 	public Button retryBtn;
 	public Button nextBtn;
+
+	public Transform starsParent;
+	public Image[] stars;
+
 	public PanelsController pc;
+
+	public static float[] starPersents = new float[] {
+		0.1f,
+		0.4f,
+		0.75f
+	};
+
+	public static float progressPersent {
+		get {
+			return (float)UIScreen.Ins.playerScore / BlocksController.Instance.maxScore / .8f;
+		}
+	}
 
 	public override void OnInit ()
 	{
@@ -27,7 +43,18 @@ public class ChallengeResultScreen : ScreenBase {
 			} else {
 				OnPlayerLose ();
 			}
+	}
 
+	public static int GetCurrentStarCount (float persent)
+	{
+		int starCount = 0;
+
+		for (int i = 0; i < starPersents.Length; i++) {
+			if (persent > starPersents [i]) {
+				starCount++;
+			}
+		}
+		return starCount;
 	}
 
 	void OnPlayerWin ()
@@ -43,16 +70,23 @@ public class ChallengeResultScreen : ScreenBase {
 
 		retryBtn.gameObject.SetActive (false);
 
+		starsParent.gameObject.SetActive (true);
 
-		if (!User.GetChallengesData.challData [Game.curChallengeIndex]) {
-			pc.GiveReward (true, Database.GetChall.challengesData [Game.curChallengeIndex].reward);
+		int starCount = GetCurrentStarCount (progressPersent);
+
+		ShowStars (starCount);
+
+		int completedStars = User.GetChallengesData.challData [Game.curChallengeIndex];
+
+		if (completedStars < starCount) {
+			pc.GiveReward (true, (starCount - completedStars) * Database.GetChall.challengesData [Game.curChallengeIndex].reward);
 			resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_complete"), (Game.curChallengeIndex + 1));
+			User.GetChallengesData.challData [Game.curChallengeIndex] = starCount;
 		} else {
 			pc.GiveReward (false);
 			resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_complete_again"), (Game.curChallengeIndex + 1));
 		}
 
-		User.GetChallengesData.challData [Game.curChallengeIndex] = true;
 		User.SaveChallengesData ();
 		AudioManager.PlaySoundFromLibrary ("Success");
 	}
@@ -66,6 +100,18 @@ public class ChallengeResultScreen : ScreenBase {
 		retryBtn.gameObject.SetActive (true);
 		resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_failed"), (Game.curChallengeIndex + 1));
 		AudioManager.PlaySoundFromLibrary ("Failed");
+	}
+
+	void ShowStars (int starCount)
+	{
+		for (int i = 0; i < stars.Length; i++) {
+			if (i < starCount) {
+				stars [i].gameObject.SetActive (true);
+				stars [i].GetComponent <GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
+			} else {
+				stars [i].gameObject.SetActive (false);
+			}
+		}
 	}
 
 	public void LoadNextChallenge ()

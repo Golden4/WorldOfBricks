@@ -266,6 +266,8 @@ public class BallController : MonoBehaviour {
 
 		startPosChanged = false;
 
+		BlocksController.Instance.blockDestroyCount = 0;
+
 		if (!UIScreen.Ins.playerLose) {
 			if (!Game.isChallenge)
 				BlocksController.Instance.ShiftBlockMapDown ();

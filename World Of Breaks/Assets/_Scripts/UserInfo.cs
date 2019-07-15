@@ -61,42 +61,36 @@ public class UserInfo {
 }
 
 [System.Serializable]
-public class ChallDataInfo
-{
+public class ChallDataInfo {
 
-    public bool[] _challData;
+	public int[] _challData;
 
-    public bool[] challData
-    {
-        get
-        {
-            return _challData;
-        }
+	public int[] challData {
+		get {
+			return _challData;
+		}
 
-        set
-        {
-            _challData = value;
-        }
-    }
+		set {
+			_challData = value;
+		}
+	}
 
-    public ChallDataInfo()
-    {
-        _challData = new bool[Database.GetChall.challengesData.Length];
+	public ChallDataInfo ()
+	{
+		_challData = new int[Database.GetChall.challengesData.Length];
 
-        for (int i = 0; i < _challData.Length; i++)
-        {
-            _challData[i] = false;
-        }
+		for (int i = 0; i < _challData.Length; i++) {
+			_challData [i] = 0;
+		}
         
-        ResetValues();
-    }
+		ResetValues ();
+	}
 
-    public void ResetValues()
-    {
-        for (int i = 0; i < challData.Length; i++)
-        {
-            challData[i] = false;
-        }
-    }
+	public void ResetValues ()
+	{
+		for (int i = 0; i < challData.Length; i++) {
+			challData [i] = 0;
+		}
+	}
 
 }

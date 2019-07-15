@@ -66,7 +66,7 @@ public class BlockLaser : BlockWithText {
 
 				BlockWithText block = BlocksController.Instance.blockMap [coordsY] [i].blockComp;
 
-				if (block != null && block.GetType () != typeof(BlockLaser) && block.canLooseBeforeDown)
+				if (block != null && block.GetType () != typeof(BlockLaser) && block.canLooseDown)
 					block.Hit ();
 				
 			}
@@ -82,7 +82,7 @@ public class BlockLaser : BlockWithText {
 
 				BlockWithText block = BlocksController.Instance.blockMap [i] [coordsX].blockComp;
 
-				if (block != null && block.GetType () != typeof(BlockLaser) && block.canLooseBeforeDown)
+				if (block != null && block.GetType () != typeof(BlockLaser) && block.canLooseDown)
 					block.Hit ();
 
 			}

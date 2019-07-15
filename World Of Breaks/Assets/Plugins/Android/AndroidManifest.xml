@@ -9,7 +9,7 @@
       </intent-filter>
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
     </activity>
-    <provider android:name="com.yasirkula.unity.UnitySSContentProvider" android:authorities="Unity_Share_13456" android:exported="false" android:grantUriPermissions="true" />
+    <provider android:name="com.yasirkula.unity.UnitySSContentProvider" android:authorities="Unity_Share_123456" android:exported="false" android:grantUriPermissions="true" />
   </application>
   <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="28" />
 </manifest>

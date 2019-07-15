@@ -99,7 +99,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
-    oldSize: {x: 1.2166667, y: 1.2166667}
+    oldSize: {x: 1.2, y: 1.2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -154,9 +154,10 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   destroyParticle: {fileID: 198225325046069058, guid: 12be72861949ef7469f6e7148fdb5235,
     type: 3}
-  canLooseBeforeDown: 1
+  canLooseDown: 1
   isDead: 0
   isLoadingBlock: 0
+  justDestroy: 0
 --- !u!1 &1249939165609762
 GameObject:
   m_ObjectHideFlags: 0

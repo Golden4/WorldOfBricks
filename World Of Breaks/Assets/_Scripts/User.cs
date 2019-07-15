@@ -52,9 +52,9 @@ public static class User {
 	}
 
 	public static event Action<int,int> OnCoinChangedEvent;
-    public static event Action<int> OnCoinChangedFailedEvent;
+	public static event Action<int> OnCoinChangedFailedEvent;
 
-    static UserInfo dataUser;
+	static UserInfo dataUser;
 
 	static bool Loaded;
 
@@ -85,25 +85,22 @@ public static class User {
 		}
 	}
 
-    static ChallDataInfo challengesData;
+	static ChallDataInfo challengesData;
 
-    static bool challengesLoaded;
+	static bool challengesLoaded;
 
-    public static ChallDataInfo GetChallengesData
-    {
-        get
-        {
-            if (challengesData == null && !challengesLoaded)
-            {
-                challengesLoaded = true;
+	public static ChallDataInfo GetChallengesData {
+		get {
+			if (challengesData == null && !challengesLoaded) {
+				challengesLoaded = true;
 
-                LoadChallengesDataInfoFromFileOrCreateNew();
+				LoadChallengesDataInfoFromFileOrCreateNew ();
 
-            }
+			}
 
-            return challengesData;
-        }
-    }
+			return challengesData;
+		}
+	}
 
 	public static void SetPlayerIndex (int index)
 	{
@@ -118,9 +115,9 @@ public static class User {
 			return true;
 		} else {
 
-            if (OnCoinChangedFailedEvent != null)
-                OnCoinChangedFailedEvent(Coins);
-            return false;
+			if (OnCoinChangedFailedEvent != null)
+				OnCoinChangedFailedEvent (Coins);
+			return false;
 		}
 	}
 
@@ -166,48 +163,41 @@ public static class User {
 		}
 	}
 
-    public static void SaveChallengesData()
-    {
-        if (challengesData != null)
-            JsonSaver.SaveData("ChallengesUserData", challengesData);
-    }
+	public static void SaveChallengesData ()
+	{
+		if (challengesData != null)
+			JsonSaver.SaveData ("ChallengesUserData", challengesData);
+	}
 
-    public static void LoadChallengesDataInfoFromFileOrCreateNew()
-    {
-        ChallDataInfo data = JsonSaver.LoadData<ChallDataInfo>("ChallengesUserData");
+	public static void LoadChallengesDataInfoFromFileOrCreateNew ()
+	{
+		ChallDataInfo data = JsonSaver.LoadData<ChallDataInfo> ("ChallengesUserData");
 
-        if (data == null)
-        {
-            challengesData = new ChallDataInfo();
-            SaveChallengesData();
+		if (data == null) {
+			challengesData = new ChallDataInfo ();
+			SaveChallengesData ();
 
-        }
+		} else {
+			challengesData = data;
 
-        else
-        {
-            challengesData = data;
+			if (challengesData.challData.Length < Database.GetChall.challengesData.Length) {
 
-            if (challengesData.challData.Length < Database.GetChall.challengesData.Length)
-            {
+				int[] dataTemp = new int[Database.GetChall.challengesData.Length];
 
-                bool[] dataTemp = new bool[Database.GetChall.challengesData.Length];
+				for (int i = 0; i < Database.GetChall.challengesData.Length; i++) {
+					
+					if (i < challengesData.challData.Length) {
+						dataTemp [i] = challengesData.challData [i];
+					} else
+						dataTemp [i] = 0;
+				}
 
-                for (int i = 0; i < Database.GetChall.challengesData.Length; i++)
-                {
-                    if (i < challengesData.challData.Length)
-                    {
-                        dataTemp[i] = challengesData.challData[i];
-                    }
-                    else
-                        dataTemp[i] = false;
-                }
+				challengesData.challData = dataTemp;
+				SaveChallengesData ();
+			}
 
-                challengesData.challData = dataTemp;
-                SaveChallengesData();
-            }
-
-        }
-    }
+		}
+	}
 
 
 
