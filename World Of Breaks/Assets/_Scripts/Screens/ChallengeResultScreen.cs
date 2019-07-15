@@ -12,7 +12,7 @@ public class ChallengeResultScreen : ScreenBase {
 
 	public override void OnInit ()
 	{
-		pc.GetComponentInChildren <PanelsController> ();
+		pc = GetComponentInChildren <PanelsController> ();
 	}
 
 	public override void OnActivate ()
@@ -28,24 +28,30 @@ public class ChallengeResultScreen : ScreenBase {
 				OnPlayerLose ();
 			}
 
-		pc.ShowGiftPanel ();
-		pc.ShowRewardPanel ();
+
+
 	}
 
 	void OnPlayerWin ()
 	{
+		pc.ShowGiftPanel ();
+		pc.ShowRewardPanel (true);
+		pc.ShowBallsPanel (false);
+
 		if (Game.curChallengeIndex + 1 < Database.GetChall.challengesData.Length)
 			nextBtn.gameObject.SetActive (true);
 		else
 			nextBtn.gameObject.SetActive (false);
 
 		retryBtn.gameObject.SetActive (false);
-		resultText.text = "Challenge " + (Game.curChallengeIndex + 1) + "\nCompleted!";
+
 
 		if (!User.GetChallengesData.challData [Game.curChallengeIndex]) {
 			GiveReward (true);
+			resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_complete"), (Game.curChallengeIndex + 1));
 		} else {
 			GiveReward (false);
+			resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_complete_again"), (Game.curChallengeIndex + 1));
 		}
 
 		User.GetChallengesData.challData [Game.curChallengeIndex] = true;
@@ -78,9 +84,12 @@ public class ChallengeResultScreen : ScreenBase {
 
 	void OnPlayerLose ()
 	{
+		pc.ShowGiftPanel ();
+		pc.ShowRewardPanel (false);
+		pc.ShowBallsPanel (true);
 		nextBtn.gameObject.SetActive (false);
 		retryBtn.gameObject.SetActive (true);
-		resultText.text = "Challenge " + (Game.curChallengeIndex + 1) + "\nFailed!";
+		resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_failed"), (Game.curChallengeIndex + 1));
 		AudioManager.PlaySoundFromLibrary ("Failed");
 	}
 

@@ -51,49 +51,58 @@ public class PanelsController : MonoBehaviour {
 	int videoItemindex = -1;
 	bool clicked;
 	int ballsShowCount = 2;
+	public GameObject ballsPanel;
 	public Transform ballsListParent;
 	public GameObject ballItemPrefab;
 
-	public void ShowBallsPanel ()
+	public void ShowBallsPanel (bool show)
 	{
-		List<int> ballsIndex = new List<int> ();
+		if (!show) {
+			ballsPanel.SetActive (false);
+		} else {
+			ballsPanel.SetActive (true);
 
-		for (int i = 0; i < Database.Get.playersData.Length; i++) {
+			List<int> ballsIndex = new List<int> ();
 
-			if (Database.Get.playersData [i].buyType == ItemsInfo.BuyType.Video && !User.GetInfo.userData [i].bought) {
-				ballsIndex.Add (i);
-			}
-		}
+			for (int i = 0; i < Database.Get.playersData.Length; i++) {
 
-		int count = ballsIndex.Count;
-		Debug.Log (count);
-		while (count > ballsShowCount) {
-			ballsIndex.RemoveAt (Random.Range (0, count));
-			count--;
-			Debug.Log (count + "   " + Random.Range (0, count));
-		}
-
-		for (int i = 0; i < ballsIndex.Count; i++) {
-			GameObject ball = Instantiate (ballItemPrefab);
-			ball.transform.SetParent (ballsListParent, false);
-			ball.gameObject.SetActive (true);
-			ball.transform.Find ("Icon").GetComponent <Image> ().sprite = Database.Get.playersData [ballsIndex [i]].ballSprite;
-			ball.transform.Find ("Text").GetComponent <Text> ().text = LocalizationManager.GetLocalizedText (Database.Get.playersData [ballsIndex [i]].name);
-			Button btn = ball.GetComponentInChildren <Button> ();
-
-			btn.onClick.RemoveAllListeners ();
-			int inx = ballsIndex [i];
-			btn.onClick.AddListener (delegate {
-				DialogBox.Show ("Loading video...", null, null, false, true);
-				videoItemindex = inx;
-				if (AdManager.Ins != null) {
-					AdManager.Ins.showRewardedVideo ();
-					if (!clicked) {
-						clicked = true;
-						AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
-					}
+				if (Database.Get.playersData [i].buyType == ItemsInfo.BuyType.Video && !User.GetInfo.userData [i].bought) {
+					ballsIndex.Add (i);
 				}
-			});
+			}
+
+			int count = ballsIndex.Count;
+
+			Debug.Log (count);
+
+			while (count > ballsShowCount) {
+				ballsIndex.RemoveAt (Random.Range (0, count));
+				count--;
+				Debug.Log (count + "   " + Random.Range (0, count));
+			}
+
+			for (int i = 0; i < ballsIndex.Count; i++) {
+				GameObject ball = Instantiate (ballItemPrefab);
+				ball.transform.SetParent (ballsListParent, false);
+				ball.gameObject.SetActive (true);
+				ball.transform.Find ("Icon").GetComponent <Image> ().sprite = Database.Get.playersData [ballsIndex [i]].ballSprite;
+				ball.transform.Find ("Text").GetComponent <Text> ().text = LocalizationManager.GetLocalizedText (Database.Get.playersData [ballsIndex [i]].name);
+				Button btn = ball.GetComponentInChildren <Button> ();
+
+				btn.onClick.RemoveAllListeners ();
+				int inx = ballsIndex [i];
+				btn.onClick.AddListener (delegate {
+					DialogBox.Show ("Loading video...", null, null, false, true);
+					videoItemindex = inx;
+					if (AdManager.Ins != null) {
+						AdManager.Ins.showRewardedVideo ();
+						if (!clicked) {
+							clicked = true;
+							AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
+						}
+					}
+				});
+			}
 		}
 	}
 
@@ -115,8 +124,8 @@ public class PanelsController : MonoBehaviour {
 	public Text rewardText;
 	public Transform rewardPanel;
 
-	public void ShowRewardPanel ()
+	public void ShowRewardPanel (bool show)
 	{
-		rewardPanel.gameObject.SetActive (true);
+		rewardPanel.gameObject.SetActive (show);
 	}
 }

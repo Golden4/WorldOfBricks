@@ -16,7 +16,7 @@ public class GameOverScreen : ScreenBase {
 	public override void OnInit ()
 	{
 		Ins = this;
-		pc.GetComponentInChildren <PanelsController> ();
+		pc = GetComponentInChildren <PanelsController> ();
 
 	}
 
@@ -60,7 +60,7 @@ public class GameOverScreen : ScreenBase {
 		//}
 
 		pc.ShowGiftPanel ();
-		pc.ShowBallsPanel ();
+		pc.ShowBallsPanel (true);
 	}
 
 	public override void OnCleanUp ()

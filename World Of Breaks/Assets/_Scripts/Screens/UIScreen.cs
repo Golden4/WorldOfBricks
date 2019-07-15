@@ -147,7 +147,7 @@ public class UIScreen : ScreenBase {
 	{
 		if (!UIScreen.Ins.playerLose) {
 			UIScreen.Ins.playerWin = true;
-			ShowPopUpText ("Great!");
+			ShowPopUpText (LocalizationManager.GetLocalizedText ("clear"));
 		}
 	}
 
@@ -258,8 +258,12 @@ public class UIScreen : ScreenBase {
 	public void UpdateScore (int curScore)
 	{
 		score = curScore;
-		scoreText.text = curScore.ToString ();
 
+		if (!Game.isChallenge)
+			scoreText.text = curScore.ToString ();
+		else
+			scoreText.text = LocalizationManager.GetLocalizedText ("attempts") + "\n" + curScore.ToString ();
+		
 		if (curScore > topScore && !Game.isChallenge) {
 			newRecord = true;
 			newRecordScoreText.gameObject.SetActive (true);

@@ -13,12 +13,28 @@
       "value": "Испытания"
     },
     {
+      "key": "challenge_complete",
+      "value": "Испытание {0} выполнено!"
+    },
+    {
+      "key": "challenge_failed",
+      "value": "Испытание {0} провалено!"
+    },
+    {
+      "key": "challenge_complete_again",
+      "value": "Испытание {0} выполнено снова!"
+    },
+    {
       "key": "tap_to_continue",
       "value": "Нажми, чтобы продолжить"
     },
     {
       "key": "new_record",
       "value": "Новый рекорд!"
+    },
+    {
+      "key": "attempts",
+      "value": "Попыток"
     },
     {
       "key": "shop",

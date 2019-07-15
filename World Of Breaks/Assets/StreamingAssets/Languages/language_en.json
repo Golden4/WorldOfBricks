@@ -13,12 +13,28 @@
       "value": "Challenges"
     },
     {
+      "key": "challenge_complete",
+      "value": "Challenge {0} completed!"
+    },
+    {
+      "key": "challenge_failed",
+      "value": "Challenge {0} failed!"
+    },
+    {
+      "key": "challenge_complete_again",
+      "value": "Challenge {0} completed again!"
+    },
+    {
       "key": "tap_to_continue",
       "value": "Tap to continue"
     },
     {
       "key": "new_record",
       "value": "New record!"
+    },
+    {
+      "key": "attempts",
+      "value": "Attempts"
     },
     {
       "key": "shop",
