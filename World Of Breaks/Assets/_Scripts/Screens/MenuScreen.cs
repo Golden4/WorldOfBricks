@@ -100,7 +100,6 @@ public class MenuScreen : ScreenBase {
 				gameTitleText.enabled = false;
 			}
 		}
-
 	}
 
 	void GetFreeCoins ()
@@ -123,9 +122,29 @@ public class MenuScreen : ScreenBase {
 
 	}
 
+
+	public TitleColor[] titleColors;
+
+	[System.Serializable]
+	public class TitleColor {
+		public Color main;
+		public Color outline;
+		public Color shadow;
+	}
+
 	public override void OnActivate ()
 	{
 		base.OnActivate ();
+
+		if (titleColors.Length > 0) {
+		
+			TitleColor color = titleColors [Random.Range (0, titleColors.Length)];
+			gameTitleText.color = color.main;
+			color.shadow.a = .7f;
+			gameTitleText.GetComponent <Shadow> ().effectColor = color.shadow;
+			//gameTitleText.GetComponent <Outline> ().effectColor = color.outline;
+		}
+
 		ShowGameTitle (true, true);
 		//freeCoinsBtn.gameObject.SetActive (AdController.Ins.rewardedAdLoaded);
 		menuBall.sprite = Database.Get.playersData [User.GetInfo.curPlayerIndex].ballSprite;

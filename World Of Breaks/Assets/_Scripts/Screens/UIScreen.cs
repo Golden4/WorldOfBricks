@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Diagnostics;
 
 public class UIScreen : ScreenBase {
 	public static UIScreen Ins;
@@ -59,9 +60,11 @@ public class UIScreen : ScreenBase {
 
 	public Text topScoreText;
 
-	public int score = 0;
+	public int level = 0;
+	public int playerScore = 0;
 
-	public Text scoreText;
+	public Text levelText;
+	public Text playerScoreText;
 	public Text newRecordScoreText;
 
 	public Text checkpointText;
@@ -69,6 +72,7 @@ public class UIScreen : ScreenBase {
 	public bool newRecord;
 
 	public GameObject tutorialPrefab;
+	public ButtonIcon destroyLastLineBtn;
 
 	public override void OnInit ()
 	{
@@ -137,8 +141,8 @@ public class UIScreen : ScreenBase {
 
 	public void ShowClearText ()
 	{
-		if (!UIScreen.Ins.playerLose) {
-			SetCheckpoint (score);
+		if (!UIScreen.Ins.playerLose && checkpoint != level) {
+			SetCheckpoint (level);
 			ShowPopUpText (LocalizationManager.GetLocalizedText ("clear"), LocalizationManager.GetLocalizedText ("new_checkpoint") + ": " + checkpoint.ToString ());
 		}
 	}
@@ -190,8 +194,8 @@ public class UIScreen : ScreenBase {
 
 	public void SetTopScore ()
 	{
-		if (topScore < score) {
-			topScore = score;
+		if (topScore < level) {
+			topScore = level;
 			newRecord = true;
 		}
 	}
@@ -199,7 +203,10 @@ public class UIScreen : ScreenBase {
 	public void SetCheckpoint (int check)
 	{
 		checkpoint = check;
-		checkpointText.text = LocalizationManager.GetLocalizedText ("checkpoint") + ": " + checkpoint.ToString ();
+		if (check != 0)
+			checkpointText.text = LocalizationManager.GetLocalizedText ("checkpoint") + ": " + checkpoint.ToString ();
+		else
+			checkpointText.text = LocalizationManager.GetLocalizedText ("no_checkpoint");
 	}
 
 	void LoadCheckpoint (TileSizeScreen.TileSize tileSize)
@@ -249,27 +256,55 @@ public class UIScreen : ScreenBase {
 		
 		ShowTutorial ();
 
-
 		gameStarted = true;
 
 		SetCheckpoint (checkpoint);
+
+		destroyLastLineBtn.EnableBtn (!Game.isChallenge);
 	}
 
-	public void UpdateScore (int curScore)
+	public void UpdateScore (int curLevel)
 	{
-		score = curScore;
+		level = curLevel;
 
-		if (!Game.isChallenge)
-			scoreText.text = curScore.ToString ();
-		else
-			scoreText.text = LocalizationManager.GetLocalizedText ("attempts") + "\n" + curScore.ToString ();
+		if (!Game.isChallenge) {
+			levelText.text = LocalizationManager.GetLocalizedText ("level") + ": " + curLevel.ToString ();
+		} else {
+			levelText.gameObject.SetActive (false);
+			playerScoreText.text = LocalizationManager.GetLocalizedText ("attempts") + "\n" + curLevel.ToString ();
+		}
 		
-		if (curScore > topScore && !Game.isChallenge) {
+		if (curLevel > topScore && !Game.isChallenge) {
 			newRecord = true;
 			newRecordScoreText.gameObject.SetActive (true);
 		} else {
 			newRecordScoreText.gameObject.SetActive (false);
 		}
+	}
+
+	float t;
+	int fromValue;
+
+	public void AddPlayerScore (int value)
+	{
+		if (playerLose)
+			return;
+		
+		t = 1;
+		playerScore += value;
+	}
+
+	void Update ()
+	{
+		if (t > 0) {
+			t -= Time.deltaTime / .3f;
+			fromValue = Mathf.RoundToInt (Mathf.Lerp ((float)fromValue, (float)playerScore, 1 - t));
+			playerScoreText.text = fromValue.ToString ();
+		} else if (t <= -0.01f) {
+				t = 0;
+				fromValue = playerScore;
+				playerScoreText.text = playerScore.ToString ();
+			}
 	}
 
 	public static void OnLoseEventCall ()

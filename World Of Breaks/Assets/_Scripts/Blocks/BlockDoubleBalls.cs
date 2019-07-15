@@ -33,11 +33,11 @@ public class BlockDoubleBalls : BlockWithText {
 		Ball ballClone = ballTmp.GetComponent<Ball> ();
 		ballClone.ChangeToClone ();
 		BallController.Instance.ballsList.Add (ballClone);
-        
-		Vector3 dir = ball.transform.up + Vector3.left * -1;
-		ball.ChangeDirection (dir.normalized);
-		dir = ball.transform.up + Vector3.left * 1;
-		ballClone.ChangeDirection (dir.normalized);
+
+		float angle = ball.transform.localEulerAngles.z;
+		ball.ChangeDirection (angle + 30);
+
+		ballClone.ChangeDirection (angle - 30);
 
 		if (lastAudioPlayTime + .05f < Time.time) {
 			lastAudioPlayTime = Time.time;

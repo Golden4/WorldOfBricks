@@ -18,17 +18,15 @@ public class ChallengeResultScreen : ScreenBase {
 	public override void OnActivate ()
 	{
 		base.OnActivate ();
-		resultText.gameObject.SetActive (true);
-		resultText.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
 
 		if (UIScreen.Ins.playerWin) {
 			OnPlayerWin ();
 
 		} else if (UIScreen.Ins.playerLose) {
 				OnPlayerLose ();
+			} else {
+				OnPlayerLose ();
 			}
-
-
 
 	}
 
@@ -47,39 +45,16 @@ public class ChallengeResultScreen : ScreenBase {
 
 
 		if (!User.GetChallengesData.challData [Game.curChallengeIndex]) {
-			GiveReward (true);
+			pc.GiveReward (true, Database.GetChall.challengesData [Game.curChallengeIndex].reward);
 			resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_complete"), (Game.curChallengeIndex + 1));
 		} else {
-			GiveReward (false);
+			pc.GiveReward (false);
 			resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_complete_again"), (Game.curChallengeIndex + 1));
 		}
 
 		User.GetChallengesData.challData [Game.curChallengeIndex] = true;
 		User.SaveChallengesData ();
 		AudioManager.PlaySoundFromLibrary ("Success");
-	}
-
-	void GiveReward (bool give)
-	{
-		if (give) {
-			pc.rewardText.text = "+" + Database.GetChall.challengesData [Game.curChallengeIndex].reward.ToString ();
-
-			int coinAmount = 25;
-
-			Vector3 fromPos = pc.rewardText.transform.parent.parent.parent.position;
-			Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
-			Debug.Log (fromPos + "   " + toPos);
-			Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
-
-			});
-
-			Utility.Invoke (CoinUI.Ins, .9f, delegate {
-				User.AddCoin (coinAmount);
-			});
-		} else {
-			pc.rewardText.text = "0";
-		}
-
 	}
 
 	void OnPlayerLose ()

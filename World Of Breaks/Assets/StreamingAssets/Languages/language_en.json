@@ -29,6 +29,10 @@
       "value": "Tap to continue"
     },
     {
+      "key": "warning",
+      "value": "All progress will be lost!\n Checkpoint and record will be saved!"
+    },
+    {
       "key": "new_record",
       "value": "New record!"
     },
@@ -81,6 +85,10 @@
       "value": "Checkpoint"
     },
     {
+      "key": "checkpoint",
+      "value": "No checkpoint"
+    },
+    {
       "key": "new_checkpoint",
       "value": "New checkpoint"
     },
@@ -89,8 +97,12 @@
       "value": "My personal record"
     },
     {
-      "key": "my_score",
-      "value": "My score"
+      "key": "score",
+      "value": "Score"
+    },
+    {
+      "key": "level",
+      "value": "Level"
     },
     {
       "key": "reward",
@@ -114,7 +126,7 @@
     },
     {
       "key": "medium_unlock",
-      "value": "Reach score 100 on small"
+      "value": "Reach level 100 on small"
     },
     {
       "key": "medium_unlocked",
@@ -126,7 +138,7 @@
     },
     {
       "key": "big_unlock",
-      "value": "Reach score 150 on medium"
+      "value": "Reach level 100 on medium"
     },
     {
       "key": "big_unlocked",

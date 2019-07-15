@@ -7216,6 +7216,22 @@ MonoBehaviour:
   startGameBtn: {fileID: 548009393}
   gameTitleText: {fileID: 1973637820}
   menuBall: {fileID: 1357742396}
+  titleColors:
+  - main: {r: 1, g: 0.97669595, b: 0.1372549, a: 1}
+    outline: {r: 0.39979848, g: 0.4245283, b: 0, a: 1}
+    shadow: {r: 0.32643256, g: 0.3490566, b: 0, a: 1}
+  - main: {r: 0.549735, g: 1, b: 0.1372549, a: 1}
+    outline: {r: 0.21162093, g: 0.4433962, b: 0, a: 1}
+    shadow: {r: 0.15759006, g: 0.3301887, b: 0, a: 1}
+  - main: {r: 1, g: 0.321922, b: 0.1372549, a: 1}
+    outline: {r: 0.4339623, g: 0.09271013, b: 0, a: 1}
+    shadow: {r: 0.31132078, g: 0.06650944, b: 0, a: 1}
+  - main: {r: 0.1372549, g: 0.5874596, b: 1, a: 1}
+    outline: {r: 0, g: 0.2416382, b: 0.46226418, a: 1}
+    shadow: {r: 0, g: 0.14794175, b: 0.2830189, a: 1}
+  - main: {r: 1, g: 0.6710742, b: 0.1372549, a: 1}
+    outline: {r: 0.509434, g: 0.31492284, b: 0, a: 1}
+    shadow: {r: 0.26415092, g: 0.1632933, b: 0, a: 1}
 --- !u!114 &793943013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29413,8 +29429,8 @@ GameObject:
   - component: {fileID: 1973637816}
   - component: {fileID: 1973637821}
   - component: {fileID: 1973637820}
-  - component: {fileID: 1973637819}
   - component: {fileID: 1973637818}
+  - component: {fileID: 1973637819}
   - component: {fileID: 1973637817}
   m_Layer: 5
   m_Name: GameTitle
@@ -29804,7 +29820,7 @@ MonoBehaviour:
   m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.32643256, g: 0.3490566, b: 0, a: 1}
+  m_EffectColor: {r: 0.26415092, g: 0.1632933, b: 0, a: 1}
   m_EffectDistance: {x: 0, y: -8.05}
   m_UseGraphicAlpha: 1
 --- !u!114 &1973637819
@@ -29814,12 +29830,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973637815}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.39979848, g: 0.4245283, b: 0, a: 1}
+  m_EffectColor: {r: 0.509434, g: 0.31492284, b: 0, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
 --- !u!114 &1973637820
@@ -29835,7 +29851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.97669595, b: 0.1372549, a: 1}
+  m_Color: {r: 1, g: 0.6710742, b: 0.1372549, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:

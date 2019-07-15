@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BlockLaser : BlockWithText {
 
-	public enum LaserType
-	{
+	public enum LaserType {
 		Horizontal,
 		Vertical,
 		HorizontalAndVerical
@@ -47,12 +46,12 @@ public class BlockLaser : BlockWithText {
 	{
 		transform.GetChild (0).localScale = new Vector3 (1, 1, 1);
 		if (laserHor != null)
-		if (laserHor.gameObject.activeInHierarchy)
-			laserHor.gameObject.SetActive (false);
+			if (laserHor.gameObject.activeInHierarchy)
+				laserHor.gameObject.SetActive (false);
 
 		if (laserVer != null)
-		if (laserVer.gameObject.activeInHierarchy)
-			laserVer.gameObject.SetActive (false);
+			if (laserVer.gameObject.activeInHierarchy)
+				laserVer.gameObject.SetActive (false);
 	}
 
 	static float lastAudioPlayTime;

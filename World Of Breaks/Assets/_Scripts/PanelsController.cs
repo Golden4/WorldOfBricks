@@ -81,27 +81,31 @@ public class PanelsController : MonoBehaviour {
 				Debug.Log (count + "   " + Random.Range (0, count));
 			}
 
-			for (int i = 0; i < ballsIndex.Count; i++) {
-				GameObject ball = Instantiate (ballItemPrefab);
-				ball.transform.SetParent (ballsListParent, false);
-				ball.gameObject.SetActive (true);
-				ball.transform.Find ("Icon").GetComponent <Image> ().sprite = Database.Get.playersData [ballsIndex [i]].ballSprite;
-				ball.transform.Find ("Text").GetComponent <Text> ().text = LocalizationManager.GetLocalizedText (Database.Get.playersData [ballsIndex [i]].name);
-				Button btn = ball.GetComponentInChildren <Button> ();
+			if (ballsIndex.Count > 0) {
+				for (int i = 0; i < ballsIndex.Count; i++) {
+					GameObject ball = Instantiate (ballItemPrefab);
+					ball.transform.SetParent (ballsListParent, false);
+					ball.gameObject.SetActive (true);
+					ball.transform.Find ("Icon").GetComponent <Image> ().sprite = Database.Get.playersData [ballsIndex [i]].ballSprite;
+					ball.transform.Find ("Text").GetComponent <Text> ().text = LocalizationManager.GetLocalizedText (Database.Get.playersData [ballsIndex [i]].name);
+					Button btn = ball.GetComponentInChildren <Button> ();
 
-				btn.onClick.RemoveAllListeners ();
-				int inx = ballsIndex [i];
-				btn.onClick.AddListener (delegate {
-					DialogBox.Show ("Loading video...", null, null, false, true);
-					videoItemindex = inx;
-					if (AdManager.Ins != null) {
-						AdManager.Ins.showRewardedVideo ();
-						if (!clicked) {
-							clicked = true;
-							AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
+					btn.onClick.RemoveAllListeners ();
+					int inx = ballsIndex [i];
+					btn.onClick.AddListener (delegate {
+						DialogBox.Show ("Loading video...", null, null, false, true);
+						videoItemindex = inx;
+						if (AdManager.Ins != null) {
+							AdManager.Ins.showRewardedVideo ();
+							if (!clicked) {
+								clicked = true;
+								AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
+							}
 						}
-					}
-				});
+					});
+				}
+			} else {
+				ballsPanel.SetActive (false);
 			}
 		}
 	}
@@ -127,5 +131,28 @@ public class PanelsController : MonoBehaviour {
 	public void ShowRewardPanel (bool show)
 	{
 		rewardPanel.gameObject.SetActive (show);
+	}
+
+	public void GiveReward (bool give, int rewardCount = 0)
+	{
+		if (give) {
+			rewardText.text = "+" + rewardCount.ToString ();
+
+			int coinAmount = rewardCount;
+
+			Vector3 fromPos = rewardText.transform.parent.parent.parent.position;
+			Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
+
+			Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
+
+			});
+
+			Utility.Invoke (CoinUI.Ins, .9f, delegate {
+				User.AddCoin (coinAmount);
+			});
+		} else {
+			rewardText.text = "0";
+		}
+
 	}
 }

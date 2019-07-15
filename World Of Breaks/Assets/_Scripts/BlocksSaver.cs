@@ -57,7 +57,8 @@ public static class BlocksSaver {
 		PlayerPrefs.SetString ("BlocksMap", ConvertToString (blockMap));
 		PlayerPrefs.SetInt ("BallCount", bc.ballCount);
 		PlayerPrefs.SetString ("StartPos", bc.startThrowPos.x + "|" + bc.startThrowPos.y);
-		PlayerPrefs.SetInt ("CurLevel", UIScreen.Ins.score);
+		PlayerPrefs.SetInt ("CurLevel", UIScreen.Ins.level);
+		PlayerPrefs.SetInt ("PlayerScore", UIScreen.Ins.playerScore);
         
 	}
 
@@ -78,7 +79,11 @@ public static class BlocksSaver {
 
 				string[] pos = PlayerPrefs.GetString ("StartPos").Split ('|');
 				BallController.Instance.startThrowPos = new Vector2 (float.Parse (pos [0]), float.Parse (pos [1]));
+			}
 
+			if (PlayerPrefs.HasKey ("PlayerScore")) {
+				UIScreen.Ins.playerScore = 0;
+				UIScreen.Ins.AddPlayerScore (PlayerPrefs.GetInt ("PlayerScore"));
 			}
 
 		}
@@ -93,6 +98,7 @@ public static class BlocksSaver {
 		PlayerPrefs.DeleteKey ("CurLevel");
 		PlayerPrefs.DeleteKey ("BallCount");
 		PlayerPrefs.DeleteKey ("StartPos");
+		PlayerPrefs.DeleteKey ("PlayerScore");
 		PlayerPrefs.Save ();
 	}
 

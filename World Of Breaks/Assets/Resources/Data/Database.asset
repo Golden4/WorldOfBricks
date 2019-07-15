@@ -172,7 +172,7 @@ MonoBehaviour:
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300024, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: 951b06ce258790a4694e6e514ee31397, type: 3}
@@ -200,7 +200,7 @@ MonoBehaviour:
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300006, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
@@ -214,7 +214,7 @@ MonoBehaviour:
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300008, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
@@ -242,7 +242,7 @@ MonoBehaviour:
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300012, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: 316e573d376127e4785104d6ad9efe84, type: 3}
@@ -284,7 +284,7 @@ MonoBehaviour:
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300030, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: f75216383ddb9094091d8ac963267bc1, type: 3}
@@ -298,7 +298,7 @@ MonoBehaviour:
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300028, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: f75216383ddb9094091d8ac963267bc1, type: 3}
@@ -312,7 +312,7 @@ MonoBehaviour:
     buyType: 0
     price: 250
     ballSprite: {fileID: 21300042, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: d7eb233a21705af4fa5a504a969c982c, type: 3}
@@ -326,7 +326,7 @@ MonoBehaviour:
     buyType: 0
     price: 250
     ballSprite: {fileID: 21300044, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: d7eb233a21705af4fa5a504a969c982c, type: 3}
@@ -340,7 +340,7 @@ MonoBehaviour:
     buyType: 0
     price: 250
     ballSprite: {fileID: 21300046, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: d7eb233a21705af4fa5a504a969c982c, type: 3}
@@ -354,7 +354,7 @@ MonoBehaviour:
     buyType: 0
     price: 250
     ballSprite: {fileID: 21300048, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.15
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: d7eb233a21705af4fa5a504a969c982c, type: 3}

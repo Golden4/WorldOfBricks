@@ -58,10 +58,10 @@ public class BlockWithText : MonoBehaviour {
 			TimerStart ();
 
 		} else if (t <= -0.01f) {
-			t = 0;
+				t = 0;
 
-			TimerEnd ();
-		}
+				TimerEnd ();
+			}
 
 	}
 
@@ -102,6 +102,8 @@ public class BlockWithText : MonoBehaviour {
 		//spriteRenderer.color = g.Evaluate (BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife / 100);
 	}
 
+	public bool justDestroy;
+
 	public void Die ()
 	{
 
@@ -118,10 +120,28 @@ public class BlockWithText : MonoBehaviour {
 
 	protected virtual void OnDead ()
 	{
+		if (!justDestroy) {
+			BlocksController.Instance.blockDestroyCount++;
+			int scoreToAdd = BlocksController.Instance.blockDestroyCount * (UIScreen.Ins.level + 10) / 10;
+			textMesh.transform.SetParent (null, false);
+			textMesh.transform.position = transform.position + (Vector3.up - Vector3.left) * .5f + Vector3.back;
+			textMesh.transform.localEulerAngles = Vector3.zero;
+			textMesh.transform.localScale = Vector3.one;
+			textMesh.gameObject.SetActive (true);
+			textMesh.text = "+" + scoreToAdd;
+			textMesh.color = Color.yellow;
+			textMesh.fontSize = 40;
+			iTween.MoveTo (textMesh.gameObject, textMesh.transform.position + Vector3.up * .3f, 1f);
+			iTween.FadeTo (textMesh.gameObject, 0, 1f);
+			Destroy (textMesh.gameObject, 1f);
+			UIScreen.Ins.AddPlayerScore (scoreToAdd);
+			BlocksController.Instance.CalculateBlockLife ();
+		}
+
 		AudioManager.PlaySoundFromLibrary ("Destroy");
-		BlocksController.Instance.CalculateBlockLife ();
 		Destroy (Instantiate<GameObject> (destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
 		Destroy (gameObject);
+
 
 	}
 

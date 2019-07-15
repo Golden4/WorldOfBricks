@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PauseScreen : ScreenBase {
 
@@ -44,19 +45,33 @@ public class PauseScreen : ScreenBase {
 	public void ActivateMenu ()
 	{
 
-		BlocksSaver.DeleteBlockMapKeys ();
+		if (!Game.isChallenge) {
+			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
+		} else
+			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.ChallegesResult);
+		
+		return;
+		Action action = delegate {
+			BlocksSaver.DeleteBlockMapKeys ();
 
-		UIScreen.newGame = true;
-		UIScreen.Ins.playerLose = true;
-		BlocksController.Instance.DestroyAllBlocks ();
+			UIScreen.newGame = true;
+			UIScreen.Ins.playerLose = true;
+			BlocksController.Instance.DestroyAllBlocks ();
 
-		UIScreen.Ins.SetTopScore ();
+			UIScreen.Ins.SetTopScore ();
 
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
+			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
 
-		Utility.Invoke (ScreenController.Ins, .5f, () => {
-			SceneController.LoadSceneWithFade (1);
-		});
+			Utility.Invoke (ScreenController.Ins, .5f, () => {
+				SceneController.LoadSceneWithFade (1);
+			});
+		};
+
+		if (!Game.isChallenge)
+			DialogBox.Show (LocalizationManager.GetLocalizedText ("warning"), action);
+		else
+			action.Invoke ();
+
 	}
 
 

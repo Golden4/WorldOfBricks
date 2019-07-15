@@ -38,7 +38,7 @@ public class BallController : MonoBehaviour {
 		if (Game.isChallenge)
 			ballCount = Game.curChallengeInfo.ballCount;
 		else if (UIScreen.newGame)
-				ballCount = UIScreen.Ins.score;
+				ballCount = UIScreen.Ins.level;
 		SpriteRenderer ballPrebSpr = ballPrefab.GetComponent <SpriteRenderer> ();
 		ballPrebSpr.sprite = Database.Get.playersData [User.GetInfo.curPlayerIndex].ballSprite;
 		ballPrebSpr.size = Vector2.one * Database.Get.playersData [User.GetInfo.curPlayerIndex].ballRadius * 2;
@@ -264,13 +264,14 @@ public class BallController : MonoBehaviour {
 
 		UpdateBallCount ();
 
-		if (!Game.isChallenge)
-			BlocksController.Instance.ShiftBlockMapDown ();
-		else
-			BlocksController.Instance.ChallengeProgress ();
-
-
 		startPosChanged = false;
+
+		if (!UIScreen.Ins.playerLose) {
+			if (!Game.isChallenge)
+				BlocksController.Instance.ShiftBlockMapDown ();
+			else
+				BlocksController.Instance.ChallengeProgress ();
+		}
 	}
 
 	public void ReturnAllBalls ()

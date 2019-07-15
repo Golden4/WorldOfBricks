@@ -5,7 +5,7 @@ using System;
 using UnityEngine.UI;
 
 public class DialogBox : MonoBehaviour {
-
+	public Image backgroundImage;
 	public Button okBtn;
 	public Button cancelBtn;
 	public Text title;
@@ -26,7 +26,7 @@ public class DialogBox : MonoBehaviour {
 	{
 		if (instance == null)
 			Init ();
-
+		instance.backgroundImage.raycastTarget = true;
 		instance.gameObject.SetActive (true);
 		instance.cancelBtn.gameObject.SetActive (CancelBtnEnable);
 		instance.okBtn.gameObject.SetActive (OkBtnEnable);
@@ -55,9 +55,7 @@ public class DialogBox : MonoBehaviour {
 	public static void Hide ()
 	{
 		instance.anim.MoveOut (GUIAnimSystem.eGUIMove.SelfAndChildren);
-		Utility.Invoke (instance, .8f, () => {
-			instance.gameObject.SetActive (false);
-		});
+		instance.backgroundImage.raycastTarget = false;
 	}
 
 }

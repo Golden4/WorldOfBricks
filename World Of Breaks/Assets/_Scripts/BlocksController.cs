@@ -53,6 +53,8 @@ public class BlocksController : MonoBehaviour {
 	public bool canSaveBlockMap;
 	public Texture2D challengesMapTexture;
 
+	public int blockDestroyCount = 0;
+
 	private void Awake ()
 	{
 		Instance = this;
@@ -94,7 +96,6 @@ public class BlocksController : MonoBehaviour {
 					blocksLife += blockMap [i] [j].blockLife;
 			}
 		}
-        
 
 		if (blocksLife <= 0) {
 			if (!Game.isChallenge)
@@ -142,26 +143,19 @@ public class BlocksController : MonoBehaviour {
 			OnChangeTopLine ();
 		}
 
-
-           
-
-
 		CheckForLose ();
-		UIScreen.Ins.UpdateScore (++UIScreen.Ins.score);
+		UIScreen.Ins.UpdateScore (++UIScreen.Ins.level);
 
-		if (UIScreen.Ins.score >= 100) {
+		if (UIScreen.Ins.level >= 100) {
+			
 			if (TileSizeScreen.tileSize == TileSizeScreen.TileSize.Small && TileSizeScreen.tileSizeLocked.tileSizeLocked [0]) {
 				TileSizeScreen.UnlockTile (0);
 				UIScreen.Ins.ShowPopUpText (LocalizationManager.GetLocalizedText ("medium_unlocked"));
-			}
+			} else if (TileSizeScreen.tileSize == TileSizeScreen.TileSize.Medium && TileSizeScreen.tileSizeLocked.tileSizeLocked [1]) {
+					TileSizeScreen.UnlockTile (1);
+					UIScreen.Ins.ShowPopUpText (LocalizationManager.GetLocalizedText ("big_unlocked"));
+				}
 		}
-
-		if (UIScreen.Ins.score >= 150)
-			if (TileSizeScreen.tileSize == TileSizeScreen.TileSize.Medium && TileSizeScreen.tileSizeLocked.tileSizeLocked [1]) {
-				TileSizeScreen.UnlockTile (1);
-				UIScreen.Ins.ShowPopUpText (LocalizationManager.GetLocalizedText ("big_unlocked"));
-			}
-
 
 		Utility.Invoke (this, .2f, ChangeTopLine);
         
@@ -191,7 +185,7 @@ public class BlocksController : MonoBehaviour {
 
 	public void ChallengeProgress ()
 	{
-		UIScreen.Ins.UpdateScore (--UIScreen.Ins.score);
+		UIScreen.Ins.UpdateScore (--UIScreen.Ins.level);
 
 		if (OnChangeTopLine != null) {
 			OnChangeTopLine ();
@@ -199,7 +193,7 @@ public class BlocksController : MonoBehaviour {
 
 		if (UIScreen.Ins.playerWin)
 			UIScreen.OnWinEventCall ();
-		else if (UIScreen.Ins.playerLose || UIScreen.Ins.score <= 0)
+		else if (UIScreen.Ins.playerLose || UIScreen.Ins.level <= 0)
 				UIScreen.OnLoseEventCall ();
 	}
 
@@ -207,6 +201,8 @@ public class BlocksController : MonoBehaviour {
 
 	void ChangeTopLine ()
 	{
+		blockDestroyCount = 0;
+
 		double randNumPlusBlock = Random.Range (0, blockMap [0].Length - 1);
 
 		for (int i = 0; i < blockMap [0].Length; i++) {
@@ -229,7 +225,7 @@ public class BlocksController : MonoBehaviour {
 
 			} else {
 
-				int curLevelCur = (UIScreen.Ins.score % 10 == 0) ? UIScreen.Ins.score * Random.Range (1, 3) : UIScreen.Ins.score;
+				int curLevelCur = (UIScreen.Ins.level % 10 == 0) ? UIScreen.Ins.level * Random.Range (1, 3) : UIScreen.Ins.level;
 
 				int indexBlock = GetRandomBlockIndex ();
 
@@ -393,9 +389,9 @@ public class BlocksController : MonoBehaviour {
 	public IEnumerator DestroyBlockWhenLevelEnd (GameObject obj, int destroyLevelCount)
 	{
 
-		int curLevel = UIScreen.Ins.score;
+		int curLevel = UIScreen.Ins.level;
 
-		while (UIScreen.Ins.score < curLevel + destroyLevelCount) {
+		while (UIScreen.Ins.level < curLevel + destroyLevelCount) {
 			yield return null;
 		}
 
@@ -447,6 +443,7 @@ public class BlocksController : MonoBehaviour {
 		for (int i = 0; i < blockMap.Length; i++) {
 			for (int j = 0; j < blockMap [i].Length; j++) {
 				if (blockMap [i] [j].blockComp != null) {
+					blockMap [i] [j].blockComp.justDestroy = true;
 					blockMap [i] [j].blockComp.Die ();
 				}
 			}
@@ -516,7 +513,7 @@ public class Block {
 [System.Serializable]
 public class BlockForSpawn {
 	public string name;
-	[Range (0, 200)]
+	[Range (0, 300)]
 	public int chanceForSpawn;
 	public bool isRequired;
 	public BlockWithText blockPrefab;

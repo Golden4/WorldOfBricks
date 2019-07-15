@@ -35,7 +35,7 @@ public class ShareController : MonoBehaviour {
 		sharing = true;
 		yield return new WaitForEndOfFrame ();
 		CaptureScreenshot ();
-		string text = LocalizationManager.GetLocalizedText ("my_score") + " " + UIScreen.Ins.score + " #worldofbreaks." + LocalizationManager.GetLocalizedText ("my_personal_record") + " - " + UIScreen.Ins.topScore + ". https://play.google.com/store/apps/details?id=com.xUnknown.WorldOfBricks";
+		string text = LocalizationManager.GetLocalizedText ("my_score") + " " + UIScreen.Ins.level + " #worldofbreaks." + LocalizationManager.GetLocalizedText ("my_personal_record") + " - " + UIScreen.Ins.topScore + ". https://play.google.com/store/apps/details?id=com.xUnknown.WorldOfBricks";
 
 		new NativeShare ().AddFile (filePathToScreenshot).SetSubject ("World Of Breaks").SetText (text).Share ();
 

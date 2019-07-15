@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScreenBase : MonoBehaviour {
 	
 	protected GUIAnim[] anims;
-	protected bool animate = true;
+	public bool animate = true;
 
 	[System.NonSerialized]
 	public bool isActive;

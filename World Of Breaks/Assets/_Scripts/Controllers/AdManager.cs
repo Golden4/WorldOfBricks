@@ -22,7 +22,7 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 		testMode = Debug.isDebugBuild;
 		Appodeal.disableLocationPermissionCheck ();
 		Appodeal.setTesting (testMode);
-		Appodeal.initialize (appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO, false);
+		Appodeal.initialize (appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO);
 		Appodeal.setInterstitialCallbacks (this);
 		Appodeal.setRewardedVideoCallbacks (this);
 	}

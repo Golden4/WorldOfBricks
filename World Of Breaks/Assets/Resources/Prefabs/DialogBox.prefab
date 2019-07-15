@@ -206,7 +206,7 @@ MonoBehaviour:
     Began: 0
     BeginPos: {x: 0, y: 0, z: 0}
     Done: 0
-    EaseType: 1
+    EaseType: 2
     EndPos: {x: 0, y: 0, z: 0}
     MoveFrom: 2
     Position: {x: 0, y: 0, z: 0}
@@ -239,7 +239,7 @@ MonoBehaviour:
     Began: 0
     BeginPos: {x: 0, y: 0, z: 0}
     Done: 0
-    EaseType: 0
+    EaseType: 2
     EndPos: {x: 0, y: 0, z: 0}
     MoveTo: 5
     Position: {x: 0, y: 0, z: 0}
@@ -1046,6 +1046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f99563d7ff86f4469bf071984da6e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundImage: {fileID: 114766357104300774}
   okBtn: {fileID: 114938061052984578}
   cancelBtn: {fileID: 114243313296620764}
   title: {fileID: 114521645927110304}

@@ -8,7 +8,8 @@ public class GameOverScreen : ScreenBase {
 	public static GameOverScreen Ins;
 
 	public Text newRecordText;
-	public Text newRecordCountText;
+	public Text levelText;
+	public Text scoreText;
 	public static int playerDieCount = 0;
 
 	public PanelsController pc;
@@ -29,7 +30,7 @@ public class GameOverScreen : ScreenBase {
 
 		BlocksSaver.DeleteBlockMapKeys ();
 		PlayerPrefs.DeleteKey ("TileSize");
-
+		UIScreen.Ins.playerLose = true;
 		UIScreen.newGame = true;
 
 		UIScreen.Ins.SetTopScore ();
@@ -41,7 +42,8 @@ public class GameOverScreen : ScreenBase {
 			newRecordText.gameObject.SetActive (false);
 		}
 
-		newRecordCountText.text = UIScreen.Ins.score.ToString ();
+		levelText.text = LocalizationManager.GetLocalizedText ("level") + ": " + UIScreen.Ins.level.ToString ();
+		scoreText.text = LocalizationManager.GetLocalizedText ("score") + ": " + UIScreen.Ins.playerScore;
 
 
 		//if (!User.GetInfo.AllCharactersBought ()) {
@@ -60,7 +62,9 @@ public class GameOverScreen : ScreenBase {
 		//}
 
 		pc.ShowGiftPanel ();
-		pc.ShowBallsPanel (true);
+		pc.ShowRewardPanel (true);
+		pc.ShowBallsPanel (false);
+		pc.GiveReward (true, UIScreen.Ins.playerScore / 100);
 	}
 
 	public override void OnCleanUp ()

@@ -15,7 +15,6 @@ public class AudioManager : SingletonResourse<AudioManager> {
 		for (int i = 0; i < 5; i++) {
 			source [i] = gameObject.AddComponent<AudioSource> ();
 		}
-		Debug.Log ("Initttt" + typeof(AudioManager).Name);
 		soundLibrary = GetComponent<SoundLibrary> ();
 	}
 
