@@ -57,10 +57,7 @@ public class PurchaseManager : SingletonResourse<PurchaseManager> , IStoreListen
 	{
 		List<string> strs = new List<string> ();
 		for (int i = 0; i < Database.Get.playersData.Length; i++) {
-
-			if (Database.Get.playersData [i].buyType == ItemsInfo.BuyType.RealMoney) {
-				strs.Add (Database.Get.playersData [i].purchaseID);
-			}
+			strs.Add (Database.Get.playersData [i].purchaseID);
 		}
 
 		NC_PRODUCTS = strs.ToArray ();
@@ -80,7 +77,7 @@ public class PurchaseManager : SingletonResourse<PurchaseManager> , IStoreListen
 		UnityPurchasing.Initialize (this, builder);
 	}
 
-	private bool IsInitialized ()
+	public bool IsInitialized ()
 	{
 		return m_StoreController != null && m_StoreExtensionProvider != null;
 	}
@@ -93,6 +90,7 @@ public class PurchaseManager : SingletonResourse<PurchaseManager> , IStoreListen
 
 	public void BuyConsumable (string id)
 	{
+		TryInit ();
 		List<string> temp = new List<string> (C_PRODUCTS);
 
 		if (temp.Contains (id)) {
@@ -104,6 +102,9 @@ public class PurchaseManager : SingletonResourse<PurchaseManager> , IStoreListen
 
 	public void BuyNonConsumable (int index)
 	{
+
+		TryInit ();
+
 		for (int i = 0; i < NC_PRODUCTS.Length; i++) {
 			if (Database.Get.playersData [index].purchaseID == NC_PRODUCTS [i]) {
 				currentProductIndex = i;
@@ -116,10 +117,9 @@ public class PurchaseManager : SingletonResourse<PurchaseManager> , IStoreListen
 	public string GetLocalizedPrice (string productId)
 	{
 		if (IsInitialized ()) {
-
 			return m_StoreController.products.WithID (productId).metadata.localizedPriceString;
 		} else {
-			Debug.LogError ("Not Initialized - GetLocalizedPrice");
+			Debug.Log ("Not Initialized - GetLocalizedPrice");
 			return "null";
 		}
 	}
@@ -141,8 +141,6 @@ public class PurchaseManager : SingletonResourse<PurchaseManager> , IStoreListen
 
 	public void OnInitialized (IStoreController controller, IExtensionProvider extensions)
 	{
-		Debug.Log ("OnInitialized: PASS");
-
 		m_StoreController = controller;
 		m_StoreExtensionProvider = extensions;
 	}

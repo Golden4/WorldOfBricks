@@ -20,16 +20,21 @@ public class BuyCoinScreen : ScreenBase {
 		base.OnActivate ();
 
 		for (int i = 0; i < buyCoinBtns.Length; i++) {
-			buyCoinBtns [i].priceText.text = PurchaseManager.Ins.GetLocalizedPrice (buyCoinBtns [i].productID).ToString ();
+			string text = PurchaseManager.Ins.GetLocalizedPrice (buyCoinBtns [i].productID);
+			if (text == "null") {
+				buyCoinBtns [i].loadingImage.gameObject.SetActive (true);
+				buyCoinBtns [i].priceText.gameObject.SetActive (false);
+			} else {
+				buyCoinBtns [i].loadingImage.gameObject.SetActive (false);
+				buyCoinBtns [i].priceText.gameObject.SetActive (true);
+				buyCoinBtns [i].priceText.text = text;
+			}
 			int index = i;
 
 			buyCoinBtns [i].btn.onClick.RemoveAllListeners ();
 
 			buyCoinBtns [i].btn.onClick.AddListener (() => BuyItem (buyCoinBtns [index].productID));
 		}
-
-
-
 	}
 
 	public void ShowBuyCoinScreen ()
@@ -39,7 +44,12 @@ public class BuyCoinScreen : ScreenBase {
 
 	public void BuyItem (string id)
 	{
-		PurchaseManager.Ins.BuyConsumable (id);
+		if (PurchaseManager.Ins.IsInitialized ()) {
+			PurchaseManager.Ins.BuyConsumable (id);
+		} else {
+			DialogBox.Show ("Failed", null, null, true, false);
+		}
+
 	}
 
 	[System.Serializable]
@@ -47,6 +57,7 @@ public class BuyCoinScreen : ScreenBase {
 		public string productID;
 		public Button btn;
 		public Text priceText;
+		public Image loadingImage;
 		public int coinCount;
 	}
 

@@ -11,7 +11,17 @@ public class FreeCoinsBtn : MonoBehaviour {
 		btn = GetComponent <Button> ();
 		btn.onClick.RemoveAllListeners ();
 		btn.onClick.AddListener (ShowAd);
+	}
 
+	void Update ()
+	{
+		if (!AdManager.Ins.isRewardedVideoLoaded) {
+			if (gameObject.activeInHierarchy)
+				gameObject.SetActive (false);
+		} else {
+			if (!gameObject.activeInHierarchy)
+				gameObject.SetActive (true);
+		}
 	}
 
 	bool clicked;

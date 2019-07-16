@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playersData:
   - name: classic_ball
-    purchaseID: 
+    purchaseID: Ball_1
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300000, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -28,7 +28,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: red_classic_ball
-    purchaseID: 
+    purchaseID: Ball_2
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300032, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -42,8 +42,8 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: blue_classic_ball
-    purchaseID: 
-    buyType: 0
+    purchaseID: Ball_3
+    buyType: 1
     price: 150
     ballSprite: {fileID: 21300034, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.1
@@ -56,7 +56,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: green_classic_ball
-    purchaseID: 
+    purchaseID: Ball_4
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300036, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -70,9 +70,9 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: yellow_classic_ball
-    purchaseID: ball_1
-    buyType: 2
-    price: 
+    purchaseID: Ball_5
+    buyType: 0
+    price: 150
     ballSprite: {fileID: 21300038, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
     hitSound:
@@ -84,8 +84,8 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: tennis_ball
-    purchaseID: 
-    buyType: 2
+    purchaseID: Ball_6
+    buyType: 0
     price: 150
     ballSprite: {fileID: 21300002, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
@@ -98,8 +98,8 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: soccer_ball
-    purchaseID: 
-    buyType: 2
+    purchaseID: Ball_7
+    buyType: 0
     price: 150
     ballSprite: {fileID: 21300004, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
@@ -112,8 +112,8 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: basketball_ball
-    purchaseID: 
-    buyType: 2
+    purchaseID: Ball_8
+    buyType: 0
     price: 150
     ballSprite: {fileID: 21300016, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
@@ -126,7 +126,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: volleyball_ball
-    purchaseID: 
+    purchaseID: Ball_9
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300020, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -140,7 +140,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: baseball_ball
-    purchaseID: 
+    purchaseID: Ball_10
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300022, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -154,7 +154,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: golf_ball
-    purchaseID: 
+    purchaseID: Ball_11
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300040, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -168,7 +168,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: billiard_ball
-    purchaseID: 
+    purchaseID: Ball_12
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300024, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -182,7 +182,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: yin_yang_ball
-    purchaseID: 
+    purchaseID: Ball_13
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300018, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -196,7 +196,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: happy_face
-    purchaseID: 
+    purchaseID: Ball_14
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300006, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -210,7 +210,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: smiley_face
-    purchaseID: 
+    purchaseID: Ball_15
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300008, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -224,7 +224,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: face_with_sunglasses
-    purchaseID: 
+    purchaseID: Ball_16
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300010, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -238,7 +238,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: pile_of_poo
-    purchaseID: 
+    purchaseID: Ball_17
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300012, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -252,7 +252,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: astonished_face
-    purchaseID: 
+    purchaseID: Ball_18
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300014, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -266,7 +266,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: donut
-    purchaseID: 
+    purchaseID: Ball_19
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300026, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -280,7 +280,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: watermelon
-    purchaseID: 
+    purchaseID: Ball_20
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300030, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -294,7 +294,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: orange
-    purchaseID: 
+    purchaseID: Ball_21
     buyType: 0
     price: 150
     ballSprite: {fileID: 21300028, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -308,7 +308,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: earth
-    purchaseID: 
+    purchaseID: Ball_22
     buyType: 0
     price: 250
     ballSprite: {fileID: 21300042, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -322,7 +322,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: sun
-    purchaseID: 
+    purchaseID: Ball_23
     buyType: 0
     price: 250
     ballSprite: {fileID: 21300044, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -336,7 +336,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: moon
-    purchaseID: 
+    purchaseID: Ball_24
     buyType: 0
     price: 250
     ballSprite: {fileID: 21300046, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
@@ -350,7 +350,7 @@ MonoBehaviour:
       randomVolume: 0
       randomPitch: 0.2
   - name: mars
-    purchaseID: 
+    purchaseID: Ball_25
     buyType: 0
     price: 250
     ballSprite: {fileID: 21300048, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}

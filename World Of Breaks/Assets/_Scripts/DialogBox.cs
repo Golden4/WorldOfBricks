@@ -9,6 +9,7 @@ public class DialogBox : MonoBehaviour {
 	public Button okBtn;
 	public Button cancelBtn;
 	public Text title;
+	public RectTransform box;
 
 	GUIAnim anim;
 
@@ -22,14 +23,33 @@ public class DialogBox : MonoBehaviour {
 		instance.anim = instance.GetComponentInChildren<GUIAnim> ();
 	}
 
-	public static void Show (string title, Action onClickOk, Action onClickCancel = null, bool OkBtnEnable = true, bool CancelBtnEnable = true)
+	public static void Show (string title, Action onClickOk, Action onClickCancel = null, bool OkBtnEnable = true, bool CancelBtnEnable = true, float size = -1, string btnOkText = "", string btnCancelText = "")
 	{
 		if (instance == null)
 			Init ();
+		
+		if (size != -1) {
+			instance.box.sizeDelta = new Vector2 (instance.box.sizeDelta.x, size);
+		} else {
+			instance.box.sizeDelta = new Vector2 (instance.box.sizeDelta.x, 170);
+		}
+
 		instance.backgroundImage.raycastTarget = true;
 		instance.gameObject.SetActive (true);
 		instance.cancelBtn.gameObject.SetActive (CancelBtnEnable);
 		instance.okBtn.gameObject.SetActive (OkBtnEnable);
+
+		if (btnOkText != "") {
+			instance.okBtn.GetComponentInChildren <Text> ().text = btnOkText;
+		} else {
+			instance.okBtn.GetComponentInChildren <Text> ().text = "Ok";
+		}
+
+		if (btnCancelText != "") {
+			instance.cancelBtn.GetComponentInChildren <Text> ().text = btnCancelText;
+		} else {
+			instance.cancelBtn.GetComponentInChildren <Text> ().text = "Cancel";
+		}
 
 		instance.anim.MoveIn (GUIAnimSystem.eGUIMove.SelfAndChildren);
 

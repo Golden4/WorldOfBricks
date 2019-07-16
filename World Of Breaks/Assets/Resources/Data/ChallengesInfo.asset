@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChallengesInfo
   m_EditorClassIdentifier: 
   challengesData:
-  - lifeCount: 3
+  - lifeCount: 5
     ballCount: 30
     reward: 25
   - lifeCount: 2
@@ -22,7 +22,7 @@ MonoBehaviour:
   - lifeCount: 2
     ballCount: 5
     reward: 25
-  - lifeCount: 3
+  - lifeCount: 5
     ballCount: 30
     reward: 25
   - lifeCount: 2

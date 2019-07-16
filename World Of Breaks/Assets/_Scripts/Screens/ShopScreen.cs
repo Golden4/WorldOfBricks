@@ -123,7 +123,11 @@ public class ShopScreen : ScreenBase {
 
 	public void BuyPaidItem (int index)
 	{
-		PurchaseManager.Ins.BuyNonConsumable (index);
+		if (PurchaseManager.Ins.IsInitialized ()) {
+			PurchaseManager.Ins.BuyNonConsumable (index);
+		} else {
+			DialogBox.Show ("Failed", null, null, true, false);
+		}
 	}
 
 	public void BuyCoinItem (int index)
@@ -196,9 +200,30 @@ public class ShopScreen : ScreenBase {
 			scrollSnap.items [index].GetComponent<Animation> ().enabled = true;
 			scrollSnap.items [index].GetComponent<Animation> ().Play ();
 		}
+
 		lastItemIndex = index;
 
+		if (!bought) {
+			string text = PurchaseManager.Ins.GetLocalizedPrice (Database.Get.playersData [index].purchaseID);
+			Text textC = buyPaidBtn.transform.GetChild (0).GetComponentInChildren<Text> ();
+			Image loading = buyPaidBtn.transform.GetChild (1).GetComponentInChildren<Image> ();
+			buyPaidBtn.gameObject.SetActive (true);
+
+			if (text != "null") {
+				loading.gameObject.SetActive (false);
+				textC.gameObject.SetActive (true);
+				textC.text = text;
+			} else {
+				loading.gameObject.SetActive (true);
+				textC.gameObject.SetActive (false);
+			}
+
+		} else {
+			buyPaidBtn.gameObject.SetActive (false);
+		}
+
 		SelectAndPlayBtn.gameObject.SetActive (bought);
+
 		ShowBuyBtb (!bought, Database.Get.playersData [index].buyType, index);
         
 	}
@@ -207,7 +232,6 @@ public class ShopScreen : ScreenBase {
 	{
 		Button[] btns = new Button[] {
 			buyCoinBtn,
-			buyPaidBtn,
 			buyVideoBtn
 		};
 
@@ -224,9 +248,6 @@ public class ShopScreen : ScreenBase {
 		switch (type) {
 		case ItemsInfo.BuyType.Coin:
 			btns [(int)type].GetComponentInChildren<Text> ().text = Database.Get.playersData [indexPlayer].price;
-			break;
-		case ItemsInfo.BuyType.RealMoney:
-			btns [(int)type].GetComponentInChildren<Text> ().text = PurchaseManager.Ins.GetLocalizedPrice (Database.Get.playersData [indexPlayer].purchaseID);
 			break;
 		case ItemsInfo.BuyType.Video:
 

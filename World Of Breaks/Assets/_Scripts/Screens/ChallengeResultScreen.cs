@@ -22,7 +22,7 @@ public class ChallengeResultScreen : ScreenBase {
 
 	public static float progressPersent {
 		get {
-			return (float)UIScreen.Ins.playerScore / BlocksController.Instance.maxScore / .8f;
+			return (float)UIScreen.Ins.playerScore / BlocksController.Instance.maxScore / .9f;
 		}
 	}
 
@@ -34,7 +34,7 @@ public class ChallengeResultScreen : ScreenBase {
 	public override void OnActivate ()
 	{
 		base.OnActivate ();
-
+		BallController.Instance.ReturnAllBalls ();
 		if (UIScreen.Ins.playerWin) {
 			OnPlayerWin ();
 

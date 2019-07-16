@@ -33,7 +33,7 @@ public class ChallengesScreen : ScreenBase {
 
 	void UpdateButtonState (int index, int count)
 	{
-		Image spriteState = challList [index].transform.Find ("StateIcon").GetComponent<Image> ();
+		Image spriteState = challList [index].transform.GetChild (0).Find ("StateIcon").GetComponent<Image> ();
 
 		if (User.GetChallengesData.challData [index] > 0) {
 			ShowStars (true, index, count);
@@ -61,12 +61,12 @@ public class ChallengesScreen : ScreenBase {
 			Image[] stars = new Image[3];
 
 			for (int i = 0; i < 3; i++) {
-				stars [i] = challList [index].transform.GetChild (0).GetChild (i).GetChild (0).GetComponent<Image> ();
+				stars [i] = challList [index].transform.GetChild (0).GetChild (0).GetChild (i).GetChild (0).GetComponent<Image> ();
 
 				stars [i].gameObject.SetActive (i < count);
 			}
 		} else {
-			challList [index].transform.GetChild (0).gameObject.SetActive (false);
+			challList [index].transform.GetChild (0).GetChild (0).gameObject.SetActive (false);
 		}
 	}
 

@@ -77,8 +77,7 @@ public class BallController : MonoBehaviour {
 
 	void Update ()
 	{
-
-		if (UIScreen.Ins.playerLose)
+		if (UIScreen.Ins.playerLose || UIScreen.Ins.playerWin)
 			return;
 
 		if (!canThrow) {

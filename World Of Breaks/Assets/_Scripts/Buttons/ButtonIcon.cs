@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler {
+public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IPointerExitHandler {
 	
 	public bool changingColor = false;
 	public float changingTime = 0.3f;
@@ -18,6 +18,8 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 	private float lastChagingTime = -1;
 	private int colorIndex;
 	public bool btnEnabled = true;
+	bool pointerEnter;
+	bool holding;
 
 	string clickSoundName = "ButtonClick1";
 
@@ -25,10 +27,9 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
 	public void OnPointerDown (PointerEventData eventData)
 	{
+		holding = true;
+
 		if (btnEnabled && transform.childCount > 0) {
-			if (prevPos == Vector3.zero)
-				prevPos = transform.GetChild (0).localPosition;
-		
 			transform.GetChild (0).localPosition = prevPos - Vector3.up * 5;
 		}
 	}
@@ -36,14 +37,25 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
 	public void OnPointerUp (PointerEventData eventData)
 	{
-		if (btnEnabled && transform.childCount > 0)
+		holding = false;
+
+		if (btnEnabled && transform.childCount > 0) {
 			transform.GetChild (0).localPosition = prevPos;
+		}
 	}
 
 	public void OnPointerClick (PointerEventData eventData)
 	{
 		if (!string.IsNullOrEmpty (clickSoundName) && btnEnabled)
 			AudioManager.PlaySoundFromLibrary (clickSoundName);
+	}
+
+	public void OnPointerExit (PointerEventData eventData)
+	{
+		if (holding) {
+			OnPointerUp (eventData);
+		}
+
 	}
 
 	void Start ()
@@ -58,6 +70,9 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
 		if (outline != null)
 			colorOrigOutline = outline.effectColor;
+		
+		if (transform.childCount > 0)
+			prevPos = transform.GetChild (0).localPosition;
 	}
 
 	float t = 0;

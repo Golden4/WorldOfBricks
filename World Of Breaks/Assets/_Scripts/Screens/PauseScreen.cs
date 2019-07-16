@@ -44,7 +44,7 @@ public class PauseScreen : ScreenBase {
 
 	public void ActivateMenu ()
 	{
-
+		UIScreen.Ins.playerLose = true;
 		if (!Game.isChallenge) {
 			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
 		} else

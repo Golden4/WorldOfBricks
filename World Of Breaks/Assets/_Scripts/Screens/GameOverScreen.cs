@@ -32,7 +32,7 @@ public class GameOverScreen : ScreenBase {
 		PlayerPrefs.DeleteKey ("TileSize");
 		UIScreen.Ins.playerLose = true;
 		UIScreen.newGame = true;
-
+		BallController.Instance.ReturnAllBalls ();
 		UIScreen.Ins.SetTopScore ();
 
 		if (UIScreen.Ins.newRecord) {

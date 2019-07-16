@@ -6,10 +6,16 @@ using UnityEngine;
 public class ItemsInfo : ScriptableObject {
 	public ItemData[] playersData;
 
+	public void OnValidate ()
+	{
+		/*for (int i = 0; i < playersData.Length; i++) {
+			playersData [i].purchaseID = "Ball_" + (i + 1);
+		}*/
+	}
+
 	[System.Serializable]
 	public enum BuyType {
 		Coin,
-		RealMoney,
 		Video
 	}
 
