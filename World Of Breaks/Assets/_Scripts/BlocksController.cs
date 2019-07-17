@@ -38,6 +38,7 @@ public class BlocksController : MonoBehaviour {
 	public TilePresets challPreset = new TilePresets (10, 8, 4.95f);
 
 	public Block[][] blockMap;
+	public Block[][] blockMapOld;
 	public BlockForSpawn[] blocksForSpawn;
 	public Vector2 offsetBetweenBlocks;
 	public int blocksLife;
@@ -87,6 +88,9 @@ public class BlocksController : MonoBehaviour {
 
 		if (Game.isChallenge)
 			maxScore = GetMaxScore ();
+
+		BallController.Instance.OnThrowBalls += SaveOldState;
+
 	}
 
 	public void CalculateBlockLife ()
@@ -121,6 +125,16 @@ public class BlocksController : MonoBehaviour {
 
 	public void ShiftBlockMapDown ()
 	{
+		if (!UIScreen.Ins.playerLose) {
+			for (int i = 0; i < blockMap [0].Length; i++) {
+
+				if (blockMap [blockMap.Length - 1] [i].blockComp != null) {
+					blockMap [blockMap.Length - 1] [i].blockComp.justDestroy = true;
+					blockMap [blockMap.Length - 1] [i].blockComp.Die ();
+				}
+			}
+		}
+
 		for (int i = blockMap.Length - 2; i >= 0; i--) {
 			System.Array.Copy (blockMap [i], blockMap [i + 1], blockMap [0].Length);
 		}
@@ -160,7 +174,8 @@ public class BlocksController : MonoBehaviour {
 				}
 		}
 
-		Utility.Invoke (this, .2f, ChangeTopLine);
+		if (!retryThrow)
+			Utility.Invoke (this, .2f, ChangeTopLine);
         
         
 		//Invoke ("ChangeTopLine", .2f);
@@ -173,15 +188,6 @@ public class BlocksController : MonoBehaviour {
 			if (blockMap [blockMap.Length - 1] [i].blockLife > 0) {
 				UIScreen.OnLoseEventCall ();
 				break;
-			}
-		}
-
-		if (!UIScreen.Ins.playerLose) {
-			for (int i = 0; i < blockMap [0].Length; i++) {
-			
-				if (blockMap [blockMap.Length - 1] [i].blockComp != null) {
-					Destroy (blockMap [blockMap.Length - 1] [i].blockComp.gameObject);
-				}
 			}
 		}
 	}
@@ -239,9 +245,9 @@ public class BlocksController : MonoBehaviour {
 
 			if (spawnedBlock != null)
 				iTween.FadeFrom (spawnedBlock.gameObject, 0, .5f);
-
 		}
 	}
+
 
 	public int GetMaxScore ()
 	{
@@ -334,16 +340,16 @@ public class BlocksController : MonoBehaviour {
 
 	}
 
-	void ShowMapInConsole ()
+	void ShowMapInConsole (Block[][] blockMap)
 	{
 		for (int i = 0; i < blockMap.Length; i++) {
 			string str = "";
 
 			for (int j = 0; j < blockMap [i].Length; j++) {
-				str += blockMap [i] [j].blockLife + "    ";
+				str += blockMap [i] [j].blockIndex + "    ";
 			}
 
-//			print (str);
+			print (str);
 		}
 	}
 
@@ -422,6 +428,8 @@ public class BlocksController : MonoBehaviour {
 		if (User.HaveCoin (coinAmount) && DestroyLastLine (true)) {
 			User.BuyWithCoin (coinAmount);
 		}
+
+		UIScreen.Ins.EnableDestroyLastLineBtn (false);
 	}
 
 	public bool DestroyLastLine (bool checkBlockLife = true)
@@ -451,15 +459,76 @@ public class BlocksController : MonoBehaviour {
 		}
 	}
 
-	public void DestroyAllBlocks ()
+	public void DestroyAllBlocks (bool needEffects = true)
 	{
 		canSaveBlockMap = false;
 		for (int i = 0; i < blockMap.Length; i++) {
 			for (int j = 0; j < blockMap [i].Length; j++) {
 				if (blockMap [i] [j].blockComp != null) {
+					blockMap [i] [j].blockComp.needEffects = needEffects;
 					blockMap [i] [j].blockComp.justDestroy = true;
 					blockMap [i] [j].blockComp.Die ();
 				}
+			}
+		}
+	}
+
+	public bool retryThrow;
+	int oldPlayerScore;
+	int oldBallCount;
+	Vector2 oldBallStartPos;
+
+	void SaveOldState ()
+	{
+		retryThrow = false;
+		SaveBlockMapOld ();
+		oldPlayerScore = UIScreen.Ins.playerScore;
+		oldBallCount = BallController.Instance.ballCount;
+		oldBallStartPos = BallController.Instance.startThrowPos;
+	}
+
+	public void RetryThrow ()
+	{
+		System.Action retryThrowAction = delegate {
+			retryThrow = true;
+			DestroyAllBlocks (false);
+			blockMap = blockMapOld;
+			SpawnBlocksFromBlocksMap (blockMap);
+			UIScreen.Ins.SetPlayerScore (oldPlayerScore);
+			UIScreen.Ins.HideTimeAcceleratorBtn ();
+			BallController.Instance.ballCount = oldBallCount;
+			BallController.Instance.startThrowPos = oldBallStartPos;
+			BallController.Instance.ReturnAllBalls ();
+		};
+		Time.timeScale = 0;
+		DialogBox.Show ("Undo throw?", delegate {
+			retryThrowAction ();
+			Time.timeScale = 1;
+		}, delegate {
+			Time.timeScale = 1;
+		});
+	}
+
+	public void SpawnBlocksFromBlocksMap (Block[][] blocksMap)
+	{
+		for (int i = 0; i < blockMap.Length; i++) {
+			for (int j = 0; j < blockMap [0].Length; j++) {
+				if (blockMap [i] [j].blockIndex > -1) {
+					BlockWithText spawnedBlock = SpawnBlock (j, i, blockMap [i] [j].blockIndex);
+					blockMap [i] [j].blockComp = spawnedBlock;
+					blockMap [i] [j].blockComp.isLoadingBlock = true;
+				}
+			}
+		}
+	}
+
+	public void SaveBlockMapOld ()
+	{
+		blockMapOld = new Block[curPreset.blocksWidth][];
+		for (int i = 0; i < blockMap.Length; i++) {
+			blockMapOld [i] = new Block[curPreset.blocksHeight];
+			for (int j = 0; j < blockMap [i].Length; j++) {
+				blockMapOld [i] [j] = new Block (blockMap [i] [j].blockLife, blockMap [i] [j].blockIndex, null);
 			}
 		}
 	}
@@ -487,6 +556,7 @@ public class BlocksController : MonoBehaviour {
 
 	private void OnDestroy ()
 	{
+		BallController.Instance.OnThrowBalls -= SaveOldState;
 		SaveOrDeleteBlocksMap ();
 	}
 

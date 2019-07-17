@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class BallController : MonoBehaviour {
 
@@ -40,10 +41,10 @@ public class BallController : MonoBehaviour {
 		else if (UIScreen.newGame)
 				ballCount = UIScreen.Ins.level;
 		SpriteRenderer ballPrebSpr = ballPrefab.GetComponent <SpriteRenderer> ();
-		ballPrebSpr.sprite = Database.Get.playersData [User.GetInfo.curPlayerIndex].ballSprite;
-		ballPrebSpr.size = Vector2.one * Database.Get.playersData [User.GetInfo.curPlayerIndex].ballRadius * 2;
+		ballPrebSpr.sprite = Database.Get.playersData [User.GetInfo.GetCurPlayerIndex ()].ballSprite;
+		ballPrebSpr.size = Vector2.one * Database.Get.playersData [User.GetInfo.GetCurPlayerIndex ()].ballRadius * 2;
 		ballPrebSpr.transform.localScale = Vector2.one;
-		Ball.ballRadius = Database.Get.playersData [User.GetInfo.curPlayerIndex].ballRadius;
+		Ball.ballRadius = Database.Get.playersData [User.GetInfo.GetCurPlayerIndex ()].ballRadius;
 
 		ChangeStartThrowPos (0);
 
@@ -206,11 +207,15 @@ public class BallController : MonoBehaviour {
 		}
 	}
 
+	public event Action OnThrowBalls;
+
 	IEnumerator ThrowBallsCoroutine (Vector3 dir)
 	{
+		if (OnThrowBalls != null)
+			OnThrowBalls ();
 
 		canThrow = false;
-
+		UIScreen.Ins.EnableDestroyLastLineBtn (false);
 		CalcTimeBeweenBalls ();
 
 		int tmpBallCount = ballCount;
@@ -263,9 +268,14 @@ public class BallController : MonoBehaviour {
 
 		UpdateBallCount ();
 
+		UIScreen.Ins.EnableDestroyLastLineBtn (true);
+
 		startPosChanged = false;
 
 		BlocksController.Instance.blockDestroyCount = 0;
+
+		if (BlocksController.Instance.retryThrow)
+			yield break;
 
 		if (!UIScreen.Ins.playerLose) {
 			if (!Game.isChallenge)

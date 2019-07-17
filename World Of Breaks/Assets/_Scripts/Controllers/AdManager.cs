@@ -147,7 +147,9 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 			consentInt = PlayerPrefs.GetInt ("result_gdpr");
 		}
 
-		if (consentInt == 0)
+
+		if (consentInt == 0) {
+			Time.timeScale = 0;
 			DialogBox.Show (mainString, delegate {
 				onYesClick ();
 
@@ -159,6 +161,7 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 				if (afterDialog != null)
 					afterDialog ();
 			}, true, true, 300, "Yes, I agree", "No, thank you");
+		}
 		
 		return consentInt == 0;
 	}
@@ -169,6 +172,7 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 	{
 		PlayerPrefs.SetInt ("result_gdpr", 1);
 		PlayerPrefs.SetInt ("result_gdpr_sdk", 1);
+		Time.timeScale = 1;
 		InitAppodeal ();
 	}
 
@@ -176,6 +180,7 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 	{
 		PlayerPrefs.SetInt ("result_gdpr", 1);
 		PlayerPrefs.SetInt ("result_gdpr_sdk", 0);
+		Time.timeScale = 1;
 		InitAppodeal ();
 	}
 

@@ -7,10 +7,12 @@ public class ContinueScreen : ScreenBase {
 	[SerializeField] Transform continueAdPanel;
 	[SerializeField] Button continueAdBtn;
 	[SerializeField] Button continueCoinBtn;
+	public Text coinText;
 
 	[SerializeField] Image continueTimer;
 	float lastTime;
 	float waitTime = 5;
+	public int dieCount;
 
 	public bool givedSecondChance = false;
 
@@ -19,12 +21,7 @@ public class ContinueScreen : ScreenBase {
 		base.OnInit ();
 		continueAdBtn.onClick.RemoveAllListeners ();
 		continueAdBtn.onClick.AddListener (RespawnPlayerVideo);
-		continueCoinBtn.onClick.RemoveAllListeners ();
-		continueCoinBtn.onClick.AddListener (delegate {
-			if (User.BuyWithCoin (25))
-				RetryGame ();
-		}
-		);
+
 	}
 
 	public MeshRenderer mr;
@@ -33,10 +30,19 @@ public class ContinueScreen : ScreenBase {
 	{
 		base.OnActivate ();
 
+		dieCount++;
+		coinText.text = (25 * dieCount).ToString ();
+		continueCoinBtn.onClick.RemoveAllListeners ();
+		continueCoinBtn.onClick.AddListener (delegate {
+			if (User.BuyWithCoin (25 * dieCount))
+				RetryGame ();
+		}
+		);
+
 		lastTime = Time.time + .4f;
 		continueAdPanel.gameObject.SetActive (true);
 		continueAdPanel.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
-		AdManager.onInterstitialClosedEvent += RetryGame;
+		AdManager.onRewardedVideoFinishedEvent += RetryGame;
 		/*
 		continueAdBtn.gameObject.SetActive (true);
 		GUIAnimSystem.Instance.MoveIn (transform, true);
@@ -48,13 +54,12 @@ public class ContinueScreen : ScreenBase {
 	public override void OnDeactivate ()
 	{
 		base.OnDeactivate ();
-		AdManager.onInterstitialClosedEvent -= RetryGame;
-
+		AdManager.onRewardedVideoFinishedEvent -= RetryGame;
 	}
 
 	public void CloseContinueScreen ()
 	{
-		waitTime = 0;
+		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
 	}
 
 	void Update ()
@@ -64,17 +69,23 @@ public class ContinueScreen : ScreenBase {
 			return;
 		}
 		
-		if (lastTime + waitTime < Time.time) {
+		if (lastTime + waitTime < Time.time && !clickedToVideoBtn) {
 			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
 		}
 
-		continueTimer.fillAmount = 1 - ((Time.time - lastTime) / waitTime);
+		if (!clickedToVideoBtn)
+			continueTimer.fillAmount = 1 - ((Time.time - lastTime) / waitTime);
 	}
+
+	bool clickedToVideoBtn;
 
 	void RespawnPlayerVideo ()
 	{
-		if (AdManager.Ins != null)
-			AdManager.Ins.showInterstitial ();
+		clickedToVideoBtn = true;
+		if (AdManager.Ins != null) {
+			AdManager.Ins.showRewardedVideo ();
+
+		}
 	}
 
 	public void RetryGame ()

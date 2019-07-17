@@ -16,11 +16,11 @@ public class FreeCoinsBtn : MonoBehaviour {
 	void Update ()
 	{
 		if (!AdManager.Ins.isRewardedVideoLoaded) {
-			if (gameObject.activeInHierarchy)
-				gameObject.SetActive (false);
+			if (transform.GetChild (0).gameObject.activeInHierarchy)
+				transform.GetChild (0).gameObject.SetActive (false);
 		} else {
-			if (!gameObject.activeInHierarchy)
-				gameObject.SetActive (true);
+			if (!transform.GetChild (0).gameObject.activeInHierarchy)
+				transform.GetChild (0).gameObject.SetActive (true);
 		}
 	}
 

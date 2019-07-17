@@ -49,7 +49,6 @@ public class BuyCoinScreen : ScreenBase {
 		} else {
 			DialogBox.Show ("Failed", null, null, true, false);
 		}
-
 	}
 
 	[System.Serializable]
@@ -133,7 +132,7 @@ public class BuyCoinScreen : ScreenBase {
 
 		Utility.Invoke (CoinUI.Ins, .9f, delegate {
 			User.AddCoin (coinAmount);
-		});
+		}, true);
 	}
 
 	public static void GiveGift (int coinAmount, Vector3 fromPos)
@@ -153,7 +152,7 @@ public class BuyCoinScreen : ScreenBase {
 
 			Utility.Invoke (CoinUI.Ins, .9f, delegate {
 				User.AddCoin (coinAmount);
-			});
+			}, true);
 		}
 	}
 

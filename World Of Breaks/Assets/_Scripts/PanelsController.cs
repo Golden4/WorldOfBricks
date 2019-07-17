@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Purchasing;
 
 public class PanelsController : MonoBehaviour {
 
 	public Transform giftPanel;
 	public Button giftBtn;
 	public Text giftimerText;
+
+	void Start ()
+	{
+		PurchaseManager.OnPurchaseNonConsumable += BuyPaidItemSuccess;
+	}
 
 	void Update ()
 	{
@@ -23,24 +29,32 @@ public class PanelsController : MonoBehaviour {
 			}
 	}
 
-	public void ShowGiftPanel ()
-	{
-		giftBtn.onClick.RemoveAllListeners ();
-		giftBtn.onClick.AddListener (GiftBtn);
 
-		giftPanel.gameObject.SetActive (true);
-		if (BuyCoinScreen.CanTakeGift ()) {
-			giftBtn.gameObject.SetActive (true);
-			giftimerText.gameObject.SetActive (false);
-			giftPanel.transform.GetChild (0).GetComponentInChildren <Text> ().text = LocalizationManager.GetLocalizedText ("get_gift");
+
+	public bool ShowGiftPanel (bool show)
+	{
+		if (!show) {
+			giftPanel.gameObject.SetActive (false);
 		} else {
-			giftBtn.gameObject.SetActive (false);
-			giftimerText.gameObject.SetActive (true);
-			//string time = string.Format ("{0}", BuyCoinScreen.Ins.timeToGiveGift).Split ('.') [0];
-			string timeR = (BuyCoinScreen.timeToGiveGift.Minutes + 1) + "m";
-			giftimerText.text = timeR;
-			giftPanel.transform.GetChild (0).GetComponentInChildren <Text> ().text = LocalizationManager.GetLocalizedText ("gift_through");
+			giftPanel.gameObject.SetActive (true);
+			giftBtn.onClick.RemoveAllListeners ();
+			giftBtn.onClick.AddListener (GiftBtn);
+
+			if (BuyCoinScreen.CanTakeGift ()) {
+				giftBtn.gameObject.SetActive (true);
+				giftimerText.gameObject.SetActive (false);
+				giftPanel.transform.GetChild (0).GetComponentInChildren <Text> ().text = LocalizationManager.GetLocalizedText ("get_gift");
+			} else {
+				giftBtn.gameObject.SetActive (false);
+				giftimerText.gameObject.SetActive (true);
+				//string time = string.Format ("{0}", BuyCoinScreen.Ins.timeToGiveGift).Split ('.') [0];
+				string timeR = (BuyCoinScreen.timeToGiveGift.Minutes + 1) + "m";
+				giftimerText.text = timeR;
+				giftPanel.transform.GetChild (0).GetComponentInChildren <Text> ().text = LocalizationManager.GetLocalizedText ("gift_through");
+			}
 		}
+
+		return BuyCoinScreen.CanTakeGift ();
 	}
 
 	public void GiftBtn ()
@@ -55,7 +69,7 @@ public class PanelsController : MonoBehaviour {
 	public Transform ballsListParent;
 	public GameObject ballItemPrefab;
 
-	public void ShowBallsPanel (bool show)
+	public void ShowTryBallsPanel (bool show)
 	{
 		if (!show) {
 			ballsPanel.SetActive (false);
@@ -66,7 +80,7 @@ public class PanelsController : MonoBehaviour {
 
 			for (int i = 0; i < Database.Get.playersData.Length; i++) {
 
-				if (Database.Get.playersData [i].buyType == ItemsInfo.BuyType.Video && !User.GetInfo.userData [i].bought) {
+				if (Database.Get.playersData [i].buyType != ItemsInfo.BuyType.Video && !User.GetInfo.userData [i].bought) {
 					ballsIndex.Add (i);
 				}
 			}
@@ -110,10 +124,7 @@ public class PanelsController : MonoBehaviour {
 	void onRewardedVideoFinishedEvent ()
 	{
 		if (videoItemindex >= 0) {
-
-			User.GetInfo.userData [videoItemindex].bought = true;
-			User.SetPlayerIndex (videoItemindex);
-			User.SaveUserInfo ();
+			Game.ballTryingIndex = videoItemindex;
 
 			DialogBox.Hide ();
 			clicked = false;
@@ -121,6 +132,95 @@ public class PanelsController : MonoBehaviour {
 			GameOverScreen.Ins.ActivateMenu ();
 		}
 	}
+
+	public GameObject ballsBuyPanel;
+	public GameObject ballItem;
+	int ballTryingIndex;
+
+	public void ShowBuyBallPanel (bool show)
+	{
+		if (!show) {
+			ballsBuyPanel.SetActive (false);
+		} else {
+			ballsBuyPanel.SetActive (true);
+			ballTryingIndex = Game.ballTryingIndex;
+			ballItem.transform.Find ("Icon").GetComponent <Image> ().sprite = Database.Get.playersData [ballTryingIndex].ballSprite;
+			ballItem.transform.Find ("Text").GetComponent <Text> ().text = LocalizationManager.GetLocalizedText (Database.Get.playersData [ballTryingIndex].name);
+
+			Button[] btn = ballItem.GetComponentsInChildren <Button> ();
+
+			btn [0].GetComponentInChildren <Text> ().text = Database.Get.playersData [ballTryingIndex].price;
+			btn [0].onClick.RemoveAllListeners ();
+			int inx = ballTryingIndex;
+
+			btn [0].onClick.AddListener (delegate {
+				BuyCoinBall (ballTryingIndex);
+			});
+
+			string price = PurchaseManager.Ins.GetLocalizedPrice (Database.Get.playersData [ballTryingIndex].purchaseID);
+			Text text = btn [1].GetComponentInChildren <Text> ();
+			Image loading = btn [1].transform.GetChild (0).GetComponentInChildren <Image> ();
+			if (price != "null") {
+				text.gameObject.SetActive (true);
+				loading.gameObject.SetActive (false);
+				text.text = price;
+			} else {
+				text.gameObject.SetActive (false);
+				loading.gameObject.SetActive (true);
+			}
+			btn [1].onClick.AddListener (delegate {
+				BuyPaidBall (ballTryingIndex);
+			});
+		}
+	}
+
+	void BuyCoinBall (int index)
+	{
+		int coinAmount = int.Parse (Database.Get.playersData [index].price);
+
+		if (User.BuyWithCoin (coinAmount)) {
+			User.GetInfo.userData [index].bought = true;
+			User.SaveUserInfo ();
+			User.SetPlayerIndex (index);
+		}
+		SceneController.LoadSceneWithFade (1);
+	}
+
+	void BuyPaidBall (int index)
+	{
+		if (PurchaseManager.Ins.IsInitialized ()) {
+			PurchaseManager.Ins.BuyNonConsumable (index);
+		} else {
+			DialogBox.Show ("Failed", null, null, true, false);
+		}
+		SceneController.LoadSceneWithFade (1);
+	}
+
+	public void BuyPaidItemSuccess (PurchaseEventArgs args)
+	{
+		string purchID = args.purchasedProduct.definition.id;
+
+		int index = 0;
+
+		for (int i = 0; i < Database.Get.playersData.Length; i++) {
+			if (purchID == Database.Get.playersData [i].purchaseID) {
+				index = i;
+				break;
+			}
+		}
+
+		User.GetInfo.userData [index].bought = true;
+		User.SaveUserInfo ();
+		User.SetPlayerIndex (index);
+
+		Debug.Log ("You bought " + purchID + "  id " + index + " NonCon");
+	}
+
+	void OnDestroy ()
+	{
+		PurchaseManager.OnPurchaseNonConsumable -= BuyPaidItemSuccess;
+	}
+
 
 	public Text rewardText;
 	public Transform rewardPanel;
@@ -146,7 +246,7 @@ public class PanelsController : MonoBehaviour {
 
 			Utility.Invoke (CoinUI.Ins, .9f, delegate {
 				User.AddCoin (coinAmount);
-			});
+			}, true);
 		} else {
 			rewardText.text = "0";
 		}

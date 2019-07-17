@@ -67,7 +67,6 @@ public class LocalizationManager : MonoBehaviour {
 		LocalizationData loadedData = SetJsonToLocailizedText (www.text);
 		Debug.Log ("localizedText loaded: " + loadedData.items.Length);
 		isLoaded = true;
-		Debug.Log (filePath);
 	}
 
 	static void LoadLocalizedTexts (string fileName)
@@ -76,8 +75,6 @@ public class LocalizationManager : MonoBehaviour {
 		string filePath;
 
 		filePath = Path.Combine (Application.streamingAssetsPath, fileName);
-
-		Debug.Log (filePath);
 
 		if (File.Exists (filePath)) {
 
@@ -118,8 +115,6 @@ public class LocalizationManager : MonoBehaviour {
 			LoadLocalizedTexts (GetFileName (curLanguage));
 		}
 
-		print (language.ToString ());
-
 		if (OnLanguageChangeEvent != null) {
 			OnLanguageChangeEvent ();
 		}
@@ -150,7 +145,6 @@ public class LanguageInfo {
 			this.font = (Font)Resources.Load<Font> ("Font/" + fontName);
 
 		fontStyle = style;
-		Debug.Log (font);
 
 		this.filePrefix = filePrefix;
 		this.name = lang.ToString ();

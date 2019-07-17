@@ -34,6 +34,7 @@ public class BlockWithText : MonoBehaviour {
 		UpdateText ();
 		curColor = g.Evaluate ((BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife % 30) / 30f);
 		spriteRenderer.color = curColor;
+		needEffects = true;
 	}
 
 	protected void ChangeSpriteColor (SpriteRenderer spriteRenderer)
@@ -103,6 +104,7 @@ public class BlockWithText : MonoBehaviour {
 	}
 
 	public bool justDestroy;
+	public bool needEffects;
 
 	public void Die ()
 	{
@@ -145,9 +147,11 @@ public class BlockWithText : MonoBehaviour {
 			BlocksController.Instance.CalculateBlockLife ();
 		}
 
+		if (needEffects) {
+			AudioManager.PlaySoundFromLibrary ("Destroy");
+			Destroy (Instantiate<GameObject> (destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
+		}
 
-		AudioManager.PlaySoundFromLibrary ("Destroy");
-		Destroy (Instantiate<GameObject> (destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
 		Destroy (gameObject);
 
 

@@ -38,17 +38,15 @@ public static class User {
 		if (!coinsLoaded) {
 			coinsLoaded = true;
 
-			if (PlayerPrefs.HasKey (coinsKey)) {
-				_coins = PlayerPrefs.GetInt (coinsKey);
+			if (ZPlayerPrefs.HasKey (coinsKey)) {
+				_coins = ZPlayerPrefs.GetInt (coinsKey);
 			}
-			
 		}
 	}
 
 	static void SaveCoins (int coinsCount)
 	{
-		PlayerPrefs.SetInt (coinsKey, coinsCount);
-		PlayerPrefs.Save ();
+		ZPlayerPrefs.SetInt (coinsKey, coinsCount);
 	}
 
 	public static event Action<int,int> OnCoinChangedEvent;

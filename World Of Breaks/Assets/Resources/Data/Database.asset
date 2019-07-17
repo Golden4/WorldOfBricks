@@ -29,7 +29,7 @@ MonoBehaviour:
       randomPitch: 0.2
   - name: red_classic_ball
     purchaseID: Ball_2
-    buyType: 0
+    buyType: 1
     price: 150
     ballSprite: {fileID: 21300032, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.1
@@ -57,7 +57,7 @@ MonoBehaviour:
       randomPitch: 0.2
   - name: green_classic_ball
     purchaseID: Ball_4
-    buyType: 0
+    buyType: 1
     price: 150
     ballSprite: {fileID: 21300036, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.1

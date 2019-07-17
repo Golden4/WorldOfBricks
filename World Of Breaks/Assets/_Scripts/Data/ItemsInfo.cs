@@ -16,7 +16,8 @@ public class ItemsInfo : ScriptableObject {
 	[System.Serializable]
 	public enum BuyType {
 		Coin,
-		Video
+		Video,
+		RealMoney
 	}
 
 	[System.Serializable]

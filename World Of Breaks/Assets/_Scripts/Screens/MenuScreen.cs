@@ -147,7 +147,7 @@ public class MenuScreen : ScreenBase {
 
 		ShowGameTitle (true, true);
 		//freeCoinsBtn.gameObject.SetActive (AdController.Ins.rewardedAdLoaded);
-		menuBall.sprite = Database.Get.playersData [User.GetInfo.curPlayerIndex].ballSprite;
+		menuBall.sprite = Database.Get.playersData [User.GetInfo.GetCurPlayerIndex ()].ballSprite;
 
 		int _checkpoint = 0;
 

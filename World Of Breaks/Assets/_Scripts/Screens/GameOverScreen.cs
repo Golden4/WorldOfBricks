@@ -17,8 +17,8 @@ public class GameOverScreen : ScreenBase {
 	public override void OnInit ()
 	{
 		Ins = this;
-		pc = GetComponentInChildren <PanelsController> ();
 
+		pc = GetComponentInChildren <PanelsController> ();
 	}
 
 	public override void OnActivate ()
@@ -60,11 +60,19 @@ public class GameOverScreen : ScreenBase {
 		//} else {
 		//	openBoxPanel.gameObject.SetActive (false);
 		//}
-
-		pc.ShowGiftPanel ();
+		pc.ShowGiftPanel (false);
 		pc.ShowRewardPanel (true);
-		pc.ShowBallsPanel (false);
 		pc.GiveReward (true, UIScreen.Ins.playerScore / 100);
+
+		if (Game.ballTryingIndex > -1) {
+			pc.ShowBuyBallPanel (true);
+			pc.ShowTryBallsPanel (false);
+		} else {
+			pc.ShowBuyBallPanel (false);
+			pc.ShowTryBallsPanel (true);
+		}
+
+		Game.ballTryingIndex = -1;
 	}
 
 	public override void OnCleanUp ()
@@ -83,9 +91,11 @@ public class GameOverScreen : ScreenBase {
 		SceneController.RestartLevel ();
 	}
 
-
 	public void ActivateMenu ()
 	{
+		if (AdManager.Ins != null && Random.Range (0, 2) == 0)
+			AdManager.Ins.showInterstitial ();
+
 		SceneController.LoadSceneWithFade (1);
 	}
 

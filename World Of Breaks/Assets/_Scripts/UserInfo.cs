@@ -58,6 +58,17 @@ public class UserInfo {
 		this.userData = userData;
 		this.curPlayerIndex = curPlayerIndex;
 	}
+
+	public int GetCurPlayerIndex ()
+	{
+		if (Game.ballTryingIndex > -1)
+			return Game.ballTryingIndex;
+		else
+			return curPlayerIndex;
+	}
+
+
+
 }
 
 [System.Serializable]

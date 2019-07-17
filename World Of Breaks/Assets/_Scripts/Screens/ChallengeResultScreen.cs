@@ -34,6 +34,7 @@ public class ChallengeResultScreen : ScreenBase {
 	public override void OnActivate ()
 	{
 		base.OnActivate ();
+
 		BallController.Instance.ReturnAllBalls ();
 		if (UIScreen.Ins.playerWin) {
 			OnPlayerWin ();
@@ -43,6 +44,8 @@ public class ChallengeResultScreen : ScreenBase {
 			} else {
 				OnPlayerLose ();
 			}
+
+		Game.ballTryingIndex = -1;
 	}
 
 	public static int GetCurrentStarCount (float persent)
@@ -59,9 +62,17 @@ public class ChallengeResultScreen : ScreenBase {
 
 	void OnPlayerWin ()
 	{
-		pc.ShowGiftPanel ();
+		pc.ShowGiftPanel (false);
 		pc.ShowRewardPanel (true);
-		pc.ShowBallsPanel (false);
+		pc.GiveReward (true, UIScreen.Ins.playerScore / 100);
+
+		if (Game.ballTryingIndex > -1) {
+			pc.ShowBuyBallPanel (true);
+			pc.ShowTryBallsPanel (false);
+		} else {
+			pc.ShowBuyBallPanel (false);
+			pc.ShowTryBallsPanel (true);
+		}
 
 		if (Game.curChallengeIndex + 1 < Database.GetChall.challengesData.Length)
 			nextBtn.gameObject.SetActive (true);
@@ -93,9 +104,17 @@ public class ChallengeResultScreen : ScreenBase {
 
 	void OnPlayerLose ()
 	{
-		pc.ShowGiftPanel ();
+		pc.ShowGiftPanel (false);
 		pc.ShowRewardPanel (false);
-		pc.ShowBallsPanel (true);
+
+		if (Game.ballTryingIndex > -1) {
+			pc.ShowBuyBallPanel (true);
+			pc.ShowTryBallsPanel (false);
+		} else {
+			pc.ShowBuyBallPanel (false);
+			pc.ShowTryBallsPanel (true);
+		}
+
 		nextBtn.gameObject.SetActive (false);
 		retryBtn.gameObject.SetActive (true);
 		resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_failed"), (Game.curChallengeIndex + 1));

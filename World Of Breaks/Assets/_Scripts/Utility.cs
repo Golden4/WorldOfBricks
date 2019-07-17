@@ -5,7 +5,7 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class Utility {
+public static class Utility {
 
 	public static void LoadFromResources (string pathToObject, Vector3 position, Transform parent = null, float destroyTime = -1)
 	{
@@ -28,14 +28,17 @@ public class Utility {
 
 	}
 
-	public static void Invoke (MonoBehaviour t, float delay, UnityAction action)
+	public static void Invoke (MonoBehaviour t, float delay, UnityAction action, bool realtime = false)
 	{
-		t.StartCoroutine (InvokeCoroutine (action, delay));
+		t.StartCoroutine (InvokeCoroutine (action, delay, realtime));
 	}
 
-	static IEnumerator InvokeCoroutine (UnityAction action, float delay)
+	static IEnumerator InvokeCoroutine (UnityAction action, float delay, bool realtime = false)
 	{
-		yield return new WaitForSeconds (delay);
+		if (!realtime)
+			yield return new WaitForSeconds (delay);
+		else
+			yield return new WaitForSecondsRealtime (delay);
 
 		action.Invoke ();
 	}
@@ -117,14 +120,14 @@ public class Utility {
 
 	static IEnumerator MoveToCoroutine (Transform obj, Vector2 fromPos, Vector2 toPos, float time, AnimationCurve speedCurve, float delay, Action coinInTarget)
 	{
-		yield return new WaitForSeconds (delay);
+		yield return new WaitForSecondsRealtime (delay);
 
 		float t = 0;
 
 		while (t < 1) {
 			obj.position = Vector3.Lerp (fromPos, toPos, speedCurve.Evaluate (t));
-			t += Time.deltaTime / time;
-			yield return null;
+			t += Time.fixedUnscaledDeltaTime / time;
+			yield return new WaitForSecondsRealtime (Time.fixedUnscaledDeltaTime);
 
 		}
 

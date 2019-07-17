@@ -71,7 +71,7 @@ public class ShopScreen : ScreenBase {
 		}
 
 		UpdateItemState (curActiveItem);
-		scrollSnap.SnapToObj (User.GetInfo.curPlayerIndex, false);
+		scrollSnap.SnapToObj (User.GetInfo.GetCurPlayerIndex (), false);
 	}
 
 	void onRewardedVideoFinishedEvent ()
@@ -100,7 +100,6 @@ public class ShopScreen : ScreenBase {
 	{
 		itemNameText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name);
 		itemAbilityText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name + "_desc");
-        
 
 		UpdateItemState (index);
 	}

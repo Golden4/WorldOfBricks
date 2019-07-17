@@ -82,8 +82,7 @@ public static class BlocksSaver {
 			}
 
 			if (PlayerPrefs.HasKey ("PlayerScore")) {
-				UIScreen.Ins.playerScore = 0;
-				UIScreen.Ins.AddPlayerScore (PlayerPrefs.GetInt ("PlayerScore"));
+				UIScreen.Ins.SetPlayerScore (PlayerPrefs.GetInt ("PlayerScore"));
 			}
 
 		}

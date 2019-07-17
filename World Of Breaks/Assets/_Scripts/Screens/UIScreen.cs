@@ -17,6 +17,7 @@ public class UIScreen : ScreenBase {
 
 	public Button timeAcceleratorBtn;
 	public Button returnBallsBtn;
+	public Button retryThrowBtn;
 
 	public Text clearText;
 	public Text newCheckpointText;
@@ -74,6 +75,7 @@ public class UIScreen : ScreenBase {
 	public GameObject tutorialPrefab;
 	public ButtonIcon destroyLastLineBtn;
 
+
 	public StarsBarPanel starsBarPanel;
 
 	public override void OnInit ()
@@ -119,13 +121,12 @@ public class UIScreen : ScreenBase {
 
 	public void ShowTimeAcceleratorBtn ()
 	{
-		if (!timeAcceleratorBtnEnabled) {
+		if (!timeAcceleratorBtnEnabled && !BlocksController.Instance.retryThrow) {
 			timeAcceleratorBtnEnabled = true;
 			timeAcceleratorBtn.gameObject.SetActive (true);
 			timeAcceleratorBtn.GetComponent<ButtonIcon> ().EnableBtn (true);
 			timeAcceleratorBtn.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
 		}
-            
 	}
 
 	public void HideTimeAcceleratorBtn ()
@@ -188,6 +189,8 @@ public class UIScreen : ScreenBase {
 		} else {
 			returnBallsBtn.GetComponent<GUIAnim> ().MoveOut (GUIAnimSystem.eGUIMove.Self);
 		}
+
+		EnableRetryThrowBtn (enable);
         
 	}
 
@@ -277,14 +280,11 @@ public class UIScreen : ScreenBase {
 			topScoreText.text = LocalizationManager.GetLocalizedText ("attempts") + ": " + curLevel.ToString ();
 		}
 
-
-		
 		if (curLevel > topScore && !Game.isChallenge) {
 			newRecord = true;
 			newRecordScoreText.gameObject.SetActive (true);
 		} else {
 			newRecordScoreText.gameObject.SetActive (false);
-
 		}
 	}
 
@@ -299,6 +299,16 @@ public class UIScreen : ScreenBase {
 		t = 1;
 		playerScore += value;
 
+		if (Game.isChallenge)
+			starsBarPanel.SetProgress (ChallengeResultScreen.progressPersent);
+	}
+
+	public void SetPlayerScore (int score)
+	{
+		fromValue = score;
+		playerScore = score;
+		playerScoreText.text = score.ToString ();
+		t = 0;
 		if (Game.isChallenge)
 			starsBarPanel.SetProgress (ChallengeResultScreen.progressPersent);
 	}
@@ -339,7 +349,21 @@ public class UIScreen : ScreenBase {
 
 		Ins.playerWin = true;
 		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.ChallegesResult);
+	}
 
+	public void EnableDestroyLastLineBtn (bool enable)
+	{
+		destroyLastLineBtn.EnableBtn (enable);
+	}
+
+	public void EnableRetryThrowBtn (bool enable)
+	{
+		if (enable) {
+			retryThrowBtn.gameObject.SetActive (true);
+			retryThrowBtn.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
+		} else {
+			retryThrowBtn.GetComponent<GUIAnim> ().MoveOut (GUIAnimSystem.eGUIMove.Self);
+		}
 	}
 
 }

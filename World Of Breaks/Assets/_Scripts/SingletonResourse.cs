@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SingletonResourse<T> : MonoBehaviour where T : MonoBehaviour {
-	
 	static T _Ins;
 
 	static object _lock = new object ();
@@ -16,6 +15,7 @@ public class SingletonResourse<T> : MonoBehaviour where T : MonoBehaviour {
 				if (_Ins == null) {
 					GameObject manager = Resources.Load ("Prefabs/" + typeof(T).Name) as GameObject;
 					T IstManager = Instantiate (manager).GetComponent<T> ();
+
 					_Ins = IstManager;
 
 					if (!isInit) {
