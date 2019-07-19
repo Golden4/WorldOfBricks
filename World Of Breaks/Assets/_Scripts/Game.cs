@@ -14,6 +14,7 @@ public static class Game {
 	public static ChallengesInfo.ChallengeInfo curChallengeInfo;
 
 	public static int ballTryingIndex = -1;
+	public static int gamesPlayed;
 
 	public static void OnGameStartedCall ()
 	{

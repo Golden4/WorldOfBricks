@@ -75,16 +75,20 @@ public class BallController : MonoBehaviour {
 	float lastThrowTime;
 	float dirMouseMagnitudeWorld;
 	bool isMouseOnUIObject;
+	public bool isThrowing;
 
 	void Update ()
 	{
 		if (UIScreen.Ins.playerLose || UIScreen.Ins.playerWin)
 			return;
-
-		if (!canThrow) {
+		
+		if (isThrowing) {
 			if (lastThrowTime + 2 < Time.time) {
 				UIScreen.Ins.ShowTimeAcceleratorBtn ();
 			}
+		}
+
+		if (!canThrow) {
 			return;
 		}
         
@@ -214,6 +218,8 @@ public class BallController : MonoBehaviour {
 		if (OnThrowBalls != null)
 			OnThrowBalls ();
 
+
+		isThrowing = true;
 		canThrow = false;
 		UIScreen.Ins.EnableDestroyLastLineBtn (false);
 		CalcTimeBeweenBalls ();
@@ -241,8 +247,9 @@ public class BallController : MonoBehaviour {
 
 		//ballCountText.gameObject.SetActive (false);
         
+		bool ballsThrowing = false;
 
-		while (!canThrow) {
+		while (!ballsThrowing) {
 			
 			for (int i = 0; i < ballsList.Count; i++) {
 				
@@ -251,13 +258,14 @@ public class BallController : MonoBehaviour {
 				}
 
 				if (i == ballsList.Count - 1) {
-					canThrow = true;
+					ballsThrowing = true;
 				}
+
 			}
 
 			yield return null;
 		}
-
+		isThrowing = false;
 		UIScreen.Ins.EnableReturnBallsBtn (false);
 
 		//ballCountText.gameObject.SetActive (true);
@@ -274,20 +282,25 @@ public class BallController : MonoBehaviour {
 
 		BlocksController.Instance.blockDestroyCount = 0;
 
-		if (BlocksController.Instance.retryThrow)
-			yield break;
+		if (!BlocksController.Instance.retryThrow) {
 
-		if (!UIScreen.Ins.playerLose) {
-			if (!Game.isChallenge)
-				BlocksController.Instance.ShiftBlockMapDown ();
-			else
-				BlocksController.Instance.ChallengeProgress ();
+			if (!UIScreen.Ins.playerLose) {
+				if (!Game.isChallenge)
+					BlocksController.Instance.ShiftBlockMapDown ();
+				else
+					BlocksController.Instance.ChallengeProgress ();
+			}
 		}
+
+		if (needReturnAllBalls)
+			yield return new WaitForSeconds (.5f);
+		
+		canThrow = true;
+
 	}
 
 	public void ReturnAllBalls ()
 	{
-
 		List<Ball> balls = new List<Ball> (ballsList);
 		needReturnAllBalls = true;
 		for (int i = 0; i < balls.Count; i++) {

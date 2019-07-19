@@ -107,6 +107,7 @@ public class ShopScreen : ScreenBase {
 	public void SelectAndPlay (int index)
 	{
 		User.SetPlayerIndex (index);
+		Game.ballTryingIndex = -1;
 		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Menu);
 	}
 

@@ -127,7 +127,7 @@ public class BlockWithText : MonoBehaviour {
 			int multiplier;
 
 			if (!Game.isChallenge)
-				multiplier = (UIScreen.Ins.level + 10) / 10;
+				multiplier = UIScreen.Ins.multiplyer;
 			else
 				multiplier = 10;
 

@@ -248,7 +248,6 @@ public class BlocksController : MonoBehaviour {
 		}
 	}
 
-
 	public int GetMaxScore ()
 	{
 		int blockDestroyCount = 0;
@@ -300,7 +299,6 @@ public class BlocksController : MonoBehaviour {
 
 		return blockMap;
 	}
-
 
 	int GetRandomBlockIndex ()
 	{
@@ -473,6 +471,7 @@ public class BlocksController : MonoBehaviour {
 		}
 	}
 
+	public int retryCount;
 	public bool retryThrow;
 	int oldPlayerScore;
 	int oldBallCount;
@@ -487,26 +486,52 @@ public class BlocksController : MonoBehaviour {
 		oldBallStartPos = BallController.Instance.startThrowPos;
 	}
 
+	void RetryThrowAction ()
+	{
+		retryThrow = true;
+		DestroyAllBlocks (false);
+		blockMap = blockMapOld;
+		SpawnBlocksFromBlocksMap (blockMap);
+		UIScreen.Ins.SetPlayerScore (oldPlayerScore);
+		UIScreen.Ins.HideTimeAcceleratorBtn ();
+		BallController.Instance.ballCount = oldBallCount;
+		BallController.Instance.startThrowPos = oldBallStartPos;
+		BallController.Instance.ReturnAllBalls ();
+		retryCount++;
+		Time.timeScale = 1;
+		RetryBox.Hide ();
+	}
+
 	public void RetryThrow ()
 	{
-		System.Action retryThrowAction = delegate {
-			retryThrow = true;
-			DestroyAllBlocks (false);
-			blockMap = blockMapOld;
-			SpawnBlocksFromBlocksMap (blockMap);
-			UIScreen.Ins.SetPlayerScore (oldPlayerScore);
-			UIScreen.Ins.HideTimeAcceleratorBtn ();
-			BallController.Instance.ballCount = oldBallCount;
-			BallController.Instance.startThrowPos = oldBallStartPos;
-			BallController.Instance.ReturnAllBalls ();
-		};
+		if (!BallController.Instance.isThrowing)
+			return;
+		
 		Time.timeScale = 0;
-		DialogBox.Show ("Undo throw?", delegate {
+		int coinToRetry = 25 * (retryCount + 1);
+
+		RetryBox.Show ("Undo throw?", delegate {
+			
+			if (AdManager.Ins != null) {
+				AdManager.Ins.showRewardedVideo ();
+				AdManager.onRewardedVideoFinishedEvent -= RetryThrowAction;
+				AdManager.onRewardedVideoFinishedEvent += RetryThrowAction;
+			}
+
+		}, delegate {
+			if (User.BuyWithCoin (coinToRetry)) {
+				RetryThrowAction ();
+			}
+		}, delegate {
+			Time.timeScale = 1;
+		}, true, User.HaveCoin (coinToRetry), coinToRetry.ToString ());
+
+		/*DialogBox.Show ("Undo throw?", delegate {
 			retryThrowAction ();
 			Time.timeScale = 1;
 		}, delegate {
 			Time.timeScale = 1;
-		});
+		});*/
 	}
 
 	public void SpawnBlocksFromBlocksMap (Block[][] blocksMap)
@@ -556,6 +581,7 @@ public class BlocksController : MonoBehaviour {
 
 	private void OnDestroy ()
 	{
+		AdManager.onRewardedVideoFinishedEvent -= RetryThrowAction;
 		BallController.Instance.OnThrowBalls -= SaveOldState;
 		SaveOrDeleteBlocksMap ();
 	}

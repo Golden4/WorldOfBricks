@@ -34,6 +34,7 @@ public class ChallengeResultScreen : ScreenBase {
 	public override void OnActivate ()
 	{
 		base.OnActivate ();
+		Game.gamesPlayed++;
 
 		BallController.Instance.ReturnAllBalls ();
 		if (UIScreen.Ins.playerWin) {
@@ -46,6 +47,7 @@ public class ChallengeResultScreen : ScreenBase {
 			}
 
 		Game.ballTryingIndex = -1;
+
 	}
 
 	public static int GetCurrentStarCount (float persent)
@@ -64,15 +66,18 @@ public class ChallengeResultScreen : ScreenBase {
 	{
 		pc.ShowGiftPanel (false);
 		pc.ShowRewardPanel (true);
-		pc.GiveReward (true, UIScreen.Ins.playerScore / 100);
 
 		if (Game.ballTryingIndex > -1) {
 			pc.ShowBuyBallPanel (true);
 			pc.ShowTryBallsPanel (false);
-		} else {
-			pc.ShowBuyBallPanel (false);
-			pc.ShowTryBallsPanel (true);
-		}
+		} else if (Game.gamesPlayed % 3 == 1) {
+				pc.ShowBuyBallPanel (false);
+				pc.ShowTryBallsPanel (true);
+			} else {
+				pc.ShowGiftPanel (true);
+				pc.ShowBuyBallPanel (false);
+				pc.ShowTryBallsPanel (false);
+			}
 
 		if (Game.curChallengeIndex + 1 < Database.GetChall.challengesData.Length)
 			nextBtn.gameObject.SetActive (true);
@@ -104,16 +109,20 @@ public class ChallengeResultScreen : ScreenBase {
 
 	void OnPlayerLose ()
 	{
-		pc.ShowGiftPanel (false);
+		pc.ShowGiftPanel (true);
 		pc.ShowRewardPanel (false);
 
 		if (Game.ballTryingIndex > -1) {
 			pc.ShowBuyBallPanel (true);
 			pc.ShowTryBallsPanel (false);
-		} else {
-			pc.ShowBuyBallPanel (false);
-			pc.ShowTryBallsPanel (true);
-		}
+		} else if (Game.gamesPlayed % 3 == 1) {
+				pc.ShowBuyBallPanel (false);
+				pc.ShowTryBallsPanel (true);
+			} else {
+				pc.ShowGiftPanel (true);
+				pc.ShowBuyBallPanel (false);
+				pc.ShowTryBallsPanel (false);
+			}
 
 		nextBtn.gameObject.SetActive (false);
 		retryBtn.gameObject.SetActive (true);

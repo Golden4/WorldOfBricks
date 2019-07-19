@@ -63,11 +63,12 @@ public class UIScreen : ScreenBase {
 
 	public int level = 0;
 	public int playerScore = 0;
+	public int multiplyer;
 
 	public Text levelText;
 	public Text playerScoreText;
+	public Text multiplyerText;
 	public Text newRecordScoreText;
-
 	public Text checkpointText;
     
 	public bool newRecord;
@@ -157,6 +158,7 @@ public class UIScreen : ScreenBase {
 		if (!UIScreen.Ins.playerLose) {
 			UIScreen.Ins.playerWin = true;
 			ShowPopUpText (LocalizationManager.GetLocalizedText ("clear"));
+			BallController.Instance.ReturnAllBalls ();
 		}
 	}
 
@@ -271,10 +273,14 @@ public class UIScreen : ScreenBase {
 	public void UpdateScore (int curLevel)
 	{
 		level = curLevel;
+		multiplyer = (curLevel + 10) / 10;
+		multiplyerText.text = "<size=10>x</size>" + multiplyer;
 
 		if (!Game.isChallenge) {
+			multiplyerText.gameObject.SetActive (true);
 			levelText.text = LocalizationManager.GetLocalizedText ("level") + ": " + curLevel.ToString ();
 		} else {
+			multiplyerText.gameObject.SetActive (false);
 			levelText.gameObject.SetActive (false);
 			topScoreText.gameObject.SetActive (true);
 			topScoreText.text = LocalizationManager.GetLocalizedText ("attempts") + ": " + curLevel.ToString ();

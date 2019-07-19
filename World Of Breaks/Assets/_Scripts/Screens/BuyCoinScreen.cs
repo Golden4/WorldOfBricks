@@ -216,6 +216,7 @@ public class BuyCoinScreen : ScreenBase {
 	{
 		if (ScreenController.Ins.curScene == ScreenController.CurScene.Menu)
 			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Menu);
+		
 		if (ScreenController.Ins.curScene == ScreenController.CurScene.Game)
 			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Pause);
 	}

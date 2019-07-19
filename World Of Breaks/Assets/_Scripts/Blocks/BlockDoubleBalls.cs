@@ -35,9 +35,9 @@ public class BlockDoubleBalls : BlockWithText {
 		BallController.Instance.ballsList.Add (ballClone);
 
 		float angle = ball.transform.localEulerAngles.z;
-		ball.ChangeDirection (angle + 30);
+		ball.ChangeDirection (angle - 30);
 
-		ballClone.ChangeDirection (angle - 30);
+		ballClone.ChangeDirection (angle + 30);
 
 		if (lastAudioPlayTime + .05f < Time.time) {
 			lastAudioPlayTime = Time.time;

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChallengesScreen : ScreenBase {
-	public Transform challengesHolder;
+	public RectTransform challengesHolder;
 	public GameObject challengePrefab;
 	public List<Button> challList = new List<Button> ();
 	public Sprite lockedSprite;
@@ -13,6 +13,8 @@ public class ChallengesScreen : ScreenBase {
 	public override void OnInit ()
 	{
 		base.OnInit ();
+
+		challengesHolder.sizeDelta = new Vector2 (challengesHolder.sizeDelta.x, 150 * ((Database.GetChall.challengesData.Length / 3) + 1) + 20);
 
 		for (int i = 0; i < Database.GetChall.challengesData.Length; i++) {
 			GameObject go = Instantiate (challengePrefab);
@@ -47,7 +49,6 @@ public class ChallengesScreen : ScreenBase {
 				ShowStars (false, index);
 				spriteState.gameObject.SetActive (true);
 				spriteState.sprite = lockedSprite;
-				spriteState.color = Color.black;
 				challList [index].GetComponent<ButtonIcon> ().EnableBtn (false);
 			}
 

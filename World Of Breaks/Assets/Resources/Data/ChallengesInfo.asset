@@ -16,11 +16,11 @@ MonoBehaviour:
   - lifeCount: 5
     ballCount: 30
     reward: 25
-  - lifeCount: 2
-    ballCount: 3
+  - lifeCount: 4
+    ballCount: 45
     reward: 25
-  - lifeCount: 2
-    ballCount: 5
+  - lifeCount: 5
+    ballCount: 45
     reward: 25
   - lifeCount: 5
     ballCount: 30

@@ -10,7 +10,6 @@ public class GameOverScreen : ScreenBase {
 	public Text newRecordText;
 	public Text levelText;
 	public Text scoreText;
-	public static int playerDieCount = 0;
 
 	public PanelsController pc;
 
@@ -24,7 +23,7 @@ public class GameOverScreen : ScreenBase {
 	public override void OnActivate ()
 	{
 		base.OnActivate ();
-		playerDieCount++;
+		Game.gamesPlayed++;
 
 		BlocksController.Instance.DestroyAllBlocks ();
 
@@ -67,12 +66,17 @@ public class GameOverScreen : ScreenBase {
 		if (Game.ballTryingIndex > -1) {
 			pc.ShowBuyBallPanel (true);
 			pc.ShowTryBallsPanel (false);
-		} else {
-			pc.ShowBuyBallPanel (false);
-			pc.ShowTryBallsPanel (true);
-		}
+		} else if (Game.gamesPlayed % 3 == 1) {
+				pc.ShowBuyBallPanel (false);
+				pc.ShowTryBallsPanel (true);
+			} else {
+				pc.ShowGiftPanel (true);
+				pc.ShowBuyBallPanel (false);
+				pc.ShowTryBallsPanel (false);
+			}
 
 		Game.ballTryingIndex = -1;
+
 	}
 
 	public override void OnCleanUp ()
@@ -93,7 +97,7 @@ public class GameOverScreen : ScreenBase {
 
 	public void ActivateMenu ()
 	{
-		if (AdManager.Ins != null && Random.Range (0, 2) == 0)
+		if (AdManager.Ins != null && Random.Range (0, 2) == 0 && Game.gamesPlayed % 2 == 0)
 			AdManager.Ins.showInterstitial ();
 
 		SceneController.LoadSceneWithFade (1);

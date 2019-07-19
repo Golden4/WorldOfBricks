@@ -151,6 +151,10 @@ public class PanelsController : MonoBehaviour {
 
 			btn [0].GetComponentInChildren <Text> ().text = Database.Get.playersData [ballTryingIndex].price;
 			btn [0].onClick.RemoveAllListeners ();
+
+			int coinAmount = int.Parse (Database.Get.playersData [ballTryingIndex].price);
+
+			btn [0].gameObject.GetComponent<ButtonIcon> ().EnableBtn (User.HaveCoin (coinAmount));
 			int inx = ballTryingIndex;
 
 			btn [0].onClick.AddListener (delegate {
@@ -182,18 +186,19 @@ public class PanelsController : MonoBehaviour {
 			User.GetInfo.userData [index].bought = true;
 			User.SaveUserInfo ();
 			User.SetPlayerIndex (index);
+			SceneController.LoadSceneWithFade (1);
 		}
-		SceneController.LoadSceneWithFade (1);
 	}
 
 	void BuyPaidBall (int index)
 	{
 		if (PurchaseManager.Ins.IsInitialized ()) {
 			PurchaseManager.Ins.BuyNonConsumable (index);
+
 		} else {
 			DialogBox.Show ("Failed", null, null, true, false);
 		}
-		SceneController.LoadSceneWithFade (1);
+
 	}
 
 	public void BuyPaidItemSuccess (PurchaseEventArgs args)
@@ -212,8 +217,10 @@ public class PanelsController : MonoBehaviour {
 		User.GetInfo.userData [index].bought = true;
 		User.SaveUserInfo ();
 		User.SetPlayerIndex (index);
-
 		Debug.Log ("You bought " + purchID + "  id " + index + " NonCon");
+
+		SceneController.LoadSceneWithFade (1);
+
 	}
 
 	void OnDestroy ()
@@ -237,10 +244,10 @@ public class PanelsController : MonoBehaviour {
 
 			int coinAmount = rewardCount;
 
-			Vector3 fromPos = rewardText.transform.parent.parent.parent.position;
+			Vector3 fromPos = rewardText.transform.position;
 			Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
-			Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount / 2, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
+			Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, (coinAmount / 2) % 100, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
 
 			});
 

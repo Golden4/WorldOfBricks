@@ -11,7 +11,7 @@ public class DialogBox : MonoBehaviour {
 	public Text title;
 	public RectTransform box;
 
-	GUIAnim anim;
+	public GUIAnim anim;
 
 	public static DialogBox instance;
 
