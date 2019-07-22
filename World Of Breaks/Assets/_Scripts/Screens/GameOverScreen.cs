@@ -44,7 +44,6 @@ public class GameOverScreen : ScreenBase {
 		levelText.text = LocalizationManager.GetLocalizedText ("level") + ": " + UIScreen.Ins.level.ToString ();
 		scoreText.text = LocalizationManager.GetLocalizedText ("score") + ": " + UIScreen.Ins.playerScore;
 
-
 		//if (!User.GetInfo.AllCharactersBought ()) {
 		//	openBoxPanel.gameObject.SetActive (true);
 		//	if (User.HaveCoin (PrizeScreen.GetBoxPrise ())) {
@@ -61,12 +60,12 @@ public class GameOverScreen : ScreenBase {
 		//}
 		pc.ShowGiftPanel (false);
 		pc.ShowRewardPanel (true);
-		pc.GiveReward (true, UIScreen.Ins.playerScore / 100);
+		pc.GiveReward (true, UIScreen.Ins.playerScore / 200);
 
 		if (Game.ballTryingIndex > -1) {
 			pc.ShowBuyBallPanel (true);
 			pc.ShowTryBallsPanel (false);
-		} else if (Game.gamesPlayed % 3 == 1) {
+		} else if (Game.gamesPlayed % 3 == 1 && PanelsController.CanTakeBall ()) {
 				pc.ShowBuyBallPanel (false);
 				pc.ShowTryBallsPanel (true);
 			} else {
@@ -97,7 +96,7 @@ public class GameOverScreen : ScreenBase {
 
 	public void ActivateMenu ()
 	{
-		if (AdManager.Ins != null && Random.Range (0, 2) == 0 && Game.gamesPlayed % 2 == 0)
+		if (AdManager.Ins != null && Random.Range (0, 2) == 0 && Game.gamesPlayed % 5 == 0)
 			AdManager.Ins.showInterstitial ();
 
 		SceneController.LoadSceneWithFade (1);

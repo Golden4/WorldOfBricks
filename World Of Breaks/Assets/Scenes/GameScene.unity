@@ -1203,6 +1203,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132657154}
   m_CullTransparentMesh: 0
+--- !u!1 &143984282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 143984284}
+  - component: {fileID: 143984283}
+  m_Layer: 0
+  m_Name: Tester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &143984283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143984282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7a4ad12ccd7d04c8b15caa6cd37cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeScale: 100
+  startTest: 0
+  testCount: 50
+  needWhile3Stars: 0
+  resultsCount: 00000000000000000000000000000000
+  resultsTryCount:
+  - 0
+  - 0
+  - 0
+  - 0
+--- !u!4 &143984284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143984282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 339.633, y: 641.76, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &163367517
 GameObject:
   m_ObjectHideFlags: 0
@@ -20432,6 +20485,7 @@ MonoBehaviour:
   - {fileID: 224062085}
   - {fileID: 978685237}
   pc: {fileID: 0}
+  coinsForStars: 050000000600000007000000
 --- !u!222 &1841209788
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21990,6 +22044,9 @@ MonoBehaviour:
   throwingDirectionImage: {fileID: 299109710}
   ballCountText: {fileID: 1253994987}
   mousePivotPointImage: {fileID: 895782418}
+  cloneDestroyParticle: {fileID: 7563335714805666371, guid: bb16f8d296357834ea1f4ed8aab2e95c,
+    type: 3}
+  canThrow: 1
   isThrowing: 0
 --- !u!4 &1994630148
 Transform:
@@ -22031,7 +22088,7 @@ MonoBehaviour:
   challPreset:
     blocksWidth: 10
     blocksHeight: 8
-    cameraSize: 4.95
+    cameraSize: 4.96
   blocksForSpawn:
   - name: PlusBall
     chanceForSpawn: 0
@@ -22107,6 +22164,11 @@ MonoBehaviour:
     chanceForSpawn: 5
     isRequired: 0
     blockPrefab: {fileID: 7156534135176082507, guid: 3e539706fc825184cb7f5785bdba49f8,
+      type: 3}
+  - name: BoxCircle
+    chanceForSpawn: 5
+    isRequired: 0
+    blockPrefab: {fileID: 114976207678739780, guid: 55905dbff2fa9ef46a16ad4bfcf33b19,
       type: 3}
   offsetBetweenBlocks: {x: 0.7, y: 0.7}
   blocksLife: 0

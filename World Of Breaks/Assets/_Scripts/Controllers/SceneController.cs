@@ -10,7 +10,7 @@ public class SceneController : MonoBehaviour {
 
 	public Image image;
 
-	static bool sceneLoading = false;
+	public static bool sceneLoading = false;
 
 	public static int nextSceneToLoad {
 		get {
@@ -46,6 +46,7 @@ public class SceneController : MonoBehaviour {
 	{
 		Init ();
 		Time.timeScale = 1;
+		sceneLoading = true;
 		Ins.StartCoroutine (LoadSceneCoroutine (index, true));
 	}
 
@@ -61,6 +62,7 @@ public class SceneController : MonoBehaviour {
 
 	public static IEnumerator LoadSceneCoroutine (int index, bool fadeIn)
 	{
+		sceneLoading = true;
 		Ins.image.raycastTarget = true;
 
 		if (fadeIn) {
@@ -70,7 +72,7 @@ public class SceneController : MonoBehaviour {
 		AsyncOperation ao = SceneManager.LoadSceneAsync (index);
 		ao.allowSceneActivation = false;
 
-		sceneLoading = true;
+
 
 		yield return null;
 

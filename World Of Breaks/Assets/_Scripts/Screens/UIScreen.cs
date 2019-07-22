@@ -192,7 +192,7 @@ public class UIScreen : ScreenBase {
 			returnBallsBtn.GetComponent<GUIAnim> ().MoveOut (GUIAnimSystem.eGUIMove.Self);
 		}
 
-		EnableRetryThrowBtn (enable);
+		EnableRetryThrowBtn ((!Game.isChallenge) ? enable : false);
         
 	}
 

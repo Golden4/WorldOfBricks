@@ -1,0 +1,31 @@
+Challenge: 2
+------------------------------------------------
+1.	Angle = 21
+	Block Life: 560
+	Player Score: 210
+2.	Angle = 79
+	Block Life: 515
+	Player Score: 220
+3.	Angle = 58
+	Block Life: 15
+	Player Score: 1130
+Result: Challenge complete: 2 stars
+playerWinRealy
+------------------------------------------------
+Current Test: 1
+------------------------------------------------
+1.	Angle = 75
+	Block Life: 990
+	Player Score: 0
+2.	Angle = 67
+	Block Life: 900
+	Player Score: 30
+TestCount: 50
+Challenge Lose Count: 0
+Challenge Win 1 Stars Count: 0
+Challenge Win 2 Stars Count: 1
+Challenge Win 3 Stars Count: 0
+------------------------------------------------
+Challenge Win 1 Stars Middle Try Count: не число
+Challenge Win 2 Stars Middle Try Count: 3
+Challenge Win 3 Stars Middle Try Count: не число

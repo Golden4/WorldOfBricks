@@ -93,13 +93,14 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
 	public void showRewardedVideo ()
 	{
-
+		
 		Action showVideo = delegate {
 			if (Appodeal.isLoaded (Appodeal.REWARDED_VIDEO) && !Appodeal.isPrecache (Appodeal.REWARDED_VIDEO)) {
 				Appodeal.show (Appodeal.REWARDED_VIDEO);
 			} else {
 				Appodeal.cache (Appodeal.REWARDED_VIDEO);
 			}
+			DialogBox.Show ("Loading video...", null, null, false, true);
 		};
 
 		if (!ShowPrivacyPolicyDialog (showVideo)) {

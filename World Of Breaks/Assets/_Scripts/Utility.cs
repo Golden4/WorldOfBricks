@@ -76,7 +76,6 @@ public static class Utility {
 			MonoBehaviour.Destroy (objs [i], time + .5f + i * .1f);
 			MoveTo (m, objs [i].transform, fromPos, toPos, time, speedCurve, i * .1f, coinInTarget);
 		}
-
 	}
 
 	public static void CoinsAnimateRadial (MonoBehaviour m, GameObject prefab, Transform parent, int coinsCount, Vector2 fromPos, Vector2 toPos, float radius, float time, AnimationCurve speedCurve, Action coinInTarget)
@@ -86,7 +85,7 @@ public static class Utility {
 		for (int i = 0; i < coinsCount; i++) {
 			objs [i] = MonoBehaviour.Instantiate (prefab) as GameObject;
 			objs [i].transform.SetParent (parent, false);
-			objs [i].transform.SetAsFirstSibling ();
+			objs [i].transform.SetAsLastSibling ();
 
 			objs [i].transform.eulerAngles = new Vector3 (0, 0, UnityEngine.Random.Range (0, 360));
 		}

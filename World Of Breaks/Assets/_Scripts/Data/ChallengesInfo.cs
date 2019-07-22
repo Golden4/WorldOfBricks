@@ -10,6 +10,5 @@ public class ChallengesInfo : ScriptableObject {
 	public class ChallengeInfo {
 		public int lifeCount;
 		public int ballCount;
-		public int reward = 25;
 	}
 }

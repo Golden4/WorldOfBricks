@@ -17,8 +17,9 @@ public class BallController : MonoBehaviour {
 	public Text ballCountText;
 	public Image mousePivotPointImage;
 	public static BallController Instance;
+	public ParticleSystem cloneDestroyParticle;
 	bool needReturnAllBalls;
-	bool canThrow = true;
+	public bool canThrow = true;
 
 	enum MouseState {
 		mouseDragging,
@@ -51,7 +52,6 @@ public class BallController : MonoBehaviour {
 		throwingDirectionImage.gameObject.SetActive (false);
 		InstantiateBallsList ();
 		UpdateBallCount ();
-        
 	}
 
 	void InstantiateBallsList ()
@@ -193,7 +193,13 @@ public class BallController : MonoBehaviour {
 		TrajectoryHelper.Ins.ShowTajectory (false);
 	}
 
-	void ThrowBalls (Vector3 dir)
+	public void ThrowBalls (float angle)
+	{
+		Vector3 dir = new Vector3 (Mathf.Sin (Mathf.Rad2Deg * angle), Mathf.Cos (Mathf.Deg2Rad * angle));
+		ThrowBalls (dir);
+	}
+
+	public void ThrowBalls (Vector3 dir)
 	{
 		InstantiateBallsList ();
 		needReturnAllBalls = false;
@@ -276,7 +282,7 @@ public class BallController : MonoBehaviour {
 
 		UpdateBallCount ();
 
-		UIScreen.Ins.EnableDestroyLastLineBtn (true);
+		UIScreen.Ins.EnableDestroyLastLineBtn (!Game.isChallenge);
 
 		startPosChanged = false;
 

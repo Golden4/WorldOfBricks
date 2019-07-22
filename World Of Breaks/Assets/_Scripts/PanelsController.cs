@@ -104,7 +104,6 @@ public class PanelsController : MonoBehaviour {
 					btn.onClick.RemoveAllListeners ();
 					int inx = ballsIndex [i];
 					btn.onClick.AddListener (delegate {
-						DialogBox.Show ("Loading video...", null, null, false, true);
 						videoItemindex = inx;
 						if (AdManager.Ins != null) {
 							AdManager.Ins.showRewardedVideo ();
@@ -121,11 +120,36 @@ public class PanelsController : MonoBehaviour {
 		}
 	}
 
+	static long _nextGiveBallTime = -1;
+
+	static long nextGiveBallTime {
+		get {
+			if (_nextGiveBallTime == -1) {
+				if (PlayerPrefs.HasKey ("ballTime"))
+					_nextGiveBallTime = long.Parse (PlayerPrefs.GetString ("ballTime"));
+				else
+					_nextGiveBallTime = 0;
+			}
+
+			return _nextGiveBallTime;
+		}
+
+		set {
+			_nextGiveBallTime = value;
+			PlayerPrefs.SetString ("ballTime", _nextGiveBallTime.ToString ());
+		}
+	}
+
+	public static bool CanTakeBall ()
+	{
+		return nextGiveBallTime < System.DateTime.Now.Ticks;
+	}
+
 	void onRewardedVideoFinishedEvent ()
 	{
 		if (videoItemindex >= 0) {
 			Game.ballTryingIndex = videoItemindex;
-
+			nextGiveBallTime = System.DateTime.Now.Ticks + new System.TimeSpan (0, 15, 0).Ticks;
 			DialogBox.Hide ();
 			clicked = false;
 			AdManager.onRewardedVideoFinishedEvent -= onRewardedVideoFinishedEvent;
@@ -228,7 +252,6 @@ public class PanelsController : MonoBehaviour {
 		PurchaseManager.OnPurchaseNonConsumable -= BuyPaidItemSuccess;
 	}
 
-
 	public Text rewardText;
 	public Transform rewardPanel;
 
@@ -237,23 +260,30 @@ public class PanelsController : MonoBehaviour {
 		rewardPanel.gameObject.SetActive (show);
 	}
 
-	public void GiveReward (bool give, int rewardCount = 0)
+	public void GiveReward (bool give, int rewardCount = 0, float xPos = 0, float yPos = 0, bool setRewardText = true)
 	{
 		if (give) {
-			rewardText.text = "+" + rewardCount.ToString ();
+			
+			if (setRewardText)
+				rewardText.text = "+" + rewardCount.ToString ();
 
 			int coinAmount = rewardCount;
 
-			Vector3 fromPos = rewardText.transform.position;
+			Vector3 fromPos = new Vector3 (xPos, yPos);
+			if ((xPos + yPos) == 0) {
+				fromPos = rewardText.transform.position;
+			}
+
 			Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
-			Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, (coinAmount / 2) % 100, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
+			Utility.CoinsAnimateRadial (CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform.parent, (coinAmount / 2) % 100, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () => {
 
 			});
 
 			Utility.Invoke (CoinUI.Ins, .9f, delegate {
 				User.AddCoin (coinAmount);
 			}, true);
+
 		} else {
 			rewardText.text = "0";
 		}

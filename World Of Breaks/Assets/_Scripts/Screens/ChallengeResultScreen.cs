@@ -20,6 +20,10 @@ public class ChallengeResultScreen : ScreenBase {
 		0.75f
 	};
 
+	public int[] coinsForStars = new int[] {
+		5, 6, 7
+	};
+
 	public static float progressPersent {
 		get {
 			return (float)UIScreen.Ins.playerScore / BlocksController.Instance.maxScore / .9f;
@@ -70,7 +74,7 @@ public class ChallengeResultScreen : ScreenBase {
 		if (Game.ballTryingIndex > -1) {
 			pc.ShowBuyBallPanel (true);
 			pc.ShowTryBallsPanel (false);
-		} else if (Game.gamesPlayed % 3 == 1) {
+		} else if (Game.gamesPlayed % 3 == 1 && PanelsController.CanTakeBall ()) {
 				pc.ShowBuyBallPanel (false);
 				pc.ShowTryBallsPanel (true);
 			} else {
@@ -90,12 +94,18 @@ public class ChallengeResultScreen : ScreenBase {
 
 		int starCount = GetCurrentStarCount (progressPersent);
 
-		ShowStars (starCount);
-
 		int completedStars = User.GetChallengesData.challData [Game.curChallengeIndex];
+		ShowStars (starCount, completedStars);
 
 		if (completedStars < starCount) {
-			pc.GiveReward (true, (starCount - completedStars) * Database.GetChall.challengesData [Game.curChallengeIndex].reward);
+			int reward = 0;
+
+			for (int i = completedStars; i < starCount; i++) {
+				reward += coinsForStars [i];
+			}
+
+			pc.rewardText.text = "+" + reward.ToString ();
+
 			resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_complete"), (Game.curChallengeIndex + 1));
 			User.GetChallengesData.challData [Game.curChallengeIndex] = starCount;
 		} else {
@@ -115,7 +125,7 @@ public class ChallengeResultScreen : ScreenBase {
 		if (Game.ballTryingIndex > -1) {
 			pc.ShowBuyBallPanel (true);
 			pc.ShowTryBallsPanel (false);
-		} else if (Game.gamesPlayed % 3 == 1) {
+		} else if (Game.gamesPlayed % 3 == 1 && PanelsController.CanTakeBall ()) {
 				pc.ShowBuyBallPanel (false);
 				pc.ShowTryBallsPanel (true);
 			} else {
@@ -130,12 +140,23 @@ public class ChallengeResultScreen : ScreenBase {
 		AudioManager.PlaySoundFromLibrary ("Failed");
 	}
 
-	void ShowStars (int starCount)
+	void ShowStars (int starCount, int completedStars)
 	{
 		for (int i = 0; i < stars.Length; i++) {
+			
 			if (i < starCount) {
 				stars [i].gameObject.SetActive (true);
+
+				if (i >= completedStars) {
+					int index = i;
+					stars [i].GetComponent <GUIAnim> ().m_ScaleIn.Actions.OnEnd.RemoveAllListeners ();
+					stars [i].GetComponent <GUIAnim> ().m_ScaleIn.Actions.OnEnd.AddListener (delegate {
+						pc.GiveReward (true, coinsForStars [index], stars [index].transform.position.x, stars [index].transform.position.y, false);
+					});
+				}
+
 				stars [i].GetComponent <GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
+
 			} else {
 				stars [i].gameObject.SetActive (false);
 			}

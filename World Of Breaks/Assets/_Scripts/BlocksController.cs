@@ -93,7 +93,7 @@ public class BlocksController : MonoBehaviour {
 
 	}
 
-	public void CalculateBlockLife ()
+	public int CalculateBlockLife ()
 	{
 		blocksLife = 0;
 
@@ -110,6 +110,9 @@ public class BlocksController : MonoBehaviour {
 			else
 				UIScreen.Ins.ChallengeCompleted ();
 		}
+
+		return blocksLife;
+
 	}
 
 	void InitializeBlockMap ()
@@ -227,7 +230,7 @@ public class BlocksController : MonoBehaviour {
 
 			double randNum = rand.NextDouble ();
 
-			if (randNum < .1f) {
+			if (randNum < .05f) {
 
 			} else {
 

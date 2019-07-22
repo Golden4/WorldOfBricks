@@ -1,0 +1,793 @@
+Challenge: 1
+------------------------------------------------
+1.	Angle = 46
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 6
+	Block Life: 1590
+	Player Score: 10
+3.	Angle = 50
+	Block Life: 1500
+	Player Score: 40
+4.	Angle = 61
+	Block Life: 1365
+	Player Score: 70
+5.	Angle = 68
+	Block Life: 433
+	Player Score: 980
+Result: Challenge lose
+	Block Life: 388
+------------------------------------------------
+Current Test: 1
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 388
+------------------------------------------------
+Current Test: 2
+------------------------------------------------
+1.	Angle = 83
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 27
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 57
+	Block Life: 1455
+	Player Score: 60
+4.	Angle = 47
+	Block Life: 1342
+	Player Score: 70
+5.	Angle = 82
+	Block Life: 897
+	Player Score: 220
+6.	Angle = 76
+	Block Life: 85
+	Player Score: 1270
+Result: Challenge complete: 2 stars
+------------------------------------------------
+Current Test: 3
+------------------------------------------------
+1.	Angle = 41
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 38
+	Block Life: 1545
+	Player Score: 30
+3.	Angle = 77
+	Block Life: 1500
+	Player Score: 40
+4.	Angle = 76
+	Block Life: 568
+	Player Score: 820
+5.	Angle = 39
+	Block Life: 16
+	Player Score: 1370
+Result: Challenge complete: 2 stars
+playerWinRealy
+------------------------------------------------
+Current Test: 4
+------------------------------------------------
+1.	Angle = 35
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 47
+	Block Life: 1455
+	Player Score: 60
+3.	Angle = 26
+	Block Life: 1365
+	Player Score: 90
+4.	Angle = 1
+	Block Life: 1275
+	Player Score: 120
+5.	Angle = 2
+	Block Life: 1005
+	Player Score: 220
+Result: Challenge lose
+	Block Life: 960
+------------------------------------------------
+Current Test: 5
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 960
+------------------------------------------------
+Current Test: 6
+------------------------------------------------
+1.	Angle = 17
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 34
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 41
+	Block Life: 1590
+	Player Score: 10
+4.	Angle = 29
+	Block Life: 1500
+	Player Score: 40
+5.	Angle = 85
+	Block Life: 1229
+	Player Score: 100
+Result: Challenge complete: 3 stars
+------------------------------------------------
+Current Test: 7
+------------------------------------------------
+1.	Angle = 75
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 5
+	Block Life: 1522
+	Player Score: 10
+3.	Angle = 32
+	Block Life: 1455
+	Player Score: 20
+4.	Angle = 62
+	Block Life: 495
+	Player Score: 1070
+5.	Angle = 71
+	Block Life: 420
+	Player Score: 1080
+Result: Challenge lose
+	Block Life: 375
+------------------------------------------------
+Current Test: 8
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 375
+------------------------------------------------
+Current Test: 9
+------------------------------------------------
+1.	Angle = 79
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 34
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 63
+	Block Life: 1590
+	Player Score: 10
+4.	Angle = 59
+	Block Life: 1545
+	Player Score: 20
+5.	Angle = 78
+	Block Life: 1500
+	Player Score: 20
+6.	Angle = 68
+	Block Life: 748
+	Player Score: 570
+Result: Challenge lose
+	Block Life: 610
+------------------------------------------------
+Current Test: 10
+------------------------------------------------
+1.	Angle = 16
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 89
+	Block Life: 1590
+	Player Score: 10
+3.	Angle = 31
+	Block Life: 462
+	Player Score: 1540
+4.	Angle = 63
+	Block Life: 197
+	Player Score: 1640
+5.	Angle = 0
+	Block Life: 197
+	Player Score: 1640
+Result: Challenge lose
+	Block Life: 152
+------------------------------------------------
+Current Test: 11
+------------------------------------------------
+1.	Angle = 60
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 23
+	Block Life: 1303
+	Player Score: 60
+3.	Angle = 42
+	Block Life: 1258
+	Player Score: 70
+4.	Angle = 28
+	Block Life: 1258
+	Player Score: 70
+5.	Angle = 78
+	Block Life: 1213
+	Player Score: 80
+Result: Challenge lose
+	Block Life: 754
+------------------------------------------------
+Current Test: 12
+------------------------------------------------
+1.	Angle = 78
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 81
+	Block Life: 1387
+	Player Score: 30
+3.	Angle = 15
+	Block Life: 880
+	Player Score: 390
+4.	Angle = 60
+	Block Life: 564
+	Player Score: 490
+5.	Angle = 4
+	Block Life: 50
+	Player Score: 940
+Result: Challenge lose
+	Block Life: 50
+------------------------------------------------
+Current Test: 13
+------------------------------------------------
+1.	Angle = 65
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 55
+	Block Life: 1590
+	Player Score: 10
+3.	Angle = 37
+	Block Life: 1500
+	Player Score: 40
+4.	Angle = 39
+	Block Life: 1410
+	Player Score: 50
+5.	Angle = 33
+	Block Life: 1365
+	Player Score: 60
+Result: Challenge lose
+	Block Life: 1320
+------------------------------------------------
+Current Test: 14
+------------------------------------------------
+1.	Angle = 1
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 60
+	Block Life: 1590
+	Player Score: 10
+3.	Angle = 66
+	Block Life: 1500
+	Player Score: 40
+4.	Angle = 61
+	Block Life: 1365
+	Player Score: 70
+5.	Angle = 52
+	Block Life: 663
+	Player Score: 620
+Result: Challenge lose
+	Block Life: 430
+------------------------------------------------
+Current Test: 15
+------------------------------------------------
+1.	Angle = 59
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 17
+	Block Life: 1590
+	Player Score: 10
+3.	Angle = 39
+	Block Life: 1545
+	Player Score: 20
+4.	Angle = 68
+	Block Life: 1455
+	Player Score: 50
+5.	Angle = 70
+	Block Life: 1320
+	Player Score: 60
+Result: Challenge lose
+	Block Life: 1207
+------------------------------------------------
+Current Test: 16
+------------------------------------------------
+1.	Angle = 36
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 47
+	Block Life: 1410
+	Player Score: 100
+3.	Angle = 31
+	Block Life: 1320
+	Player Score: 130
+4.	Angle = 12
+	Block Life: 1095
+	Player Score: 230
+5.	Angle = 69
+	Block Life: 849
+	Player Score: 260
+Result: Challenge lose
+	Block Life: 14
+------------------------------------------------
+Current Test: 17
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 14
+------------------------------------------------
+Current Test: 18
+------------------------------------------------
+1.	Angle = 61
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 85
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 23
+	Block Life: 1400
+	Player Score: 30
+4.	Angle = 79
+	Block Life: 1321
+	Player Score: 40
+5.	Angle = 13
+	Block Life: 1276
+	Player Score: 50
+6.	Angle = 74
+	Block Life: 1228
+	Player Score: 60
+Result: Challenge lose
+	Block Life: 506
+------------------------------------------------
+Current Test: 19
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 506
+------------------------------------------------
+Current Test: 20
+------------------------------------------------
+1.	Angle = 5
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 26
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 59
+	Block Life: 1590
+	Player Score: 10
+4.	Angle = 60
+	Block Life: 1318
+	Player Score: 110
+5.	Angle = 48
+	Block Life: 1228
+	Player Score: 140
+6.	Angle = 49
+	Block Life: 1183
+	Player Score: 150
+Result: Challenge lose
+	Block Life: 1093
+------------------------------------------------
+Current Test: 21
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 1093
+------------------------------------------------
+Current Test: 22
+------------------------------------------------
+1.	Angle = 39
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 88
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 76
+	Block Life: 1500
+	Player Score: 30
+4.	Angle = 63
+	Block Life: 1155
+	Player Score: 240
+5.	Angle = 37
+	Block Life: 1140
+	Player Score: 250
+6.	Angle = 9
+	Block Life: 1050
+	Player Score: 260
+Result: Challenge lose
+	Block Life: 960
+------------------------------------------------
+Current Test: 23
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 960
+------------------------------------------------
+Current Test: 24
+------------------------------------------------
+1.	Angle = 17
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 86
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 66
+	Block Life: 1423
+	Player Score: 60
+4.	Angle = 87
+	Block Life: 525
+	Player Score: 1110
+5.	Angle = 37
+	Block Life: 141
+	Player Score: 1320
+6.	Angle = 86
+	Block Life: 96
+	Player Score: 1320
+Result: Challenge complete: 2 stars
+------------------------------------------------
+Current Test: 25
+------------------------------------------------
+1.	Angle = 79
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 15
+	Block Life: 1500
+	Player Score: 60
+3.	Angle = 35
+	Block Life: 1455
+	Player Score: 70
+4.	Angle = 66
+	Block Life: 1320
+	Player Score: 100
+5.	Angle = 66
+	Block Life: 1230
+	Player Score: 110
+Result: Challenge lose
+	Block Life: 398
+------------------------------------------------
+Current Test: 26
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 398
+------------------------------------------------
+Current Test: 27
+------------------------------------------------
+1.	Angle = 82
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 33
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 42
+	Block Life: 1590
+	Player Score: 10
+4.	Angle = 17
+	Block Life: 1545
+	Player Score: 20
+5.	Angle = 78
+	Block Life: 1028
+	Player Score: 300
+6.	Angle = 68
+	Block Life: 33
+	Player Score: 1660
+Result: Challenge complete: 2 stars
+playerWinRealy
+------------------------------------------------
+Current Test: 28
+------------------------------------------------
+1.	Angle = 82
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 25
+	Block Life: 1397
+	Player Score: 30
+3.	Angle = 22
+	Block Life: 1352
+	Player Score: 40
+4.	Angle = 26
+	Block Life: 1307
+	Player Score: 50
+5.	Angle = 88
+	Block Life: 341
+	Player Score: 1100
+Result: Challenge complete: 2 stars
+------------------------------------------------
+Current Test: 29
+------------------------------------------------
+1.	Angle = 52
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 77
+	Block Life: 1270
+	Player Score: 150
+3.	Angle = 6
+	Block Life: 1147
+	Player Score: 210
+4.	Angle = 77
+	Block Life: 1102
+	Player Score: 220
+5.	Angle = 22
+	Block Life: 1057
+	Player Score: 230
+Result: Challenge lose
+	Block Life: 955
+------------------------------------------------
+Current Test: 30
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 955
+------------------------------------------------
+Current Test: 31
+------------------------------------------------
+1.	Angle = 35
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 66
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 64
+	Block Life: 1116
+	Player Score: 210
+4.	Angle = 42
+	Block Life: 773
+	Player Score: 360
+5.	Angle = 12
+	Block Life: 169
+	Player Score: 910
+6.	Angle = 69
+	Block Life: 60
+	Player Score: 970
+Result: Challenge lose
+	Block Life: 15
+------------------------------------------------
+Current Test: 32
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 15
+------------------------------------------------
+Current Test: 33
+------------------------------------------------
+1.	Angle = 70
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 27
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 65
+	Block Life: 1455
+	Player Score: 60
+4.	Angle = 73
+	Block Life: 1410
+	Player Score: 70
+5.	Angle = 23
+	Block Life: 1320
+	Player Score: 100
+6.	Angle = 66
+	Block Life: 1140
+	Player Score: 160
+Result: Challenge lose
+	Block Life: 495
+------------------------------------------------
+Current Test: 34
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 495
+------------------------------------------------
+Current Test: 35
+------------------------------------------------
+1.	Angle = 34
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 7
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 17
+	Block Life: 1590
+	Player Score: 10
+4.	Angle = 75
+	Block Life: 1545
+	Player Score: 20
+5.	Angle = 51
+	Block Life: 1455
+	Player Score: 50
+6.	Angle = 57
+	Block Life: 1410
+	Player Score: 60
+Result: Challenge lose
+	Block Life: 1095
+------------------------------------------------
+Current Test: 36
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 1095
+------------------------------------------------
+Current Test: 37
+------------------------------------------------
+1.	Angle = 2
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 67
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 40
+	Block Life: 1590
+	Player Score: 10
+4.	Angle = 18
+	Block Life: 1545
+	Player Score: 20
+5.	Angle = 14
+	Block Life: 803
+	Player Score: 680
+6.	Angle = 17
+	Block Life: 581
+	Player Score: 780
+Result: Challenge lose
+	Block Life: 581
+------------------------------------------------
+Current Test: 38
+------------------------------------------------
+1.	Angle = 37
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 29
+	Block Life: 1590
+	Player Score: 10
+3.	Angle = 56
+	Block Life: 1444
+	Player Score: 70
+4.	Angle = 24
+	Block Life: 1354
+	Player Score: 100
+5.	Angle = 24
+	Block Life: 1309
+	Player Score: 110
+Result: Challenge lose
+	Block Life: 902
+------------------------------------------------
+Current Test: 39
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 902
+------------------------------------------------
+Current Test: 40
+------------------------------------------------
+1.	Angle = 76
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 59
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 57
+	Block Life: 1590
+	Player Score: 10
+4.	Angle = 28
+	Block Life: 1315
+	Player Score: 70
+5.	Angle = 47
+	Block Life: 1135
+	Player Score: 130
+6.	Angle = 68
+	Block Life: 1034
+	Player Score: 160
+Result: Challenge lose
+	Block Life: 899
+------------------------------------------------
+Current Test: 41
+------------------------------------------------
+1.	Angle = 5
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 75
+	Block Life: 1590
+	Player Score: 10
+3.	Angle = 2
+	Block Life: 1500
+	Player Score: 40
+4.	Angle = 65
+	Block Life: 1387
+	Player Score: 50
+5.	Angle = 27
+	Block Life: 507
+	Player Score: 960
+Result: Challenge lose
+	Block Life: 461
+------------------------------------------------
+Current Test: 42
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 461
+------------------------------------------------
+Current Test: 43
+------------------------------------------------
+1.	Angle = 44
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 69
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 76
+	Block Life: 1545
+	Player Score: 30
+4.	Angle = 8
+	Block Life: 1500
+	Player Score: 40
+5.	Angle = 65
+	Block Life: 1410
+	Player Score: 70
+6.	Angle = 6
+	Block Life: 890
+	Player Score: 170
+Result: Challenge lose
+	Block Life: 597
+------------------------------------------------
+Current Test: 44
+------------------------------------------------
+1.	Angle = 20
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 38
+	Block Life: 1590
+	Player Score: 10
+3.	Angle = 82
+	Block Life: 1545
+	Player Score: 20
+4.	Angle = 24
+	Block Life: 934
+	Player Score: 300
+5.	Angle = 42
+	Block Life: 889
+	Player Score: 310
+Result: Challenge lose
+	Block Life: 889
+------------------------------------------------
+Current Test: 45
+------------------------------------------------
+Result: Challenge lose
+	Block Life: 889
+------------------------------------------------
+Current Test: 46
+------------------------------------------------
+1.	Angle = 16
+	Block Life: 1635
+	Player Score: 0
+2.	Angle = 58
+	Block Life: 1635
+	Player Score: 0
+3.	Angle = 65
+	Block Life: 1455
+	Player Score: 60
+4.	Angle = 30
+	Block Life: 994
+	Player Score: 160
+5.	Angle = 74
+	Block Life: 949
+	Player Score: 170
+6.	Angle = 62
+	Block Life: 159
+	Player Score: 1220
+Result: Challenge lose
+	Block Life: 126
+------------------------------------------------
+Current Test: 47
+------------------------------------------------
+1.	Angle = 79
+	Block Life: 0
+	Player Score: 0
+Result: Challenge complete: 0 stars
+playerWinRealy
+------------------------------------------------
+Current Test: 48
+------------------------------------------------
+Result: Challenge complete: 0 stars
+------------------------------------------------
+Current Test: 49
+------------------------------------------------
+1.	Angle = 82
+	Block Life: 0
+	Player Score: 0
+Result: Challenge complete: 0 stars
+playerWinRealy
+------------------------------------------------
+Current Test: 50
+------------------------------------------------
+1.	Angle = 9
+	Block Life: 0
+	Player Score: 0
+2.	Angle = 54
+	Block Life: 0
+	Player Score: 0
+Result: Challenge complete: 0 stars
+playerWinRealy
+------------------------------------------------
+TestCount: 50
+Challenge Lose Count: 45
+Challenge Win 1 Stars Count: 0
+Challenge Win 2 Stars Count: 5
+Challenge Win 3 Stars Count: 1
+------------------------------------------------
+Challenge Win 1 Stars Middle Try Count: не число
+Challenge Win 2 Stars Middle Try Count: 5,6
+Challenge Win 3 Stars Middle Try Count: 5

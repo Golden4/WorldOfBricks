@@ -150,7 +150,6 @@ public class ShopScreen : ScreenBase {
 
 	public void BuyVideoItem (int index)
 	{
-		DialogBox.Show ("Loading video...", null, null, false, true);
 		videoItemindex = index;
 		if (AdManager.Ins != null) {
 			AdManager.Ins.showRewardedVideo ();

@@ -7,7 +7,7 @@ public class SingletonResourse<T> : MonoBehaviour where T : MonoBehaviour {
 
 	static object _lock = new object ();
 
-	static bool isInit;
+	public static bool isInit;
 
 	public static T Ins {
 		get {
