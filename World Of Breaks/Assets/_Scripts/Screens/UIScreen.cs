@@ -75,6 +75,7 @@ public class UIScreen : ScreenBase {
 
 	public GameObject tutorialPrefab;
 	public ButtonIcon destroyLastLineBtn;
+	public ParticleSystem popUpParticle;
 
 
 	public StarsBarPanel starsBarPanel;
@@ -116,6 +117,12 @@ public class UIScreen : ScreenBase {
 		}
 
 		BlocksController.Instance.OnChangeTopLine += HideTimeAcceleratorBtn;
+
+		/*	playerScore = 100000;
+		playerWin = true;
+		if (Game.isChallenge)
+			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.ChallegesResult);*/
+
 	}
 
 	bool timeAcceleratorBtnEnabled;
@@ -148,7 +155,16 @@ public class UIScreen : ScreenBase {
 	public void ShowClearText ()
 	{
 		if (!UIScreen.Ins.playerLose && checkpoint != level) {
-			SetCheckpoint (level);
+
+			float persentCheck = .8f;
+
+			if (Ball.HaveAblity (Ball.Ability.HigherChekpoint))
+				persentCheck = 1;
+
+			int newCheck = Mathf.RoundToInt (level * persentCheck);
+
+			SetCheckpoint (newCheck);
+
 			ShowPopUpText (LocalizationManager.GetLocalizedText ("clear"), LocalizationManager.GetLocalizedText ("new_checkpoint") + ": " + checkpoint.ToString ());
 		}
 	}
@@ -180,6 +196,7 @@ public class UIScreen : ScreenBase {
 			textAnim.MoveOut (GUIAnimSystem.eGUIMove.Self);
 		});
 
+		Destroy (Instantiate<GameObject> (popUpParticle.gameObject, Vector3.zero, Quaternion.identity), 2);
 		textAnim.MoveIn (GUIAnimSystem.eGUIMove.Self);
 	}
 
@@ -212,8 +229,9 @@ public class UIScreen : ScreenBase {
 	public void SetCheckpoint (int check)
 	{
 		checkpoint = check;
+
 		if (check != 0)
-			checkpointText.text = LocalizationManager.GetLocalizedText ("checkpoint") + ": " + checkpoint.ToString ();
+			checkpointText.text = LocalizationManager.GetLocalizedText ("checkpoint") + ": " + check.ToString ();
 		else
 			checkpointText.text = LocalizationManager.GetLocalizedText ("no_checkpoint");
 	}
@@ -354,7 +372,10 @@ public class UIScreen : ScreenBase {
 		}
 
 		Ins.playerWin = true;
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.ChallegesResult);
+		Utility.Invoke (ScreenController.Ins, 1, delegate {
+			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.ChallegesResult);
+		});
+
 	}
 
 	public void EnableDestroyLastLineBtn (bool enable)

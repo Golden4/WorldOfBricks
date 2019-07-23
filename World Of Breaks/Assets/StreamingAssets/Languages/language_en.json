@@ -85,6 +85,10 @@
       "value": "Checkpoint"
     },
     {
+      "key": "ball_size",
+      "value": "Ball radius"
+    },
+    {
       "key": "no_checkpoint",
       "value": "No checkpoint"
     },
@@ -143,6 +147,46 @@
     {
       "key": "big_unlocked",
       "value": "Map Size Big Unlocked"
+    },
+    {
+      "key": "ability",
+      "value": "Ability"
+    },
+    {
+      "key": "None",
+      "value": "None"
+    },
+    {
+      "key": "RandomDirection",
+      "value": "Shots in random direction"
+    },
+    {
+      "key": "Speed",
+      "value": "20% faster"
+    },
+    {
+      "key": "CoinChance",
+      "value": "Higher coin chance"
+    },
+    {
+      "key": "Bounce2Times",
+      "value": "Bounces on floor 2 times on bounce power-up"
+    },
+    {
+      "key": "Clone3Times",
+      "value": "Cloning 2 times on clone power-up"
+    },
+    {
+      "key": "SkullDestroy",
+      "value": "Destroy Skull"
+    },
+    {
+      "key": "DoubleHitBrick",
+      "value": "Chance to Double Hit Brick"
+    },
+    {
+      "key": "HigherChekpoint",
+      "value": "100% checkpoint vs 80%"
     },
     {
       "key": "classic_ball",

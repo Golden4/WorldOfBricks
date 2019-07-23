@@ -50,6 +50,7 @@ public class BlockObstacle : BlockWithText {
 
 	protected override void OnDead ()
 	{
-		Destroy (gameObject);
+		iTween.ScaleTo (transform.GetChild (0).gameObject, Vector3.zero, .2f);
+		Destroy (gameObject, .2f);
 	}
 }

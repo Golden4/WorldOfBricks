@@ -5,7 +5,7 @@ using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
 using System;
 
-public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, IRewardedVideoAdListener, IPermissionGrantedListener {
+public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, IRewardedVideoAdListener, IBannerAdListener {
 
 	#if UNITY_ANDROID
 	public string appKey;
@@ -24,12 +24,15 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
 	public void InitAppodeal ()
 	{
-		Appodeal.requestAndroidMPermissions (this);
+		Appodeal.disableNetwork ("facebook");
 		testMode = Debug.isDebugBuild;
 		Appodeal.setTesting (testMode);
+		Appodeal.muteVideosIfCallsMuted (true);
+
 		Appodeal.initialize (appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO, PlayerPrefs.GetInt ("result_gdpr_sdk", 0) == 1);
 		Appodeal.setInterstitialCallbacks (this);
 		Appodeal.setRewardedVideoCallbacks (this);
+		Appodeal.setBannerCallbacks (this);
 	}
 
 	bool isRewardedVideoFinished;
@@ -49,6 +52,38 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 			if (onInterstitialClosedEvent != null)
 				onInterstitialClosedEvent ();
 		}
+	}
+
+	public void showBanner ()
+	{
+		if (Appodeal.isLoaded (Appodeal.BANNER_TOP))
+			Appodeal.show (Appodeal.BANNER_TOP);
+	}
+
+	public void hideBanner ()
+	{
+		Appodeal.hide (Appodeal.BANNER_TOP);
+	}
+
+
+	public void onBannerLoaded (bool isPrecache)
+	{
+	}
+
+	public void onBannerFailedToLoad ()
+	{
+	}
+
+	public void onBannerShown ()
+	{
+	}
+
+	public void onBannerClicked ()
+	{
+	}
+
+	public void onBannerExpired ()
+	{
 	}
 
 	public static event Action onInterstitialClosedEvent;
@@ -100,7 +135,9 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 			} else {
 				Appodeal.cache (Appodeal.REWARDED_VIDEO);
 			}
-			DialogBox.Show ("Loading video...", null, null, false, true);
+
+			if (isRewardedVideoLoaded)
+				DialogBox.Show ("Loading video...", null, null, false, true);
 		};
 
 		if (!ShowPrivacyPolicyDialog (showVideo)) {
@@ -129,7 +166,6 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
 	public void onRewardedVideoClosed (bool finished)
 	{
-		
 	}
 
 	public void onRewardedVideoExpired ()
@@ -147,7 +183,6 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 		if (PlayerPrefs.HasKey ("result_gdpr")) {
 			consentInt = PlayerPrefs.GetInt ("result_gdpr");
 		}
-
 
 		if (consentInt == 0) {
 			Time.timeScale = 0;
@@ -183,23 +218,5 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 		PlayerPrefs.SetInt ("result_gdpr_sdk", 0);
 		Time.timeScale = 1;
 		InitAppodeal ();
-	}
-
-	public void writeExternalStorageResponse (int result)
-	{
-		if (result == 0) {
-			Debug.Log ("WRITE_EXTERNAL_STORAGE permission granted"); 
-		} else {
-			Debug.Log ("WRITE_EXTERNAL_STORAGE permission grant refused"); 
-		}
-	}
-
-	public void accessCoarseLocationResponse (int result)
-	{
-		if (result == 0) {
-			Debug.Log ("ACCESS_COARSE_LOCATION permission granted"); 
-		} else {
-			Debug.Log ("ACCESS_COARSE_LOCATION permission grant refused"); 
-		}
 	}
 }

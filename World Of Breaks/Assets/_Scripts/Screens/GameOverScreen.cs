@@ -60,7 +60,9 @@ public class GameOverScreen : ScreenBase {
 		//}
 		pc.ShowGiftPanel (false);
 		pc.ShowRewardPanel (true);
-		pc.GiveReward (true, UIScreen.Ins.playerScore / 200);
+		int coinAmunt = UIScreen.Ins.playerScore / 100;
+		pc.GiveReward (true, coinAmunt);
+		User.AddCoin (coinAmunt);
 
 		if (Game.ballTryingIndex > -1) {
 			pc.ShowBuyBallPanel (true);
@@ -73,7 +75,6 @@ public class GameOverScreen : ScreenBase {
 				pc.ShowBuyBallPanel (false);
 				pc.ShowTryBallsPanel (false);
 			}
-
 		Game.ballTryingIndex = -1;
 
 	}

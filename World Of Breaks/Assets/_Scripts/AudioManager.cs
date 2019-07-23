@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class AudioManager : SingletonResourse<AudioManager> {
-
-	AudioSource[] source = new AudioSource[5];
+	
+	const int sourceCount = 10;
+	AudioSource[] source = new AudioSource[sourceCount];
 
 	public SoundLibrary soundLibrary;
 
 	public override void OnInit ()
 	{
 		DontDestroyOnLoad (gameObject);
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < sourceCount; i++) {
 			source [i] = gameObject.AddComponent<AudioSource> ();
 		}
 		soundLibrary = GetComponent<SoundLibrary> ();

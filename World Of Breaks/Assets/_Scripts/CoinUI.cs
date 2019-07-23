@@ -12,16 +12,19 @@ public class CoinUI : MonoBehaviour {
 	public GUIAnim plusCoinText;
 	public AnimationCurve curve;
 
+	public int coinsUI;
+
 	void Awake ()
 	{
 		Ins = this;
+		coinsUI = User.Coins;
 	}
 
 	private void Start ()
 	{
 		ShowCoinCount (User.Coins, User.Coins);
 		origColor = coinText.color;
-		User.OnCoinChangedEvent += ShowCoinCount;
+		//User.OnCoinChangedEvent += ShowCoinCount;
 		User.OnCoinChangedFailedEvent += BuyFailed;
 	}
 
@@ -46,7 +49,7 @@ public class CoinUI : MonoBehaviour {
 
 	void OnDestroy ()
 	{
-		User.OnCoinChangedEvent -= ShowCoinCount;
+		//User.OnCoinChangedEvent -= ShowCoinCount;
 		User.OnCoinChangedFailedEvent -= BuyFailed;
 	}
 
@@ -67,7 +70,6 @@ public class CoinUI : MonoBehaviour {
 		coinText.transform.localScale = Vector3.one;
 		coinText.color = origColor;
 	}
-
 
 	void ShowCoinCount (int fromValue, int toValue)
 	{
@@ -102,6 +104,13 @@ public class CoinUI : MonoBehaviour {
 
 		//Utility.CoinsAnimate (this, coinImage.gameObject, transform, 5, transform.position - Vector3.down * 100, transform.position, .1f);
 
+	}
+
+	public void AddCoin (int value)
+	{
+		ShowCoinCount (coinsUI, (coinsUI + value));
+
+		coinsUI += value;
 	}
 
 }

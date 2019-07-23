@@ -23,14 +23,14 @@ public class SpoilerButton : MonoBehaviour {
 
 		});
 
-		Show ();
+		Show (false);
 		Close ();
 		btn.interactable = true;
 	}
 
 	public bool isChangingColor;
 
-	public void Show ()
+	public void Show (bool anim = true)
 	{
 		if (isShow)
 			return;
@@ -40,9 +40,10 @@ public class SpoilerButton : MonoBehaviour {
 		GetComponent<ButtonIcon> ().changingColor = false;
 		spoilerParent.gameObject.SetActive (true);
 
-		for (int i = 0; i < anims.Length; i++) {
-			anims [i].MoveIn (GUIAnimSystem.eGUIMove.Self);
-		}
+		if (anim)
+			for (int i = 0; i < anims.Length; i++) {
+				anims [i].MoveIn (GUIAnimSystem.eGUIMove.Self);
+			}
 	}
 
 	public void Close ()

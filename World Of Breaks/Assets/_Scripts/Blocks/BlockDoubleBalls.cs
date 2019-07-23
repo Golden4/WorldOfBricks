@@ -26,18 +26,34 @@ public class BlockDoubleBalls : BlockWithText {
 	{
 		if (ball.isClone)
 			return;
+
 		t = 1;
 		needDestroy = true;
-		Transform ballTmp = Instantiate<GameObject> (ball.gameObject).transform;
-		ballTmp.position = ball.transform.position;
-		Ball ballClone = ballTmp.GetComponent<Ball> ();
-		ballClone.ChangeToClone ();
-		BallController.Instance.ballsList.Add (ballClone);
+
 
 		float angle = ball.transform.localEulerAngles.z;
+
+		int cloneCount = 1;
+
+		if (Ball.HaveAblity (Ball.Ability.Clone3Times))
+			cloneCount = 2;
+		
+		for (int i = 0; i < cloneCount; i++) {
+			Transform ballTmp = Instantiate<GameObject> (ball.gameObject).transform;
+			ballTmp.position = ball.transform.position;
+			Ball ballClone = ballTmp.GetComponent<Ball> ();
+			ballClone.ChangeToClone ();
+			BallController.Instance.ballsList.Add (ballClone);
+			ballClone.ChangeDirection (angle + 30);
+
+			if (i == 1) {
+				ballClone.ChangeDirection (angle);
+			}
+
+		}
+
 		ball.ChangeDirection (angle - 30);
 
-		ballClone.ChangeDirection (angle + 30);
 
 		if (lastAudioPlayTime + .05f < Time.time) {
 			lastAudioPlayTime = Time.time;
@@ -59,6 +75,7 @@ public class BlockDoubleBalls : BlockWithText {
 
 	protected override void OnDead ()
 	{
-		Destroy (gameObject);
+		iTween.ScaleTo (transform.GetChild (0).gameObject, Vector3.zero, .2f);
+		Destroy (gameObject, .2f);
 	}
 }

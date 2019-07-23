@@ -5,6 +5,8 @@ using System;
 
 public static class User {
 
+	public static int realCoinsCount;
+
 	const string coinsKey = "coins";
 	static int _coins;
 
@@ -15,6 +17,7 @@ public static class User {
 			LoadCoins ();
 			return _coins;
 		}
+
 		private set {
 
 			LoadCoins ();
@@ -110,6 +113,8 @@ public static class User {
 	{
 		if (Coins - coinAmount >= 0) {
 			Coins -= coinAmount;
+			if (CoinUI.Ins != null)
+				CoinUI.Ins.AddCoin (-coinAmount);
 			return true;
 		} else {
 

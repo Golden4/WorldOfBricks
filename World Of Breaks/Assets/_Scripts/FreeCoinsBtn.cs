@@ -42,6 +42,8 @@ public class FreeCoinsBtn : MonoBehaviour {
 	{
 		int coinAmount = 5;
 		User.AddCoin (coinAmount);
+		if (CoinUI.Ins != null)
+			CoinUI.Ins.AddCoin (coinAmount);
 		clicked = false;
 		AdManager.onRewardedVideoFinishedEvent -= onRewardedVideoFinishedEvent;
 	}

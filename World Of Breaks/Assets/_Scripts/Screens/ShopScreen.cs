@@ -31,10 +31,12 @@ public class ShopScreen : ScreenBase {
 	public Button buyCoinBtn;
 	public Button buyVideoBtn;
 
+
+
 	public override void OnInit ()
 	{
 		scrollSnap.Init ();
-
+		
 		scrollSnap.OnChangeItemEvent += OnChangeItem;
 
 		SelectAndPlayBtn.onClick.RemoveAllListeners ();
@@ -99,7 +101,21 @@ public class ShopScreen : ScreenBase {
 	void OnChangeItem (int index)
 	{
 		itemNameText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name);
-		itemAbilityText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name + "_desc");
+		itemAbilityText.text = Database.Get.playersData [index].GetDescription ();
+
+		/*itemAbilityText.text = LocalizationManager.GetLocalizedText ("ball_size") + ": " + Database.Get.playersData [index].ballRadius * 100 + " cm";
+
+		itemAbilityText.text += "\n" + LocalizationManager.GetLocalizedText ("ability") + ": ";
+
+		if (Database.Get.playersData [index].abilites.Length == 0) {
+			itemAbilityText.text += abilityDesc [0];
+		} else {
+			for (int i = 0; i < Database.Get.playersData [index].abilites.Length; i++) {
+				itemAbilityText.text += "\n\t- " + abilityDesc [(int)Database.Get.playersData [index].abilites [i] + 1];
+			}
+		}
+			
+		itemAbilityText.text += "\n" + LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name + "_desc");*/
 
 		UpdateItemState (index);
 	}

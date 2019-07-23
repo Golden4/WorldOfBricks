@@ -41,19 +41,20 @@ public class BlocksController : MonoBehaviour {
 	public Block[][] blockMapOld;
 	public BlockForSpawn[] blocksForSpawn;
 	public Vector2 offsetBetweenBlocks;
+	[HideInInspector]
 	public int blocksLife;
 	GameObject blockHolder;
 
 	public event System.Action OnChangeTopLine;
 
-	public Vector3 centerOfScreen;
-
 	public static BlocksController Instance;
+	[HideInInspector]
 	public bool canSaveBlockMap;
 	public Texture2D challengesMapTexture;
 
+	[HideInInspector]
 	public int blockDestroyCount = 0;
-
+	[HideInInspector]
 	public int maxScore;
 
 	private void Awake ()
@@ -90,7 +91,6 @@ public class BlocksController : MonoBehaviour {
 			maxScore = GetMaxScore ();
 
 		BallController.Instance.OnThrowBalls += SaveOldState;
-
 	}
 
 	public int CalculateBlockLife ()
@@ -128,6 +128,7 @@ public class BlocksController : MonoBehaviour {
 
 	public void ShiftBlockMapDown ()
 	{
+		
 		if (!UIScreen.Ins.playerLose) {
 			for (int i = 0; i < blockMap [0].Length; i++) {
 
@@ -142,11 +143,19 @@ public class BlocksController : MonoBehaviour {
 			System.Array.Copy (blockMap [i], blockMap [i + 1], blockMap [0].Length);
 		}
 
+		if (OnChangeTopLine != null) {
+			OnChangeTopLine ();
+		}
+
 		for (int i = 0; i < blockMap.Length; i++) {
 			for (int j = 0; j < blockMap [0].Length; j++) {
 				
 				if (blockMap [i] [j].blockComp == null)
 					continue;
+
+				if (blockMap [i] [j].blockComp.isDead)
+					continue;
+				
 				blockMap [i] [j].blockComp.coordsY = i;
 
 				Vector3 localPos = blockMap [i] [j].blockComp.transform.localPosition;
@@ -156,11 +165,6 @@ public class BlocksController : MonoBehaviour {
 
 				iTween.MoveTo (blockMap [i] [j].blockComp.gameObject, pos, .5f);
 			}
-		}
-
-        
-		if (OnChangeTopLine != null) {
-			OnChangeTopLine ();
 		}
 
 		CheckForLose ();
@@ -474,7 +478,9 @@ public class BlocksController : MonoBehaviour {
 		}
 	}
 
+	[HideInInspector]
 	public int retryCount;
+	[HideInInspector]
 	public bool retryThrow;
 	int oldPlayerScore;
 	int oldBallCount;

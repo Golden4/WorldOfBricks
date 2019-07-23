@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using AppodealAds.Unity.Api;
+using AppodealAds.Unity.Common;
 
-public class LoadingText : MonoBehaviour {
+public class LoadingText : MonoBehaviour,IPermissionGrantedListener {
 	
 	[SerializeField]Text loadingText;
 
@@ -12,22 +14,28 @@ public class LoadingText : MonoBehaviour {
 	float loadingTime;
 	public Image loadingBar;
 
+	void Awake ()
+	{
+		Appodeal.requestAndroidMPermissions (this);
+	}
+
 	void Start ()
 	{
 		loadingTime = 0;
 		AdManager.Ins.OnInit ();
 		PurchaseManager.Ins.TryInit ();
-		StartCoroutine (PingPongText (SceneController.nextSceneToLoad, loadingText, 0.7f));
+		StartCoroutine (PingPongText (SceneController.nextSceneToLoad, 0.7f));
 
 	}
 
-	IEnumerator PingPongText (int sceneIndex, Text text, float time)
+	IEnumerator PingPongText (int sceneIndex, float time)
 	{
-		text.gameObject.SetActive (true);
+		loadingText.gameObject.SetActive (true);
 
 		float alpha = 1;
 
-		Color color = text.color;
+		loadingText.GetComponent <GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
+
 		AsyncOperation ao = SceneManager.LoadSceneAsync (sceneIndex);
 		ao.allowSceneActivation = false;
 
@@ -37,8 +45,6 @@ public class LoadingText : MonoBehaviour {
 			loadingBar.fillAmount = Mathf.Clamp01 (loadingTime / minLoadingTime) * .9f;
 
 			alpha = Mathf.PingPong (Time.timeSinceLevelLoad / time, 0.7f) + 0.3f;
-			color.a = alpha;
-			text.color = color;
 			yield return null;
 		}
 
@@ -52,9 +58,26 @@ public class LoadingText : MonoBehaviour {
 
 		loadingBar.fillAmount = 1;
 
-		color.a = 1;
 		yield return null;
 
 		ao.allowSceneActivation = true;
+	}
+
+	public void writeExternalStorageResponse (int result)
+	{
+		if (result == 0) {
+			Debug.Log ("WRITE_EXTERNAL_STORAGE permission granted"); 
+		} else {
+			Debug.Log ("WRITE_EXTERNAL_STORAGE permission grant refused"); 
+		}
+	}
+
+	public void accessCoarseLocationResponse (int result)
+	{
+		if (result == 0) {
+			Debug.Log ("ACCESS_COARSE_LOCATION permission granted"); 
+		} else {
+			Debug.Log ("ACCESS_COARSE_LOCATION permission grant refused"); 
+		}
 	}
 }

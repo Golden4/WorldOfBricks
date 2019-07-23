@@ -7,8 +7,6 @@ public class ChallengesScreen : ScreenBase {
 	public RectTransform challengesHolder;
 	public GameObject challengePrefab;
 	public List<Button> challList = new List<Button> ();
-	public Sprite lockedSprite;
-	public Sprite complitedSprite;
 
 	public override void OnInit ()
 	{
@@ -39,6 +37,7 @@ public class ChallengesScreen : ScreenBase {
 
 		if (User.GetChallengesData.challData [index] > 0) {
 			ShowStars (true, index, count);
+			spriteState.gameObject.SetActive (false);
 			challList [index].GetComponent<ButtonIcon> ().EnableBtn (true);
 		} else if (canPlayChallenegesCount < 3 && User.GetChallengesData.challData [index] == 0 || index == 0 && User.GetChallengesData.challData [index] == 0) {
 				canPlayChallenegesCount++;
@@ -48,7 +47,6 @@ public class ChallengesScreen : ScreenBase {
 			} else {
 				ShowStars (false, index);
 				spriteState.gameObject.SetActive (true);
-				spriteState.sprite = lockedSprite;
 				challList [index].GetComponent<ButtonIcon> ().EnableBtn (false);
 			}
 

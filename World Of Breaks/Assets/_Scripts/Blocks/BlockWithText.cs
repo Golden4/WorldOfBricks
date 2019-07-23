@@ -79,7 +79,19 @@ public class BlockWithText : MonoBehaviour {
 
 	public virtual void Hit ()
 	{
-		BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife = (BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife - 1 < 0) ? 0 : BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife - 1;
+
+		int hitAmount = 1;
+
+		if (Ball.HaveAblity (Ball.Ability.DoubleHitBrick)) {
+			if (Random.Range (0, 25) == 0) {
+				hitAmount = 2;
+				Debug.Log ("DoubleHitBrick");
+			}
+		}
+
+		int blockLifeAfterHit = BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife - hitAmount;
+
+		BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife = (blockLifeAfterHit < 0) ? 0 : blockLifeAfterHit;
 
 		if (BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife <= 0) {
 			Die ();
@@ -91,8 +103,6 @@ public class BlockWithText : MonoBehaviour {
 		curColor = g.Evaluate ((BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife % 30) / 30f);
 
 		spriteRenderer.color = curColor;
-
-
 
 		UpdateText ();
 	}

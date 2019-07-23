@@ -29,7 +29,7 @@ public class BlockSecondReflection : BlockWithText {
 		t = 1;
 		needDestroy = true;
 
-		if (!ball.isSecondReflection)
+		if (ball.canReflectionCount == 0)
 			ball.ChangeToSecondReflection ();
         
 		if (lastAudioPlayTime + .05f < Time.time) {
@@ -55,6 +55,7 @@ public class BlockSecondReflection : BlockWithText {
 
 	protected override void OnDead ()
 	{
-		Destroy (gameObject);
+		iTween.ScaleTo (transform.GetChild (0).gameObject, Vector3.zero, .2f);
+		Destroy (gameObject, .2f);
 	}
 }

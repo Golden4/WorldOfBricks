@@ -467,6 +467,7 @@ public class GUIAnim : MonoBehaviour {
 			this.m_FadeOriginal = this.GetFadeValue (base.transform);
 			this.m_FadeOriginalTextOutline = this.GetFadeTextOutlineValue (base.transform);
 			this.m_FadeOriginalTextShadow = this.GetFadeTextShadowValue (base.transform);
+			Reset ();
 		}
 	}
 
@@ -774,6 +775,7 @@ public class GUIAnim : MonoBehaviour {
 			this.CalculateCameraArea ();
 			RectTransform component = base.transform.parent.GetComponent<RectTransform> ();
 			switch (this.m_MoveIn.MoveFrom) {
+
 			case ePosMove.ParentPosition:
 				if (base.transform.parent != null) {
 					this.m_MoveIn.BeginPos = new Vector3 (0f, 0f, this.m_RectTransform.localPosition.z);

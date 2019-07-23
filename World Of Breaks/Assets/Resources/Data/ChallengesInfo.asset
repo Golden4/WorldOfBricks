@@ -26,10 +26,10 @@ MonoBehaviour:
   - lifeCount: 5
     ballCount: 15
   - lifeCount: 5
-    ballCount: 50
-  - lifeCount: 8
     ballCount: 25
-  - lifeCount: 10
+  - lifeCount: 5
+    ballCount: 25
+  - lifeCount: 7
     ballCount: 30
   - lifeCount: 5
     ballCount: 15

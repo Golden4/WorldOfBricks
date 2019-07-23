@@ -29,7 +29,32 @@ public class ItemsInfo : ScriptableObject {
 		//public Ball playerPrefab;
 		public Sprite ballSprite;
 		public float ballRadius = .1f;
+		public Ball.Ability[] abilites;
 		public Sound hitSound;
+
+		public string GetDescription ()
+		{
+
+			string desc = "";
+
+			desc = LocalizationManager.GetLocalizedText ("ball_size") + ": " + ballRadius * 100 + " cm";
+
+			desc += "\n" + LocalizationManager.GetLocalizedText ("ability") + ": ";
+
+			if (abilites.Length == 0) {
+				desc += LocalizationManager.GetLocalizedText (System.Enum.GetName (typeof(Ball.Ability), Ball.Ability.None));
+			} else {
+				for (int i = 0; i < abilites.Length; i++) {
+					desc += "\n- " + LocalizationManager.GetLocalizedText (System.Enum.GetName (typeof(Ball.Ability), abilites [i]));
+				}
+			}
+
+			desc += "\n" + LocalizationManager.GetLocalizedText (name + "_desc");
+
+			return desc;
+		}
+
+
 	}
 
 }

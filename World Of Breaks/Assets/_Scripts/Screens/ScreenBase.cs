@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ScreenBase : MonoBehaviour {
 	
-	protected GUIAnim[] anims;
+	public GUIAnim[] anims;
 	public bool animate = true;
-
+	public bool getAnimsOnStart = true;
 	[System.NonSerialized]
 	public bool isActive;
 
@@ -14,7 +14,7 @@ public class ScreenBase : MonoBehaviour {
 	{
 		OnInit ();
 
-		if (animate) {
+		if (getAnimsOnStart) {
 			anims = GetComponentsInChildren <GUIAnim> ();
 		}
 	}

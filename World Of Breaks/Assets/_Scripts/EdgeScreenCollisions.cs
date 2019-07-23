@@ -117,7 +117,6 @@ public class EdgeScreenCollisions : MonoBehaviour {
 		/*BottomLeft.AddComponent<BoxCollider2D> ();
 		BottomRight.AddComponent<BoxCollider2D> ();*/
 
-
 	}
 
 	public static Vector2 GetScreenEdgeTop ()

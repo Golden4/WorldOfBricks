@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.unity3d.player" xmlns:tools="http://schemas.android.com/tools" android:installLocation="preferExternal">
   <supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" android:anyDensity="true" />
-  <application android:theme="@style/UnityThemeSelector" android:icon="@mipmap/app_icon" android:label="@string/app_name" android:name="android.support.multidex.MultiDexApplication">
+  <application
+  android:theme="@style/UnityThemeSelector"
+  android:icon="@mipmap/app_icon"
+  android:label="@string/app_name"
+  android:name="android.support.multidex.MultiDexApplication"
+  android:debuggable="true">
     <activity android:name="com.unity3d.player.UnityPlayerActivity" android:label="@string/app_name">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -9,7 +14,11 @@
       </intent-filter>
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
     </activity>
-    <provider android:name="com.yasirkula.unity.UnitySSContentProvider" android:authorities="Unity_Share_123456" android:exported="false" android:grantUriPermissions="true" />
+    <provider
+	android:name="com.yasirkula.unity.UnitySSContentProvider"
+	android:authorities="Unity_Share_456"
+	android:exported="false"
+	android:grantUriPermissions="true" />
   </application>
   <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="28" />
 </manifest>

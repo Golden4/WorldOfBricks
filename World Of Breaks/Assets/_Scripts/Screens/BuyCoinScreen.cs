@@ -130,8 +130,11 @@ public class BuyCoinScreen : ScreenBase {
 			
 		});
 
+		User.AddCoin (coinAmount);
+
 		Utility.Invoke (CoinUI.Ins, .9f, delegate {
-			User.AddCoin (coinAmount);
+			if (CoinUI.Ins != null)
+				CoinUI.Ins.AddCoin (coinAmount);
 		}, true);
 	}
 
@@ -150,8 +153,11 @@ public class BuyCoinScreen : ScreenBase {
                 
 			});
 
+			User.AddCoin (coinAmount);
+
 			Utility.Invoke (CoinUI.Ins, .9f, delegate {
-				User.AddCoin (coinAmount);
+				if (CoinUI.Ins != null)
+					CoinUI.Ins.AddCoin (coinAmount);
 			}, true);
 		}
 	}

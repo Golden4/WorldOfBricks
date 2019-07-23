@@ -55,7 +55,8 @@ public class BlockExplosion : BlockWithText {
 
 							BlockWithText block = BlocksController.Instance.blockMap [y] [x].blockComp;
 
-							if (block != null && block.canLooseDown) {  
+							if (block != null && block.canLooseDown) {
+								block.justDestroy = true;
 								block.Die ();
 							}
 						}

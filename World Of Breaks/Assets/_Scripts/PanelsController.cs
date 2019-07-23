@@ -99,7 +99,14 @@ public class PanelsController : MonoBehaviour {
 					ball.gameObject.SetActive (true);
 					ball.transform.Find ("Icon").GetComponent <Image> ().sprite = Database.Get.playersData [ballsIndex [i]].ballSprite;
 					ball.transform.Find ("Text").GetComponent <Text> ().text = LocalizationManager.GetLocalizedText (Database.Get.playersData [ballsIndex [i]].name);
-					Button btn = ball.GetComponentInChildren <Button> ();
+
+					int index = i;
+					ball.transform.Find ("Info").GetComponent <Button> ().onClick.RemoveAllListeners ();
+					ball.transform.Find ("Info").GetComponent <Button> ().onClick.AddListener (delegate {
+						DialogBox.Show (LocalizationManager.GetLocalizedText (Database.Get.playersData [ballsIndex [index]].name) + "\n\n" + Database.Get.playersData [ballsIndex [index]].GetDescription (), null, null, true, false, 350);	
+					});
+
+					Button btn = ball.transform.Find ("GetBtn").GetComponent <Button> ();
 
 					btn.onClick.RemoveAllListeners ();
 					int inx = ballsIndex [i];
@@ -281,7 +288,8 @@ public class PanelsController : MonoBehaviour {
 			});
 
 			Utility.Invoke (CoinUI.Ins, .9f, delegate {
-				User.AddCoin (coinAmount);
+				if (CoinUI.Ins != null)
+					CoinUI.Ins.AddCoin (coinAmount);
 			}, true);
 
 		} else {

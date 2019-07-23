@@ -13,7 +13,7 @@ public class BallController : MonoBehaviour {
 	public Vector2 startThrowPos;
 	public bool startPosChanged = false;
 	public float timeBetweenBalls = .1f;
-	public Image throwingDirectionImage;
+	public RawImage throwingDirectionImage;
 	public Text ballCountText;
 	public Image mousePivotPointImage;
 	public static BallController Instance;
@@ -41,11 +41,27 @@ public class BallController : MonoBehaviour {
 			ballCount = Game.curChallengeInfo.ballCount;
 		else if (UIScreen.newGame)
 				ballCount = UIScreen.Ins.level;
+		
 		SpriteRenderer ballPrebSpr = ballPrefab.GetComponent <SpriteRenderer> ();
 		ballPrebSpr.sprite = Database.Get.playersData [User.GetInfo.GetCurPlayerIndex ()].ballSprite;
 		ballPrebSpr.size = Vector2.one * Database.Get.playersData [User.GetInfo.GetCurPlayerIndex ()].ballRadius * 2;
 		ballPrebSpr.transform.localScale = Vector2.one;
+
 		Ball.ballRadius = Database.Get.playersData [User.GetInfo.GetCurPlayerIndex ()].ballRadius;
+
+		Ball.curAbilites.Clear ();
+
+		for (int i = 0; i < Database.Get.playersData [User.GetInfo.GetCurPlayerIndex ()].abilites.Length; i++) {
+			Ball.curAbilites.Add (Database.Get.playersData [User.GetInfo.GetCurPlayerIndex ()].abilites [i]);
+		}
+
+		if (Ball.HaveAblity (Ball.Ability.CoinChance)) {
+			BlocksController.Instance.blocksForSpawn [14].chanceForSpawn = 10;
+		}
+
+		if (Ball.HaveAblity (Ball.Ability.Speed)) {
+			ballSpeed *= 1.2f;
+		}
 
 		ChangeStartThrowPos (0);
 
@@ -126,6 +142,7 @@ public class BallController : MonoBehaviour {
 	}
 
 	bool validDir;
+	float yRectThrowingImage;
 
 	void MouseDown ()
 	{
@@ -163,6 +180,9 @@ public class BallController : MonoBehaviour {
 
 				Vector2 heigth = throwingDirectionImage.rectTransform.sizeDelta;
 				heigth.y = Mathf.Clamp (dirMouse.magnitude, 1, 150) * 4.5f;
+
+				yRectThrowingImage -= Time.deltaTime * .07f;
+				throwingDirectionImage.uvRect = new Rect (0, yRectThrowingImage, 1, heigth.y / 450);
 
 				throwingDirectionImage.rectTransform.sizeDelta = heigth;
 			} else {
@@ -204,6 +224,7 @@ public class BallController : MonoBehaviour {
 		InstantiateBallsList ();
 		needReturnAllBalls = false;
 		UIScreen.Ins.HideTutorial ();
+
 		StartCoroutine (ThrowBallsCoroutine (dir));
 	}
 
@@ -223,10 +244,10 @@ public class BallController : MonoBehaviour {
 	{
 		if (OnThrowBalls != null)
 			OnThrowBalls ();
-
-
+		
 		isThrowing = true;
 		canThrow = false;
+		startPosChanged = false;
 		UIScreen.Ins.EnableDestroyLastLineBtn (false);
 		CalcTimeBeweenBalls ();
 
@@ -284,8 +305,6 @@ public class BallController : MonoBehaviour {
 
 		UIScreen.Ins.EnableDestroyLastLineBtn (!Game.isChallenge);
 
-		startPosChanged = false;
-
 		BlocksController.Instance.blockDestroyCount = 0;
 
 		if (!BlocksController.Instance.retryThrow) {
@@ -310,7 +329,7 @@ public class BallController : MonoBehaviour {
 		List<Ball> balls = new List<Ball> (ballsList);
 		needReturnAllBalls = true;
 		for (int i = 0; i < balls.Count; i++) {
-			balls [i].ReturnBall (); 
+			balls [i].ReturnBall ();
 		}
 	}
 

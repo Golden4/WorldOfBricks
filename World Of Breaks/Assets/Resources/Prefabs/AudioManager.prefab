@@ -175,3 +175,21 @@ MonoBehaviour:
       pitch: 1
       randomVolume: 0
       randomPitch: 0.1
+  - groupName: Star
+    clips:
+    - name: Star1
+      clip: {fileID: 8300000, guid: f90286c7d0f2ea44dab0cf8d76a8c65d, type: 3}
+      loop: 0
+      volume: 0.1
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.1
+  - groupName: Skull
+    clips:
+    - name: Skull1
+      clip: {fileID: 8300000, guid: 5bfa5230d9609c148977670c201a53dd, type: 3}
+      loop: 0
+      volume: 0.4
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.1

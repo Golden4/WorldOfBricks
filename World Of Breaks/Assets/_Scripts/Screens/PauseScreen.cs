@@ -18,12 +18,14 @@ public class PauseScreen : ScreenBase {
 	{
 		Game.isPause = true;
 		Time.timeScale = 0;
+		AdManager.Ins.showBanner ();
 	}
 
 	public override void OnDeactivate ()
 	{
 		Game.isPause = false;
 		Time.timeScale = 1;
+		AdManager.Ins.hideBanner ();
 	}
 
 	public void Continue ()

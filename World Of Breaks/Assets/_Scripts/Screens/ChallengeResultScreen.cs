@@ -26,7 +26,7 @@ public class ChallengeResultScreen : ScreenBase {
 
 	public static float progressPersent {
 		get {
-			return (float)UIScreen.Ins.playerScore / BlocksController.Instance.maxScore / .9f;
+			return (float)UIScreen.Ins.playerScore / BlocksController.Instance.maxScore;
 		}
 	}
 
@@ -104,6 +104,8 @@ public class ChallengeResultScreen : ScreenBase {
 				reward += coinsForStars [i];
 			}
 
+			User.AddCoin (reward);
+
 			pc.rewardText.text = "+" + reward.ToString ();
 
 			resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_complete"), (Game.curChallengeIndex + 1));
@@ -133,7 +135,7 @@ public class ChallengeResultScreen : ScreenBase {
 				pc.ShowBuyBallPanel (false);
 				pc.ShowTryBallsPanel (false);
 			}
-
+		starsParent.gameObject.SetActive (false);
 		nextBtn.gameObject.SetActive (false);
 		retryBtn.gameObject.SetActive (true);
 		resultText.text = string.Format (LocalizationManager.GetLocalizedText ("challenge_failed"), (Game.curChallengeIndex + 1));
@@ -147,16 +149,31 @@ public class ChallengeResultScreen : ScreenBase {
 			if (i < starCount) {
 				stars [i].gameObject.SetActive (true);
 
+				Text plusCoinText = stars [i].transform.GetChild (0).GetComponent<Text> ();
+				stars [i].transform.GetChild (0).gameObject.SetActive (false);
 				if (i >= completedStars) {
 					int index = i;
-					stars [i].GetComponent <GUIAnim> ().m_ScaleIn.Actions.OnEnd.RemoveAllListeners ();
-					stars [i].GetComponent <GUIAnim> ().m_ScaleIn.Actions.OnEnd.AddListener (delegate {
+					GUIAnim anim = stars [i].GetComponent <GUIAnim> ();
+					anim.m_ScaleIn.Actions.OnEnd.RemoveAllListeners ();
+					anim.m_ScaleIn.Actions.OnEnd.AddListener (delegate {
+						plusCoinText.gameObject.SetActive (true);
+						plusCoinText.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
+						plusCoinText.text = "+" + coinsForStars [index];
 						pc.GiveReward (true, coinsForStars [index], stars [index].transform.position.x, stars [index].transform.position.y, false);
 					});
+
 				}
 
-				stars [i].GetComponent <GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
+				Vector3 pos = Camera.main.ScreenToWorldPoint (stars [i].transform.position);
+				pos.z = 10;
+				GameObject go = Instantiate<GameObject> (Resources.Load<GameObject> ("Particles/StarParticle"), pos, Quaternion.identity);
+				go.transform.localScale = Vector3.one;
+				ParticleSystem ps = go.GetComponent<ParticleSystem> ();
+				ps.startDelay = i * .5f;
+				ps.Play ();
+				Destroy (go, 2);
 
+				stars [i].GetComponent <GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
 			} else {
 				stars [i].gameObject.SetActive (false);
 			}
