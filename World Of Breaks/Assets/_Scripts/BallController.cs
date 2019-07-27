@@ -93,6 +93,8 @@ public class BallController : MonoBehaviour {
 	bool isMouseOnUIObject;
 	public bool isThrowing;
 
+	bool touching;
+
 	void Update ()
 	{
 		if (UIScreen.Ins.playerLose || UIScreen.Ins.playerWin)
@@ -107,9 +109,14 @@ public class BallController : MonoBehaviour {
 		if (!canThrow) {
 			return;
 		}
-        
 
-		if (Input.GetMouseButton (0) || Input.GetMouseButtonDown (0)) {
+		#if UNITY_EDITOR
+		touching = Input.GetMouseButton (0) || Input.GetMouseButtonDown (0);
+		#else
+		touching = Input.GetTouch (0).phase == TouchPhase.Began ||Input.GetTouch (0).phase == TouchPhase.Moved ||Input.GetTouch (0).phase == TouchPhase.Stationary;
+		#endif
+
+		if (touching) {
 			
 			if (mouseCurState == MouseState.mouseUp) {
 				
@@ -316,9 +323,7 @@ public class BallController : MonoBehaviour {
 					BlocksController.Instance.ChallengeProgress ();
 			}
 		}
-
-		if (needReturnAllBalls)
-			yield return new WaitForSeconds (.5f);
+		yield return new WaitForSeconds (.6f);
 		
 		canThrow = true;
 

@@ -23,7 +23,6 @@ public class MenuScreen : ScreenBase {
 
 	void Start ()
 	{
-		SceneController.Init ();
 		ShowGameTitle (true, true);
 		//if (AdController.Ins.RewardedADLoaded ()) {
 

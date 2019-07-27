@@ -6,6 +6,8 @@ using UnityEngine.Purchasing;
 
 public class ShopScreen : ScreenBase {
 
+	public static ShopScreen Ins;
+
 	public GameObject itemsHolder;
 
 	public ScrollSnap scrollSnap;
@@ -31,11 +33,10 @@ public class ShopScreen : ScreenBase {
 	public Button buyCoinBtn;
 	public Button buyVideoBtn;
 
-
-
 	public override void OnInit ()
 	{
 		scrollSnap.Init ();
+		Ins = this;
 		
 		scrollSnap.OnChangeItemEvent += OnChangeItem;
 
@@ -62,6 +63,7 @@ public class ShopScreen : ScreenBase {
 		for (int i = 0; i < ItemCount; i++) {
 			scrollSnap.SetItemState (i, User.GetInfo.userData [i].bought);
 		}
+
 
 		PurchaseManager.OnPurchaseNonConsumable += BuyPaidItemSuccess;
 	}

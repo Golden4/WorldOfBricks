@@ -138,6 +138,8 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
 			if (isRewardedVideoLoaded)
 				DialogBox.Show ("Loading video...", null, null, false, true);
+			else
+				DialogBox.Show ("Video failed to load...", null, null, true, false);
 		};
 
 		if (!ShowPrivacyPolicyDialog (showVideo)) {
@@ -208,7 +210,6 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 	{
 		PlayerPrefs.SetInt ("result_gdpr", 1);
 		PlayerPrefs.SetInt ("result_gdpr_sdk", 1);
-		Time.timeScale = 1;
 		InitAppodeal ();
 	}
 
@@ -216,7 +217,6 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 	{
 		PlayerPrefs.SetInt ("result_gdpr", 1);
 		PlayerPrefs.SetInt ("result_gdpr_sdk", 0);
-		Time.timeScale = 1;
 		InitAppodeal ();
 	}
 }

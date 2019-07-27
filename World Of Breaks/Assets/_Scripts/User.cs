@@ -96,7 +96,6 @@ public static class User {
 				challengesLoaded = true;
 
 				LoadChallengesDataInfoFromFileOrCreateNew ();
-
 			}
 
 			return challengesData;

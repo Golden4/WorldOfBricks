@@ -60,24 +60,16 @@ public class TileSizeScreen : ScreenBase {
 		MenuScreen.Ins.StartGame (true, false);
 	}
 
-	private void Start ()
+	public override void OnInit ()
 	{
+		base.OnInit ();
+
 		for (int i = 0; i < tileSizeBtns.Length; i++) {
 			int index = i;
 			tileSizeBtns [i].onClick.AddListener (delegate {
 				SetTileSize ((TileSize)index);
 			});
 		}
-	}
-
-	public override void OnInit ()
-	{
-		base.OnInit ();
-	}
-
-	public override void OnActivate ()
-	{
-		base.OnActivate ();
 
 		for (int i = 0; i < 3; i++) {
 			if (PlayerPrefs.HasKey ("Checkpoint" + i)) {
@@ -92,7 +84,11 @@ public class TileSizeScreen : ScreenBase {
 			}
 		}
 
-        
+	}
+
+	public override void OnActivate ()
+	{
+		base.OnActivate ();        
 
 		if (tileSizeLocked.tileSizeLocked [0]) {
 			unlockItemTexts [0].gameObject.SetActive (true);

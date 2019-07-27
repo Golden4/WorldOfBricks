@@ -7,6 +7,7 @@ public class ChallengesScreen : ScreenBase {
 	public RectTransform challengesHolder;
 	public GameObject challengePrefab;
 	public List<Button> challList = new List<Button> ();
+	public ScrollRect sr;
 
 	public override void OnInit ()
 	{
@@ -27,6 +28,13 @@ public class ChallengesScreen : ScreenBase {
 			challList.Add (go.GetComponent<Button> ());
 			UpdateButtonState (i, User.GetChallengesData.challData [i]);
 		}
+	}
+
+	public override void OnActivate ()
+	{
+		base.OnActivate ();
+		sr.GraphicUpdateComplete ();
+		challengesHolder.anchoredPosition = new Vector2 (challengesHolder.anchoredPosition.x, 0);
 	}
 
 	int canPlayChallenegesCount = 0;

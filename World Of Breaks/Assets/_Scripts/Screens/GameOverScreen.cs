@@ -76,6 +76,7 @@ public class GameOverScreen : ScreenBase {
 				pc.ShowTryBallsPanel (false);
 			}
 		Game.ballTryingIndex = -1;
+		AudioManager.PlaySoundFromLibrary ("Failed");
 
 	}
 

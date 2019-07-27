@@ -6,11 +6,26 @@ using UnityEngine;
 public class ItemsInfo : ScriptableObject {
 	public ItemData[] playersData;
 
+	public int[] abilityPrices;
+
 	public void OnValidate ()
 	{
 		/*for (int i = 0; i < playersData.Length; i++) {
 			playersData [i].purchaseID = "Ball_" + (i + 1);
 		}*/
+
+		for (int i = 0; i < playersData.Length; i++) {
+			int priceWithAbility = Mathf.RoundToInt (50f / (playersData [i].ballRadius * 10));
+			int abilityCount = 0;
+			for (int j = 0; j < playersData [i].abilites.Length; j++) {
+				priceWithAbility += abilityPrices [(int)playersData [i].abilites [j]];
+				abilityCount++;
+			}
+
+			priceWithAbility = Mathf.RoundToInt (priceWithAbility * ((abilityCount * 0.2f) + 1f) / 10f) * 10;
+
+			playersData [i].price = priceWithAbility.ToString ();
+		}
 	}
 
 	[System.Serializable]

@@ -16,13 +16,13 @@ MonoBehaviour:
   - name: classic_ball
     purchaseID: Ball_1
     buyType: 0
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300000, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.1
+    ballRadius: 0.12
     abilites: 
     hitSound:
       name: Sound
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: f75216383ddb9094091d8ac963267bc1, type: 3}
       loop: 0
       volume: 1
       pitch: 1
@@ -31,13 +31,13 @@ MonoBehaviour:
   - name: red_classic_ball
     purchaseID: Ball_2
     buyType: 1
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300032, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.1
+    ballRadius: 0.12
     abilites: 
     hitSound:
       name: Sound
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: f75216383ddb9094091d8ac963267bc1, type: 3}
       loop: 0
       volume: 1
       pitch: 1
@@ -46,13 +46,13 @@ MonoBehaviour:
   - name: blue_classic_ball
     purchaseID: Ball_3
     buyType: 1
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300034, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.1
+    ballRadius: 0.12
     abilites: 
     hitSound:
       name: Sound
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: f75216383ddb9094091d8ac963267bc1, type: 3}
       loop: 0
       volume: 1
       pitch: 1
@@ -61,13 +61,13 @@ MonoBehaviour:
   - name: green_classic_ball
     purchaseID: Ball_4
     buyType: 1
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300036, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.1
+    ballRadius: 0.12
     abilites: 
     hitSound:
       name: Sound
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: f75216383ddb9094091d8ac963267bc1, type: 3}
       loop: 0
       volume: 1
       pitch: 1
@@ -76,13 +76,13 @@ MonoBehaviour:
   - name: yellow_classic_ball
     purchaseID: Ball_5
     buyType: 0
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300038, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
+    ballRadius: 0.12
     abilites: 
     hitSound:
       name: Sound
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: f75216383ddb9094091d8ac963267bc1, type: 3}
       loop: 0
       volume: 1
       pitch: 1
@@ -91,9 +91,9 @@ MonoBehaviour:
   - name: tennis_ball
     purchaseID: Ball_6
     buyType: 0
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300002, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
+    ballRadius: 0.11
     abilites: 
     hitSound:
       name: Sound
@@ -106,7 +106,7 @@ MonoBehaviour:
   - name: soccer_ball
     purchaseID: Ball_7
     buyType: 0
-    price: 150
+    price: 30
     ballSprite: {fileID: 21300004, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
     abilites: 
@@ -121,7 +121,7 @@ MonoBehaviour:
   - name: basketball_ball
     purchaseID: Ball_8
     buyType: 0
-    price: 150
+    price: 30
     ballSprite: {fileID: 21300016, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
     abilites: 
@@ -136,9 +136,9 @@ MonoBehaviour:
   - name: volleyball_ball
     purchaseID: Ball_9
     buyType: 0
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300020, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
+    ballRadius: 0.14
     abilites: 
     hitSound:
       name: Sound
@@ -151,7 +151,7 @@ MonoBehaviour:
   - name: baseball_ball
     purchaseID: Ball_10
     buyType: 0
-    price: 150
+    price: 50
     ballSprite: {fileID: 21300022, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.1
     abilites: 
@@ -166,7 +166,7 @@ MonoBehaviour:
   - name: golf_ball
     purchaseID: Ball_11
     buyType: 0
-    price: 150
+    price: 50
     ballSprite: {fileID: 21300040, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.1
     abilites: 
@@ -181,10 +181,10 @@ MonoBehaviour:
   - name: billiard_ball
     purchaseID: Ball_12
     buyType: 0
-    price: 150
+    price: 300
     ballSprite: {fileID: 21300024, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
-    abilites: 
+    ballRadius: 0.1
+    abilites: 03000000
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: 951b06ce258790a4694e6e514ee31397, type: 3}
@@ -196,10 +196,10 @@ MonoBehaviour:
   - name: yin_yang_ball
     purchaseID: Ball_13
     buyType: 0
-    price: 150
+    price: 290
     ballSprite: {fileID: 21300018, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.125
-    abilites: 
+    ballRadius: 0.13
+    abilites: 08000000
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: 1cda4a6f681c97f4aa7577b5a9699477, type: 3}
@@ -211,10 +211,10 @@ MonoBehaviour:
   - name: happy_face
     purchaseID: Ball_14
     buyType: 0
-    price: 150
+    price: 400
     ballSprite: {fileID: 21300006, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
-    abilites: 
+    ballRadius: 0.14
+    abilites: 04000000
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
@@ -226,10 +226,10 @@ MonoBehaviour:
   - name: smiley_face
     purchaseID: Ball_15
     buyType: 0
-    price: 150
+    price: 90
     ballSprite: {fileID: 21300008, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
-    abilites: 
+    ballRadius: 0.14
+    abilites: 02000000
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
@@ -241,10 +241,10 @@ MonoBehaviour:
   - name: face_with_sunglasses
     purchaseID: Ball_16
     buyType: 0
-    price: 150
+    price: 520
     ballSprite: {fileID: 21300010, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
-    abilites: 
+    ballRadius: 0.14
+    abilites: 06000000
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
@@ -256,9 +256,9 @@ MonoBehaviour:
   - name: pile_of_poo
     purchaseID: Ball_17
     buyType: 0
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300012, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
+    ballRadius: 0.14
     abilites: 
     hitSound:
       name: Sound
@@ -271,10 +271,10 @@ MonoBehaviour:
   - name: astonished_face
     purchaseID: Ball_18
     buyType: 0
-    price: 150
+    price: 340
     ballSprite: {fileID: 21300014, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
-    abilites: 
+    ballRadius: 0.14
+    abilites: 07000000
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
@@ -286,9 +286,9 @@ MonoBehaviour:
   - name: donut
     purchaseID: Ball_19
     buyType: 0
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300026, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.2
+    ballRadius: 0.13
     abilites: 
     hitSound:
       name: Sound
@@ -301,7 +301,7 @@ MonoBehaviour:
   - name: watermelon
     purchaseID: Ball_20
     buyType: 0
-    price: 150
+    price: 30
     ballSprite: {fileID: 21300030, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
     abilites: 
@@ -316,9 +316,9 @@ MonoBehaviour:
   - name: orange
     purchaseID: Ball_21
     buyType: 0
-    price: 150
+    price: 40
     ballSprite: {fileID: 21300028, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
+    ballRadius: 0.11
     abilites: 
     hitSound:
       name: Sound
@@ -331,10 +331,10 @@ MonoBehaviour:
   - name: earth
     purchaseID: Ball_22
     buyType: 0
-    price: 250
+    price: 960
     ballSprite: {fileID: 21300042, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
-    abilites: 
+    ballRadius: 0.14
+    abilites: 0600000007000000
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: d7eb233a21705af4fa5a504a969c982c, type: 3}
@@ -346,9 +346,9 @@ MonoBehaviour:
   - name: sun
     purchaseID: Ball_23
     buyType: 0
-    price: 250
+    price: 1020
     ballSprite: {fileID: 21300044, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
+    ballRadius: 0.16
     abilites: 0400000006000000
     hitSound:
       name: Sound
@@ -361,10 +361,10 @@ MonoBehaviour:
   - name: moon
     purchaseID: Ball_24
     buyType: 0
-    price: 250
+    price: 70
     ballSprite: {fileID: 21300046, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
-    abilites: 
+    ballRadius: 0.11
+    abilites: 01000000
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: d7eb233a21705af4fa5a504a969c982c, type: 3}
@@ -376,10 +376,10 @@ MonoBehaviour:
   - name: mars
     purchaseID: Ball_25
     buyType: 0
-    price: 250
+    price: 970
     ballSprite: {fileID: 21300048, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
-    ballRadius: 0.15
-    abilites: 01000000000000000200000005000000
+    ballRadius: 0.12
+    abilites: 0500000007000000
     hitSound:
       name: Sound
       clip: {fileID: 8300000, guid: d7eb233a21705af4fa5a504a969c982c, type: 3}
@@ -388,3 +388,4 @@ MonoBehaviour:
       pitch: 1
       randomVolume: 0
       randomPitch: 0.2
+  abilityPrices: 000000000a00000028000000c80000002c0100009001000090010000fa000000c8000000

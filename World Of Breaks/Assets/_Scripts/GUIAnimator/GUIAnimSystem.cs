@@ -19,10 +19,23 @@ public class GUIAnimSystem : MonoBehaviour {
 	{
 		if (instance == null) {
 			instance = this;
-			UnityEngine.Object.DontDestroyOnLoad (this);
+			UnityEngine.Object.DontDestroyOnLoad (gameObject);
 		} else if (this != instance) {
 				UnityEngine.Object.Destroy (base.gameObject);
+				return;
 			}
+
+		SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+	}
+
+	void SceneManager_sceneLoaded (Scene arg0, LoadSceneMode arg1)
+	{
+		InitAllGUIAnims ();
+	}
+
+	void OnDestroy ()
+	{
+		SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
 	}
 
 	private IEnumerator DelayEnableButton (bool Enable, float Seconds)
@@ -307,6 +320,17 @@ public class GUIAnimSystem : MonoBehaviour {
 	{
 		yield return new WaitForSeconds (delay);
 		SceneManager.LoadScene (LevelName);
+	}
+
+	public void InitAllGUIAnims ()
+	{
+		GUIAnim[] mfreeArray = Resources.FindObjectsOfTypeAll<GUIAnim> ();
+		for (int i = 0; i < mfreeArray.Length; i++) {
+			mfreeArray [i].Init ();
+			mfreeArray [i].MoveIn (eGUIMove.Self);
+			//print (mfreeArray [i].transform.name);
+		}
+
 	}
 
 	public void MoveIn (Transform trans, bool EffectsOnChildren)

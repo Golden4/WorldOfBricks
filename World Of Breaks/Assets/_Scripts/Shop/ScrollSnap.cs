@@ -49,7 +49,8 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler {
 			items [i].transform.localPosition = Vector3.right * distanceItems * i;
 			items [i].transform.localEulerAngles = Vector3.zero;
 			//items [i].layer = LayerMask.NameToLayer ("ShopItem");
-
+			items [i].AddComponent <MenuBallSound> ().itemId = i;
+			items [i].GetComponent<Animation> ().Stop ();
 			Image image = items [i].GetComponent <Image> ();
 			image.rectTransform.sizeDelta = Vector2.one * 40;
 			items [i].GetComponent<Animation> ().playAutomatically = false;

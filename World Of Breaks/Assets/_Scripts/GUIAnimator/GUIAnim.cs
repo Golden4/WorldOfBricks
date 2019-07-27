@@ -445,10 +445,14 @@ public class GUIAnim : MonoBehaviour {
 		}
 	}
 
-	private void Awake ()
+	public void Init ()
 	{
+
+		if (m_InitialDone)
+			return;
+
 		if ((this != null) && (base.gameObject != null)) {
-			GETween.Init (0x640);
+			GETween.Init (1000);
 			this.m_RectTransform = (RectTransform)base.transform;
 			this.m_MoveOriginal = (Vector3)this.m_RectTransform.anchoredPosition;
 			this.m_RotationOriginal = this.m_RectTransform.localRotation;
@@ -468,7 +472,13 @@ public class GUIAnim : MonoBehaviour {
 			this.m_FadeOriginalTextOutline = this.GetFadeTextOutlineValue (base.transform);
 			this.m_FadeOriginalTextShadow = this.GetFadeTextShadowValue (base.transform);
 			Reset ();
+			m_InitialDone = true;
 		}
+	}
+
+	private void Awake ()
+	{
+		Init ();
 	}
 
 	private void CalculateCameraArea ()
@@ -1309,7 +1319,8 @@ public class GUIAnim : MonoBehaviour {
 	public void Reset ()
 	{
 		if ((this != null) && (base.gameObject != null)) {
-			if (this.m_MoveIn == null) {
+			
+			/*if (this.m_MoveIn == null) {
 				if (GUIAnimSystem.Instance == null) {
 					GameObject target = new GameObject {
 						transform = { localPosition = new Vector3 (0f, 0f, 0f) },
@@ -1319,15 +1330,16 @@ public class GUIAnim : MonoBehaviour {
 					GUIAnimSystem.Instance = target.AddComponent<GUIAnimSystem> ();
 					UnityEngine.Object.DontDestroyOnLoad (target);
 				}
-			} else {
-				this.InitMoveIn ();
-				this.InitMoveOut ();
-				this.InitRotationIn ();
-				this.InitFadeIn ();
-				if (this.m_ScaleIn.Enable) {
-					this.InitScaleIn ();
-				}
+			} else {*/
+			this.InitMoveIn ();
+			this.InitMoveOut ();
+			this.InitRotationIn ();
+			this.InitFadeIn ();
+			if (this.m_ScaleIn.Enable) {
+				this.InitScaleIn ();
 			}
+
+			//}
 		}
 	}
 

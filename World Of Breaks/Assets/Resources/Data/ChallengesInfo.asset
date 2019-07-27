@@ -15,13 +15,13 @@ MonoBehaviour:
   challengesData:
   - lifeCount: 5
     ballCount: 25
-  - lifeCount: 4
-    ballCount: 45
   - lifeCount: 5
     ballCount: 45
   - lifeCount: 5
-    ballCount: 30
-  - lifeCount: 7
+    ballCount: 45
+  - lifeCount: 5
+    ballCount: 15
+  - lifeCount: 5
     ballCount: 5
   - lifeCount: 5
     ballCount: 15
@@ -29,7 +29,9 @@ MonoBehaviour:
     ballCount: 25
   - lifeCount: 5
     ballCount: 25
-  - lifeCount: 7
+  - lifeCount: 5
     ballCount: 30
   - lifeCount: 5
     ballCount: 15
+  - lifeCount: 5
+    ballCount: 50

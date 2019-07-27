@@ -86,7 +86,7 @@
     },
     {
       "key": "ball_size",
-      "value": "Ball radius"
+      "value": "Radius"
     },
     {
       "key": "no_checkpoint",
@@ -173,7 +173,7 @@
       "value": "Bounces on floor 2 times on bounce power-up"
     },
     {
-      "key": "Clone3Times",
+      "key": "Clone2Times",
       "value": "Cloning 2 times on clone power-up"
     },
     {
@@ -182,7 +182,7 @@
     },
     {
       "key": "DoubleHitBrick",
-      "value": "Chance to Double Hit Brick"
+      "value": "10% Chance to Double Hit Brick"
     },
     {
       "key": "HigherChekpoint",

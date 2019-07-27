@@ -30,12 +30,11 @@ public class BlockDoubleBalls : BlockWithText {
 		t = 1;
 		needDestroy = true;
 
-
 		float angle = ball.transform.localEulerAngles.z;
 
 		int cloneCount = 1;
 
-		if (Ball.HaveAblity (Ball.Ability.Clone3Times))
+		if (Ball.HaveAblity (Ball.Ability.Clone2Times))
 			cloneCount = 2;
 		
 		for (int i = 0; i < cloneCount; i++) {
@@ -44,10 +43,11 @@ public class BlockDoubleBalls : BlockWithText {
 			Ball ballClone = ballTmp.GetComponent<Ball> ();
 			ballClone.ChangeToClone ();
 			BallController.Instance.ballsList.Add (ballClone);
-			ballClone.ChangeDirection (angle + 30);
 
 			if (i == 1) {
 				ballClone.ChangeDirection (angle);
+			} else {
+				ballClone.ChangeDirection (angle + 30);
 			}
 
 		}

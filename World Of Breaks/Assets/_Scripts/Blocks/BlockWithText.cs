@@ -63,12 +63,13 @@ public class BlockWithText : MonoBehaviour {
 
 				TimerEnd ();
 			}
-
 	}
+
+	Color colorToLerp = Color.black;
 
 	protected virtual void TimerStart ()
 	{
-		spriteRenderer.color = Color.Lerp (Color.black, curColor, 1f - t);
+		spriteRenderer.color = Color.Lerp (colorToLerp, curColor, 1f - t);
 	}
 
 	protected virtual void TimerEnd ()
@@ -79,13 +80,12 @@ public class BlockWithText : MonoBehaviour {
 
 	public virtual void Hit ()
 	{
-
 		int hitAmount = 1;
-
+		colorToLerp = Color.black;
 		if (Ball.HaveAblity (Ball.Ability.DoubleHitBrick)) {
-			if (Random.Range (0, 25) == 0) {
+			if (Random.Range (0, 10) == 0) {
 				hitAmount = 2;
-				Debug.Log ("DoubleHitBrick");
+				colorToLerp = Color.white;
 			}
 		}
 

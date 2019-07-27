@@ -38,7 +38,7 @@ public class EdgeScreenCollisions : MonoBehaviour {
 			valPair.Value.parent = transform;
  
 			if (valPair.Key == "Left" || valPair.Key == "Right")
-				valPair.Value.localScale = new Vector3 (colThickness, screenSize.y * 2, colThickness);
+				valPair.Value.localScale = new Vector3 (colThickness, screenSize.y * 2 + colThickness * 2, colThickness);
 			else
 				valPair.Value.localScale = new Vector3 (screenSize.x * 2, colThickness, colThickness);
 		} 
@@ -62,13 +62,12 @@ public class EdgeScreenCollisions : MonoBehaviour {
 			sr.drawMode = SpriteDrawMode.Sliced;
 
 			if (valPair.Key == "Left" || valPair.Key == "Right") {
-				sr.size = new Vector2 (.005f, 1.0127f);
-				sr.color = Color.gray;
+				sr.size = new Vector2 (.015f, .655f);
 				if (valPair.Key == "Left") {
 					
-					go.transform.localPosition = new Vector3 (.497f, 0);
+					go.transform.localPosition = new Vector3 (.4925f, 0);
 				} else {
-					go.transform.localPosition = new Vector3 (-.497f, 0);
+					go.transform.localPosition = new Vector3 (-.4925f, 0);
 				}
 			} else {
 				
@@ -85,7 +84,7 @@ public class EdgeScreenCollisions : MonoBehaviour {
 		}
 			
 			
-		GameObject TopRight = new GameObject ("TopRight");
+/*		GameObject TopRight = new GameObject ("TopRight");
 		TopRight.transform.position = new Vector3 (cameraPos.x + screenSize.x + .1f, cameraPos.y + screenSize.y + .1f);
 		TopRight.transform.eulerAngles = new Vector3 (0, 0, 45);
 		TopRight.transform.parent = transform;
@@ -97,7 +96,7 @@ public class EdgeScreenCollisions : MonoBehaviour {
 		TopLeft.transform.eulerAngles = new Vector3 (0, 0, 45);
 		TopLeft.transform.parent = transform;
 		TopLeft.transform.localScale = new Vector3 (.8f, .4f, 1);
-		TopLeft.tag = "Edge";
+		TopLeft.tag = "Edge";*/
 /*		GameObject BottomRight = new GameObject ("BottomCollider");
 		BottomRight.transform.position = new Vector3 (cameraPos.x + screenSize.x, cameraPos.y - screenSize.y);
 		BottomRight.transform.eulerAngles = new Vector3 (0, 0, 45);
@@ -110,10 +109,10 @@ public class EdgeScreenCollisions : MonoBehaviour {
 		BottomLeft.transform.parent = transform;
 		BottomLeft.transform.localScale = new Vector3 (.3f, .3f, 1);*/
 
-		CircleCollider2D cc = TopRight.AddComponent<CircleCollider2D> ();
+/*		CircleCollider2D cc = TopRight.AddComponent<CircleCollider2D> ();
 		cc.radius = .3f;
 		cc = TopLeft.AddComponent<CircleCollider2D> ();
-		cc.radius = .3f;
+		cc.radius = .3f;*/
 		/*BottomLeft.AddComponent<BoxCollider2D> ();
 		BottomRight.AddComponent<BoxCollider2D> ();*/
 

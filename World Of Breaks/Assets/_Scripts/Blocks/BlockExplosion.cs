@@ -56,7 +56,7 @@ public class BlockExplosion : BlockWithText {
 							BlockWithText block = BlocksController.Instance.blockMap [y] [x].blockComp;
 
 							if (block != null && block.canLooseDown) {
-								block.justDestroy = true;
+								block.needEffects = false;
 								block.Die ();
 							}
 						}
@@ -66,6 +66,8 @@ public class BlockExplosion : BlockWithText {
 
 			BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife = 0;
 			BlocksController.Instance.CalculateBlockLife ();
+
+			CameraShake.Ins.ShakeCamera ();
 
 			AudioManager.PlaySoundFromLibrary ("Explode");
 		}

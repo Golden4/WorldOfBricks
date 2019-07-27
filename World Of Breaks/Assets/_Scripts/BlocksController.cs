@@ -73,7 +73,7 @@ public class BlocksController : MonoBehaviour {
 		else
 			presetIndex = 0;
 
-		Camera.main.orthographicSize = curPreset.cameraSize;
+		ResetCamera ();
 
 		InitializeBlockMap ();
 
@@ -91,6 +91,11 @@ public class BlocksController : MonoBehaviour {
 			maxScore = GetMaxScore ();
 
 		BallController.Instance.OnThrowBalls += SaveOldState;
+	}
+
+	public void ResetCamera ()
+	{
+		Camera.main.orthographicSize = curPreset.cameraSize;
 	}
 
 	public int CalculateBlockLife ()

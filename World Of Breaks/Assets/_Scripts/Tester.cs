@@ -5,7 +5,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public class Tester : SingletonResourse<Tester> {
-	#if UNITY_EDITOR
+
 	public int timeScale = 100;
 	public bool startTest;
 	bool isStartedTest;
@@ -22,9 +22,23 @@ public class Tester : SingletonResourse<Tester> {
 	public override void OnInit ()
 	{
 		base.OnInit ();
+
+		if (Application.isMobilePlatform) {
+			Destroy (gameObject);	
+			return;
+		}
+
 		SceneController.OnRestartLevel += OnRestartLevel;
 		DontDestroyOnLoad (gameObject);
 	}
+
+	/*	[UnityEditor.MenuItem ("MyMenu/UnlockChallenges")]
+	static void UnlockAll ()
+	{
+		for (int i = 0; i < User.GetChallengesData.challData.Length; i++) {
+			User.GetChallengesData.challData [i] = 2;
+		}
+	}*/
 
 	void Update ()
 	{
@@ -181,5 +195,4 @@ public class Tester : SingletonResourse<Tester> {
 			SceneController.OnRestartLevel -= OnRestartLevel;
 		}
 	}
-	#endif
 }
