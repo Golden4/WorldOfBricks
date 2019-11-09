@@ -378,7 +378,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405113324899723}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_Children:
   - {fileID: 8818405115019632700}
   m_Father: {fileID: 8818405113453157742}
@@ -756,10 +756,10 @@ MonoBehaviour:
   m_RotationVariable: 0
   m_ScaleIn:
     Enable: 1
-    Animating: 0
-    Began: 0
+    Animating: 1
+    Began: 1
     Delay: 0
-    Done: 1
+    Done: 0
     EaseType: 27
     ScaleBegin: {x: 0, y: 0, z: 0}
     Time: 0.3
@@ -1036,9 +1036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce4bd6412747204ba0145f2b444e771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anims: []
-  animate: 1
-  getAnimsOnStart: 1
+  screenType: 0
+  disableScreenUnderneath: 0
   buyCoinBtns:
   - productID: coins_1
     btn: {fileID: 8818405114709166187}
@@ -1874,7 +1873,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405114709166191}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_Children:
   - {fileID: 8818405114610827120}
   m_Father: {fileID: 8818405113453157742}
@@ -2252,10 +2251,10 @@ MonoBehaviour:
   m_RotationVariable: 0
   m_ScaleIn:
     Enable: 1
-    Animating: 0
-    Began: 0
+    Animating: 1
+    Began: 1
     Delay: 0
-    Done: 1
+    Done: 0
     EaseType: 27
     ScaleBegin: {x: 0, y: 0, z: 0}
     Time: 0.3
@@ -2378,7 +2377,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405114734561397}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_Children:
   - {fileID: 8818405113857315570}
   m_Father: {fileID: 8818405113453157742}
@@ -2756,10 +2755,10 @@ MonoBehaviour:
   m_RotationVariable: 0
   m_ScaleIn:
     Enable: 1
-    Animating: 0
-    Began: 0
+    Animating: 1
+    Began: 1
     Delay: 0
-    Done: 1
+    Done: 0
     EaseType: 27
     ScaleBegin: {x: 0, y: 0, z: 0}
     Time: 0.3
@@ -2882,7 +2881,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405114859486060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 19.561981}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_Children:
   - {fileID: 8818405114681328454}
   m_Father: {fileID: 8818405113453157742}
@@ -3271,10 +3270,10 @@ MonoBehaviour:
   m_RotationVariable: 0
   m_ScaleIn:
     Enable: 1
-    Animating: 0
-    Began: 0
+    Animating: 1
+    Began: 1
     Delay: 0
-    Done: 1
+    Done: 0
     EaseType: 27
     ScaleBegin: {x: 0, y: 0, z: 0}
     Time: 0.3
@@ -3915,7 +3914,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405115173893517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_Children:
   - {fileID: 8818405115173702337}
   m_Father: {fileID: 8818405113453157742}
@@ -4293,10 +4292,10 @@ MonoBehaviour:
   m_RotationVariable: 0
   m_ScaleIn:
     Enable: 1
-    Animating: 0
-    Began: 0
+    Animating: 1
+    Began: 1
     Delay: 0
-    Done: 1
+    Done: 0
     EaseType: 27
     ScaleBegin: {x: 0, y: 0, z: 0}
     Time: 0.3

@@ -2,62 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenBase : MonoBehaviour {
-	
-	public GUIAnim[] anims;
-	public bool animate = true;
-	public bool getAnimsOnStart = true;
-	[System.NonSerialized]
-	public bool isActive;
+public class ScreenBase<T> : ScreenBase where T : ScreenBase<T>
+{
+    public static T Ins { get; private set; }
 
-	public void Init ()
-	{
-		OnInit ();
+    public override void OnInit()
+    {
+        Ins = (T)this;
+    }
+    public override void OnActivate()
+    {
+        isActive = true;
+    }
 
-		if (getAnimsOnStart) {
-			anims = GetComponentsInChildren <GUIAnim> ();
-		}
-	}
+    public override void OnDeactivate()
+    {
+        isActive = false;
+    }
 
-	public virtual void OnInit ()
-	{
-		
-	}
+    public override void OnCleanUp()
+    {
+    }
 
-	public void Activate ()
-	{
-		isActive = true;
-		gameObject.SetActive (true);
+    public override void OnBackPressed()
+    {
+    }
 
-		if (animate && anims != null) {
-			for (int i = 0; i < anims.Length; i++) {
-				anims [i].MoveIn (GUIAnimSystem.eGUIMove.Self);
-			}
-		}
+    public void Activate()
+    {
+        ScreenController.Ins.ActivateScreen(screenType);
+    }
 
-		OnActivate ();
-	}
+    public void Deactivate()
+    {
+        ScreenController.Ins.DeactivateScreen(this);
+    }
+}
 
-	public void Deactivate ()
-	{
-		if (isActive)
-			OnDeactivate ();
-		
-		gameObject.SetActive (false);
-		isActive = false;
-	}
+public abstract class ScreenBase : MonoBehaviour
+{
+    public ScreenController.GameScreen screenType;
+    [System.NonSerialized]
+    public bool isActive;
+    public bool disableScreenUnderneath;
 
-	public virtual void OnActivate ()
-	{
-		
-	}
-
-	public virtual void OnDeactivate ()
-	{
-	}
-
-	public virtual void OnCleanUp ()
-	{
-	}
+    public abstract void OnInit();
+    public abstract void OnBackPressed();
+    public abstract void OnActivate();
+    public abstract void OnDeactivate();
+    public abstract void OnCleanUp();
 
 }

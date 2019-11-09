@@ -4,77 +4,91 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class PauseScreen : ScreenBase {
+public class PauseScreen : ScreenBase<PauseScreen>
+{
 
+    public override void OnActivate()
+    {
+        Game.isPause = true;
+        Time.timeScale = 0;
+        AdManager.Ins.showBanner();
+        ActivatePauseBox();
+    }
 
+    public override void OnDeactivate()
+    {
+        Game.isPause = false;
+        Time.timeScale = 1;
+        AdManager.Ins.hideBanner();
+    }
 
-	public override void OnInit ()
-	{
-		base.OnInit ();
+    public void Continue()
+    {
+        Game.isPause = false;
+        Time.timeScale = 1;
 
-	}
+        if (UIScreen.Ins.playerLose)
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.GameOver);
+        else
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.UI);
+    }
 
-	public override void OnActivate ()
-	{
-		Game.isPause = true;
-		Time.timeScale = 0;
-		AdManager.Ins.showBanner ();
-	}
+    public void ActivatePauseScreen()
+    {
+        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Pause);
+    }
 
-	public override void OnDeactivate ()
-	{
-		Game.isPause = false;
-		Time.timeScale = 1;
-		AdManager.Ins.hideBanner ();
-	}
+    MessageBox pauseMessageBox;
 
-	public void Continue ()
-	{
-		Game.isPause = false;
-		Time.timeScale = 1;
+    public void ActivateMenu()
+    {
 
-		if (UIScreen.Ins.playerLose)
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
-		else
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
-	}
+        Action action = () =>
+        {
+            Game.isPause = false;
+            Time.timeScale = 1;
+            AdManager.Ins.hideBanner();
 
-	public void ActivatePauseScreen ()
-	{
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Pause);
-	}
+            if (!Game.isChallenge)
+            {
+                ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.GameOver);
+            }
+            else
+            {
+                ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+            }
 
-	public void ActivateMenu ()
-	{
-		UIScreen.Ins.playerLose = true;
-		if (!Game.isChallenge) {
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
-		} else
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.ChallegesResult);
-		
-		return;
-		Action action = delegate {
-			BlocksSaver.DeleteBlockMapKeys ();
+            pauseMessageBox?.Hide();
+        };
 
-			UIScreen.newGame = true;
-			UIScreen.Ins.playerLose = true;
-			BlocksController.Instance.DestroyAllBlocks ();
+        if (!Game.isChallenge)
+            MessageBox.ShowStatic("Quit game?", MessageBox.BoxType.Failed)
+            .SetDesc(LocalizationManager.GetLocalizedText("warning"))
+            .SetTextBtn("Ok", true, action)
+            .SetTextBtn("Cancel", true);
+        else
+            action.Invoke();
+    }
 
-			UIScreen.Ins.SetTopScore ();
+    public void RestartLevelBtn()
+    {
+        Action action = delegate
+        {
+            GameOverScreen.Ins.RestartLevel();
+        };
 
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
+        MessageBox.ShowStatic("Restart game?", MessageBox.BoxType.Retry)
+        .SetDesc(LocalizationManager.GetLocalizedText("warning"))
+        .SetTextBtn("Ok", true, action)
+        .SetTextBtn("Cancel", true);
+    }
 
-			Utility.Invoke (ScreenController.Ins, .5f, () => {
-				SceneController.LoadSceneWithFade (1);
-			});
-		};
-
-		if (!Game.isChallenge)
-			DialogBox.Show (LocalizationManager.GetLocalizedText ("warning"), action);
-		else
-			action.Invoke ();
-
-	}
-
+    public void ActivatePauseBox()
+    {
+        pauseMessageBox = MessageBox.ShowStatic("Pause", MessageBox.BoxType.Pause, () => Deactivate())
+        .SetImageBtn(true, () => ActivateMenu(), MessageBox.BtnSprites.Close, default, false)
+        .SetImageBtn(true, () => RestartLevelBtn(), MessageBox.BtnSprites.Retry, default, false)
+        .ShowSettings();
+    }
 
 }

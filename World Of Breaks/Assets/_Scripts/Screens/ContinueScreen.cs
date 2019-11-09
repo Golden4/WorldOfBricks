@@ -3,97 +3,102 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ContinueScreen : ScreenBase {
-	[SerializeField] Transform continueAdPanel;
-	[SerializeField] Button continueAdBtn;
-	[SerializeField] Button continueCoinBtn;
-	public Text coinText;
+public class ContinueScreen : ScreenBase<ContinueScreen>
+{
+    // [SerializeField] Transform continueAdPanel;
+    // [SerializeField] Button continueAdBtn;
+    // [SerializeField] Button continueCoinBtn;
+    // public Text coinText;
 
-	[SerializeField] Image continueTimer;
-	float lastTime;
-	float waitTime = 5;
-	public int dieCount;
+    [SerializeField] Image continueTimer;
+    float lastTime;
+    float waitTime = 5;
+    public int dieCount;
 
-	public bool givedSecondChance = false;
+    public bool givedSecondChance = false;
+    MessageBox messageBox;
+    public override void OnActivate()
+    {
+        base.OnActivate();
 
-	public override void OnInit ()
-	{
-		base.OnInit ();
-		continueAdBtn.onClick.RemoveAllListeners ();
-		continueAdBtn.onClick.AddListener (RespawnPlayerVideo);
+        dieCount++;
 
-	}
+        messageBox = MessageBox.ShowStatic("Continue?", MessageBox.BoxType.Continue, () => CloseContinueScreen(), false)
+        .SetImageTextBtn((25 * dieCount).ToString(), true, () =>
+        {
+            if (User.BuyWithCoin(25 * dieCount))
+                RetryGame();
+        }, MessageBox.BtnSprites.Coin)
+        .SetImageBtn(true, () => RespawnPlayerVideo(), MessageBox.BtnSprites.Video, default, false);
 
-	public MeshRenderer mr;
+        // coinText.text = (25 * dieCount).ToString();
+        // continueCoinBtn.onClick.RemoveAllListeners();
+        // continueCoinBtn.onClick.AddListener(delegate
+        // {
+        //     if (User.BuyWithCoin(25 * dieCount))
+        //         RetryGame();
+        // }
+        // );
 
-	public override void OnActivate ()
-	{
-		base.OnActivate ();
+        lastTime = Time.time + .4f;
+        AdManager.onRewardedVideoFinishedEvent += RetryGame;
+    }
 
-		dieCount++;
-		coinText.text = (25 * dieCount).ToString ();
-		continueCoinBtn.onClick.RemoveAllListeners ();
-		continueCoinBtn.onClick.AddListener (delegate {
-			if (User.BuyWithCoin (25 * dieCount))
-				RetryGame ();
-		}
-		);
+    public override void OnDeactivate()
+    {
+        base.OnDeactivate();
+        clickedToVideoBtn = false;
+        AdManager.onRewardedVideoFinishedEvent -= RetryGame;
+    }
 
-		lastTime = Time.time + .4f;
-		continueAdPanel.gameObject.SetActive (true);
-		continueAdPanel.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
-		AdManager.onRewardedVideoFinishedEvent += RetryGame;
-		/*
-		continueAdBtn.gameObject.SetActive (true);
-		GUIAnimSystem.Instance.MoveIn (transform, true);
-		continueAdBtn.GetComponent <ButtonIcon> ().EnableBtn (AdController.Ins.interstitialLoaded);
-	} else {
-		continueAdPanel.gameObject.SetActive (false);*/
-	}
+    public void CloseContinueScreen()
+    {
+        messageBox.Hide();
+        ScreenController.Ins.DeactivateScreen(this);
+        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.GameOver);
+    }
 
-	public override void OnDeactivate ()
-	{
-		base.OnDeactivate ();
-		AdManager.onRewardedVideoFinishedEvent -= RetryGame;
-	}
+    void Update()
+    {
+        if (givedSecondChance && !AdController.Ins.interstitialLoaded)
+        {
+            CloseContinueScreen();
+            return;
+        }
+        if (!clickedToVideoBtn && messageBox != null)
+        {
+            messageBox.SetProgress(1 - ((Time.time - lastTime) / waitTime));
+            // continueTimer.fillAmount = 1 - ((Time.time - lastTime) / waitTime);
+        }
 
-	public void CloseContinueScreen ()
-	{
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
-	}
+        if (lastTime + waitTime < Time.time && !clickedToVideoBtn)
+        {
 
-	void Update ()
-	{
-		if (givedSecondChance && !AdController.Ins.interstitialLoaded) {
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
-			return;
-		}
-		
-		if (lastTime + waitTime < Time.time && !clickedToVideoBtn) {
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.GameOver);
-		}
+            CloseContinueScreen();
 
-		if (!clickedToVideoBtn)
-			continueTimer.fillAmount = 1 - ((Time.time - lastTime) / waitTime);
-	}
+        }
 
-	bool clickedToVideoBtn;
+    }
 
-	void RespawnPlayerVideo ()
-	{
-		clickedToVideoBtn = true;
-		if (AdManager.Ins != null) {
-			AdManager.Ins.showRewardedVideo ();
+    bool clickedToVideoBtn;
 
-		}
-	}
+    void RespawnPlayerVideo()
+    {
+        clickedToVideoBtn = true;
 
-	public void RetryGame ()
-	{
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.UI);
-		BlocksController.Instance.DestroyLastLine (false);
-		UIScreen.Ins.playerLose = false;
-		//Player.Ins.Retry ();
-	}
+        if (AdManager.Ins != null)
+        {
+            AdManager.Ins.showRewardedVideo();
+
+        }
+    }
+
+    public void RetryGame()
+    {
+        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.UI);
+        BlocksController.Instance.DestroyLastLine(false);
+        UIScreen.Ins.playerLose = false;
+        //Player.Ins.Retry ();
+    }
 
 }

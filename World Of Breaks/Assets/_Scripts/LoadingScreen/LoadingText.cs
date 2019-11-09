@@ -5,79 +5,92 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
+using DG.Tweening;
 
-public class LoadingText : MonoBehaviour,IPermissionGrantedListener {
-	
-	[SerializeField]Text loadingText;
+public class LoadingText : MonoBehaviour, IPermissionGrantedListener
+{
 
-	float minLoadingTime = .5f;
-	float loadingTime;
-	public Image loadingBar;
+    [SerializeField] Text loadingText;
 
-	void Awake ()
-	{
-		Appodeal.requestAndroidMPermissions (this);
-	}
+    float minLoadingTime = .5f;
+    float loadingTime;
+    public Image loadingBar;
 
-	void Start ()
-	{
-		loadingTime = 0;
-		AdManager.Ins.OnInit ();
-		PurchaseManager.Ins.TryInit ();
-		StartCoroutine (PingPongText (SceneController.nextSceneToLoad, 0.7f));
+    void Awake()
+    {
+        Appodeal.requestAndroidMPermissions(this);
+    }
 
-	}
+    void Start()
+    {
+        loadingTime = 0;
+        AdManager.Ins.OnInit();
+        PurchaseManager.Ins.TryInit();
+        // StartCoroutine(PingPongText(SceneController.nextSceneToLoad, 0.7f));
 
-	IEnumerator PingPongText (int sceneIndex, float time)
-	{
-		loadingText.gameObject.SetActive (true);
+        loadingText.gameObject.SetActive(true);
+        loadingText.DOFade(1f, .5f).ChangeStartValue(Color.clear).SetLoops(-1, LoopType.Yoyo);
+        SceneManager.LoadSceneAsync(SceneController.nextSceneToLoad);
+    }
 
-		float alpha = 1;
+    IEnumerator PingPongText(int sceneIndex, float time)
+    {
+        loadingText.gameObject.SetActive(true);
 
-		loadingText.GetComponent <GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
+        loadingText.DOFade(0.5f, .5f).ChangeStartValue(1f).SetLoops(-1, LoopType.Yoyo);
 
-		AsyncOperation ao = SceneManager.LoadSceneAsync (sceneIndex);
-		ao.allowSceneActivation = false;
+        float alpha = 1;
 
-		while (ao.progress <= .89f || loadingTime <= minLoadingTime) {
-			
-			loadingTime += Time.deltaTime;
-			loadingBar.fillAmount = Mathf.Clamp01 (loadingTime / minLoadingTime) * .9f;
+        AsyncOperation ao = SceneManager.LoadSceneAsync(sceneIndex);
+        ao.allowSceneActivation = false;
 
-			alpha = Mathf.PingPong (Time.timeSinceLevelLoad / time, 0.7f) + 0.3f;
-			yield return null;
-		}
+        while (ao.progress <= .89f || loadingTime <= minLoadingTime)
+        {
 
-		loadingTime = 0;
+            loadingTime += Time.deltaTime;
+            loadingBar.fillAmount = Mathf.Clamp01(loadingTime / minLoadingTime) * .9f;
 
-		while (loadingTime >= .1f) {
-			loadingTime += Time.deltaTime;
-			loadingBar.fillAmount = .9f + Mathf.Clamp01 (loadingTime / .1f) * .1f;
-			yield return null;
-		}
+            alpha = Mathf.PingPong(Time.timeSinceLevelLoad / time, 0.7f) + 0.3f;
+            yield return null;
+        }
 
-		loadingBar.fillAmount = 1;
+        loadingTime = 0;
 
-		yield return null;
+        while (loadingTime >= .1f)
+        {
+            loadingTime += Time.deltaTime;
+            loadingBar.fillAmount = .9f + Mathf.Clamp01(loadingTime / .1f) * .1f;
+            yield return null;
+        }
 
-		ao.allowSceneActivation = true;
-	}
+        loadingBar.fillAmount = 1;
 
-	public void writeExternalStorageResponse (int result)
-	{
-		if (result == 0) {
-			Debug.Log ("WRITE_EXTERNAL_STORAGE permission granted"); 
-		} else {
-			Debug.Log ("WRITE_EXTERNAL_STORAGE permission grant refused"); 
-		}
-	}
+        yield return null;
 
-	public void accessCoarseLocationResponse (int result)
-	{
-		if (result == 0) {
-			Debug.Log ("ACCESS_COARSE_LOCATION permission granted"); 
-		} else {
-			Debug.Log ("ACCESS_COARSE_LOCATION permission grant refused"); 
-		}
-	}
+        ao.allowSceneActivation = true;
+    }
+
+    public void writeExternalStorageResponse(int result)
+    {
+        if (result == 0)
+        {
+            Debug.Log("WRITE_EXTERNAL_STORAGE permission granted");
+        }
+        else
+        {
+            Debug.Log("WRITE_EXTERNAL_STORAGE permission grant refused");
+        }
+    }
+
+    public void accessCoarseLocationResponse(int result)
+    {
+        if (result == 0)
+        {
+            Debug.Log("ACCESS_COARSE_LOCATION permission granted");
+        }
+        else
+        {
+            Debug.Log("ACCESS_COARSE_LOCATION permission grant refused");
+        }
+    }
 }

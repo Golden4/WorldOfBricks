@@ -4,6 +4,7 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: OtherIcon_0
     21300002: OtherIcon_1
+    21300004: OtherIcon_2
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -111,7 +112,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bdc8f5e18c879d4c88f209d173bdd13
+      spriteID: 78aa2f73d8960e0418717ed5032724ec
       vertices: []
       indices: 
       edges: []
@@ -131,7 +132,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77feb0d2f7cf5154fa659b2dd606f528
+      spriteID: 258487f578cb7f740892cfa6b2418477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OtherIcon_2
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 0
+        width: 250
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce2020ecf4e35a644920b75a98d4dbd0
       vertices: []
       indices: 
       edges: []

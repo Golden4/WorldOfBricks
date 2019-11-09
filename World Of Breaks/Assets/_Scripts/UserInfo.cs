@@ -3,105 +3,193 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class UserInfo {
-	
-	public UserData[] _userData;
+public class UserInfo
+{
 
-	public UserData[] userData {
-		get {
-			return _userData;
-		}
+    public UserData[] _userData;
 
-		set {
-			_userData = value;
-		}
-	}
+    public UserData[] userData
+    {
+        get
+        {
+            return _userData;
+        }
 
-	public int curPlayerIndex = 0;
+        set
+        {
+            _userData = value;
+        }
+    }
 
-	[System.Serializable]
-	public class UserData {
-		public bool bought;
-	}
+    public int curPlayerIndex = 0;
 
-	public void ResetValues ()
-	{
-		for (int i = 0; i < userData.Length; i++) {
-			userData [i].bought = (i == 0);
-		}
-	}
+    [System.Serializable]
+    public class UserData
+    {
+        public bool bought;
+    }
 
-	public bool AllCharactersBought ()
-	{
-		for (int i = 0; i < userData.Length; i++) {
-			if (!userData [i].bought) {
-				return false;
-			}
-		}
-		return true;
-	}
+    public void ResetValues()
+    {
+        for (int i = 0; i < userData.Length; i++)
+        {
+            userData[i].bought = (i == 0);
+        }
+    }
 
-	public UserInfo ()
-	{
-		_userData = new UserData[Database.Get.playersData.Length];
+    public bool AllCharactersBought()
+    {
+        for (int i = 0; i < userData.Length; i++)
+        {
+            if (!userData[i].bought)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
-		for (int i = 0; i < _userData.Length; i++) {
-			_userData [i] = new UserData ();
-		}
+    public UserInfo()
+    {
+        _userData = new UserData[ItemsInfo.Get.playersData.Length];
 
-		curPlayerIndex = 0;
-		ResetValues ();
-	}
+        for (int i = 0; i < _userData.Length; i++)
+        {
+            _userData[i] = new UserData();
+        }
 
-	public UserInfo (UserData[] userData, int curPlayerIndex)
-	{
-		this.userData = userData;
-		this.curPlayerIndex = curPlayerIndex;
-	}
+        curPlayerIndex = 0;
+        ResetValues();
+    }
 
-	public int GetCurPlayerIndex ()
-	{
-		if (Game.ballTryingIndex > -1)
-			return Game.ballTryingIndex;
-		else
-			return curPlayerIndex;
-	}
+    public UserInfo(UserData[] userData, int curPlayerIndex)
+    {
+        this.userData = userData;
+        this.curPlayerIndex = curPlayerIndex;
+    }
+
+    public int GetCurPlayerIndex()
+    {
+        if (Game.ballTryingIndex > -1)
+            return Game.ballTryingIndex;
+        else
+            return curPlayerIndex;
+    }
 
 
 
 }
 
 [System.Serializable]
-public class ChallDataInfo {
+public class ChallDataInfo
+{
 
-	public int[] _challData;
+    [System.Serializable]
+    public class ChallengeGroup
+    {
+        public bool locked = true;
+        public int[] data;
+    }
 
-	public int[] challData {
-		get {
-			return _challData;
-		}
+    public ChallengeGroup[] _challData;
 
-		set {
-			_challData = value;
-		}
-	}
+    public ChallengeGroup[] challData
+    {
+        get
+        {
+            return _challData;
+        }
 
-	public ChallDataInfo ()
-	{
-		_challData = new int[Database.GetChall.challengesData.Length];
+        set
+        {
+            _challData = value;
+        }
+    }
 
-		for (int i = 0; i < _challData.Length; i++) {
-			_challData [i] = 0;
-		}
-        
-		ResetValues ();
-	}
+    public int GetCountData(int groupIndex)
+    {
 
-	public void ResetValues ()
-	{
-		for (int i = 0; i < challData.Length; i++) {
-			challData [i] = 0;
-		}
-	}
+        int count = 0;
 
+        for (int i = 0; i < challData[groupIndex].data.Length; i++)
+        {
+            if (challData[groupIndex].data[i] > 0)
+                count++;
+        }
+
+        return count;
+    }
+
+    public int GetSummData(int groupIndex)
+    {
+        int summ = 0;
+
+        for (int i = 0; i < challData[groupIndex].data.Length; i++)
+        {
+            summ += challData[groupIndex].data[i];
+        }
+
+        return summ;
+    }
+
+    public int GetValue(int challengeGroupIndex, int challengeIndex)
+    {
+        return _challData[challengeGroupIndex].data[challengeIndex];
+    }
+
+    public int GetCurrentValue()
+    {
+        return _challData[Game.curChallengeGroupIndex].data[Game.curChallengeIndex];
+    }
+
+    public void SetCurrentValue(int value)
+    {
+        _challData[Game.curChallengeGroupIndex].data[Game.curChallengeIndex] = value;
+    }
+
+    public ChallDataInfo()
+    {
+        _challData = new ChallengeGroup[ChallengesInfo.GetChall.challengesGroups.Count];
+
+        for (int i = 0; i < _challData.Length; i++)
+        {
+            _challData[i] = new ChallengeGroup();
+
+            if (i == 0)
+                _challData[i].locked = false;
+
+            _challData[i].data = new int[ChallengesInfo.GetChall.challengesGroups[i].challengesData.Count];
+            for (int j = 0; j < _challData[i].data.Length; j++)
+            {
+                _challData[i].data[j] = 0;
+            }
+        }
+
+        ResetValues();
+    }
+
+    public void Combine(ChallengeGroup[] _data)
+    {
+        for (int i = 0; i < _data.Length; i++)
+        {
+            _challData[i].locked = _data[i].locked;
+            for (int j = 0; j < _data[i].data.Length; j++)
+            {
+                if (_challData[i].data.Length > j)
+                    _challData[i].data[j] = _data[i].data[j];
+            }
+        }
+    }
+
+    public void ResetValues()
+    {
+        for (int i = 0; i < _challData.Length; i++)
+        {
+            _challData[i].data = new int[ChallengesInfo.GetChall.challengesGroups[i].challengesData.Count];
+            for (int j = 0; j < _challData[i].data.Length; j++)
+            {
+                _challData[i].data[j] = 0;
+            }
+        }
+    }
 }

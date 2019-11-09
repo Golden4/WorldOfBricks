@@ -4,393 +4,450 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Diagnostics;
+using DG.Tweening;
 
-public class UIScreen : ScreenBase {
-	public static UIScreen Ins;
+public class UIScreen : ScreenBase<UIScreen>
+{
+    public static event System.Action OnLoseEvent;
+    public static event System.Action OnWinEvent;
 
-	public static event System.Action OnLoseEvent;
-	public static event System.Action OnWinEvent;
+    public bool playerLose = false;
+    public bool playerWin;
+    public static bool newGame;
 
-	public bool playerLose = false;
-	public bool playerWin;
-	public static bool newGame;
+    public Button timeAcceleratorBtn;
+    public Button returnBallsBtn;
+    public Button retryThrowBtn;
 
-	public Button timeAcceleratorBtn;
-	public Button returnBallsBtn;
-	public Button retryThrowBtn;
+    public Text clearText;
+    public Text newCheckpointText;
 
-	public Text clearText;
-	public Text newCheckpointText;
+    int _topScore = -1;
 
-	int _topScore = -1;
+    public int topScore
+    {
+        get
+        {
+            if (_topScore == -1)
+            {
+                if (PlayerPrefs.HasKey("TopScore"))
+                    _topScore = PlayerPrefs.GetInt("TopScore");
+                else
+                    _topScore = 0;
+            }
 
-	public int topScore {
-		get {
-			if (_topScore == -1) {
-				if (PlayerPrefs.HasKey ("TopScore"))
-					_topScore = PlayerPrefs.GetInt ("TopScore");
-				else
-					_topScore = 0;
-			}
+            return _topScore;
+        }
 
-			return _topScore;
-		}
+        private set
+        {
+            _topScore = value;
+            PlayerPrefs.SetInt("TopScore", value);
+        }
+    }
 
-		private set {
-			_topScore = value;
-			PlayerPrefs.SetInt ("TopScore", value);
-		}
-	}
+    int _checkpoint = -1;
 
-	int _checkpoint = -1;
+    public int checkpoint
+    {
+        get
+        {
+            if (_checkpoint == -1)
+            {
+                LoadCheckpoint(TileSizeScreen.tileSize);
+            }
 
-	public int checkpoint {
-		get {
-			if (_checkpoint == -1) {
-				LoadCheckpoint (TileSizeScreen.tileSize);
-			}
+            return _checkpoint;
+        }
 
-			return _checkpoint;
-		}
+        private set
+        {
+            _checkpoint = value;
+            SaveCheckpoint(_checkpoint, TileSizeScreen.tileSize);
+        }
+    }
 
-		private set {
-			_checkpoint = value;
-			SaveCheckpoint (_checkpoint, TileSizeScreen.tileSize);
-		}
-	}
+    public Text topScoreText;
 
-	public Text topScoreText;
+    public int level = 0;
+    public int playerScore = 0;
+    public int multiplyer;
 
-	public int level = 0;
-	public int playerScore = 0;
-	public int multiplyer;
+    public Text levelText;
+    public Text playerScoreText;
+    public Text multiplyerText;
+    public Text newRecordScoreText;
+    public Text checkpointText;
 
-	public Text levelText;
-	public Text playerScoreText;
-	public Text multiplyerText;
-	public Text newRecordScoreText;
-	public Text checkpointText;
-    
-	public bool newRecord;
+    public bool newRecord;
 
-	public GameObject tutorialPrefab;
-	public ButtonIcon destroyLastLineBtn;
-	public ParticleSystem popUpParticle;
+    public GameObject tutorialPrefab;
+    public ButtonIcon destroyLastLineBtn;
+    public ParticleSystem popUpParticle;
 
 
-	public StarsBarPanel starsBarPanel;
+    public StarsBarPanel starsBarPanel;
+    public override void OnInit()
+    {
+        base.OnInit();
+        if (!Game.isChallenge)
+        {
+            if (newGame)
+            {
+                BlocksSaver.DeleteBlockMapKeys();
+                UpdateScore(checkpoint);
+                SetCheckpoint(0);
+            }
+            starsBarPanel.gameObject.SetActive(false);
 
-	public override void OnInit ()
-	{
-		Ins = this;
-	}
+        }
+        else
+        {
+            checkpointText.gameObject.SetActive(false);
+            UpdateScore(Game.curChallengeInfo.lifeCount);
+        }
+    }
+    private void Start()
+    {
 
-	private void Start ()
-	{
-		//if (PlayerPrefs.HasKey("CurLevel"))
-		//{
-		//    UpdateScore(PlayerPrefs.GetInt("CurLevel"));
-		//    newGame = false;
-		//} else
-		//{
-		//    newGame = true;
-		//}
+        mySequencePopUp = DOTween.Sequence();
+        mySequencePopUp.Append(clearText.transform.DOScale(Vector3.one, .3f).ChangeStartValue(Vector3.zero))
+          .AppendInterval(1)
+          .Append(clearText.transform.DOScale(Vector3.zero, .3f).ChangeStartValue(Vector3.one)).SetAutoKill(false).Pause();
 
-		//if (newGame)
-		//{
-		//    PlayerPrefs.DeleteKey("CurLevel");
-		//    UpdateScore(UIScreen.Ins.checkpoint);
-		//    SetCheckpoint(0);
-		//}
+        BlocksController.Instance.OnChangeTopLine += HideTimeAcceleratorBtn;
 
-		if (!Game.isChallenge) {
-			if (newGame) {
-				BlocksSaver.DeleteBlockMapKeys ();
-				UpdateScore (UIScreen.Ins.checkpoint);
-				SetCheckpoint (0);
-			}
-			starsBarPanel.gameObject.SetActive (false);
-
-		} else {
-			checkpointText.gameObject.SetActive (false);
-			UIScreen.Ins.UpdateScore (Game.curChallengeInfo.lifeCount);
-		}
-
-		BlocksController.Instance.OnChangeTopLine += HideTimeAcceleratorBtn;
-
-		/*	playerScore = 100000;
+        /*	playerScore = 100000;
 		playerWin = true;
 		if (Game.isChallenge)
 			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.ChallegesResult);*/
 
-	}
+    }
 
-	bool timeAcceleratorBtnEnabled;
+    bool timeAcceleratorBtnEnabled;
 
-	public void ShowTimeAcceleratorBtn ()
-	{
-		if (!timeAcceleratorBtnEnabled && !BlocksController.Instance.retryThrow) {
-			timeAcceleratorBtnEnabled = true;
-			timeAcceleratorBtn.gameObject.SetActive (true);
-			timeAcceleratorBtn.GetComponent<ButtonIcon> ().EnableBtn (true);
-			timeAcceleratorBtn.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
-		}
-	}
+    public void ShowTimeAcceleratorBtn()
+    {
 
-	public void HideTimeAcceleratorBtn ()
-	{
-		if (timeAcceleratorBtnEnabled) {
-			timeAcceleratorBtnEnabled = false;
-			timeAcceleratorBtn.GetComponent<GUIAnim> ().MoveOut (GUIAnimSystem.eGUIMove.Self);
-		}
-		Time.timeScale = 1;
-	}
+        if (!timeAcceleratorBtnEnabled && !BlocksController.Instance.retryThrow)
+        {
+            timeAcceleratorBtnEnabled = true;
+            timeAcceleratorBtn.gameObject.SetActive(true);
+            timeAcceleratorBtn.GetComponent<ButtonIcon>().EnableBtn(true);
 
-	public void TimeAcceleratorEnable ()
-	{
-		timeAcceleratorBtn.GetComponent<ButtonIcon> ().EnableBtn (false);
-		Time.timeScale = 2;
-	}
+            timeAcceleratorBtn.transform.DOKill();
+            timeAcceleratorBtn.transform.DOScale(Vector3.zero, .3f).From().ChangeEndValue(Vector3.one);
+        }
+    }
 
-	public void ShowClearText ()
-	{
-		if (!UIScreen.Ins.playerLose && checkpoint != level) {
+    public void HideTimeAcceleratorBtn()
+    {
+        if (timeAcceleratorBtnEnabled)
+        {
+            timeAcceleratorBtnEnabled = false;
 
-			float persentCheck = .8f;
+            timeAcceleratorBtn.transform.DOKill();
+            timeAcceleratorBtn.transform.DOScale(Vector3.zero, .3f).ChangeStartValue(Vector3.one);
+        }
+        Time.timeScale = 1;
+    }
 
-			if (Ball.HaveAblity (Ball.Ability.HigherChekpoint))
-				persentCheck = 1;
+    public void TimeAcceleratorEnable()
+    {
+        timeAcceleratorBtn.GetComponent<ButtonIcon>().EnableBtn(false);
+        Time.timeScale = 2;
+    }
 
-			int newCheck = Mathf.RoundToInt (level * persentCheck);
+    public void ShowClearText()
+    {
+        if (!UIScreen.Ins.playerLose && checkpoint != level)
+        {
 
-			SetCheckpoint (newCheck);
+            float persentCheck = .8f;
 
-			ShowPopUpText (LocalizationManager.GetLocalizedText ("clear"), LocalizationManager.GetLocalizedText ("new_checkpoint") + ": " + checkpoint.ToString ());
-		}
-	}
+            if (Ball.HaveAblity(Ball.Ability.HigherChekpoint))
+                persentCheck = 1;
 
-	public void ChallengeCompleted ()
-	{
-		if (!UIScreen.Ins.playerLose) {
-			UIScreen.Ins.playerWin = true;
-			ShowPopUpText (LocalizationManager.GetLocalizedText ("clear"));
-			BallController.Instance.ReturnAllBalls ();
-		}
-	}
+            int newCheck = Mathf.RoundToInt(level * persentCheck);
 
-	public void ShowPopUpText (string popUpText, string secondText = "")
-	{
-		if (secondText == "")
-			newCheckpointText.gameObject.SetActive (false);
-		else {
-			newCheckpointText.gameObject.SetActive (true);
-			newCheckpointText.text = secondText;
-		}
-		AudioManager.PlaySoundFromLibrary ("PopUp");
-		clearText.gameObject.SetActive (true);
-		clearText.text = popUpText;
+            SetCheckpoint(newCheck);
 
-		GUIAnim textAnim = clearText.GetComponent<GUIAnim> ();
-		textAnim.m_ScaleIn.Actions.OnEnd.RemoveAllListeners ();
-		textAnim.m_ScaleIn.Actions.OnEnd.AddListener (delegate {
-			textAnim.MoveOut (GUIAnimSystem.eGUIMove.Self);
-		});
+            ShowPopUpText(LocalizationManager.GetLocalizedText("clear"), LocalizationManager.GetLocalizedText("new_checkpoint") + ": " + checkpoint.ToString());
+        }
+    }
 
-		Destroy (Instantiate<GameObject> (popUpParticle.gameObject, Vector3.zero, Quaternion.identity), 2);
-		textAnim.MoveIn (GUIAnimSystem.eGUIMove.Self);
-	}
+    public void ChallengeCompleted()
+    {
+        if (!UIScreen.Ins.playerLose)
+        {
+            UIScreen.Ins.playerWin = true;
+            ShowPopUpText(LocalizationManager.GetLocalizedText("clear"));
+            BallController.Instance.ReturnAllBalls();
+        }
+    }
 
-	public void EnableReturnBallsBtn (bool enable)
-	{
-		if (enable) {
-			returnBallsBtn.gameObject.SetActive (true);
-			returnBallsBtn.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
-		} else {
-			returnBallsBtn.GetComponent<GUIAnim> ().MoveOut (GUIAnimSystem.eGUIMove.Self);
-		}
+    Sequence mySequencePopUp;
 
-		EnableRetryThrowBtn ((!Game.isChallenge) ? enable : false);
-        
-	}
+    public void ShowPopUpText(string popUpText, string secondText = "")
+    {
+        if (mySequencePopUp.IsPlaying())
+        {
+            return;
+        }
+        if (secondText == "")
+            newCheckpointText.gameObject.SetActive(false);
+        else
+        {
+            newCheckpointText.gameObject.SetActive(true);
+            newCheckpointText.text = secondText;
+        }
 
-	public override void OnCleanUp ()
-	{
-		BlocksController.Instance.OnChangeTopLine -= HideTimeAcceleratorBtn;
-	}
+        if (!mySequencePopUp.IsPlaying())
+            AudioManager.PlaySoundFromLibrary("PopUp");
 
-	public void SetTopScore ()
-	{
-		if (topScore < level) {
-			topScore = level;
-			newRecord = true;
-		}
-	}
+        clearText.gameObject.SetActive(true);
+        clearText.text = popUpText;
 
-	public void SetCheckpoint (int check)
-	{
-		checkpoint = check;
+        mySequencePopUp.Restart();
+        GameObject go = Instantiate<GameObject>(popUpParticle.gameObject);
+        go.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
+        go.transform.SetAsFirstSibling();
+        go.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+        Destroy(go, 2);
+    }
 
-		if (check != 0)
-			checkpointText.text = LocalizationManager.GetLocalizedText ("checkpoint") + ": " + check.ToString ();
-		else
-			checkpointText.text = LocalizationManager.GetLocalizedText ("no_checkpoint");
-	}
+    Vector3 returnBallsBtnStartPos = default;
 
-	void LoadCheckpoint (TileSizeScreen.TileSize tileSize)
-	{
-		if (PlayerPrefs.HasKey ("Checkpoint" + (int)tileSize))
-			_checkpoint = PlayerPrefs.GetInt ("Checkpoint" + (int)tileSize);
-		else
-			_checkpoint = 0;
-	}
+    public void EnableReturnBallsBtn(bool enable)
+    {
+        if (returnBallsBtnStartPos == default)
+        {
+            returnBallsBtnStartPos = returnBallsBtn.GetComponent<RectTransform>().anchoredPosition;
+        }
 
-	void SaveCheckpoint (int value, TileSizeScreen.TileSize tileSize)
-	{
-		PlayerPrefs.SetInt ("Checkpoint" + (int)tileSize, value);
-	}
+        returnBallsBtn.transform.DOKill();
 
-	bool gameStarted;
+        if (enable)
+        {
+            returnBallsBtn.gameObject.SetActive(true);
+            returnBallsBtn.GetComponent<RectTransform>().DOAnchorPos(returnBallsBtnStartPos + Vector3.up * -100, .3f).From().ChangeEndValue(returnBallsBtnStartPos + Vector3.zero);
+        }
+        else
+        {
 
-	GameObject tutrlTemp;
+            returnBallsBtn.GetComponent<RectTransform>().DOAnchorPos(returnBallsBtnStartPos + Vector3.up * -100, .3f).ChangeStartValue(returnBallsBtnStartPos + Vector3.zero);
+        }
 
-	void ShowTutorial ()
-	{
-		if (tutrlTemp == null && !PlayerPrefs.HasKey ("TutorialComplete")) {
-			tutrlTemp = Instantiate (tutorialPrefab);
-			tutrlTemp.transform.SetParent (transform, false);
-		}
-	}
+    }
 
-	public void HideTutorial ()
-	{
-		if (tutrlTemp != null) {
-			Destroy (tutrlTemp);
-			PlayerPrefs.SetString ("TutorialComplete", "yes");
-		}
-	}
+    public override void OnCleanUp()
+    {
+        BlocksController.Instance.OnChangeTopLine -= HideTimeAcceleratorBtn;
+    }
 
-	public override void OnActivate ()
-	{
-		if (!Game.isChallenge) {
-			topScoreText.gameObject.SetActive (true);
-			topScoreText.text = LocalizationManager.GetLocalizedText ("top_score") + ": " + topScore.ToString ();
-		}
+    public void SetTopScore()
+    {
+        if (topScore < level)
+        {
+            topScore = level;
+            newRecord = true;
+        }
+    }
 
-		if (!gameStarted)
-			Game.OnGameStartedCall ();
-		
-		ShowTutorial ();
+    public void SetCheckpoint(int check)
+    {
+        checkpoint = check;
 
-		gameStarted = true;
+        if (check != 0)
+            checkpointText.text = LocalizationManager.GetLocalizedText("checkpoint") + ": " + check.ToString();
+        else
+            checkpointText.text = LocalizationManager.GetLocalizedText("no_checkpoint");
+    }
 
-		SetCheckpoint (checkpoint);
+    void LoadCheckpoint(TileSizeScreen.TileSize tileSize)
+    {
+        if (PlayerPrefs.HasKey("Checkpoint" + (int)tileSize))
+            _checkpoint = PlayerPrefs.GetInt("Checkpoint" + (int)tileSize);
+        else
+            _checkpoint = 0;
+    }
 
-		destroyLastLineBtn.EnableBtn (!Game.isChallenge);
-	}
+    void SaveCheckpoint(int value, TileSizeScreen.TileSize tileSize)
+    {
+        PlayerPrefs.SetInt("Checkpoint" + (int)tileSize, value);
+    }
 
-	public void UpdateScore (int curLevel)
-	{
-		level = curLevel;
-		multiplyer = (curLevel + 10) / 10;
-		multiplyerText.text = "<size=10>x</size>" + multiplyer;
+    bool gameStarted;
 
-		if (!Game.isChallenge) {
-			multiplyerText.gameObject.SetActive (true);
-			levelText.text = LocalizationManager.GetLocalizedText ("level") + ": " + curLevel.ToString ();
-		} else {
-			multiplyerText.gameObject.SetActive (false);
-			levelText.gameObject.SetActive (false);
-			topScoreText.gameObject.SetActive (true);
-			topScoreText.text = LocalizationManager.GetLocalizedText ("attempts") + ": " + curLevel.ToString ();
-		}
+    GameObject tutrlTemp;
 
-		if (curLevel > topScore && !Game.isChallenge) {
-			newRecord = true;
-			newRecordScoreText.gameObject.SetActive (true);
-		} else {
-			newRecordScoreText.gameObject.SetActive (false);
-		}
-	}
+    void ShowTutorial()
+    {
+        if (tutrlTemp == null && !PlayerPrefs.HasKey("TutorialComplete"))
+        {
+            tutrlTemp = Instantiate(tutorialPrefab);
+            tutrlTemp.transform.SetParent(transform, false);
+        }
+    }
 
-	float t;
-	int fromValue;
+    public void HideTutorial()
+    {
+        if (tutrlTemp != null)
+        {
+            Destroy(tutrlTemp);
+            PlayerPrefs.SetString("TutorialComplete", "yes");
+        }
+    }
 
-	public void AddPlayerScore (int value)
-	{
-		if (playerLose)
-			return;
-		
-		t = 1;
-		playerScore += value;
+    public override void OnActivate()
+    {
+        if (!Game.isChallenge)
+        {
+            topScoreText.gameObject.SetActive(true);
+            topScoreText.text = LocalizationManager.GetLocalizedText("top_score") + ": " + topScore.ToString();
+        }
 
-		if (Game.isChallenge)
-			starsBarPanel.SetProgress (ChallengeResultScreen.progressPersent);
-	}
+        if (!gameStarted)
+            Game.OnGameStartedCall();
 
-	public void SetPlayerScore (int score)
-	{
-		fromValue = score;
-		playerScore = score;
-		playerScoreText.text = score.ToString ();
-		t = 0;
-		if (Game.isChallenge)
-			starsBarPanel.SetProgress (ChallengeResultScreen.progressPersent);
-	}
+        ShowTutorial();
 
-	void Update ()
-	{
-		if (t > 0) {
-			t -= Time.deltaTime / .3f;
-			fromValue = Mathf.RoundToInt (Mathf.Lerp ((float)fromValue, (float)playerScore, 1 - t));
-			playerScoreText.text = fromValue.ToString ();
-		} else if (t <= -0.01f) {
-				t = 0;
-				fromValue = playerScore;
-				playerScoreText.text = playerScore.ToString ();
-			}
-	}
+        gameStarted = true;
 
-	public static void OnLoseEventCall ()
-	{
-		if (OnLoseEvent != null) {
-			OnLoseEvent ();
-		}
+        SetCheckpoint(checkpoint);
 
-		Ins.playerLose = true;
+        destroyLastLineBtn.EnableBtn(!Game.isChallenge);
+    }
 
-		if (Game.isChallenge)
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.ChallegesResult);
-		else
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Continue);
-        
-	}
+    public void UpdateScore(int curLevel)
+    {
+        level = curLevel;
+        multiplyer = (curLevel + 10) / 10;
+        multiplyerText.text = "<size=10>x</size>" + multiplyer;
 
-	public static void OnWinEventCall ()
-	{
-		if (OnWinEvent != null) {
-			OnWinEvent ();
-		}
+        if (!Game.isChallenge)
+        {
+            multiplyerText.gameObject.SetActive(true);
+            levelText.text = LocalizationManager.GetLocalizedText("level") + ": " + curLevel.ToString();
+        }
+        else
+        {
+            multiplyerText.gameObject.SetActive(false);
+            levelText.gameObject.SetActive(false);
+            topScoreText.gameObject.SetActive(true);
+            topScoreText.text = LocalizationManager.GetLocalizedText("attempts") + ": " + curLevel.ToString();
+        }
 
-		Ins.playerWin = true;
-		Utility.Invoke (ScreenController.Ins, 1, delegate {
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.ChallegesResult);
-		});
+        if (curLevel > topScore && !Game.isChallenge)
+        {
+            newRecord = true;
+            newRecordScoreText.gameObject.SetActive(true);
+        }
+        else
+        {
+            newRecordScoreText.gameObject.SetActive(false);
+        }
+    }
 
-	}
+    float t;
+    int fromValue;
 
-	public void EnableDestroyLastLineBtn (bool enable)
-	{
-		destroyLastLineBtn.EnableBtn (enable);
-	}
+    public void AddPlayerScore(int value)
+    {
+        if (playerLose)
+            return;
 
-	public void EnableRetryThrowBtn (bool enable)
-	{
-		if (enable) {
-			retryThrowBtn.gameObject.SetActive (true);
-			retryThrowBtn.GetComponent<GUIAnim> ().MoveIn (GUIAnimSystem.eGUIMove.Self);
-		} else {
-			retryThrowBtn.GetComponent<GUIAnim> ().MoveOut (GUIAnimSystem.eGUIMove.Self);
-		}
-	}
+        t = 1;
+        playerScore += value;
+
+        if (Game.isChallenge)
+            starsBarPanel.SetProgress(ChallengeResultScreen.progressPersent);
+    }
+
+    public void SetPlayerScore(int score)
+    {
+        fromValue = score;
+        playerScore = score;
+        playerScoreText.text = score.ToString();
+        t = 0;
+        if (Game.isChallenge)
+            starsBarPanel.SetProgress(ChallengeResultScreen.progressPersent);
+    }
+
+    void Update()
+    {
+        if (t > 0)
+        {
+            t -= Time.deltaTime / .3f;
+            fromValue = Mathf.RoundToInt(Mathf.Lerp((float)fromValue, (float)playerScore, 1 - t));
+            playerScoreText.text = fromValue.ToString();
+        }
+        else if (t <= -0.01f)
+        {
+            t = 0;
+            fromValue = playerScore;
+            playerScoreText.text = playerScore.ToString();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            ShowClearText();
+    }
+
+    public static void OnLoseEventCall()
+    {
+        if (OnLoseEvent != null)
+        {
+            OnLoseEvent();
+        }
+
+        Ins.playerLose = true;
+
+        if (Game.isChallenge)
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+        else
+            // MessageBox.ShowStatic("Continue?", MessageBox.BoxType.Retry)
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Continue);
+
+    }
+
+    public static void OnWinEventCall()
+    {
+        if (OnWinEvent != null)
+        {
+            OnWinEvent();
+        }
+
+        Ins.playerWin = true;
+        Utility.Invoke(ScreenController.Ins, 1, delegate
+        {
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+        });
+
+    }
+
+    public void EnableDestroyLastLineBtn(bool enable)
+    {
+        destroyLastLineBtn.EnableBtn(enable);
+    }
+
+    public void EnableRetryThrowBtn(bool enable)
+    {
+        if (enable && BlocksController.Instance.CanRetry())
+        {
+            retryThrowBtn.gameObject.SetActive(true);
+            retryThrowBtn.transform.DOKill();
+            retryThrowBtn.transform.DOScale(Vector3.zero, .3f).From().ChangeEndValue(Vector3.one);
+        }
+        else
+        {
+            retryThrowBtn.transform.DOKill();
+            retryThrowBtn.transform.DOScale(Vector3.zero, .3f);
+        }
+    }
+
+    public void ActivateScreenPause()
+    {
+        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Pause);
+    }
 
 }

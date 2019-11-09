@@ -35,3 +35,240 @@ MonoBehaviour:
     ballCount: 15
   - lifeCount: 5
     ballCount: 50
+  challengesGroups:
+  - name: Introductory
+    mapTexture: {fileID: 2800000, guid: 9cadda53e1b9f3d409d4ffa4c0a61270, type: 3}
+    challengesData:
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 100
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+  - name: Beginner
+    mapTexture: {fileID: 0}
+    challengesData:
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+    - lifeCount: 5
+      ballCount: 50
+  - name: Expert
+    mapTexture: {fileID: 0}
+    challengesData:
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+  - name: Expert
+    mapTexture: {fileID: 0}
+    challengesData:
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+  - name: Expert
+    mapTexture: {fileID: 0}
+    challengesData:
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+  - name: Expert
+    mapTexture: {fileID: 0}
+    challengesData:
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+  - name: Expert
+    mapTexture: {fileID: 0}
+    challengesData:
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+  - name: Expert
+    mapTexture: {fileID: 0}
+    challengesData:
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+  - name: Expert
+    mapTexture: {fileID: 0}
+    challengesData:
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+  - name: Expert
+    mapTexture: {fileID: 0}
+    challengesData:
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0
+    - lifeCount: 0
+      ballCount: 0

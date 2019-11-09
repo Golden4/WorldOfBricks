@@ -1,170 +1,204 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BlockWithText : MonoBehaviour {
+public class BlockWithText : MonoBehaviour
+{
 
-	public bool active;
+    public bool active;
 
-	public int coordsX;
+    public int coordsX;
 
-	public int coordsY;
+    public int coordsY;
 
-	protected SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
-	protected TextMesh textMesh;
+    protected TextMesh textMesh;
 
-	public Gradient g;
+    float curColorValue;
 
-	public ParticleSystem destroyParticle;
+    public ParticleSystem destroyParticle;
 
-	public bool canLooseDown;
+    public bool canLooseDown;
 
-	protected Color curColor;
+    public bool isDead;
 
-	public bool isDead;
+    public bool isLoadingBlock;
 
-	public bool isLoadingBlock;
+    protected virtual void Start()
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        textMesh = GetComponentInChildren<TextMesh>();
+        UpdateText();
 
-	protected virtual void Start ()
-	{
-		spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
-		textMesh = GetComponentInChildren <TextMesh> ();
-		UpdateText ();
-		curColor = g.Evaluate ((BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife % 30) / 30f);
-		spriteRenderer.color = curColor;
-		needEffects = true;
-	}
+        ChangeSpriteColor((BlocksController.Instance.blockMap[coordsY][coordsX].blockLife % 50) / 50f);
 
-	protected void ChangeSpriteColor (SpriteRenderer spriteRenderer)
-	{
+        needEffects = true;
+    }
 
-	}
+    public virtual void Hit(Ball ball)
+    {
+        Hit();
+    }
 
-	public virtual void Hit (Ball ball)
-	{
-		Hit ();
-	}
+    protected float t = 0;
+    protected float timerSpeed = 6;
 
-	protected float t = 0;
-	protected float timerSpeed = 6;
+    void Update()
+    {
 
-	void Update ()
-	{
+        if (t > 0)
+        {
+            t -= Time.deltaTime * timerSpeed;
 
-		if (t > 0) {
-			t -= Time.deltaTime * timerSpeed;
+            TimerStart();
 
-			TimerStart ();
+        }
+        else if (t <= -0.01f)
+        {
+            t = 0;
 
-		} else if (t <= -0.01f) {
-				t = 0;
+            TimerEnd();
+        }
+    }
 
-				TimerEnd ();
-			}
-	}
+    Color colorToLerp = Color.black;
 
-	Color colorToLerp = Color.black;
+    protected virtual void TimerStart()
+    {
+        spriteRenderer.material.SetColor("_Color", colorToLerp);
+        spriteRenderer.material.SetFloat("_FillAlpha", Mathf.Lerp(.5f, 1f, 1f - t));
+    }
 
-	protected virtual void TimerStart ()
-	{
-		spriteRenderer.color = Color.Lerp (colorToLerp, curColor, 1f - t);
-	}
+    protected virtual void TimerEnd()
+    {
+        spriteRenderer.material.SetColor("_Color", colorToLerp);
+        spriteRenderer.material.SetFloat("_FillAlpha", 1f);
+    }
 
-	protected virtual void TimerEnd ()
-	{
-		spriteRenderer.color = curColor;
-	}
+    protected virtual void ChangeSpriteColor(float value)
+    {
+        spriteRenderer.material.SetColor("_TopColor", BlocksController.Instance.boxGradient.Evaluate(value));
+        spriteRenderer.material.SetColor("_BottomColor", BlocksController.Instance.boxGradient2.Evaluate(value));
+    }
+
+    public virtual void Hit()
+    {
+        int hitAmount = 1;
+
+        colorToLerp = Color.black;
+
+        if (Ball.HaveAblity(Ball.Ability.DoubleHitBrick))
+        {
+            if (Random.Range(0, 10) == 0)
+            {
+                hitAmount = 2;
+                colorToLerp = Color.white;
+            }
+        }
+
+        int blockLifeAfterHit = BlocksController.Instance.blockMap[coordsY][coordsX].blockLife - hitAmount;
+
+        BlocksController.Instance.blockMap[coordsY][coordsX].blockLife = (blockLifeAfterHit < 0) ? 0 : blockLifeAfterHit;
+
+        if (BlocksController.Instance.blockMap[coordsY][coordsX].blockLife <= 0)
+        {
+            Die();
+            return;
+        }
+
+        t = 1;
+
+        ChangeSpriteColor((BlocksController.Instance.blockMap[coordsY][coordsX].blockLife % 50) / 50f);
+
+        UpdateText();
+    }
+
+    public virtual void UpdateText()
+    {
+        textMesh.text = BlocksController.Instance.blockMap[coordsY][coordsX].blockLife.ToString();
+        //spriteRenderer.color = g.Evaluate (BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife / 100);
+    }
+
+    public bool justDestroy;
+    public bool needEffects;
+
+    public void Die()
+    {
+
+        if (isDead)
+            return;
+        isDead = true;
+
+        BlocksController.Instance.blockMap[coordsY][coordsX].blockLife = 0;
+
+        BlocksController.Instance.blockMap[coordsY][coordsX].blockIndex = -1;
+
+        OnDead();
+
+    }
+
+    protected virtual void OnDead()
+    {
+        if (!justDestroy)
+        {
+            AddScoreWithText();
+        }
+
+        if (needEffects)
+        {
+            ShowParticle();
+        }
+
+        Destroy(gameObject);
+
+    }
+
+    protected void AddScoreWithText()
+    {
+
+        BlocksController.Instance.blockDestroyCount++;
+
+        int multiplier;
+
+        if (!Game.isChallenge)
+            multiplier = UIScreen.Ins.multiplyer;
+        else
+            multiplier = 10;
+
+        int scoreToAdd = BlocksController.Instance.blockDestroyCount * multiplier;
+
+        if (textMesh != null)
+        {
+            textMesh.transform.SetParent(null, false);
+            textMesh.transform.position = transform.position + (Vector3.up - Vector3.left) * .3f + Vector3.back;
+            textMesh.transform.localEulerAngles = Vector3.zero;
+            textMesh.transform.localScale = Vector3.one;
+            textMesh.gameObject.SetActive(true);
+            textMesh.text = "+" + scoreToAdd;
+            // textMesh.color = Color.yellow;
+            textMesh.fontSize = 40;
+
+            // iTween.FadeTo(textMesh.gameObject, 0, 1f);
+
+            textMesh.transform.DOScale(Vector2.one, 1f).ChangeStartValue(Vector3.zero).SetEase(Ease.OutElastic);
+            textMesh.transform.DOScale(Vector2.one, .2f).From().ChangeEndValue(Vector3.zero).SetDelay(1f);
+
+            Destroy(textMesh.gameObject, 1.4f);
+        }
+
+        UIScreen.Ins.AddPlayerScore(scoreToAdd);
+        BlocksController.Instance.CalculateBlockLife();
+    }
 
 
-	public virtual void Hit ()
-	{
-		int hitAmount = 1;
-		colorToLerp = Color.black;
-		if (Ball.HaveAblity (Ball.Ability.DoubleHitBrick)) {
-			if (Random.Range (0, 10) == 0) {
-				hitAmount = 2;
-				colorToLerp = Color.white;
-			}
-		}
 
-		int blockLifeAfterHit = BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife - hitAmount;
-
-		BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife = (blockLifeAfterHit < 0) ? 0 : blockLifeAfterHit;
-
-		if (BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife <= 0) {
-			Die ();
-			return;
-		}
-
-		t = 1;
-
-		curColor = g.Evaluate ((BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife % 30) / 30f);
-
-		spriteRenderer.color = curColor;
-
-		UpdateText ();
-	}
-
-	public virtual void UpdateText ()
-	{
-		textMesh.text = BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife.ToString ();
-		//spriteRenderer.color = g.Evaluate (BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife / 100);
-	}
-
-	public bool justDestroy;
-	public bool needEffects;
-
-	public void Die ()
-	{
-
-		if (isDead)
-			return;
-		isDead = true;
-
-		BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife = 0;
-
-		OnDead ();
-        
-		BlocksController.Instance.blockMap [coordsY] [coordsX].blockIndex = -1;
-	}
-
-	protected virtual void OnDead ()
-	{
-		if (!justDestroy) {
-			BlocksController.Instance.blockDestroyCount++;
-			int multiplier;
-
-			if (!Game.isChallenge)
-				multiplier = UIScreen.Ins.multiplyer;
-			else
-				multiplier = 10;
-
-			int scoreToAdd = BlocksController.Instance.blockDestroyCount * multiplier;
-			textMesh.transform.SetParent (null, false);
-			textMesh.transform.position = transform.position + (Vector3.up - Vector3.left) * .5f + Vector3.back;
-			textMesh.transform.localEulerAngles = Vector3.zero;
-			textMesh.transform.localScale = Vector3.one;
-			textMesh.gameObject.SetActive (true);
-			textMesh.text = "+" + scoreToAdd;
-			textMesh.color = Color.yellow;
-			textMesh.fontSize = 40;
-			iTween.MoveTo (textMesh.gameObject, textMesh.transform.position + Vector3.up * .3f, 1f);
-			iTween.FadeTo (textMesh.gameObject, 0, 1f);
-			Destroy (textMesh.gameObject, 1f);
-			UIScreen.Ins.AddPlayerScore (scoreToAdd);
-			BlocksController.Instance.CalculateBlockLife ();
-		}
-
-		if (needEffects) {
-			AudioManager.PlaySoundFromLibrary ("Destroy");
-			Destroy (Instantiate<GameObject> (destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
-		}
-
-		Destroy (gameObject);
-
-
-	}
+    protected virtual void ShowParticle()
+    {
+        AudioManager.PlaySoundFromLibrary("Destroy");
+        Destroy(Instantiate<GameObject>(destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
+    }
 
 }

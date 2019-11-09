@@ -4,137 +4,157 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IPointerExitHandler {
-	
-	public bool changingColor = false;
-	public float changingTime = 0.3f;
-	public bool fadingChangeColor = false;
-	public Color colorToChange;
-	public Color colorToChangeOutline;
-	private Color colorOrig;
-	private Color colorOrigOutline;
-	private Image image;
-	private Outline outline;
-	private float lastChagingTime = -1;
-	private int colorIndex;
-	public bool btnEnabled = true;
-	bool pointerEnter;
-	bool holding;
+public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IPointerExitHandler
+{
+    public bool changingColor = false;
+    public float changingTime = 0.3f;
+    public bool fadingChangeColor = false;
+    public Color colorToChange;
+    public Color colorToChangeOutline;
+    private Color colorOrig;
+    private Color colorOrigOutline;
+    private Image image;
+    private Outline outline;
+    private float lastChagingTime = -1;
+    private int colorIndex;
+    public bool btnEnabled = true;
+    bool holding;
 
-	string clickSoundName = "ButtonClick1";
+    string clickSoundName = "ButtonClick1";
 
-	Vector3 prevPos = Vector3.zero;
+    Vector3 prevPos = Vector3.zero;
 
-	public void OnPointerDown (PointerEventData eventData)
-	{
-		holding = true;
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        holding = true;
 
-		if (btnEnabled && transform.childCount > 0) {
-			transform.GetChild (0).localPosition = prevPos - Vector3.up * 5;
-		}
-	}
+        if (btnEnabled && transform.childCount > 0)
+        {
+            transform.GetChild(0).localPosition = prevPos - Vector3.up * 5;
+        }
+    }
 
 
-	public void OnPointerUp (PointerEventData eventData)
-	{
-		holding = false;
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        holding = false;
 
-		if (btnEnabled && transform.childCount > 0) {
-			transform.GetChild (0).localPosition = prevPos;
-		}
-	}
+        if (btnEnabled && transform.childCount > 0)
+        {
+            transform.GetChild(0).localPosition = prevPos;
+        }
+    }
 
-	public void OnPointerClick (PointerEventData eventData)
-	{
-		if (!string.IsNullOrEmpty (clickSoundName) && btnEnabled)
-			AudioManager.PlaySoundFromLibrary (clickSoundName);
-	}
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!string.IsNullOrEmpty(clickSoundName) && btnEnabled)
+            AudioManager.PlaySoundFromLibrary(clickSoundName);
+    }
 
-	public void OnPointerExit (PointerEventData eventData)
-	{
-		if (holding) {
-			OnPointerUp (eventData);
-		}
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (holding)
+        {
+            OnPointerUp(eventData);
+        }
 
-	}
+    }
 
-	void Start ()
-	{
-		image = GetComponent <Image> ();
+    void Start()
+    {
+        image = GetComponent<Image>();
 
-		if (image != null) {
-			colorOrig = image.color;
+        if (image != null)
+        {
+            colorOrig = image.color;
 
-		}
-		outline = GetComponent <Outline> ();
+        }
+        outline = GetComponent<Outline>();
 
-		if (outline != null)
-			colorOrigOutline = outline.effectColor;
-		
-		if (transform.childCount > 0)
-			prevPos = transform.GetChild (0).localPosition;
-	}
+        if (outline != null)
+            colorOrigOutline = outline.effectColor;
 
-	float t = 0;
+        if (transform.childCount > 0)
+            prevPos = transform.GetChild(0).localPosition;
+    }
 
-	void Update ()
-	{
-		if (image == null)
-			return;
+    float t = 0;
 
-		if (!fadingChangeColor) {
-			if (lastChagingTime + changingTime < Time.time && changingColor) {
-				lastChagingTime = Time.time;
-				colorIndex = (colorIndex + 1) % 2;
+    void Update()
+    {
+        if (image == null || !changingColor)
+            return;
 
-				if (colorIndex == 0) {
-					image.color = colorToChange;
-				} else {
-					image.color = colorOrig;
-				}
+        if (!fadingChangeColor)
+        {
+            if (lastChagingTime + changingTime < Time.time && changingColor)
+            {
+                lastChagingTime = Time.time;
+                colorIndex = (colorIndex + 1) % 2;
 
-				if (outline != null) {
-					if (colorIndex == 0) {
-						outline.effectColor = colorToChangeOutline;
-					} else {
-						outline.effectColor = colorOrigOutline;
-					}
-				}
-			} else if (!changingColor && image.color != colorOrig) {
-					image.color = colorOrig;
-					if (outline != null)
-						outline.effectColor = colorOrigOutline;
-				}
+                if (colorIndex == 0)
+                {
+                    image.color = colorToChange;
+                }
+                else
+                {
+                    image.color = colorOrig;
+                }
 
-		} else {
-			if (t > 0) {
-				t -= Time.unscaledDeltaTime / changingTime;
-				image.color = Color.Lerp (colorToChange, colorOrig, Mathf.Abs (t - 1));
+                if (outline != null)
+                {
+                    if (colorIndex == 0)
+                    {
+                        outline.effectColor = colorToChangeOutline;
+                    }
+                    else
+                    {
+                        outline.effectColor = colorOrigOutline;
+                    }
+                }
+            }
+            else if (!changingColor && image.color != colorOrig)
+            {
+                image.color = colorOrig;
+                if (outline != null)
+                    outline.effectColor = colorOrigOutline;
+            }
 
-				if (outline != null)
-					outline.effectColor = Color.Lerp (colorToChangeOutline, colorOrigOutline, Mathf.Abs (t - 1));
+        }
+        else
+        {
+            if (t > 0)
+            {
+                t -= Time.unscaledDeltaTime / changingTime;
+                image.color = Color.Lerp(colorToChange, colorOrig, Mathf.Abs(t - 1));
 
-				if (!changingColor)
-					t = -1;
+                if (outline != null)
+                    outline.effectColor = Color.Lerp(colorToChangeOutline, colorOrigOutline, Mathf.Abs(t - 1));
 
-			} else if (t <= 0.01f)
-					if (!changingColor) {
-						t = 0;
-						image.color = colorOrig;
-						if (outline != null)
-							outline.effectColor = colorOrigOutline;
-					} else
-						t = 2;
-            
-		}
-	}
+                if (!changingColor)
+                    t = -1;
 
-	public void EnableBtn (bool enable)
-	{
-		btnEnabled = enable;
+            }
+            else if (t <= 0.01f)
+                if (!changingColor)
+                {
+                    t = 0;
+                    image.color = colorOrig;
+                    if (outline != null)
+                        outline.effectColor = colorOrigOutline;
+                }
+                else
+                    t = 2;
 
-		gameObject.GetComponent <Button> ().interactable = enable;
+        }
+    }
 
-	}
+    public void EnableBtn(bool enable)
+    {
+        btnEnabled = enable;
+
+        gameObject.GetComponent<Button>().interactable = enable;
+
+    }
 
 }

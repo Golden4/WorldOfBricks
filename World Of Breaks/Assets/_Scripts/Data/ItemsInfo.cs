@@ -2,74 +2,103 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu ()]
-public class ItemsInfo : ScriptableObject {
-	public ItemData[] playersData;
+[CreateAssetMenu()]
+public class ItemsInfo : ScriptableObject
+{
 
-	public int[] abilityPrices;
+    static ItemsInfo data;
 
-	public void OnValidate ()
-	{
-		/*for (int i = 0; i < playersData.Length; i++) {
-			playersData [i].purchaseID = "Ball_" + (i + 1);
-		}*/
+    static bool Loaded;
 
-		for (int i = 0; i < playersData.Length; i++) {
-			int priceWithAbility = Mathf.RoundToInt (50f / (playersData [i].ballRadius * 10));
-			int abilityCount = 0;
-			for (int j = 0; j < playersData [i].abilites.Length; j++) {
-				priceWithAbility += abilityPrices [(int)playersData [i].abilites [j]];
-				abilityCount++;
-			}
+    public static ItemsInfo Get
+    {
+        get
+        {
+            if (data == null && !Loaded)
+            {
+                Loaded = true;
+                ItemsInfo pi = Resources.Load<ItemsInfo>("Data/Database");
 
-			priceWithAbility = Mathf.RoundToInt (priceWithAbility * ((abilityCount * 0.2f) + 1f) / 10f) * 10;
+                data = pi;
+            }
 
-			playersData [i].price = priceWithAbility.ToString ();
-		}
-	}
+            return data;
+        }
+    }
 
-	[System.Serializable]
-	public enum BuyType {
-		Coin,
-		Video,
-		RealMoney
-	}
+    public ItemData[] playersData;
 
-	[System.Serializable]
-	public class ItemData {
-		public string name;
-		public string purchaseID;
-		public BuyType buyType;
-		public string price;
-		//public Ball playerPrefab;
-		public Sprite ballSprite;
-		public float ballRadius = .1f;
-		public Ball.Ability[] abilites;
-		public Sound hitSound;
+    public int[] abilityPrices;
 
-		public string GetDescription ()
-		{
+    public void OnValidate()
+    {
+        for (int i = 0; i < playersData.Length; i++)
+        {
+            int priceWithAbility = Mathf.RoundToInt(50f / (playersData[i].ballRadius * 10));
+            int abilityCount = 0;
 
-			string desc = "";
+            for (int j = 0; j < playersData[i].abilites.Length; j++)
+            {
+                priceWithAbility += abilityPrices[(int)playersData[i].abilites[j]];
+                abilityCount++;
+            }
 
-			desc = LocalizationManager.GetLocalizedText ("ball_size") + ": " + ballRadius * 100 + " cm";
+            priceWithAbility = Mathf.RoundToInt(priceWithAbility * ((abilityCount * 0.2f) + 1f) / 10f) * 10;
 
-			desc += "\n" + LocalizationManager.GetLocalizedText ("ability") + ": ";
+            playersData[i].price = priceWithAbility.ToString();
+        }
+    }
 
-			if (abilites.Length == 0) {
-				desc += LocalizationManager.GetLocalizedText (System.Enum.GetName (typeof(Ball.Ability), Ball.Ability.None));
-			} else {
-				for (int i = 0; i < abilites.Length; i++) {
-					desc += "\n- " + LocalizationManager.GetLocalizedText (System.Enum.GetName (typeof(Ball.Ability), abilites [i]));
-				}
-			}
+    [System.Serializable]
+    public enum BuyType
+    {
+        Coin,
+        Video,
+        RealMoney
+    }
 
-			desc += "\n" + LocalizationManager.GetLocalizedText (name + "_desc");
+    [System.Serializable]
+    public class ItemData
+    {
+        public string name;
+        public string purchaseID;
+        public BuyType buyType;
+        public string price;
+        //public Ball playerPrefab;
+        public Sprite ballSprite;
+        public float ballRadius = .1f;
+        public Ball.Ability[] abilites;
+        public Sound hitSound;
 
-			return desc;
-		}
+        public string GetDescription()
+        {
+            string desc = "";
+
+            desc = LocalizationManager.GetLocalizedText("ball_size") + ": " + ballRadius * 100 + " cm";
+
+            desc += "\n" + LocalizationManager.GetLocalizedText("ability") + ": ";
+
+            if (abilites.Length == 0)
+            {
+                desc += LocalizationManager.GetLocalizedText(System.Enum.GetName(typeof(Ball.Ability), Ball.Ability.None));
+            }
+            else
+            {
+                for (int i = 0; i < abilites.Length; i++)
+                {
+                    desc += "\n- " + LocalizationManager.GetLocalizedText(System.Enum.GetName(typeof(Ball.Ability), abilites[i]));
+                }
+            }
+
+            string ballDesc = LocalizationManager.GetLocalizedText(name + "_desc");
+
+            if (ballDesc != "")
+                desc += "\n" + LocalizationManager.GetLocalizedText(name + "_desc");
+
+            return desc;
+        }
 
 
-	}
+    }
 
 }

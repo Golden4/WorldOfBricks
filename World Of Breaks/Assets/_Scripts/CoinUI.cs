@@ -2,33 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
-public class CoinUI : MonoBehaviour {
-	public static CoinUI Ins;
-	public Text coinText;
-	Color origColor;
+public class CoinUI : MonoBehaviour
+{
+    public static CoinUI Ins;
+    public Text coinText;
+    Color origColor;
 
-	public Image coinImage;
-	public GUIAnim plusCoinText;
-	public AnimationCurve curve;
+    public Image coinImage;
+    public Text plusCoinText;
+    public AnimationCurve curve;
 
-	public int coinsUI;
+    public int coinsUI;
 
-	void Awake ()
-	{
-		Ins = this;
-		coinsUI = User.Coins;
-	}
+    void Awake()
+    {
+        Ins = this;
+        coinsUI = User.Coins;
+    }
 
-	private void Start ()
-	{
-		ShowCoinCount (User.Coins, User.Coins);
-		origColor = coinText.color;
-		//User.OnCoinChangedEvent += ShowCoinCount;
-		User.OnCoinChangedFailedEvent += BuyFailed;
-	}
+    private void Start()
+    {
+        ShowCoinCount(User.Coins, User.Coins);
+        origColor = coinText.color;
+        ButtonCustom buttonCustom = GetComponent<ButtonCustom>();
 
-	/*	void Update ()
+        if (buttonCustom != null)
+            buttonCustom.onClick += delegate
+              {
+                  BottomPanelMenuUI.Ins.ChangeBtn(0);
+              };
+
+        //User.OnCoinChangedEvent += ShowCoinCount;
+        User.OnCoinChangedFailedEvent += BuyFailed;
+    }
+
+    /*	void Update ()
 	{
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			User.AddCoin (Random.Range (10, 100));
@@ -36,81 +46,90 @@ public class CoinUI : MonoBehaviour {
 	}*/
 
 
-	float lastShowCountTime;
-	float changingValue;
+    float lastShowCountTime;
+    float changingValue;
 
-	private void Update ()
-	{
-		if (lastShowCountTime + 1 < Time.time && changingValue != 0) {
-			changingValue = 0;
-			plusCoinText.MoveOut (GUIAnimSystem.eGUIMove.Self);
-		}
-	}
+    private void Update()
+    {
+        if (lastShowCountTime + 1 < Time.time && changingValue != 0)
+        {
+            changingValue = 0;
+            plusCoinText.rectTransform.DOKill();
+            plusCoinText.rectTransform.DOAnchorPosY(0, .5f).OnComplete(() =>
+            {
+                plusCoinText.rectTransform.gameObject.SetActive(false);
+            });
+        }
+    }
 
-	void OnDestroy ()
-	{
-		//User.OnCoinChangedEvent -= ShowCoinCount;
-		User.OnCoinChangedFailedEvent -= BuyFailed;
-	}
+    void OnDestroy()
+    {
+        //User.OnCoinChangedEvent -= ShowCoinCount;
+        User.OnCoinChangedFailedEvent -= BuyFailed;
+    }
 
-	void BuyFailed (int coin)
-	{
-		coinText.color = Color.red;
-		coinText.transform.localScale = Vector3.one * 1.1f;
-		DialogBox.Show ("Buy coins?", () => {
-			ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.BuyCoin);
-		});
-		StopCoroutine ("ChangeColorCorutine");
-		StartCoroutine ("ChangeColorCorutine");
-	}
+    void BuyFailed(int coin)
+    {
+        coinText.color = Color.red;
+        coinText.transform.localScale = Vector3.one * 1.1f;
 
-	IEnumerator ChangeColorCorutine ()
-	{
-		yield return new WaitForSeconds (.5f);
-		coinText.transform.localScale = Vector3.one;
-		coinText.color = origColor;
-	}
+        MessageBox.ShowStatic("Buy coins?", MessageBox.BoxType.Retry).SetTextBtn("Ok", true, () =>
+        {
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.BuyCoin);
+        });
 
-	void ShowCoinCount (int fromValue, int toValue)
-	{
-		coinText.gameObject.SetActive (true);
-        
-		if ((fromValue - toValue) != 0) {
-			lastShowCountTime = Time.time;
-			plusCoinText.gameObject.SetActive (true);
+        StopCoroutine("ChangeColorCorutine");
+        StartCoroutine("ChangeColorCorutine");
+    }
 
-			//plusCoinText.m_MoveIn.Actions.OnEnd.RemoveAllListeners();
-			//plusCoinText.m_MoveIn.Actions.OnEnd.AddListener(delegate
-			//{
-			//    plusCoinText.MoveOut(GUIAnimSystem.eGUIMove.Self);
-			//});
+    IEnumerator ChangeColorCorutine()
+    {
+        yield return new WaitForSeconds(.5f);
+        coinText.transform.localScale = Vector3.one;
+        coinText.color = origColor;
+    }
 
-			if (changingValue == 0)
-				plusCoinText.MoveIn (GUIAnimSystem.eGUIMove.Self);
+    void ShowCoinCount(int fromValue, int toValue)
+    {
+        coinText.gameObject.SetActive(true);
 
-			changingValue += (toValue - fromValue);
+        if ((fromValue - toValue) != 0)
+        {
+            lastShowCountTime = Time.time;
+            plusCoinText.gameObject.SetActive(true);
 
-			if (changingValue > 0)
-				AudioManager.PlaySoundFromLibrary ("Coin");
+            if (changingValue == 0)
+            {
+                plusCoinText.rectTransform.DOKill();
+                plusCoinText.rectTransform.DOAnchorPosY(-45, .5f);
+            }
 
-			plusCoinText.GetComponent<Text> ().text = ((changingValue >= 0) ? "+" : "") + changingValue;
-		}
+            changingValue += (toValue - fromValue);
 
-		if (Mathf.Abs (toValue - fromValue) > 1) {
-			Utility.AnimateValue (coinText, fromValue, toValue, 2);
-		} else {
-			coinText.text = toValue.ToString ();
-		}
+            if (changingValue > 0)
+                AudioManager.PlaySoundFromLibrary("Coin");
 
-		//Utility.CoinsAnimate (this, coinImage.gameObject, transform, 5, transform.position - Vector3.down * 100, transform.position, .1f);
+            plusCoinText.GetComponent<Text>().text = ((changingValue >= 0) ? "+" : "") + changingValue;
+        }
 
-	}
+        if (Mathf.Abs(toValue - fromValue) > 1)
+        {
+            Utility.AnimateValue(coinText, fromValue, toValue, 2);
+        }
+        else
+        {
+            coinText.text = toValue.ToString();
+        }
 
-	public void AddCoin (int value)
-	{
-		ShowCoinCount (coinsUI, (coinsUI + value));
+        //Utility.CoinsAnimate (this, coinImage.gameObject, transform, 5, transform.position - Vector3.down * 100, transform.position, .1f);
 
-		coinsUI += value;
-	}
+    }
+
+    public void AddCoin(int value)
+    {
+        ShowCoinCount(coinsUI, (coinsUI + value));
+
+        coinsUI += value;
+    }
 
 }

@@ -185,7 +185,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: afd4ade3d43341748a480cdeec876105, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -205,12 +205,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300040, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 0.2, y: 0.2}
+  m_Size: {x: 0.24, y: 0.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderMask:
     serializedVersion: 2
-    m_Bits: 5
+    m_Bits: 517
   isThrowing: 0
   isClone: 0
   canReflectionCount: 0

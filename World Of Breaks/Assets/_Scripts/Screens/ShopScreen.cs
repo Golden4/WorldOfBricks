@@ -4,284 +4,306 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Purchasing;
 
-public class ShopScreen : ScreenBase {
+public class ShopScreen : ScreenBase<ShopScreen>
+{
 
-	public static ShopScreen Ins;
+    public GameObject itemsHolder;
 
-	public GameObject itemsHolder;
+    public ScrollSnap scrollSnap;
 
-	public ScrollSnap scrollSnap;
+    public int curActiveItem
+    {
+        get
+        {
+            return scrollSnap.GetCurItemIndex;
+        }
+    }
 
-	public int curActiveItem {
-		get {
-			return scrollSnap.GetCurItemIndex;
-		}
-	}
+    public int ItemCount
+    {
+        get
+        {
+            return scrollSnap.items.Length;
+        }
+    }
 
-	public int ItemCount {
-		get {
-			return scrollSnap.items.Length;
-		}
-	}
+    public Text itemNameText;
+    public Text itemAbilityText;
 
-	public Text itemNameText;
-	public Text itemAbilityText;
+    public Button SelectBtn;
 
-	public Button SelectAndPlayBtn;
+    public Button buyPaidBtn;
+    public Button buyCoinBtn;
+    public Button buyVideoBtn;
 
-	public Button buyPaidBtn;
-	public Button buyCoinBtn;
-	public Button buyVideoBtn;
+    public override void OnInit()
+    {
+        scrollSnap.Init();
+        scrollSnap.OnChangeItemEvent += OnChangeItem;
 
-	public override void OnInit ()
-	{
-		scrollSnap.Init ();
-		Ins = this;
-		
-		scrollSnap.OnChangeItemEvent += OnChangeItem;
+        SelectBtn.onClick.RemoveAllListeners();
+        SelectBtn.onClick.AddListener(() =>
+        {
+            Select(curActiveItem);
+        });
 
-		SelectAndPlayBtn.onClick.RemoveAllListeners ();
-		SelectAndPlayBtn.onClick.AddListener (() => {
-			SelectAndPlay (curActiveItem);
-		});
+        buyPaidBtn.onClick.RemoveAllListeners();
+        buyPaidBtn.onClick.AddListener(() =>
+        {
+            BuyPaidItem(curActiveItem);
+        });
 
-		buyPaidBtn.onClick.RemoveAllListeners ();
-		buyPaidBtn.onClick.AddListener (() => {
-			BuyPaidItem (curActiveItem);
-		});
+        buyCoinBtn.onClick.RemoveAllListeners();
+        buyCoinBtn.onClick.AddListener(() =>
+        {
+            BuyCoinItem(curActiveItem);
+        });
 
-		buyCoinBtn.onClick.RemoveAllListeners ();
-		buyCoinBtn.onClick.AddListener (() => {
-			BuyCoinItem (curActiveItem);
-		});
+        buyVideoBtn.onClick.RemoveAllListeners();
+        buyVideoBtn.onClick.AddListener(() =>
+        {
+            BuyVideoItem(curActiveItem);
+        });
 
-		buyVideoBtn.onClick.RemoveAllListeners ();
-		buyVideoBtn.onClick.AddListener (() => {
-			BuyVideoItem (curActiveItem);
-		});
-
-		for (int i = 0; i < ItemCount; i++) {
-			scrollSnap.SetItemState (i, User.GetInfo.userData [i].bought);
-		}
+        for (int i = 0; i < ItemCount; i++)
+        {
+            scrollSnap.SetItemState(i, User.GetInfo.userData[i].bought);
+        }
 
 
-		PurchaseManager.OnPurchaseNonConsumable += BuyPaidItemSuccess;
-	}
+        PurchaseManager.OnPurchaseNonConsumable += BuyPaidItemSuccess;
+    }
 
-	public override void OnActivate ()
-	{
-		for (int i = 0; i < ItemCount; i++) {
-			scrollSnap.SetItemState (i, User.GetInfo.userData [i].bought);
-		}
+    public override void OnActivate()
+    {
+        for (int i = 0; i < ItemCount; i++)
+        {
+            scrollSnap.SetItemState(i, User.GetInfo.userData[i].bought);
+        }
 
-		UpdateItemState (curActiveItem);
-		scrollSnap.SnapToObj (User.GetInfo.GetCurPlayerIndex (), false);
-	}
+        UpdateItemState(curActiveItem);
+        scrollSnap.SnapToObj(User.GetInfo.GetCurPlayerIndex(), false);
+    }
 
-	void onRewardedVideoFinishedEvent ()
-	{
-		if (videoItemindex >= 0) {
-			BuyItemSuccess (videoItemindex);
-			DialogBox.Hide ();
-			clicked = false;
-			AdManager.onRewardedVideoFinishedEvent -= onRewardedVideoFinishedEvent;
-		}
-	}
+    void onRewardedVideoFinishedEvent()
+    {
+        if (videoItemindex >= 0)
+        {
+            BuyItemSuccess(videoItemindex);
+            MessageBox.HideAll();
+            clicked = false;
+            AdManager.onRewardedVideoFinishedEvent -= onRewardedVideoFinishedEvent;
+        }
+    }
 
-	public override void OnDeactivate ()
-	{
-		base.OnDeactivate ();
+    public override void OnDeactivate()
+    {
+        base.OnDeactivate();
 
-	}
+    }
 
-	public override void OnCleanUp ()
-	{
-		scrollSnap.OnChangeItemEvent -= OnChangeItem;
-		PurchaseManager.OnPurchaseNonConsumable -= BuyPaidItemSuccess;
-	}
+    public override void OnCleanUp()
+    {
+        scrollSnap.OnChangeItemEvent -= OnChangeItem;
+        PurchaseManager.OnPurchaseNonConsumable -= BuyPaidItemSuccess;
+    }
 
-	void OnChangeItem (int index)
-	{
-		itemNameText.text = LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name);
-		itemAbilityText.text = Database.Get.playersData [index].GetDescription ();
+    void OnChangeItem(int index)
+    {
+        itemNameText.text = LocalizationManager.GetLocalizedText(ItemsInfo.Get.playersData[index].name);
+        itemAbilityText.text = ItemsInfo.Get.playersData[index].GetDescription();
 
-		/*itemAbilityText.text = LocalizationManager.GetLocalizedText ("ball_size") + ": " + Database.Get.playersData [index].ballRadius * 100 + " cm";
+        UpdateItemState(index);
+    }
 
-		itemAbilityText.text += "\n" + LocalizationManager.GetLocalizedText ("ability") + ": ";
+    public void Select(int index)
+    {
+        User.SetPlayerIndex(index);
+        Game.ballTryingIndex = -1;
+        OnChangeItem(index);
+        // ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Menu);
+    }
 
-		if (Database.Get.playersData [index].abilites.Length == 0) {
-			itemAbilityText.text += abilityDesc [0];
-		} else {
-			for (int i = 0; i < Database.Get.playersData [index].abilites.Length; i++) {
-				itemAbilityText.text += "\n\t- " + abilityDesc [(int)Database.Get.playersData [index].abilites [i] + 1];
-			}
-		}
-			
-		itemAbilityText.text += "\n" + LocalizationManager.GetLocalizedText (Database.Get.playersData [index].name + "_desc");*/
+    public void BuyPaidItem(int index)
+    {
+        if (PurchaseManager.Ins.IsInitialized())
+        {
+            PurchaseManager.Ins.BuyNonConsumable(index);
+        }
+        else
+        {
+            MessageBox.ShowStatic("Failed", MessageBox.BoxType.Failed);
+        }
+    }
 
-		UpdateItemState (index);
-	}
+    public void BuyCoinItem(int index)
+    {
 
-	public void SelectAndPlay (int index)
-	{
-		User.SetPlayerIndex (index);
-		Game.ballTryingIndex = -1;
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Menu);
-	}
+        if (string.IsNullOrEmpty(ItemsInfo.Get.playersData[index].price))
+        {
+            Debug.LogError("Not set coinAmount " + index);
+            return;
+        }
 
-	/*	public void BuyItemWithCoin (int index)
-	{
-		if (User.BuyWithCoin (Database.Get.playersData [index].price)) {
-			User.GetInfo.userData [index].bought = true;
-			UpdateItemState (index);
-			scrollSnap.SetItemState (index, User.GetInfo.userData [index].bought);
-			User.SaveUserInfo ();
-		}
-	}*/
+        int coinAmount = int.Parse(ItemsInfo.Get.playersData[index].price);
 
-	public void BuyPaidItem (int index)
-	{
-		if (PurchaseManager.Ins.IsInitialized ()) {
-			PurchaseManager.Ins.BuyNonConsumable (index);
-		} else {
-			DialogBox.Show ("Failed", null, null, true, false);
-		}
-	}
+        if (User.BuyWithCoin(coinAmount))
+        {
+            BuyItemSuccess(index);
+        }
+    }
 
-	public void BuyCoinItem (int index)
-	{
+    int videoItemindex = -1;
+    bool clicked;
 
-		if (string.IsNullOrEmpty (Database.Get.playersData [index].price)) {
-			Debug.LogError ("Not set coinAmount " + index);
-			return;
-		}
+    public void BuyVideoItem(int index)
+    {
+        videoItemindex = index;
+        if (AdManager.Ins != null)
+        {
+            AdManager.Ins.showRewardedVideo();
+            if (!clicked)
+            {
+                clicked = true;
+                AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
+            }
+        }
+    }
 
-		int coinAmount = int.Parse (Database.Get.playersData [index].price);
-        
-		if (User.BuyWithCoin (coinAmount)) {
-			BuyItemSuccess (index);
-		}
-	}
+    public void BuyPaidItemSuccess(PurchaseEventArgs args)
+    {
+        string purchID = args.purchasedProduct.definition.id;
 
-	int videoItemindex = -1;
-	bool clicked;
+        int index = 0;
 
-	public void BuyVideoItem (int index)
-	{
-		videoItemindex = index;
-		if (AdManager.Ins != null) {
-			AdManager.Ins.showRewardedVideo ();
-			if (!clicked) {
-				clicked = true;
-				AdManager.onRewardedVideoFinishedEvent += onRewardedVideoFinishedEvent;
-			}
-		}
-	}
+        for (int i = 0; i < ItemsInfo.Get.playersData.Length; i++)
+        {
+            if (purchID == ItemsInfo.Get.playersData[i].purchaseID)
+            {
+                index = i;
+                break;
+            }
+        }
 
-	public void BuyPaidItemSuccess (PurchaseEventArgs args)
-	{
-		string purchID = args.purchasedProduct.definition.id;
+        Debug.Log("You bought " + purchID + "  id " + index + " NonCon");
+        BuyItemSuccess(index);
+    }
 
-		int index = 0;
+    void BuyItemSuccess(int index)
+    {
+        User.GetInfo.userData[index].bought = true;
+        UpdateItemState(index);
+        scrollSnap.SetItemState(index, User.GetInfo.userData[index].bought);
+        User.SaveUserInfo();
+    }
 
-		for (int i = 0; i < Database.Get.playersData.Length; i++) {
-			if (purchID == Database.Get.playersData [i].purchaseID) {
-				index = i;
-				break;
-			}
-		}
+    int lastItemIndex = -1;
 
-		Debug.Log ("You bought " + purchID + "  id " + index + " NonCon");
-		BuyItemSuccess (index);
-	}
+    public void UpdateItemState(int index)
+    {
+        bool bought = User.GetInfo.userData[index].bought;
 
-	void BuyItemSuccess (int index)
-	{
-		User.GetInfo.userData [index].bought = true;
-		UpdateItemState (index);
-		scrollSnap.SetItemState (index, User.GetInfo.userData [index].bought);
-		User.SaveUserInfo ();
-	}
+        if (lastItemIndex >= 0)
+        {
+            scrollSnap.items[lastItemIndex].GetComponent<Animation>().Stop();
+            scrollSnap.items[lastItemIndex].transform.localPosition = Vector3.right * scrollSnap.distanceItems * lastItemIndex;
+        }
+        if (bought)
+        {
+            scrollSnap.items[index].GetComponent<Animation>().enabled = true;
+            scrollSnap.items[index].GetComponent<Animation>().Play();
+        }
 
-	int lastItemIndex = -1;
+        lastItemIndex = index;
 
-	public void UpdateItemState (int index)
-	{
-		bool bought = User.GetInfo.userData [index].bought;
+        if (!bought)
+        {
+            string text = PurchaseManager.Ins.GetLocalizedPrice(ItemsInfo.Get.playersData[index].purchaseID);
+            Text textC = buyPaidBtn.transform.GetChild(0).GetComponentInChildren<Text>();
+            Image loading = buyPaidBtn.transform.GetChild(1).GetComponentInChildren<Image>();
+            buyPaidBtn.gameObject.SetActive(true);
 
-		if (lastItemIndex >= 0) {
-			scrollSnap.items [lastItemIndex].GetComponent<Animation> ().Stop ();
-			scrollSnap.items [lastItemIndex].transform.localPosition = Vector3.right * scrollSnap.distanceItems * lastItemIndex;
-		}
-		if (bought) {
-			scrollSnap.items [index].GetComponent<Animation> ().enabled = true;
-			scrollSnap.items [index].GetComponent<Animation> ().Play ();
-		}
+            if (text != "null")
+            {
+                loading.gameObject.SetActive(false);
+                textC.gameObject.SetActive(true);
+                textC.text = text;
+            }
+            else
+            {
+                loading.gameObject.SetActive(true);
+                textC.gameObject.SetActive(false);
+            }
 
-		lastItemIndex = index;
+        }
+        else
+        {
+            buyPaidBtn.gameObject.SetActive(false);
+        }
 
-		if (!bought) {
-			string text = PurchaseManager.Ins.GetLocalizedPrice (Database.Get.playersData [index].purchaseID);
-			Text textC = buyPaidBtn.transform.GetChild (0).GetComponentInChildren<Text> ();
-			Image loading = buyPaidBtn.transform.GetChild (1).GetComponentInChildren<Image> ();
-			buyPaidBtn.gameObject.SetActive (true);
+        SelectBtn.gameObject.SetActive(bought);
 
-			if (text != "null") {
-				loading.gameObject.SetActive (false);
-				textC.gameObject.SetActive (true);
-				textC.text = text;
-			} else {
-				loading.gameObject.SetActive (true);
-				textC.gameObject.SetActive (false);
-			}
+        if (bought)
+        {
+            if (index == User.GetInfo.GetCurPlayerIndex())
+            {
+                SelectBtn.gameObject.GetComponentInChildren<Text>().text = "Selected";
+                SelectBtn.GetComponent<Image>().color = new Color(0.6128193f, 0.867f, 0.1253494f);
+                SelectBtn.interactable = false;
+            }
+            else
+            {
+                SelectBtn.gameObject.GetComponentInChildren<Text>().text = "Select";
+                SelectBtn.GetComponent<Image>().color = new Color(0.6901961f, 0.9764706f, 0.1411765f);
+                SelectBtn.interactable = true;
+            }
+        }
 
-		} else {
-			buyPaidBtn.gameObject.SetActive (false);
-		}
+        ShowBuyBtb(!bought, ItemsInfo.Get.playersData[index].buyType, index);
 
-		SelectAndPlayBtn.gameObject.SetActive (bought);
+    }
 
-		ShowBuyBtb (!bought, Database.Get.playersData [index].buyType, index);
-        
-	}
+    Button ShowBuyBtb(bool show, ItemsInfo.BuyType type = ItemsInfo.BuyType.Coin, int indexPlayer = -1)
+    {
+        Button[] btns = new Button[] {
+            buyCoinBtn,
+            buyVideoBtn
+        };
 
-	Button ShowBuyBtb (bool show, ItemsInfo.BuyType type = ItemsInfo.BuyType.Coin, int indexPlayer = -1)
-	{
-		Button[] btns = new Button[] {
-			buyCoinBtn,
-			buyVideoBtn
-		};
+        for (int i = 0; i < btns.Length; i++)
+        {
+            if (show)
+            {
+                btns[i].gameObject.SetActive((int)type == i);
+            }
+            else
+                btns[i].gameObject.SetActive(false);
+        }
 
-		for (int i = 0; i < btns.Length; i++) {
-			if (show) {
-				btns [i].gameObject.SetActive ((int)type == i);
-			} else
-				btns [i].gameObject.SetActive (false);
-		}
+        if (!show)
+            return null;
 
-		if (!show)
-			return null;
+        switch (type)
+        {
+            case ItemsInfo.BuyType.Coin:
+                btns[(int)type].GetComponentInChildren<Text>().text = ItemsInfo.Get.playersData[indexPlayer].price;
+                break;
+            case ItemsInfo.BuyType.Video:
 
-		switch (type) {
-		case ItemsInfo.BuyType.Coin:
-			btns [(int)type].GetComponentInChildren<Text> ().text = Database.Get.playersData [indexPlayer].price;
-			break;
-		case ItemsInfo.BuyType.Video:
+                break;
 
-			break;
+            default:
+                break;
+        }
 
-		default:
-			break;
-		}
+        return btns[(int)type];
 
-		return btns [(int)type];
+    }
 
-	}
+    public void BackBtn()
+    {
+        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Menu);
 
-	public void BackBtn ()
-	{
-		ScreenController.Ins.ActivateScreen (ScreenController.GameScreen.Menu);
-
-	}
+    }
 
 }

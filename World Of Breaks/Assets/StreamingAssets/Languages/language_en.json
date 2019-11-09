@@ -14,15 +14,15 @@
     },
     {
       "key": "challenge_complete",
-      "value": "Challenge {0} completed!"
+      "value": "Level {0}\ncompleted!"
     },
     {
       "key": "challenge_failed",
-      "value": "Challenge {0} failed!"
+      "value": "Level {0}\nfailed!"
     },
     {
       "key": "challenge_complete_again",
-      "value": "Challenge {0} completed again!"
+      "value": "Level {0}\ncompleted again!"
     },
     {
       "key": "tap_to_continue",
@@ -122,7 +122,7 @@
     },
     {
       "key": "small",
-      "value": "Small"
+      "value": "Easy"
     },
     {
       "key": "medium",
@@ -130,7 +130,7 @@
     },
     {
       "key": "medium_unlock",
-      "value": "Reach level 100 on small"
+      "value": "Reach level 100 on easy"
     },
     {
       "key": "medium_unlocked",
@@ -138,7 +138,7 @@
     },
     {
       "key": "big",
-      "value": "Big"
+      "value": "Hard"
     },
     {
       "key": "big_unlock",

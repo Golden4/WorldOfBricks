@@ -168,9 +168,9 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_FadeOriginal: 0
-  m_FadeOriginalTextOutline: 0
-  m_FadeOriginalTextShadow: 0
+  m_FadeOriginal: 1
+  m_FadeOriginalTextOutline: 1
+  m_FadeOriginalTextShadow: 1
   m_FadeOut:
     Enable: 0
     Animating: 0
@@ -299,7 +299,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_RotationOriginal: {x: 0, y: 0, z: 0, w: 0}
+  m_RotationOriginal: {x: 0, y: 0, z: 0, w: 1}
   m_RotationOut:
     Enable: 0
     Animating: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
     Animating: 0
     Began: 0
     Delay: 0
-    Done: 0
+    Done: 1
     EaseType: 27
     ScaleBegin: {x: 0, y: 0, z: 0}
     Time: 0.2
@@ -394,7 +394,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_ScaleOriginal: {x: 0, y: 0, z: 0}
+  m_ScaleOriginal: {x: 1, y: 1, z: 1}
   m_ScaleOut:
     Enable: 1
     Animating: 0
@@ -533,7 +533,7 @@ MonoBehaviour:
     Enable: 1
     Animating: 0
     Began: 0
-    Done: 0
+    Done: 1
     EaseType: 21
     Fade: 0
     FadeChildren: 0
@@ -593,9 +593,9 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_FadeOriginal: 0
-  m_FadeOriginalTextOutline: 0
-  m_FadeOriginalTextShadow: 0
+  m_FadeOriginal: 0.57254905
+  m_FadeOriginalTextOutline: 1
+  m_FadeOriginalTextShadow: 1
   m_FadeOut:
     Enable: 1
     Animating: 0
@@ -724,7 +724,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_RotationOriginal: {x: 0, y: 0, z: 0, w: 0}
+  m_RotationOriginal: {x: -0, y: -0, z: -0, w: 1}
   m_RotationOut:
     Enable: 0
     Animating: 0
@@ -819,7 +819,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_ScaleOriginal: {x: 0, y: 0, z: 0}
+  m_ScaleOriginal: {x: 1, y: 1, z: 1}
   m_ScaleOut:
     Enable: 0
     Animating: 0
@@ -1814,9 +1814,9 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_FadeOriginal: 0
-  m_FadeOriginalTextOutline: 0
-  m_FadeOriginalTextShadow: 0
+  m_FadeOriginal: 1
+  m_FadeOriginalTextOutline: 1
+  m_FadeOriginalTextShadow: 0.5
   m_FadeOut:
     Enable: 0
     Animating: 0
@@ -1945,7 +1945,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_RotationOriginal: {x: 0, y: 0, z: 0, w: 0}
+  m_RotationOriginal: {x: -0, y: -0, z: -0, w: 1}
   m_RotationOut:
     Enable: 0
     Animating: 0
@@ -2040,7 +2040,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_ScaleOriginal: {x: 0, y: 0, z: 0}
+  m_ScaleOriginal: {x: 1, y: 1, z: 1}
   m_ScaleOut:
     Enable: 0
     Animating: 0

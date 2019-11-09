@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SpriteGradientMaterial
-  m_Shader: {fileID: 4800000, guid: 2a9b8d21b9ba63b4f81e0cd7611943c6, type: 3}
+  m_Shader: {fileID: 4800000, guid: fc7272c7eff64b04a87db4c16ac05058, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -40,8 +40,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: f4b37d8085065d441b63df04f1712d79, type: 3}
+        m_Scale: {x: 2, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -55,20 +55,30 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RampTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Angle: 0
+    - _AngleX: 1
+    - _AngleY: 1
     - _BumpScale: 1
     - _ColorMask: 15
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FillAlpha: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Height: 10
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Scale: 1
+    - _Slide: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -78,8 +88,18 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _UVSec: 0
+    - _UseUIAlphaClip: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0, b: 0, a: 1}
-    - _Color2: {r: 1, g: 0.8902439, b: 0, a: 1}
+    - _BottomColor: {r: 0.3733155, g: 0.2031275, b: 0.818, a: 1}
+    - _BottomLeftColor: {r: 0, g: 1, b: 0.007477045, a: 1}
+    - _BottomRightColor: {r: 1, g: 0.84632504, b: 0, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color1: {r: 0.5014438, g: 0.99215686, b: 0.39607844, a: 1}
+    - _Color2: {r: 0.9866245, g: 1, b: 0, a: 1}
+    - _ColorA: {r: 1, g: 0.92892253, b: 0, a: 1}
+    - _ColorB: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _TopColor: {r: 0.57424307, g: 0.27733335, b: 0.83199996, a: 1}
+    - _TopLeftColor: {r: 0, g: 0.4995103, b: 1, a: 1}
+    - _TopRightColor: {r: 1, g: 0, b: 0, a: 1}
