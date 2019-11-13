@@ -15,7 +15,6 @@ public class BallController : MonoBehaviour
     public Vector2 startThrowPos;
     public bool startPosChanged = false;
     public float timeBetweenBalls = .1f;
-    //public RawImage throwingDirectionImage;
     public Text ballCountText;
     public Image mousePivotPointImage;
     public static BallController Instance;
@@ -290,8 +289,7 @@ if(Input.touchCount > 0){
     {
         InstantiateBallsList();
         needReturnAllBalls = false;
-        UIScreen.Ins.HideTutorial();
-
+        Tutorial.Ins?.HideTutorial();
         StartCoroutine(ThrowBallsCoroutine(dir));
     }
 
@@ -421,9 +419,11 @@ if(Input.touchCount > 0){
     public void UpdateBallCount()
     {
         Vector3 pos = Camera.main.WorldToScreenPoint(startThrowPos + Vector2.left * .5f) + Vector3.up * 7f;
+        Debug.Log(startThrowPos + Vector2.left * .5f + "   " + pos);
+
         if (pos.x < 0)
         {
-            pos.x += Mathf.Abs(pos.x) + 50;
+            pos = Camera.main.WorldToScreenPoint(startThrowPos + Vector2.right * .5f) + Vector3.up * 7f;
         }
 
         ballCountText.transform.position = pos;

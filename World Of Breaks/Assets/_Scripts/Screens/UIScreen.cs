@@ -8,9 +8,6 @@ using DG.Tweening;
 
 public class UIScreen : ScreenBase<UIScreen>
 {
-    public static event System.Action OnLoseEvent;
-    public static event System.Action OnWinEvent;
-
     public bool playerLose = false;
     public bool playerWin;
     public static bool newGame;
@@ -81,7 +78,6 @@ public class UIScreen : ScreenBase<UIScreen>
 
     public bool newRecord;
 
-    public GameObject tutorialPrefab;
     public ButtonIcon destroyLastLineBtn;
     public ParticleSystem popUpParticle;
 
@@ -149,13 +145,28 @@ public class UIScreen : ScreenBase<UIScreen>
             timeAcceleratorBtn.transform.DOKill();
             timeAcceleratorBtn.transform.DOScale(Vector3.zero, .3f).ChangeStartValue(Vector3.one);
         }
+
         Time.timeScale = 1;
+        timeAccelerated = false;
     }
+
+    public bool timeAccelerated;
 
     public void TimeAcceleratorEnable()
     {
+        timeAccelerated = true;
         timeAcceleratorBtn.GetComponent<ButtonIcon>().EnableBtn(false);
         Time.timeScale = 2;
+    }
+
+    public float GetTimeAccelerationValue()
+    {
+        if (timeAccelerated)
+        {
+            return 2;
+        }
+
+        return 1;
     }
 
     public void ShowClearText()
@@ -188,7 +199,7 @@ public class UIScreen : ScreenBase<UIScreen>
 
     Sequence mySequencePopUp;
 
-    public void ShowPopUpText(string popUpText, string secondText = "")
+    public void ShowPopUpText(string popUpText, string secondText = "", Action afterPopUp = null)
     {
         if (mySequencePopUp.IsPlaying())
         {
@@ -202,13 +213,13 @@ public class UIScreen : ScreenBase<UIScreen>
             newCheckpointText.text = secondText;
         }
 
-        if (!mySequencePopUp.IsPlaying())
-            AudioManager.PlaySoundFromLibrary("PopUp");
+        AudioManager.PlaySoundFromLibrary("PopUp");
 
         clearText.gameObject.SetActive(true);
         clearText.text = popUpText;
 
         mySequencePopUp.Restart();
+        mySequencePopUp.OnComplete(() => afterPopUp());
         GameObject go = Instantiate<GameObject>(popUpParticle.gameObject);
         go.transform.SetParent(GetComponentInParent<Canvas>().transform, false);
         go.transform.SetAsFirstSibling();
@@ -279,26 +290,6 @@ public class UIScreen : ScreenBase<UIScreen>
 
     bool gameStarted;
 
-    GameObject tutrlTemp;
-
-    void ShowTutorial()
-    {
-        if (tutrlTemp == null && !PlayerPrefs.HasKey("TutorialComplete"))
-        {
-            tutrlTemp = Instantiate(tutorialPrefab);
-            tutrlTemp.transform.SetParent(transform, false);
-        }
-    }
-
-    public void HideTutorial()
-    {
-        if (tutrlTemp != null)
-        {
-            Destroy(tutrlTemp);
-            PlayerPrefs.SetString("TutorialComplete", "yes");
-        }
-    }
-
     public override void OnActivate()
     {
         if (!Game.isChallenge)
@@ -310,7 +301,7 @@ public class UIScreen : ScreenBase<UIScreen>
         if (!gameStarted)
             Game.OnGameStartedCall();
 
-        ShowTutorial();
+        Tutorial.Ins?.ShowTutorial();
 
         gameStarted = true;
 
@@ -391,38 +382,6 @@ public class UIScreen : ScreenBase<UIScreen>
 
         if (Input.GetKeyDown(KeyCode.Space))
             ShowClearText();
-    }
-
-    public static void OnLoseEventCall()
-    {
-        if (OnLoseEvent != null)
-        {
-            OnLoseEvent();
-        }
-
-        Ins.playerLose = true;
-
-        if (Game.isChallenge)
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
-        else
-            // MessageBox.ShowStatic("Continue?", MessageBox.BoxType.Retry)
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Continue);
-
-    }
-
-    public static void OnWinEventCall()
-    {
-        if (OnWinEvent != null)
-        {
-            OnWinEvent();
-        }
-
-        Ins.playerWin = true;
-        Utility.Invoke(ScreenController.Ins, 1, delegate
-        {
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
-        });
-
     }
 
     public void EnableDestroyLastLineBtn(bool enable)

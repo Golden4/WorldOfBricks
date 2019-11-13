@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using DG.Tweening;
 
 public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
 {
@@ -22,6 +22,7 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
         for (int i = 0; i < buyCoinBtns.Length; i++)
         {
             string text = PurchaseManager.Ins.GetLocalizedPrice(buyCoinBtns[i].productID);
+
             if (text == "null")
             {
                 buyCoinBtns[i].loadingImage.gameObject.SetActive(true);
@@ -33,7 +34,9 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
                 buyCoinBtns[i].priceText.gameObject.SetActive(true);
                 buyCoinBtns[i].priceText.text = text;
             }
+
             int index = i;
+            buyCoinBtns[i].coinText.text = "x" + buyCoinBtns[i].coinCount.ToString();
 
             buyCoinBtns[i].btn.onClick.RemoveAllListeners();
 
@@ -72,6 +75,7 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
         public Button btn;
         public Text priceText;
         public Image loadingImage;
+        public Text coinText;
         public int coinCount;
     }
 
@@ -126,7 +130,6 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
             OnDontTakeGift();
         }
 
-
         PurchaseManager.OnPurchaseConsumable += OnPurchaseConsumable;
 
     }
@@ -170,7 +173,6 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
 
             //PlayerPrefs.SetString ("giftTime", nextGiveGiftTime.Ticks.ToString ());
 
-
             Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
 
             Utility.CoinsAnimateRadial(CoinUI.Ins, CoinUI.Ins.coinImage.gameObject, CoinUI.Ins.transform, coinAmount, fromPos, toPos, Screen.width / 3, .5f, CoinUI.Ins.curve, () =>
@@ -187,7 +189,6 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
             }, true);
         }
     }
-
 
     public static bool CanTakeGift()
     {
@@ -258,6 +259,5 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
         if (ScreenController.Ins.curScene == ScreenController.CurScene.Game)
             ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Pause);
     }
-
 
 }

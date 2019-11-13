@@ -219,7 +219,7 @@ public class BlocksController : MonoBehaviour
 
             if (blockMap[blockMap.Length - 1][i].blockLife > 0)
             {
-                UIScreen.OnLoseEventCall();
+                OnLose();
                 break;
             }
         }
@@ -235,9 +235,34 @@ public class BlocksController : MonoBehaviour
         }
 
         if (UIScreen.Ins.playerWin)
-            UIScreen.OnWinEventCall();
+        {
+            OnWin();
+        }
         else if (UIScreen.Ins.playerLose || UIScreen.Ins.level <= 0)
-            UIScreen.OnLoseEventCall();
+        {
+            OnLose();
+        }
+    }
+
+    void OnWin()
+    {
+        UIScreen.Ins.playerWin = true;
+
+        DOVirtual.DelayedCall(1.5f, delegate
+        {
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+        });
+    }
+
+    void OnLose()
+    {
+        UIScreen.Ins.playerLose = true;
+
+        if (Game.isChallenge)
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+        else
+            // MessageBox.ShowStatic("Continue?", MessageBox.BoxType.Retry)
+            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Continue);
     }
 
     System.Random rand = new System.Random();
@@ -328,8 +353,6 @@ public class BlocksController : MonoBehaviour
                 {
                     blockIndex = -1;
                 }
-
-                // print(i + "   " +j+ "  " + col + "  " + blockIndex);
 
                 if (blockIndex == -1)
                     blockMap[i][j] = new Block(0);

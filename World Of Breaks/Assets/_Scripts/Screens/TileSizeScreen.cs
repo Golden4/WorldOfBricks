@@ -65,7 +65,7 @@ public class TileSizeScreen : ScreenBase<TileSizeScreen>
         }
     }
 
-    public void SetTileSize(TileSize size)
+    public void SetTileSizeAndPlay(TileSize size)
     {
         tileSize = size;
         StartGame(true, false);
@@ -80,12 +80,12 @@ public class TileSizeScreen : ScreenBase<TileSizeScreen>
             int index = i;
             buttons[i].GetComponent<Button>().onClick.AddListener(delegate
             {
-                SetTileSize((TileSize)index);
+                if (index > 0 && !tileSizeLocked.tileSizeLocked[index - 1] || index == 0)
+                {
+                    SetTileSizeAndPlay((TileSize)index);
+                }
             });
         }
-
-
-
     }
 
     public override void OnActivate()

@@ -40,7 +40,7 @@ public class ChallengesGroupScreen : ScreenBase<ChallengesGroupScreen>
 
             go.GetComponent<Button>().onClick.AddListener(delegate
             {
-                if (!User.GetChallengesData.challData[index].locked)
+                if (!User.GetChallengesData.IsGroupLocked(index))
                 {
                     ChallengesScreen.Ins.ShowChallengesForGroup(index);
                     ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Challeges);
@@ -52,7 +52,7 @@ public class ChallengesGroupScreen : ScreenBase<ChallengesGroupScreen>
             ChallengeLvlBtnUI challengeLvlBtnUI = go.GetComponent<ChallengeLvlBtnUI>();
 
             if (i + 1 < ChallengesInfo.GetChall.challengesGroups.Count)
-                if (!User.GetChallengesData.challData[i].locked && User.GetChallengesData.challData[i + 1].locked)
+                if (!User.GetChallengesData.IsGroupLocked(i) && User.GetChallengesData.IsGroupLocked(i + 1))
                 {
                     challengeLvlBtnUI.curActive = true;
                 }

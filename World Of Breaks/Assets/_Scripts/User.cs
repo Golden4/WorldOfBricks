@@ -204,7 +204,7 @@ public static class User
 
         if (data != null)
         {
-            challengesData.Combine(data.challData);
+            challengesData.Combine(data);
         }
 
         SaveChallengesData();

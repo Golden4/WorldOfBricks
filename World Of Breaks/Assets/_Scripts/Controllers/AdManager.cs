@@ -59,13 +59,13 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
     public void showBanner()
     {
-        if (Appodeal.isLoaded(Appodeal.BANNER_TOP))
-            Appodeal.show(Appodeal.BANNER_TOP);
+        if (Appodeal.isLoaded(Appodeal.BANNER_BOTTOM))
+            Appodeal.show(Appodeal.BANNER_BOTTOM);
     }
 
     public void hideBanner()
     {
-        Appodeal.hide(Appodeal.BANNER_TOP);
+        Appodeal.hide(Appodeal.BANNER_BOTTOM);
     }
 
 

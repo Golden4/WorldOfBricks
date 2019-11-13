@@ -6,14 +6,25 @@ using DG.Tweening;
 
 public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
 {
-    public Text resultText;
-    public Button retryBtn;
-    public Button nextBtn;
+    [SerializeField]
+    Text resultText;
+
+    [SerializeField]
+    Button retryBtnTextButton;
+
+    [SerializeField]
+    Button retryBtnSmallButton;
+
+    [SerializeField]
+    Button nextBtnTextButton;
 
     public Transform starsParent;
     public Image[] stars;
 
-    public PanelsController pc;
+    [SerializeField]
+    Text rewardText;
+
+    // public PanelsController pc;
 
     public static float[] starPersents = new float[] {
         0.2f,
@@ -35,7 +46,7 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
 
     public override void OnInit()
     {
-        pc = GetComponentInChildren<PanelsController>();
+        // pc = GetComponentInChildren<PanelsController>();
     }
 
     public override void OnActivate()
@@ -79,39 +90,39 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
 
     void OnPlayerWin()
     {
-        pc.ShowGiftPanel(false);
-        pc.ShowRewardPanel(true);
+        // pc.ShowGiftPanel(false);
+        // pc.ShowRewardPanel(true);
 
-        if (Game.ballTryingIndex > -1)
-        {
-            pc.ShowBuyBallPanel(true);
-            pc.ShowTryBallsPanel(false);
-        }
-        else if (Game.gamesPlayed % 3 == 1 && PanelsController.CanTakeBall())
-        {
-            pc.ShowBuyBallPanel(false);
-            pc.ShowTryBallsPanel(true);
-        }
-        else
-        {
-            pc.ShowGiftPanel(true);
-            pc.ShowBuyBallPanel(false);
-            pc.ShowTryBallsPanel(false);
-        }
+        // if (Game.ballTryingIndex > -1)
+        // {
+        //     pc.ShowBuyBallPanel(true);
+        //     pc.ShowTryBallsPanel(false);
+        // }
+        // else if (Game.gamesPlayed % 3 == 1 && PanelsController.CanTakeBall())
+        // {
+        //     pc.ShowBuyBallPanel(false);
+        //     pc.ShowTryBallsPanel(true);
+        // }
+        // else
+        // {
+        //     pc.ShowGiftPanel(true);
+        //     pc.ShowBuyBallPanel(false);
+        //     pc.ShowTryBallsPanel(false);
+        // }
 
         if (Game.curChallengeIndex + 1 < ChallengesInfo.GetChall.GetCurrentChallengesData().Length)
-            nextBtn.gameObject.SetActive(true);
+            nextBtnTextButton.gameObject.SetActive(true);
         else
-            nextBtn.gameObject.SetActive(false);
+            nextBtnTextButton.gameObject.SetActive(false);
 
-        retryBtn.gameObject.SetActive(false);
+        retryBtnSmallButton.gameObject.SetActive(true);
+        retryBtnTextButton.gameObject.SetActive(false);
 
         starsParent.gameObject.SetActive(true);
 
         int starCount = GetCurrentStarCount(progressPersent);
 
         int completedStars = User.GetChallengesData.GetCurrentValue();
-
 
         ShowStars(starCount, completedStars);
 
@@ -126,7 +137,7 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
 
             User.AddCoin(reward);
 
-            pc.rewardText.text = "+" + reward.ToString();
+            rewardText.text = "+" + reward.ToString();
 
             resultText.text = string.Format(LocalizationManager.GetLocalizedText("challenge_complete"), ((Game.curChallengeGroupIndex + 1) + "-" + (Game.curChallengeIndex + 1)));
 
@@ -134,16 +145,20 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
         }
         else
         {
-            pc.GiveReward(false);
+            // pc.GiveReward(false);
+            rewardText.text = "+0";
             resultText.text = string.Format(LocalizationManager.GetLocalizedText("challenge_complete_again"), ((Game.curChallengeGroupIndex + 1) + "-" + (Game.curChallengeIndex + 1)));
         }
+
+        User.GetChallengesData.challData[Game.curChallengeGroupIndex].UnlockNextLevel(Game.curChallengeIndex);
 
         //unlock new challenge group if last challenge cmplte
         if (User.GetChallengesData.GetCountData(Game.curChallengeGroupIndex) == ChallengesInfo.GetChall.challengesGroups[Game.curChallengeGroupIndex].challengesData.Count)
         {
             if (Game.curChallengeGroupIndex + 1 < User.GetChallengesData.challData.Length)
-                User.GetChallengesData.challData[Game.curChallengeGroupIndex + 1].locked = false;
+                User.GetChallengesData.UnlockNextGroup(Game.curChallengeGroupIndex);
         }
+
 
         User.SaveChallengesData();
         AudioManager.PlaySoundFromLibrary("Success");
@@ -151,28 +166,33 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
 
     void OnPlayerLose()
     {
-        pc.ShowGiftPanel(true);
-        pc.ShowRewardPanel(false);
+        // pc.ShowGiftPanel(true);
+        // pc.ShowRewardPanel(false);
 
-        if (Game.ballTryingIndex > -1)
-        {
-            pc.ShowBuyBallPanel(true);
-            pc.ShowTryBallsPanel(false);
-        }
-        else if (Game.gamesPlayed % 3 == 1 && PanelsController.CanTakeBall())
-        {
-            pc.ShowBuyBallPanel(false);
-            pc.ShowTryBallsPanel(true);
-        }
-        else
-        {
-            pc.ShowGiftPanel(true);
-            pc.ShowBuyBallPanel(false);
-            pc.ShowTryBallsPanel(false);
-        }
+        // if (Game.ballTryingIndex > -1)
+        // {
+        //     pc.ShowBuyBallPanel(true);
+        //     pc.ShowTryBallsPanel(false);
+        // }
+        // else if (Game.gamesPlayed % 3 == 1 && PanelsController.CanTakeBall())
+        // {
+        //     pc.ShowBuyBallPanel(false);
+        //     pc.ShowTryBallsPanel(true);
+        // }
+        // else
+        // {
+        //     pc.ShowGiftPanel(true);
+        //     pc.ShowBuyBallPanel(false);
+        //     pc.ShowTryBallsPanel(false);
+        // }
+
         starsParent.gameObject.SetActive(false);
-        nextBtn.gameObject.SetActive(false);
-        retryBtn.gameObject.SetActive(true);
+
+        nextBtnTextButton.gameObject.SetActive(false);
+        retryBtnSmallButton.gameObject.SetActive(false);
+        retryBtnTextButton.gameObject.SetActive(true);
+
+        rewardText.text = "+0";
         resultText.text = string.Format(LocalizationManager.GetLocalizedText("challenge_failed"), ((Game.curChallengeGroupIndex + 1) + "-" + (Game.curChallengeIndex + 1)));
         AudioManager.PlaySoundFromLibrary("Failed");
     }
@@ -191,19 +211,20 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
 
                 GameObject go = Instantiate<GameObject>(Resources.Load<GameObject>("Particles/UI/StarParticle"));
                 go.transform.SetParent(transform, false);
-                go.transform.localScale = Vector3.one;
+                go.transform.localScale = Vector3.one * 2;
+                go.transform.SetAsLastSibling();
                 ParticleSystem ps = go.GetComponent<ParticleSystem>();
                 Destroy(go, 2);
 
                 int index = i;
-                stars[i].transform.DOScale(Vector3.one, .5f).ChangeStartValue(Vector3.zero).SetDelay(i * .5f).SetEase(Ease.OutElastic).OnComplete(delegate
+                stars[i].transform.DOScale(Vector3.one, 1f).ChangeStartValue(Vector3.zero).SetDelay(i * .7f).SetEase(Ease.OutElastic).OnComplete(delegate
                 {
                     if (index >= completedStars)
                     {
                         plusCoinText.gameObject.SetActive(true);
                         plusCoinText.transform.DOScale(Vector3.one, .5f).ChangeStartValue(Vector3.zero).SetEase(Ease.OutBounce);
                         plusCoinText.text = "+" + coinsForStars[index];
-                        pc.GiveReward(true, coinsForStars[index], stars[index].transform.position.x, stars[index].transform.position.y, false);
+                        // pc.GiveReward(true, coinsForStars[index], stars[index].transform.position.x, stars[index].transform.position.y, false);
                     }
                 }).OnStart(delegate
                 {

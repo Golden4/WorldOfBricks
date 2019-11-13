@@ -28,7 +28,8 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
         {
             if (User.BuyWithCoin(25 * dieCount))
                 RetryGame();
-        }, MessageBox.BtnSprites.Coin)
+            stopTimer = true;
+        }, MessageBox.BtnSprites.Coin, default, User.HaveCoin(25 * dieCount))
         .SetImageBtn(true, () => RespawnPlayerVideo(), MessageBox.BtnSprites.Video, default, false);
 
         // coinText.text = (25 * dieCount).ToString();
@@ -47,7 +48,7 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
     public override void OnDeactivate()
     {
         base.OnDeactivate();
-        clickedToVideoBtn = false;
+        stopTimer = false;
         AdManager.onRewardedVideoFinishedEvent -= RetryGame;
     }
 
@@ -65,26 +66,24 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
             CloseContinueScreen();
             return;
         }
-        if (!clickedToVideoBtn && messageBox != null)
+        if (!stopTimer && messageBox != null)
         {
             messageBox.SetProgress(1 - ((Time.time - lastTime) / waitTime));
             // continueTimer.fillAmount = 1 - ((Time.time - lastTime) / waitTime);
         }
 
-        if (lastTime + waitTime < Time.time && !clickedToVideoBtn)
+        if (lastTime + waitTime < Time.time && !stopTimer)
         {
-
             CloseContinueScreen();
-
         }
 
     }
 
-    bool clickedToVideoBtn;
+    bool stopTimer;
 
     void RespawnPlayerVideo()
     {
-        clickedToVideoBtn = true;
+        stopTimer = true;
 
         if (AdManager.Ins != null)
         {

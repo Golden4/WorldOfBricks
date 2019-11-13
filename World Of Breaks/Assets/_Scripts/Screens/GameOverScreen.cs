@@ -5,17 +5,21 @@ using UnityEngine.UI;
 
 public class GameOverScreen : ScreenBase<GameOverScreen>
 {
+    [SerializeField]
+    Text newRecordText;
+    [SerializeField]
+    Text levelText;
+    [SerializeField]
+    Text scoreText;
+    [SerializeField]
+    Text rewardText;
 
-    public Text newRecordText;
-    public Text levelText;
-    public Text scoreText;
-
-    public PanelsController pc;
+    // public PanelsController pc;
 
     public override void OnInit()
     {
         base.OnInit();
-        pc = GetComponentInChildren<PanelsController>();
+        // pc = GetComponentInChildren<PanelsController>();
     }
 
     public override void OnActivate()
@@ -45,6 +49,11 @@ public class GameOverScreen : ScreenBase<GameOverScreen>
         levelText.text = LocalizationManager.GetLocalizedText("level") + ": " + UIScreen.Ins.level.ToString();
         scoreText.text = LocalizationManager.GetLocalizedText("score") + ": " + UIScreen.Ins.playerScore;
 
+        int coinAmount = UIScreen.Ins.playerScore / 200;
+        User.AddCoin(coinAmount);
+
+        rewardText.text = "+" + coinAmount;
+
         //if (!User.GetInfo.AllCharactersBought ()) {
         //	openBoxPanel.gameObject.SetActive (true);
         //	if (User.HaveCoin (PrizeScreen.GetBoxPrise ())) {
@@ -59,28 +68,33 @@ public class GameOverScreen : ScreenBase<GameOverScreen>
         //} else {
         //	openBoxPanel.gameObject.SetActive (false);
         //}
-        pc.ShowGiftPanel(false);
-        pc.ShowRewardPanel(true);
-        int coinAmunt = UIScreen.Ins.playerScore / 100;
-        pc.GiveReward(true, coinAmunt);
-        User.AddCoin(coinAmunt);
 
-        if (Game.ballTryingIndex > -1)
-        {
-            pc.ShowBuyBallPanel(true);
-            pc.ShowTryBallsPanel(false);
-        }
-        else if (Game.gamesPlayed % 3 == 1 && PanelsController.CanTakeBall())
-        {
-            pc.ShowBuyBallPanel(false);
-            pc.ShowTryBallsPanel(true);
-        }
-        else
-        {
-            pc.ShowGiftPanel(true);
-            pc.ShowBuyBallPanel(false);
-            pc.ShowTryBallsPanel(false);
-        }
+
+
+
+        // pc.ShowGiftPanel(false);
+        // pc.ShowRewardPanel(true);
+        // int coinAmunt = UIScreen.Ins.playerScore / 100;
+        // pc.GiveReward(true, coinAmunt);
+        // User.AddCoin(coinAmunt);
+
+        // if (Game.ballTryingIndex > -1)
+        // {
+        //     pc.ShowBuyBallPanel(true);
+        //     pc.ShowTryBallsPanel(false);
+        // }
+        // else if (Game.gamesPlayed % 3 == 1 && PanelsController.CanTakeBall())
+        // {
+        //     pc.ShowBuyBallPanel(false);
+        //     pc.ShowTryBallsPanel(true);
+        // }
+        // else
+        // {
+        //     pc.ShowGiftPanel(true);
+        //     pc.ShowBuyBallPanel(false);
+        //     pc.ShowTryBallsPanel(false);
+        // }
+
         Game.ballTryingIndex = -1;
         AudioManager.PlaySoundFromLibrary("Failed");
 

@@ -75,20 +75,51 @@ public class UserInfo
         else
             return curPlayerIndex;
     }
-
-
-
 }
 
 [System.Serializable]
 public class ChallDataInfo
 {
+    public int groupsUnlocked = 0;
 
     [System.Serializable]
     public class ChallengeGroup
     {
-        public bool locked = true;
+        public int levelsUnlocked = 0;
         public int[] data;
+
+        public bool IsLevelLocked(int index)
+        {
+            return index > levelsUnlocked;
+        }
+
+        public bool UnlockNextLevel(int curIndex)
+        {
+            if (curIndex + 1 < data.Length)
+            {
+                if (IsLevelLocked(curIndex + 1))
+                {
+                    levelsUnlocked = curIndex + 1;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    public bool UnlockNextGroup(int curGroupIndex)
+    {
+        if (curGroupIndex + 1 < challData.Length)
+        {
+            if (IsGroupLocked(curGroupIndex + 1))
+            {
+                groupsUnlocked = curGroupIndex + 1;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public ChallengeGroup[] _challData;
@@ -104,6 +135,12 @@ public class ChallDataInfo
         {
             _challData = value;
         }
+    }
+
+
+    public bool IsGroupLocked(int index)
+    {
+        return index > groupsUnlocked;
     }
 
     public int GetCountData(int groupIndex)
@@ -156,8 +193,9 @@ public class ChallDataInfo
             _challData[i] = new ChallengeGroup();
 
             if (i == 0)
-                _challData[i].locked = false;
+                groupsUnlocked = 0;
 
+            _challData[i].levelsUnlocked = 0;
             _challData[i].data = new int[ChallengesInfo.GetChall.challengesGroups[i].challengesData.Count];
             for (int j = 0; j < _challData[i].data.Length; j++)
             {
@@ -168,15 +206,17 @@ public class ChallDataInfo
         ResetValues();
     }
 
-    public void Combine(ChallengeGroup[] _data)
+    public void Combine(ChallDataInfo _data)
     {
-        for (int i = 0; i < _data.Length; i++)
+        groupsUnlocked = _data.groupsUnlocked;
+
+        for (int i = 0; i < _data.challData.Length; i++)
         {
-            _challData[i].locked = _data[i].locked;
-            for (int j = 0; j < _data[i].data.Length; j++)
+            _challData[i].levelsUnlocked = _data.challData[i].levelsUnlocked;
+            for (int j = 0; j < _data.challData[i].data.Length; j++)
             {
                 if (_challData[i].data.Length > j)
-                    _challData[i].data[j] = _data[i].data[j];
+                    _challData[i].data[j] = _data.challData[i].data[j];
             }
         }
     }

@@ -12,6 +12,7 @@ public class SceneController : MonoBehaviour
 
     public Image image;
 
+
     public static bool sceneLoading = false;
 
     public static int nextSceneToLoad

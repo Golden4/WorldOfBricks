@@ -39,15 +39,9 @@ public class ChallengesScreen : ScreenBase<ChallengesScreen>
             Image image = go.GetComponent<Image>();
             image.color = ChallengesGroupScreen.Ins.mainColorGradient.Evaluate(indexGroup / (float)ChallengesInfo.GetChall.challengesGroups.Count); //ChallengesInfo.GetChall.challengesGroups[indexGroup].mainColor;
 
-            int prevStarCount = 0;
-
-            if (i - 1 >= 0)
-            {
-                prevStarCount = User.GetChallengesData.GetValue(indexGroup, i - 1);
-            }
-
-            UpdateButtonState(i, indexGroup, User.GetChallengesData.GetValue(indexGroup, i), prevStarCount);
+            UpdateButtonState(i, User.GetChallengesData.challData[indexG].IsLevelLocked(index), User.GetChallengesData.GetValue(indexGroup, i), button);
         }
+
         lvlInfoImage.GetComponent<ChallengeLvlBtnUI>().ChangeChallengeBtnInfo(indexGroup);
     }
 
@@ -78,27 +72,23 @@ public class ChallengesScreen : ScreenBase<ChallengesScreen>
         challList.Clear();
     }
 
-    void UpdateButtonState(int index, int indexGroup, int starCount, int prevStarCount)
+    void UpdateButtonState(int index, bool locked, int starCount, Button button)
     {
         Image spriteState = challList[index].transform.GetChild(0).Find("StateIcon").GetComponent<Image>();
 
-        if (starCount > 0)
+        if (!locked)
         {
             ShowStars(true, index, starCount);
             spriteState.gameObject.SetActive(false);
-            challList[index].GetComponent<ButtonIcon>().EnableBtn(true);
-        }
-        else if ((index == 0 && starCount == 0) || (starCount == 0 && prevStarCount > 0))
-        {
-            ShowStars(true, index, starCount);
-            spriteState.gameObject.SetActive(false);
-            challList[index].GetComponent<ButtonIcon>().EnableBtn(true);
+            button.interactable = true;
+            // challList[index].GetComponent<ButtonIcon>().EnableBtn(true);
         }
         else
         {
             ShowStars(false, index);
             spriteState.gameObject.SetActive(true);
-            challList[index].GetComponent<ButtonIcon>().EnableBtn(false);
+            button.interactable = false;
+            // challList[index].GetComponent<ButtonIcon>().EnableBtn(false);
         }
     }
 

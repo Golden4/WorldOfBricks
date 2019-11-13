@@ -18,14 +18,14 @@ public class PauseScreen : ScreenBase<PauseScreen>
     public override void OnDeactivate()
     {
         Game.isPause = false;
-        Time.timeScale = 1;
+        Time.timeScale = UIScreen.Ins.GetTimeAccelerationValue();
         AdManager.Ins.hideBanner();
     }
 
     public void Continue()
     {
         Game.isPause = false;
-        Time.timeScale = 1;
+        Time.timeScale = UIScreen.Ins.GetTimeAccelerationValue();
 
         if (UIScreen.Ins.playerLose)
             ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.GameOver);
@@ -42,7 +42,6 @@ public class PauseScreen : ScreenBase<PauseScreen>
 
     public void ActivateMenu()
     {
-
         Action action = () =>
         {
             Game.isPause = false;

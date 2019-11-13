@@ -73,10 +73,10 @@ public class CoinUI : MonoBehaviour
         coinText.color = Color.red;
         coinText.transform.localScale = Vector3.one * 1.1f;
 
-        MessageBox.ShowStatic("Buy coins?", MessageBox.BoxType.Retry).SetTextBtn("Ok", true, () =>
-        {
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.BuyCoin);
-        });
+        // MessageBox.ShowStatic("Buy coins?", MessageBox.BoxType.Retry).SetTextBtn("Ok", true, () =>
+        // {
+        //     ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.BuyCoin);
+        // });
 
         StopCoroutine("ChangeColorCorutine");
         StartCoroutine("ChangeColorCorutine");

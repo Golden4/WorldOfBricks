@@ -31,8 +31,8 @@ public class ChallengeLvlBtnUI : MonoBehaviour
 
     public void ChangeChallengeBtnInfo(int groupIndex)
     {
-        if (!User.GetChallengesData.challData[groupIndex].locked)
-            ChangeChallengeBtnInfo(User.GetChallengesData.challData[groupIndex].locked,
+        if (!User.GetChallengesData.IsGroupLocked(groupIndex))
+            ChangeChallengeBtnInfo(User.GetChallengesData.IsGroupLocked(groupIndex),
                     ChallengesInfo.GetChall.challengesGroups[groupIndex].name,
                     User.GetChallengesData.GetCountData(groupIndex) + "/" + ChallengesInfo.GetChall.challengesGroups[groupIndex].challengesData.Count,
                     (groupIndex + 1).ToString(),
@@ -42,7 +42,7 @@ public class ChallengeLvlBtnUI : MonoBehaviour
                     ChallengesGroupScreen.Ins.progressColorGradient.Evaluate(groupIndex / (float)ChallengesInfo.GetChall.challengesGroups.Count)
                     );
         else
-            ChangeChallengeBtnInfo(User.GetChallengesData.challData[groupIndex].locked,
+            ChangeChallengeBtnInfo(User.GetChallengesData.IsGroupLocked(groupIndex),
             ChallengesInfo.GetChall.challengesGroups[groupIndex].name,
             User.GetChallengesData.GetCountData(groupIndex) + "/" + ChallengesInfo.GetChall.challengesGroups[groupIndex].challengesData.Count,
             (groupIndex + 1).ToString(),

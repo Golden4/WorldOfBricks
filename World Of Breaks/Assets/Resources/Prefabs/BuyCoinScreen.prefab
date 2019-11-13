@@ -378,7 +378,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405113324899723}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 8818405115019632700}
   m_Father: {fileID: 8818405113453157742}
@@ -816,7 +816,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_ScaleOriginal: {x: 1, y: 1, z: 1}
+  m_ScaleOriginal: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_ScaleOut:
     Enable: 0
     Animating: 0
@@ -1043,16 +1043,19 @@ MonoBehaviour:
     btn: {fileID: 8818405114709166187}
     priceText: {fileID: 8818405113550527035}
     loadingImage: {fileID: 1816991118}
+    coinText: {fileID: 0}
     coinCount: 150
   - productID: coins_2
     btn: {fileID: 8818405115173893513}
     priceText: {fileID: 8818405113595778797}
     loadingImage: {fileID: 137981610}
+    coinText: {fileID: 0}
     coinCount: 350
   - productID: coins_3
     btn: {fileID: 8818405114734561393}
     priceText: {fileID: 8818405115120296135}
     loadingImage: {fileID: 1523019192}
+    coinText: {fileID: 0}
     coinCount: 1000
   buyCoinScreenBtn: {fileID: 0}
   showMenuBtn: {fileID: 0}
@@ -1873,7 +1876,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405114709166191}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 8818405114610827120}
   m_Father: {fileID: 8818405113453157742}
@@ -2311,7 +2314,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_ScaleOriginal: {x: 1, y: 1, z: 1}
+  m_ScaleOriginal: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_ScaleOut:
     Enable: 0
     Animating: 0
@@ -2377,7 +2380,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405114734561397}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 8818405113857315570}
   m_Father: {fileID: 8818405113453157742}
@@ -2815,7 +2818,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_ScaleOriginal: {x: 1, y: 1, z: 1}
+  m_ScaleOriginal: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_ScaleOut:
     Enable: 0
     Animating: 0
@@ -2881,7 +2884,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405114859486060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 19.561981}
-  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 8818405114681328454}
   m_Father: {fileID: 8818405113453157742}
@@ -3330,7 +3333,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_ScaleOriginal: {x: 1, y: 1, z: 1}
+  m_ScaleOriginal: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_ScaleOut:
     Enable: 0
     Animating: 0
@@ -3914,7 +3917,7 @@ RectTransform:
   m_GameObject: {fileID: 8818405115173893517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 8818405115173702337}
   m_Father: {fileID: 8818405113453157742}
@@ -4352,7 +4355,7 @@ MonoBehaviour:
           m_Calls: []
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-  m_ScaleOriginal: {x: 1, y: 1, z: 1}
+  m_ScaleOriginal: {x: 1.0702635, y: 1.0702635, z: 1.0702635}
   m_ScaleOut:
     Enable: 0
     Animating: 0

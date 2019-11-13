@@ -9,7 +9,6 @@ using DG.Tweening;
 
 public class LoadingText : MonoBehaviour, IPermissionGrantedListener
 {
-
     [SerializeField] Text loadingText;
 
     float minLoadingTime = .5f;
@@ -26,11 +25,11 @@ public class LoadingText : MonoBehaviour, IPermissionGrantedListener
         loadingTime = 0;
         AdManager.Ins.OnInit();
         PurchaseManager.Ins.TryInit();
-        // StartCoroutine(PingPongText(SceneController.nextSceneToLoad, 0.7f));
+        StartCoroutine(PingPongText(SceneController.nextSceneToLoad, 0.7f));
 
-        loadingText.gameObject.SetActive(true);
-        loadingText.DOFade(1f, .5f).ChangeStartValue(Color.clear).SetLoops(-1, LoopType.Yoyo);
-        SceneManager.LoadSceneAsync(SceneController.nextSceneToLoad);
+        // loadingText.gameObject.SetActive(true);
+        // loadingText.DOFade(1f, .5f).ChangeStartValue(Color.clear).SetLoops(-1, LoopType.Yoyo);
+        // SceneManager.LoadSceneAsync(SceneController.nextSceneToLoad);
     }
 
     IEnumerator PingPongText(int sceneIndex, float time)
