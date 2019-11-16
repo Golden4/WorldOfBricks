@@ -4,6 +4,7 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: ShapeCircle_0
     21300002: ShapeCircle_1
+    21300004: ShapeCircle_2
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -132,6 +133,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 73414137f1bd7834fa9d0b4d223434cb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShapeCircle_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 9
+        width: 200
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 30, y: 45, z: 30, w: 30}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ada15cf993c58d4c937eff929f7ba3f
       vertices: []
       indices: 
       edges: []

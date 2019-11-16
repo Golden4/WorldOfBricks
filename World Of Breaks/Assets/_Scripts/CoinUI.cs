@@ -31,7 +31,7 @@ public class CoinUI : MonoBehaviour
         if (buttonCustom != null)
             buttonCustom.onClick += delegate
               {
-                  BottomPanelMenuUI.Ins.ChangeBtn(0);
+                  BottomPanelMenuUI.Ins.ChangeBtn(4);
               };
 
         //User.OnCoinChangedEvent += ShowCoinCount;

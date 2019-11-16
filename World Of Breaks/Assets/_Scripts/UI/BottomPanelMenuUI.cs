@@ -42,23 +42,36 @@ public class BottomPanelMenuUI : MonoBehaviour
             return;
 
         lastClickTime = Time.time;
+        ChangeBtn(btnInfos[index], activateScreen, index);
         curActiveBtnIndex = index;
-        ChangeBtn(btnInfos[index], activateScreen);
     }
 
-    public void ChangeBtn(BottomPanelBtnInfo info, bool activateScreen = true)
+    public void ChangeBtn(BottomPanelBtnInfo info, bool activateScreen = true, int index = -1)
     {
         selectedBtn.gameObject.SetActive(true);
-        selectedBtnText.text = info.name;
-        selectedBtnSprite.sprite = info.image.sprite;
-        selectedBtn.transform.position = info.button.transform.position;
-        selectedBtnSprite.color = info.color;
-        selectedBtnText.color = info.color;
-        selectedBtnSprite.transform.DORestart(false);
+        selectedBtn.transform.DOMove(info.button.transform.position, .15f);
         selectedBtn.transform.DORestart(false);
 
-        if (activateScreen && ScreenController.curActiveScreen != info.screenToChange)
-            ScreenController.Ins.ActivateScreen(info.screenToChange);
+        selectedBtnText.text = info.name;
+        selectedBtnText.color = info.color;
+
+        selectedBtnSprite.sprite = info.image.sprite;
+        selectedBtnSprite.color = info.color;
+        selectedBtnSprite.transform.DORestart(false);
+
+        if (activateScreen && ScreenController.curActiveScreen != info.screenToChange.screenType)
+        {
+            ScreenController.Ins.ActivateScreen(info.screenToChange.screenType);
+
+            if(index != curActiveBtnIndex)
+                AnimateScreen(info.screenToChange, (index - curActiveBtnIndex) > 0);
+        }
+    }
+
+    public void AnimateScreen(ScreenBase screenBase, bool directionRight)
+    {
+        screenBase.GetComponent<RectTransform>().DOKill();
+        screenBase.GetComponent<RectTransform>().DOAnchorPosX(150 * (directionRight ? 1 : -1), .5f).From().SetEase(Ease.OutCubic);
     }
 
     [System.Serializable]
@@ -68,6 +81,6 @@ public class BottomPanelMenuUI : MonoBehaviour
         public Image image;
         public Button button;
         public Color color = Color.white;
-        public ScreenController.GameScreen screenToChange;
+        public ScreenBase screenToChange;
     }
 }

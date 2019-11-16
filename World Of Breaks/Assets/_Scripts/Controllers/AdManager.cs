@@ -1,9 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
-using System;
+using UnityEngine;
 
 public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, IRewardedVideoAdListener, IBannerAdListener
 {
@@ -12,7 +12,7 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
     public string appKey;
 
 #else
-	public string appKey = "";
+    public string appKey = "";
 #endif
 
     public bool testMode = true;
@@ -68,26 +68,15 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
         Appodeal.hide(Appodeal.BANNER_BOTTOM);
     }
 
+    public void onBannerLoaded(bool isPrecache) { }
 
-    public void onBannerLoaded(bool isPrecache)
-    {
-    }
+    public void onBannerFailedToLoad() { }
 
-    public void onBannerFailedToLoad()
-    {
-    }
+    public void onBannerShown() { }
 
-    public void onBannerShown()
-    {
-    }
+    public void onBannerClicked() { }
 
-    public void onBannerClicked()
-    {
-    }
-
-    public void onBannerExpired()
-    {
-    }
+    public void onBannerExpired() { }
 
     public static event Action onInterstitialClosedEvent;
 
@@ -103,32 +92,23 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
         }
     }
 
-
-    public void onInterstitialLoaded(bool isPrecache)
-    {
-    }
+    public void onInterstitialLoaded(bool isPrecache) { }
 
     public void onInterstitialFailedToLoad()
     {
 
     }
 
-    public void onInterstitialShown()
-    {
-    }
+    public void onInterstitialShown() { }
 
     public void onInterstitialClosed()
     {
         isInterstitialClosed = true;
     }
 
-    public void onInterstitialClicked()
-    {
-    }
+    public void onInterstitialClicked() { }
 
-    public void onInterstitialExpired()
-    {
-    }
+    public void onInterstitialExpired() { }
 
     public static event Action onRewardedVideoFinishedEvent;
 
@@ -152,7 +132,6 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
             // DialogBox.Show("Loading video...", null, null, false, true);
 
             else
-
                 MessageBox.ShowStatic("Video failed to load...", MessageBox.BoxType.Failed)
                 .SetDesc("Please check internet connection...");
             // DialogBox.Show("Video failed to load...", null, null, true, false);
@@ -174,26 +153,18 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
         isRewardedVideoLoaded = false;
     }
 
-    public void onRewardedVideoShown()
-    {
-    }
+    public void onRewardedVideoShown() { }
 
     public void onRewardedVideoFinished(double amount, string name)
     {
         isRewardedVideoFinished = true;
     }
 
-    public void onRewardedVideoClosed(bool finished)
-    {
-    }
+    public void onRewardedVideoClosed(bool finished) { }
 
-    public void onRewardedVideoExpired()
-    {
-    }
+    public void onRewardedVideoExpired() { }
 
-    public void onRewardedVideoClicked()
-    {
-    }
+    public void onRewardedVideoClicked() { }
 
     public bool ShowPrivacyPolicyDialog(Action afterDialog)
     {
@@ -206,23 +177,24 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
         if (consentInt == 0)
         {
+            float curTimeScale = Time.timeScale;
             Time.timeScale = 0;
-            MessageBox.ShowStatic("Get better Ads and AWESOME REWARDS!", MessageBox.BoxType.Info)
-            .SetDesc(mainString)
-            .SetTextBtn("Yes, I agree", true, delegate
-            {
-                onYesClick();
-
-                if (afterDialog != null)
-                    afterDialog();
-            })
-            .SetTextBtn("No, thank you", true, delegate
-            {
-                onNoClick();
-
-                if (afterDialog != null)
-                    afterDialog();
-            });
+            MessageBox.ShowStatic("Get better Ads and AWESOME REWARDS!", MessageBox.BoxType.Info, () => { Time.timeScale = curTimeScale; })
+                .SetDesc(mainString)
+                .SetTextBtn("Yes, I agree", true, delegate
+                {
+                    onYesClick();
+                    Time.timeScale = curTimeScale;
+                    if (afterDialog != null)
+                        afterDialog();
+                })
+                .SetTextBtn("No, thank you", true, delegate
+                {
+                    onNoClick();
+                    Time.timeScale = curTimeScale;
+                    if (afterDialog != null)
+                        afterDialog();
+                });
         }
 
         return consentInt == 0;

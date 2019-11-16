@@ -419,7 +419,6 @@ if(Input.touchCount > 0){
     public void UpdateBallCount()
     {
         Vector3 pos = Camera.main.WorldToScreenPoint(startThrowPos + Vector2.left * .5f) + Vector3.up * 7f;
-        Debug.Log(startThrowPos + Vector2.left * .5f + "   " + pos);
 
         if (pos.x < 0)
         {

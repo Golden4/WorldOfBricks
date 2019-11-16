@@ -36,7 +36,7 @@ MonoBehaviour:
   - lifeCount: 5
     ballCount: 50
   challengesGroups:
-  - name: Introductory
+  - name: Introduction
     mapTexture: {fileID: 2800000, guid: 9cadda53e1b9f3d409d4ffa4c0a61270, type: 3}
     challengesData:
     - lifeCount: 5
@@ -88,7 +88,7 @@ MonoBehaviour:
       ballCount: 50
     - lifeCount: 5
       ballCount: 50
-  - name: Expert
+  - name: Medium
     mapTexture: {fileID: 0}
     challengesData:
     - lifeCount: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
       ballCount: 0
     - lifeCount: 0
       ballCount: 0
-  - name: Expert
+  - name: Experienced
     mapTexture: {fileID: 0}
     challengesData:
     - lifeCount: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
       ballCount: 0
     - lifeCount: 0
       ballCount: 0
-  - name: Expert
+  - name: Experienced
     mapTexture: {fileID: 0}
     challengesData:
     - lifeCount: 0

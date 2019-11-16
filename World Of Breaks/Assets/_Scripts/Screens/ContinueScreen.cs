@@ -40,15 +40,17 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
         //         RetryGame();
         // }
         // );
-
+        stopTimer = false;
         lastTime = Time.time + .4f;
         AdManager.onRewardedVideoFinishedEvent += RetryGame;
+        Debug.Log("OnActivate ConScreen");
     }
 
     public override void OnDeactivate()
     {
         base.OnDeactivate();
         stopTimer = false;
+        Debug.Log("OnDeactivate ConScreen");
         AdManager.onRewardedVideoFinishedEvent -= RetryGame;
     }
 
@@ -97,6 +99,7 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
         ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.UI);
         BlocksController.Instance.DestroyLastLine(false);
         UIScreen.Ins.playerLose = false;
+        stopTimer = false;
         //Player.Ins.Retry ();
     }
 

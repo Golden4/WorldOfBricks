@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +7,9 @@ using DG.Tweening;
 
 public class TileSizeScreen : ScreenBase<TileSizeScreen>
 {
+    public ChallengeLvlBtnUI pfSurvaveBtn;
     public ChallengeLvlBtnUI[] buttons;
+    public Transform btnsParent;
     public Gradient gradient;
     public Gradient lockedGradient;
     // public Button[] tileSizeBtns;
@@ -74,10 +77,14 @@ public class TileSizeScreen : ScreenBase<TileSizeScreen>
     public override void OnInit()
     {
         base.OnInit();
+        int TileLength = Enum.GetNames(typeof(TileSize)).Length;
+        buttons = new ChallengeLvlBtnUI[TileLength];
 
-        for (int i = 0; i < buttons.Length; i++)
+        for (int i = 0; i < TileLength; i++)
         {
             int index = i;
+            buttons[i] = Instantiate(pfSurvaveBtn).GetComponent<ChallengeLvlBtnUI>();
+            buttons[i].transform.SetParent(btnsParent, false);
             buttons[i].GetComponent<Button>().onClick.AddListener(delegate
             {
                 if (index > 0 && !tileSizeLocked.tileSizeLocked[index - 1] || index == 0)

@@ -230,7 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderMask:
     serializedVersion: 2
-    m_Bits: 517
+    m_Bits: 1541
   isThrowing: 0
   isClone: 0
   canReflectionCount: 0

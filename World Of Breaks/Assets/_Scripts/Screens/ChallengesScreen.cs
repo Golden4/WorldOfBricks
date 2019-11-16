@@ -10,7 +10,7 @@ public class ChallengesScreen : ScreenBase<ChallengesScreen>
     public GameObject challengePrefab;
     public Image lvlInfoImage;
 
-    List<Button> challList = new List<Button>();
+    List<ChallengeButton> challList = new List<ChallengeButton>();
 
     public ScrollRect sr;
 
@@ -23,23 +23,24 @@ public class ChallengesScreen : ScreenBase<ChallengesScreen>
             GameObject go = Instantiate(challengePrefab);
             go.transform.SetParent(challengesHolder, false);
             go.gameObject.SetActive(true);
-            go.GetComponentInChildren<Text>().text = (i + 1).ToString();
             int index = i;
             int indexG = indexGroup;
 
             Button button = go.GetComponent<Button>();
-
             button.onClick.AddListener(delegate
             {
                 StartChallenges(index, indexG, ChallengesInfo.GetChall.challengesGroups[indexG].challengesData[index]);
             });
-
-            challList.Add(button);
-
-            Image image = go.GetComponent<Image>();
-            image.color = ChallengesGroupScreen.Ins.mainColorGradient.Evaluate(indexGroup / (float)ChallengesInfo.GetChall.challengesGroups.Count); //ChallengesInfo.GetChall.challengesGroups[indexGroup].mainColor;
-
-            UpdateButtonState(i, User.GetChallengesData.challData[indexG].IsLevelLocked(index), User.GetChallengesData.GetValue(indexGroup, i), button);
+            
+            ChallengeButton challengeButton = go.GetComponent<ChallengeButton>();
+            challengeButton.SetButton(User.GetChallengesData.challData[indexG].IsLevelLocked(index),
+                (i + 1),
+                ChallengesGroupScreen.Ins.progressColorGradient.Evaluate(indexGroup / (float)ChallengesInfo.GetChall.challengesGroups.Count),
+                ChallengesGroupScreen.Ins.mainColorGradient.Evaluate(indexGroup / (float)ChallengesInfo.GetChall.challengesGroups.Count),
+                User.GetChallengesData.GetValue(indexGroup, i)
+                );
+            challList.Add(challengeButton);
+       
         }
 
         lvlInfoImage.GetComponent<ChallengeLvlBtnUI>().ChangeChallengeBtnInfo(indexGroup);
@@ -70,45 +71,6 @@ public class ChallengesScreen : ScreenBase<ChallengesScreen>
             Destroy(challList[i].gameObject);
         }
         challList.Clear();
-    }
-
-    void UpdateButtonState(int index, bool locked, int starCount, Button button)
-    {
-        Image spriteState = challList[index].transform.GetChild(0).Find("StateIcon").GetComponent<Image>();
-
-        if (!locked)
-        {
-            ShowStars(true, index, starCount);
-            spriteState.gameObject.SetActive(false);
-            button.interactable = true;
-            // challList[index].GetComponent<ButtonIcon>().EnableBtn(true);
-        }
-        else
-        {
-            ShowStars(false, index);
-            spriteState.gameObject.SetActive(true);
-            button.interactable = false;
-            // challList[index].GetComponent<ButtonIcon>().EnableBtn(false);
-        }
-    }
-
-    void ShowStars(bool show, int index, int count = 0)
-    {
-        if (show)
-        {
-            Image[] stars = new Image[3];
-
-            for (int i = 0; i < 3; i++)
-            {
-                stars[i] = challList[index].transform.GetChild(0).GetChild(0).GetChild(i).GetChild(0).GetComponent<Image>();
-
-                stars[i].gameObject.SetActive(i < count);
-            }
-        }
-        else
-        {
-            challList[index].transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-        }
     }
 
     void StartChallenges(int indexChallenge, int indexGroup, ChallengesInfo.ChallengeInfo info)

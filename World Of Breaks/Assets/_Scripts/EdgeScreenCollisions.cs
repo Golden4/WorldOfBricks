@@ -51,6 +51,7 @@ public class EdgeScreenCollisions : MonoBehaviour
         colliders["Bottom"].position = new Vector3(cameraPos.x, cameraPos.y - screenSize.y - (colliders["Bottom"].localScale.y * 0.5f), zPosition);
 
         Ball.bottomCollider = colliders["Bottom"].GetComponent<Collider2D>();
+        // Camera.main.orthographicSize = cameraPos.y + screenSize.y + (colliders["Top"].localScale.y * 0.5f);
 
         ResizeBackground();
 
@@ -94,7 +95,6 @@ public class EdgeScreenCollisions : MonoBehaviour
         Vector2 screenSizeBG = default;
         screenSizeBG.x = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)));
         screenSizeBG.y = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)));
-
         background.transform.localScale = screenSizeBG * 100;
     }
 

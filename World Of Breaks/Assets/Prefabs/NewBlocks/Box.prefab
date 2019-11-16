@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4600184557781569226}
   - component: {fileID: 4600184557781569227}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Outline
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4600184558515819295}
   - component: {fileID: 4600184558515819292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Box
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 62130362144803404}
   - component: {fileID: 7254269031780652012}
   - component: {fileID: 7319566153713125106}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 4089728019040626197}
   - component: {fileID: 7286460460913348648}
   - component: {fileID: 7232662919553472776}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Box
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -325,64 +325,6 @@ MonoBehaviour:
   active: 0
   coordsX: 0
   coordsY: 0
-  g:
-    serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0.18578339, a: 1}
-    key1: {r: 0.9254902, g: 0.08235295, b: 0.61828566, a: 1}
-    key2: {r: 0.69676393, g: 0.0047169924, b: 1, a: 1}
-    key3: {r: 0.40784314, g: 0.20392157, b: 0.7372549, a: 0}
-    key4: {r: 0.24705882, g: 0.3019608, b: 0.72156864, a: 0}
-    key5: {r: 0, g: 0.8745098, b: 1, a: 0}
-    key6: {r: 0.9647059, g: 0.9411765, b: 0.07058824, a: 0}
-    key7: {r: 0.9647059, g: 0.69803923, b: 0, a: 0}
-    ctime0: 2891
-    ctime1: 8674
-    ctime2: 15035
-    ctime3: 22745
-    ctime4: 31226
-    ctime5: 41056
-    ctime6: 52043
-    ctime7: 62451
-    atime0: 0
-    atime1: 65535
-    atime2: 65535
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 8
-    m_NumAlphaKeys: 2
-  g2:
-    serializedVersion: 2
-    key0: {r: 0.8411376, g: 0.8862745, b: 0.35686272, a: 1}
-    key1: {r: 1, g: 0.74036664, b: 0.25098038, a: 1}
-    key2: {r: 1, g: 0.3820755, b: 0.98474276, a: 0}
-    key3: {r: 0, g: 0.8745098, b: 1, a: 0}
-    key4: {r: 1, g: 0.98373884, b: 0.3820755, a: 0}
-    key5: {r: 1, g: 0.2971698, b: 0.54888105, a: 0}
-    key6: {r: 1, g: 0.8161528, b: 0.33490568, a: 0}
-    key7: {r: 0.56384146, g: 0.36391956, b: 0.8867924, a: 0}
-    ctime0: 0
-    ctime1: 9445
-    ctime2: 16962
-    ctime3: 25829
-    ctime4: 36623
-    ctime5: 44525
-    ctime6: 52043
-    ctime7: 61680
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 8
-    m_NumAlphaKeys: 2
   destroyParticle: {fileID: 198225325046069058, guid: 12be72861949ef7469f6e7148fdb5235,
     type: 3}
   canLooseDown: 1
