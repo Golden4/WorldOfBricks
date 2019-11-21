@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinBlock : BlockWithText {
-    protected override void Start () {
+public class CoinBlock : BlockWithText
+{
+
+    protected override void Start()
+    {
         needEffects = true;
     }
 
-    public override void Hit (Ball ball) {
+    public override void Hit(Ball ball)
+    {
         int coinAmount = 5;
-        User.AddCoin (coinAmount);
+        User.AddCoin(coinAmount);
         if (CoinUI.Ins != null)
-            CoinUI.Ins.AddCoin (coinAmount);
+            CoinUI.Ins.AddCoin(coinAmount);
 
         //Vector3 fromPos = Camera.main.WorldToScreenPoint(transform.position);
         //Vector3 toPos = CoinUI.Ins.coinImage.transform.position;
@@ -20,20 +24,23 @@ public class CoinBlock : BlockWithText {
         //    AudioManager.PlaySoundFromLibrary("Coin");
         //});
 
-        Die ();
+        Die();
     }
 
-    protected override void OnDead () {
+    protected override void OnDead()
+    {
 
-        if (needEffects) {
-            ShowParticle ();
+        if (needEffects)
+        {
+            ShowParticle();
         }
 
-        Destroy (gameObject);
+        Destroy(gameObject);
     }
 
-    protected override void ShowParticle () {
-        AudioManager.PlaySoundFromLibrary ("Coin");
-        Destroy (Instantiate<GameObject> (destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
+    protected override void ShowParticle()
+    {
+        AudioManager.PlaySoundFromLibrary("Coin");
+        Destroy(Instantiate<GameObject>(destroyParticle.gameObject, transform.position + (Vector3.up - Vector3.left) * .5f, Quaternion.identity), 2);
     }
 }

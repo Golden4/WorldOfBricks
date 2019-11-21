@@ -2,157 +2,167 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
-public class AudioManager : SingletonResourse<AudioManager> {
-	
-	const int sourceCount = 10;
-	AudioSource[] source = new AudioSource[sourceCount];
+public class AudioManager : SingletonResourse<AudioManager>
+{
+    const int sourceCount = 10;
+    AudioSource[] source = new AudioSource[sourceCount];
 
-	public SoundLibrary soundLibrary;
+    public SoundLibrary soundLibrary;
 
-	public override void OnInit ()
-	{
-		DontDestroyOnLoad (gameObject);
-		for (int i = 0; i < sourceCount; i++) {
-			source [i] = gameObject.AddComponent<AudioSource> ();
-		}
-		soundLibrary = GetComponent<SoundLibrary> ();
-	}
+    public override void OnInit()
+    {
+        DontDestroyOnLoad(gameObject);
+        for (int i = 0; i < sourceCount; i++)
+        {
+            source[i] = gameObject.AddComponent<AudioSource>();
+        }
 
-	public static void PlaySound (Sound sound)
-	{
-		if (!audioEnabled)
-			return;
-		if (sound != null && sound.clip != null)
-			sound.PlaySound (Ins.GetAvaibleSource ());
-	}
+        soundLibrary = GetComponent<SoundLibrary>();
+    }
 
-	public AudioSource GetAvaibleSource ()
-	{
-		for (int i = 0; i < source.Length; i++) {
-			if (!source [i].isPlaying) {
-				return source [i];
-			}
-		}
-		return source [0];
-	}
+    public static void PlaySound(Sound sound)
+    {
+        if (!audioEnabled)
+            return;
+        if (sound != null && sound.clip != null)
+            sound.PlaySound(Ins.GetAvaibleSource());
+    }
 
-	public void PlaySound (AudioClip sound)
-	{
-		if (!audioEnabled)
-			return;
+    public AudioSource GetAvaibleSource()
+    {
+        for (int i = 0; i < source.Length; i++)
+        {
+            if (!source[i].isPlaying)
+            {
+                return source[i];
+            }
+        }
+        return source[0];
+    }
 
-		source [0].PlayOneShot (sound);
-	}
+    public void PlaySound(AudioClip sound)
+    {
+        if (!audioEnabled)
+            return;
 
-	public static bool audioEnabled = true;
+        source[0].PlayOneShot(sound);
+    }
 
-	public static void EnableAudio (bool enable)
-	{
-		audioEnabled = enable;
+    public static bool audioEnabled = true;
 
-		AudioListener.volume = enable ? 1 : 0;
+    public static void EnableAudio(bool enable)
+    {
+        audioEnabled = enable;
 
-		/*if (listener != null)
+        AudioListener.volume = enable ? 1 : 0;
+
+        /*if (listener != null)
 			listener.enabled = enable;*/
 
-//		print ("Audio " + enable);
-	}
+        //		print ("Audio " + enable);
+    }
 
-	public static void PlaySoundFromLibrary (string name)
-	{
-		try {
-			Sound sound = Ins.soundLibrary.GetSoundByName (name);
+    public static void PlaySoundFromLibrary(string name)
+    {
+        try
+        {
+            Sound sound = Ins.soundLibrary.GetSoundByName(name);
 
-			if (sound != null && sound.clip != null)
-				PlaySound (sound);
-			else
-				Debug.LogError (name + "Sound not found");
+            if (sound != null && sound.clip != null)
+                PlaySound(sound);
+            else
+                Debug.LogError(name + "Sound not found");
 
-		} catch (System.Exception except) {
-			Debug.LogError (except);
-			throw;
-		}
-		
-	}
+        }
+        catch (System.Exception except)
+        {
+            Debug.LogError(except);
+            throw;
+        }
 
-	public static void PlaySoundAtPosition (Sound sound, Vector3 pos)
-	{
-		AudioSource.PlayClipAtPoint (sound.clip, pos);
-	}
+    }
 
-	public static void PlaySoundAtObject (Sound sound, GameObject obj)
-	{
-		string name = sound.name;
-		if (name == "") {
-			name = "sound";
-		}
+    public static void PlaySoundAtPosition(Sound sound, Vector3 pos)
+    {
+        AudioSource.PlayClipAtPoint(sound.clip, pos);
+    }
 
-		GameObject go = new GameObject (name, typeof(AudioSource));
+    public static void PlaySoundAtObject(Sound sound, GameObject obj)
+    {
+        string name = sound.name;
+        if (name == "")
+        {
+            name = "sound";
+        }
 
-		go.transform.SetParent (obj.transform, false);
+        GameObject go = new GameObject(name, typeof(AudioSource));
 
-		AudioSource source = go.GetComponent <AudioSource> ();
+        go.transform.SetParent(obj.transform, false);
 
-		source.clip = sound.clip;
-		source.loop = sound.loop;
+        AudioSource source = go.GetComponent<AudioSource>();
 
-		source.Play ();
-	}
+        source.clip = sound.clip;
+        source.loop = sound.loop;
+
+        source.Play();
+    }
 
 }
 
 [System.Serializable]
-public class Sound {
-	public string name = "Sound";
-	public AudioClip clip;
-	public bool loop;
+public class Sound
+{
+    public string name = "Sound";
+    public AudioClip clip;
+    public bool loop;
 
-	[Range (0, 1.5f)]
-	public float volume = 1f;
+    [Range(0, 1.5f)]
+    public float volume = 1f;
 
-	[Range (0.5f, 1.5f)]
-	public float pitch = 1f;
+    [Range(0.5f, 1.5f)]
+    public float pitch = 1f;
 
-	[Range (0f, 0.5f)]
-	public float randomVolume;
+    [Range(0f, 0.5f)]
+    public float randomVolume;
 
-	[Range (0f, 0.5f)]
-	public float randomPitch = 0.2f;
+    [Range(0f, 0.5f)]
+    public float randomPitch = 0.2f;
 
-	public Sound ()
-	{
-	}
+    public Sound()
+    {
+    }
 
-	public Sound (AudioClip clip)
-	{
-		this.clip = clip;
-		loop = false;
-	}
+    public Sound(AudioClip clip)
+    {
+        this.clip = clip;
+        loop = false;
+    }
 
-	public Sound (string name, AudioClip clip, bool loop)
-	{
-		this.name = name;
-		this.clip = clip;
-		this.loop = loop;
-	}
+    public Sound(string name, AudioClip clip, bool loop)
+    {
+        this.name = name;
+        this.clip = clip;
+        this.loop = loop;
+    }
 
-	public void Play ()
-	{
-		AudioManager.PlaySound (this);
-	}
+    public void Play()
+    {
+        AudioManager.PlaySound(this);
+    }
 
-	public void PlayAtObject (GameObject go)
-	{
-		AudioManager.PlaySoundAtObject (this, go);
-	}
+    public void PlayAtObject(GameObject go)
+    {
+        AudioManager.PlaySoundAtObject(this, go);
+    }
 
-	public void PlaySound (AudioSource source)
-	{
-		source.clip = clip;
-		source.volume = volume * (1 + Random.Range (-randomVolume / 2f, randomVolume / 2f));
-		source.pitch = pitch * (1 + Random.Range (-randomPitch / 2f, randomPitch / 2f));
-		source.Play ();
-	}
+    public void PlaySound(AudioSource source)
+    {
+        source.clip = clip;
+        source.volume = volume * (1 + Random.Range(-randomVolume / 2f, randomVolume / 2f));
+        source.pitch = pitch * (1 + Random.Range(-randomPitch / 2f, randomPitch / 2f));
+        source.Play();
+    }
 
 }

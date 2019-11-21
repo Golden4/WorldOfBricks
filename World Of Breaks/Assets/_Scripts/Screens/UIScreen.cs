@@ -310,6 +310,7 @@ public class UIScreen : ScreenBase<UIScreen>
         destroyLastLineBtn.EnableBtn(!Game.isChallenge);
     }
 
+
     public void UpdateScore(int curLevel)
     {
         level = curLevel;
@@ -380,8 +381,11 @@ public class UIScreen : ScreenBase<UIScreen>
             playerScoreText.text = playerScore.ToString();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            ShowClearText();
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     UIScreen.Ins.playerWin = true;
+        //     ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+        // }
     }
 
     public void EnableDestroyLastLineBtn(bool enable)

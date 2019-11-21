@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BlockLaser : BlockWithText
+public class BlockLaser : SpecialBlock
 {
 
     public enum LaserType
@@ -14,14 +14,13 @@ public class BlockLaser : BlockWithText
     }
 
     public LaserType typeOfLaserBlock;
-    bool needDestroy;
 
     public SpriteRenderer laserVer;
     public SpriteRenderer laserHor;
 
     protected override void Start()
     {
-        BlocksController.Instance.OnChangeTopLine += TryDie;
+        base.Start();
         t = 0;
         timerSpeed = 3;
     }
@@ -100,26 +99,4 @@ public class BlockLaser : BlockWithText
         }
 
     }
-
-    void TryDie()
-    {
-        if (needDestroy)
-            Die();
-    }
-
-    void OnDestroy()
-    {
-        BlocksController.Instance.OnChangeTopLine -= TryDie;
-    }
-
-    protected override void OnDead()
-    {
-        transform.GetChild(0).transform.DOScale(Vector3.zero, .2f);
-        // iTween.ScaleTo(transform.GetChild(0).gameObject, Vector3.zero, .2f);
-        Destroy(gameObject, .2f);
-    }
-
-
-
-
 }

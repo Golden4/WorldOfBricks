@@ -202,6 +202,29 @@ public static class Utility
         {
             item.DOFade(startValue, duration).From().SetUpdate(ignoreTimeScale);
         }
+
+        foreach (TextMesh item in parent.GetComponentsInChildren<TextMesh>())
+        {
+
+            DOTween.To(() => startValue, (x) =>
+            {
+                Color color = item.color;
+                color.a = x;
+                item.color = color;
+            }, item.color.a, duration);
+
+            Color myColor = item.color;
+            myColor.a = startValue;
+            item.color = myColor;
+
+            // DOVirtual.Float(startValue, item.color.a, duration, (x) =>
+            // {
+            //     Debug.Log(Time.time);
+            //     Color color = item.color;
+            //     color.a = x;
+            //     item.color = color;
+            // });
+        }
     }
 
     public static void FadeSpritesTo(Transform parent, float endValue, float duration, bool ignoreTimeScale = false)

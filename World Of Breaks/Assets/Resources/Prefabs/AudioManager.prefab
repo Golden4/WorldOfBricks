@@ -209,3 +209,12 @@ MonoBehaviour:
       pitch: 1
       randomVolume: 0
       randomPitch: 0.1
+  - groupName: Ghost
+    clips:
+    - name: Ghost1
+      clip: {fileID: 8300000, guid: 0994c12e202f342459a4212e7287f7e8, type: 3}
+      loop: 0
+      volume: 0.3
+      pitch: 1
+      randomVolume: 0
+      randomPitch: 0.1

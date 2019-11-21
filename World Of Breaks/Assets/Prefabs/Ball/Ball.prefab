@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1663605435
 Transform:
   m_ObjectHideFlags: 0
@@ -235,4 +235,9 @@ MonoBehaviour:
   isClone: 0
   canReflectionCount: 0
   bottomCollide: 0
+  isGhost: 0
+  ghostColliderMask:
+    serializedVersion: 2
+    m_Bits: 516
+  ghostOldCollider: {fileID: 0}
   lr: {fileID: 0}

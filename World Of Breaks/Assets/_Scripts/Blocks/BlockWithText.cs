@@ -22,9 +22,9 @@ public class BlockWithText : MonoBehaviour
     public ParticleSystem destroyParticle;
 
     public bool canLooseDown;
-
+    [System.NonSerialized]
     public bool isDead;
-
+    [System.NonSerialized]
     public bool isLoadingBlock;
 
     protected virtual void Start()
@@ -121,8 +121,9 @@ public class BlockWithText : MonoBehaviour
         textMesh.text = BlocksController.Instance.blockMap[coordsY][coordsX].blockLife.ToString();
         //spriteRenderer.color = g.Evaluate (BlocksController.Instance.blockMap [coordsY] [coordsX].blockLife / 100);
     }
-
+    [System.NonSerialized]
     public bool justDestroy;
+    [System.NonSerialized]
     public bool needEffects;
 
     public void Die()
@@ -193,7 +194,10 @@ public class BlockWithText : MonoBehaviour
         BlocksController.Instance.CalculateBlockLife();
     }
 
+    protected virtual void OnDestroy()
+    {
 
+    }
 
     protected virtual void ShowParticle()
     {

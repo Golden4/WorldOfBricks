@@ -97,7 +97,7 @@ public class TrajectoryHelper : Helper
         float oldHeight = distance;
         height -= distance;
 
-        if (height > 0 && iter < sectionCount - 1 && (hit.collider.name == "LeftCollider" || hit.collider.name == "RightCollider"))//&& hit.collider != null && !hit.collider.isTrigger && hit.collider.name != "BottomCollider"
+        if (height > 0 && iter < sectionCount - 1 && (hit.collider.name == "LeftCollider" || hit.collider.name == "RightCollider" || hit.collider.name == "TopCollider"))//&& hit.collider != null && !hit.collider.isTrigger && hit.collider.name != "BottomCollider"
         {
             throwingDirectionImage.transform.GetChild(0).gameObject.SetActive(false);
             iter++;

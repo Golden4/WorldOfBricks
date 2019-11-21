@@ -3,25 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BlockDoubleBalls : BlockWithText
+public class BlockDoubleBalls : SpecialBlock
 {
-    bool needDestroy;
-
-    protected override void Start()
-    {
-        BlocksController.Instance.OnChangeTopLine += TryDie;
-    }
-
-    protected override void TimerStart()
-    {
-        transform.GetChild(0).localScale = new Vector3(1 + t / 3f, 1 + t / 3f, 1);
-    }
-
-    protected override void TimerEnd()
-    {
-        transform.GetChild(0).localScale = Vector3.one;
-    }
-
     static float lastAudioPlayTime;
 
     public override void Hit(Ball ball)
@@ -68,21 +51,5 @@ public class BlockDoubleBalls : BlockWithText
             AudioManager.PlaySoundFromLibrary("DoubleBall");
         }
 
-    }
-
-    void TryDie()
-    {
-        if (needDestroy)
-            Die();
-    }
-
-    void OnDestroy()
-    {
-        BlocksController.Instance.OnChangeTopLine -= TryDie;
-    }
-    protected override void OnDead()
-    {
-        transform.GetChild(0).transform.DOScale(Vector3.zero, .2f);
-        Destroy(gameObject, .2f);
     }
 }

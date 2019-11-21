@@ -123,6 +123,8 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
         int starCount = GetCurrentStarCount(progressPersent);
 
         int completedStars = User.GetChallengesData.GetCurrentValue();
+        // starCount = 3;
+        // completedStars = 0;
 
         ShowStars(starCount, completedStars);
 
@@ -197,25 +199,36 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
         AudioManager.PlaySoundFromLibrary("Failed");
     }
 
+    [SerializeField] ParticleSystem pfStarParticle;
+    [SerializeField] ParticleSystem pfConfettiParticle;
+
     void ShowStars(int starCount, int completedStars)
     {
+
+        GameObject starParticle = Instantiate<GameObject>(pfStarParticle.gameObject);
+        starParticle.transform.SetParent(transform, false);
+        starParticle.transform.localScale = Vector3.one * 2;
+        starParticle.transform.SetAsLastSibling();
+        ParticleSystem psStar = starParticle.GetComponent<ParticleSystem>();
+        Destroy(starParticle, 10f);
+
+        GameObject confettiParticle = Instantiate<GameObject>(pfConfettiParticle.gameObject);
+        confettiParticle.transform.SetParent(transform, false);
+        confettiParticle.transform.SetSiblingIndex(1);
+        confettiParticle.transform.localScale = Vector3.one * 1.5f;
+        confettiParticle.GetComponent<RectTransform>().anchoredPosition = Vector3.up * 150;
+        ParticleSystem psConfetti = confettiParticle.GetComponent<ParticleSystem>();
+        psConfetti.Emit(80);
+        Destroy(confettiParticle, 3f);
+
         for (int i = 0; i < stars.Length; i++)
         {
-
             if (i < starCount)
             {
                 stars[i].gameObject.SetActive(true);
 
                 Text plusCoinText = stars[i].transform.GetChild(0).GetComponent<Text>();
                 stars[i].transform.GetChild(0).gameObject.SetActive(false);
-
-                GameObject go = Instantiate<GameObject>(Resources.Load<GameObject>("Particles/UI/StarParticle"));
-                go.transform.SetParent(transform, false);
-                go.transform.localScale = Vector3.one * 2;
-                go.transform.SetAsLastSibling();
-                ParticleSystem ps = go.GetComponent<ParticleSystem>();
-                Destroy(go, 2);
-
                 int index = i;
                 stars[i].transform.DOScale(Vector3.one, 1f).ChangeStartValue(Vector3.zero).SetDelay(i * .7f).SetEase(Ease.OutElastic).OnComplete(delegate
                 {
@@ -229,8 +242,8 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen>
                 }).OnStart(delegate
                 {
                     // Vector3 pos = Camera.main.ScreenToWorldPoint(stars[index].transform.position);
-                    ps.transform.position = stars[index].transform.position;
-                    ps.Emit(15);
+                    psStar.transform.position = stars[index].transform.position;
+                    psStar.Emit(15);
                 });
                 // }
             }
