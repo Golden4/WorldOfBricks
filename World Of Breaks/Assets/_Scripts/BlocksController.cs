@@ -50,6 +50,12 @@ public class BlocksController : MonoBehaviour
     public Gradient boxGradient;
     public Gradient boxGradient2;
 
+    [ColorUsage(true, true)]
+    public Color colorOnHit;
+
+    [ColorUsage(true, true)]
+    public Color colorOnHitAbility;
+
     public event System.Action OnChangeTopLine;
 
     public static BlocksController Instance;
@@ -95,6 +101,20 @@ public class BlocksController : MonoBehaviour
 
         if (Game.isChallenge)
             maxScore = GetMaxScore();
+    }
+
+    public Color GetGradientColor(bool main, float value)
+    {
+        Color gradColor;
+
+        if (main)
+            gradColor = boxGradient.Evaluate(value);
+        else gradColor = boxGradient2.Evaluate(value);
+
+        // Color.RGBToHSV(gradColor, out float h, out float s, out float v);
+        // gradColor = Color.HSVToRGB(h, s + .2f, v + .2f, true);
+        
+        return gradColor;
     }
 
     public void ResetCamera()
@@ -306,10 +326,8 @@ public class BlocksController : MonoBehaviour
 
             }
 
-
-            if (spawnedBlock != null)
-                Utility.FadeSpritesFrom(spawnedBlock.transform, 0, .5f);
-
+            // if (spawnedBlock != null)
+            //     Utility.FadeSpritesFrom(spawnedBlock.transform, 0, .5f);
 
         }
     }

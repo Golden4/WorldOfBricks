@@ -36,6 +36,28 @@ public class BlockWithText : MonoBehaviour
         ChangeSpriteColor((BlocksController.Instance.blockMap[coordsY][coordsX].blockLife % 50) / 50f);
 
         needEffects = true;
+
+        if (needEffects)
+        {
+            float dissolveAmount = 0;
+
+            DOTween.To(() => dissolveAmount, (x) =>
+            {
+                spriteRenderer.material.SetFloat("_DissolveAmount", 1 - x);
+
+                Color color = textMesh.color;
+                color.a = x;
+                textMesh.color = color;
+
+            }, 1f, 1f);
+
+            Color myColor = textMesh.color;
+            myColor.a = 0;
+            textMesh.color = myColor;
+
+            spriteRenderer.material.SetFloat("_DissolveAmount", 1f);
+        }
+
     }
 
     public virtual void Hit(Ball ball)
@@ -64,38 +86,38 @@ public class BlockWithText : MonoBehaviour
         }
     }
 
-    Color colorToLerp = Color.black;
+    Color colorToLerp;
 
     protected virtual void TimerStart()
     {
-        spriteRenderer.material.SetColor("_Color", colorToLerp);
-        spriteRenderer.material.SetFloat("_FillAlpha", Mathf.Lerp(.5f, 1f, 1f - t));
+        spriteRenderer.material.SetColor("_BlendColor", colorToLerp);
+        spriteRenderer.material.SetFloat("_FillAmount", Mathf.Lerp(.5f, 1f, 1f - t));
     }
 
     protected virtual void TimerEnd()
     {
-        spriteRenderer.material.SetColor("_Color", colorToLerp);
-        spriteRenderer.material.SetFloat("_FillAlpha", 1f);
+        spriteRenderer.material.SetColor("_BlendColor", colorToLerp);
+        spriteRenderer.material.SetFloat("_FillAmount", 1f);
     }
 
     protected virtual void ChangeSpriteColor(float value)
     {
-        spriteRenderer.material.SetColor("_TopColor", BlocksController.Instance.boxGradient.Evaluate(value));
-        spriteRenderer.material.SetColor("_BottomColor", BlocksController.Instance.boxGradient2.Evaluate(value));
+        spriteRenderer.material.SetColor("_TopColor", BlocksController.Instance.GetGradientColor(true, value));
+        spriteRenderer.material.SetColor("_BottomColor", BlocksController.Instance.GetGradientColor(false, value));
     }
 
     public virtual void Hit()
     {
         int hitAmount = 1;
 
-        colorToLerp = Color.black;
+        colorToLerp = BlocksController.Instance.colorOnHit;
 
         if (Ball.HaveAblity(Ball.Ability.DoubleHitBrick))
         {
             if (Random.Range(0, 10) == 0)
             {
                 hitAmount = 2;
-                colorToLerp = Color.white;
+                colorToLerp = BlocksController.Instance.colorOnHitAbility;
             }
         }
 
