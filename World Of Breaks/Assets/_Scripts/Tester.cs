@@ -6,7 +6,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class Tester : SingletonResourse<Tester>
 {
-
     public int timeScale = 100;
     public bool startTest;
     bool isStartedTest;
@@ -104,7 +103,7 @@ public class Tester : SingletonResourse<Tester>
     void OnRestartLevel()
     {
         playerWinRealy = false;
-        throwCount = 0;
+       // throwCount = 0;
         curTestCount++;
         saveInfo.Add("Current Test: " + curTestCount);
         saveInfo.Add("------------------------------------------------");
@@ -130,17 +129,31 @@ public class Tester : SingletonResourse<Tester>
         }
     }
 
-    int throwCount = 0;
+    static int throwCount = 0;
 
     void Testing()
     {
         if (Time.timeScale != timeScale)
             Time.timeScale = timeScale;
 
+        int angleMultiplayer = 10;
+        
         if (BallController.Instance.canThrow)
         {
             throwCount++;
-            int angle = Random.Range(0, 90);
+
+            int divide = Game.curChallengeInfo.lifeCount * (Game.curChallengeInfo.lifeCount - UIScreen.Ins.level);
+            int angleIndex = 0;
+
+            if (divide != 0)
+                angleIndex = throwCount / divide;
+
+            int angle = angleMultiplayer * angleIndex;
+
+            print(angleIndex + "    " + (Game.curChallengeInfo.lifeCount - UIScreen.Ins.level) + "   " + Game.curChallengeInfo.lifeCount);
+
+           // int angle = Random.Range(0, 90);
+
             BallController.Instance.ThrowBalls(angle);
             saveInfo.Add(throwCount + ".\tAngle = " + angle);
             saveInfo.Add("\tBlock Life: " + BlocksController.Instance.CalculateBlockLife());

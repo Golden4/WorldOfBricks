@@ -222,8 +222,6 @@ MonoBehaviour:
   destroyParticle: {fileID: 198225325046069058, guid: 12be72861949ef7469f6e7148fdb5235,
     type: 3}
   canLooseDown: 1
-  colorOnHit: {r: 4, g: 4, b: 4, a: 0}
-  colorOnHitAbility: {r: 0, g: 0, b: 0, a: 0}
 --- !u!58 &2395646039805754540
 CircleCollider2D:
   m_ObjectHideFlags: 0

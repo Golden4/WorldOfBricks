@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 114745693873232528}
-  areaBgImage: {fileID: 0}
 --- !u!1 &1567742683416280
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +324,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 0e15ae35fab85e14fa7710869fb772f6, type: 3}
     m_FontSize: 38
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 43
     m_Alignment: 4
@@ -456,10 +455,10 @@ RectTransform:
   m_Father: {fileID: 224232750581567106}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.7, y: 25.8}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 6.699997, y: 25.800003}
+  m_SizeDelta: {x: -350, y: -740}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3884504981639409754
 CanvasRenderer:

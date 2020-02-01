@@ -16,6 +16,5 @@ public class InputMobileController : MonoBehaviour {
 	public static void ChangeInputType (InputType type)
 	{
 		curInputType = type;
-		Debug.Log ("CurInputType: " + type);
 	}
 }

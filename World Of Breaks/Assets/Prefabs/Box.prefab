@@ -248,5 +248,3 @@ MonoBehaviour:
   destroyParticle: {fileID: 198225325046069058, guid: 12be72861949ef7469f6e7148fdb5235,
     type: 3}
   canLooseDown: 1
-  colorOnHit: {r: 4, g: 4, b: 4, a: 0}
-  colorOnHitAbility: {r: 1, g: 0.514151, b: 0.514151, a: 0}

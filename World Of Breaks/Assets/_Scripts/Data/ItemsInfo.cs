@@ -67,6 +67,7 @@ public class ItemsInfo : ScriptableObject
         //public Ball playerPrefab;
         public Sprite ballSprite;
         public float ballRadius = .1f;
+        public Color trailColor = Color.white;
         public Ball.Ability[] abilites;
         public Sound hitSound;
 

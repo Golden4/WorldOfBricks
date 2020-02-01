@@ -100,7 +100,7 @@ public class BlocksController : MonoBehaviour
         }
 
         if (Game.isChallenge)
-            maxScore = GetMaxScore();
+            maxScore = (int)(GetMaxScore() * ChallengesInfo.GetChall.challengesGroups[Game.curChallengeGroupIndex].challengesData[Game.curChallengeIndex].maxScoreMultiplayer);
     }
 
     public Color GetGradientColor(bool main, float value)
@@ -365,7 +365,7 @@ public class BlocksController : MonoBehaviour
                 float h, s, v;
                 Color.RGBToHSV(col, out h, out s, out v);
 
-                int blockIndex = Mathf.FloorToInt(h * 360 / 20);
+                int blockIndex = Mathf.FloorToInt(h * 360 / 19.5f);
 
                 if (blockIndex == 0)
                 {
@@ -628,9 +628,9 @@ public class BlocksController : MonoBehaviour
     {
         //if (!BallController.Instance.isThrowing)
         //	return;
-
+        
         Time.timeScale = 0;
-        int coinToRetry = 25 * (retryCount + 1);
+        int coinToRetry = 40 * (retryCount + 1);
 
         MessageBox.ShowStatic("Undo throw?", MessageBox.BoxType.Retry, delegate
         {

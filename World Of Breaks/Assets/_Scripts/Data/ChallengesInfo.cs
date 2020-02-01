@@ -39,6 +39,7 @@ public class ChallengesInfo : ScriptableObject
     {
         public int lifeCount;
         public int ballCount;
+        public float maxScoreMultiplayer = 1;
     }
 
     [System.Serializable]

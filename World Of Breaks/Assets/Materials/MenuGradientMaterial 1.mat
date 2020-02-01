@@ -91,7 +91,7 @@ Material:
     - _UseUIAlphaClip: 0
     - _ZWrite: 1
     m_Colors:
-    - _BottomColor: {r: 0.94509804, g: 0.8392157, b: 0.7019608, a: 1}
+    - _BottomColor: {r: 0.8490566, g: 0.68685025, b: 0, a: 1}
     - _BottomLeftColor: {r: 0, g: 1, b: 0.007477045, a: 1}
     - _BottomRightColor: {r: 1, g: 0.84632504, b: 0, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
@@ -100,6 +100,6 @@ Material:
     - _ColorA: {r: 1, g: 0.92892253, b: 0, a: 1}
     - _ColorB: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _TopColor: {r: 0.60784316, g: 0.90588236, b: 0.95686275, a: 1}
+    - _TopColor: {r: 0, g: 0.78604263, b: 0.9150943, a: 1}
     - _TopLeftColor: {r: 0, g: 0.4995103, b: 1, a: 1}
     - _TopRightColor: {r: 1, g: 0, b: 0, a: 1}

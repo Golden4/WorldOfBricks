@@ -7,18 +7,13 @@ using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
 using DG.Tweening;
 
-public class LoadingText : MonoBehaviour, IPermissionGrantedListener
+public class LoadingText : MonoBehaviour
 {
     [SerializeField] Text loadingText;
 
     float minLoadingTime = .5f;
     float loadingTime;
     public Image loadingBar;
-
-    void Awake()
-    {
-        Appodeal.requestAndroidMPermissions(this);
-    }
 
     void Start()
     {
@@ -42,6 +37,7 @@ public class LoadingText : MonoBehaviour, IPermissionGrantedListener
 
         AsyncOperation ao = SceneManager.LoadSceneAsync(sceneIndex);
         ao.allowSceneActivation = false;
+        ao.completed += Ao_completed;
 
         while (ao.progress <= .89f || loadingTime <= minLoadingTime)
         {
@@ -62,34 +58,14 @@ public class LoadingText : MonoBehaviour, IPermissionGrantedListener
             yield return null;
         }
 
-        loadingBar.fillAmount = 1;
-
+        ao.allowSceneActivation = true;
+        
         yield return null;
 
-        ao.allowSceneActivation = true;
     }
 
-    public void writeExternalStorageResponse(int result)
+    private void Ao_completed(AsyncOperation obj)
     {
-        if (result == 0)
-        {
-            Debug.Log("WRITE_EXTERNAL_STORAGE permission granted");
-        }
-        else
-        {
-            Debug.Log("WRITE_EXTERNAL_STORAGE permission grant refused");
-        }
-    }
-
-    public void accessCoarseLocationResponse(int result)
-    {
-        if (result == 0)
-        {
-            Debug.Log("ACCESS_COARSE_LOCATION permission granted");
-        }
-        else
-        {
-            Debug.Log("ACCESS_COARSE_LOCATION permission grant refused");
-        }
+        loadingBar.fillAmount = 1;
     }
 }

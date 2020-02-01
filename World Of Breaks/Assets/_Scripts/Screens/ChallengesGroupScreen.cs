@@ -19,11 +19,11 @@ public class ChallengesGroupScreen : ScreenBase<ChallengesGroupScreen>
     {
         base.OnActivate();
 
-        for (int i = 0; i < challGroupList.Count; i++)
+       /* for (int i = 0; i < challGroupList.Count; i++)
         {
             challGroupList[i].transform.DOKill();
             challGroupList[i].transform.DOScale(1, .8f).ChangeStartValue(Vector3.zero).ChangeEndValue(Vector3.one).SetDelay(.07f * i).SetEase(Ease.OutCubic);
-        }
+        }*/
     }
 
     public override void OnInit()

@@ -17,6 +17,9 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
 
     public bool givedSecondChance = false;
     MessageBox messageBox;
+
+    int coinAmountToContinue = 50;
+
     public override void OnActivate()
     {
         base.OnActivate();
@@ -24,9 +27,9 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
         dieCount++;
 
         messageBox = MessageBox.ShowStatic("Continue?", MessageBox.BoxType.Continue, () => CloseContinueScreen(), false)
-        .SetImageTextBtn((25 * dieCount).ToString(), true, () =>
+        .SetImageTextBtn((coinAmountToContinue * dieCount).ToString(), true, () =>
         {
-            if (User.BuyWithCoin(25 * dieCount))
+            if (User.BuyWithCoin(coinAmountToContinue * dieCount))
                 RetryGame();
             stopTimer = true;
         }, MessageBox.BtnSprites.Coin, default, User.HaveCoin(25 * dieCount))
@@ -43,14 +46,12 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
         stopTimer = false;
         lastTime = Time.time + .4f;
         AdManager.onRewardedVideoFinishedEvent += RetryGame;
-        Debug.Log("OnActivate ConScreen");
     }
 
     public override void OnDeactivate()
     {
         base.OnDeactivate();
         stopTimer = false;
-        Debug.Log("OnDeactivate ConScreen");
         AdManager.onRewardedVideoFinishedEvent -= RetryGame;
     }
 

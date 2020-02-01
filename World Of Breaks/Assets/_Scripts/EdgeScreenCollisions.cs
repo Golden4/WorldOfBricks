@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class EdgeScreenCollisions : MonoBehaviour
@@ -30,7 +31,7 @@ public class EdgeScreenCollisions : MonoBehaviour
 
         Vector3 cameraPos = Camera.main.transform.position;
 
-        screenSize = BlocksController.Instance.GetBlockHolerSize() /*+ Vector2.one * .05f*/;
+        screenSize = BlocksController.Instance.GetBlockHolerSize() /*+ Vector2.one * .05f*/ ;
 
         foreach (KeyValuePair<string, Transform> valPair in colliders)
         {
@@ -54,7 +55,6 @@ public class EdgeScreenCollisions : MonoBehaviour
         // Camera.main.orthographicSize = cameraPos.y + screenSize.y + (colliders["Top"].localScale.y * 0.5f);
 
         ResizeBackground();
-
 
         /*		GameObject TopRight = new GameObject ("TopRight");
                 TopRight.transform.position = new Vector3 (cameraPos.x + screenSize.x + .1f, cameraPos.y + screenSize.y + .1f);
@@ -87,7 +87,7 @@ public class EdgeScreenCollisions : MonoBehaviour
                 cc.radius = .3f;*/
         /*BottomLeft.AddComponent<BoxCollider2D> ();
 		BottomRight.AddComponent<BoxCollider2D> ();*/
-
+        ShowEdges(colliders);
     }
 
     void ResizeBackground()
@@ -110,6 +110,9 @@ public class EdgeScreenCollisions : MonoBehaviour
             go.transform.localScale = Vector3.one;
             SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = edgeSprite;
+            UnityEngine.Color colorSpr = UnityEngine.Color.white;
+            colorSpr.a = .1f;
+            sr.color = colorSpr;
             sr.drawMode = SpriteDrawMode.Sliced;
 
             if (valPair.Key == "Left" || valPair.Key == "Right")
@@ -117,7 +120,6 @@ public class EdgeScreenCollisions : MonoBehaviour
                 sr.size = new Vector2(.015f, .655f);
                 if (valPair.Key == "Left")
                 {
-
                     go.transform.localPosition = new Vector3(.4925f, 0);
                 }
                 else
@@ -127,6 +129,7 @@ public class EdgeScreenCollisions : MonoBehaviour
             }
             else
             {
+                continue;
 
                 sr.size = new Vector2(1f, .05f);
                 if (valPair.Key == "Top")
@@ -139,7 +142,6 @@ public class EdgeScreenCollisions : MonoBehaviour
                 }
 
             }
-
 
         }
     }
@@ -166,13 +168,6 @@ public class EdgeScreenCollisions : MonoBehaviour
     {
         Vector3 cameraPos = Camera.main.transform.position;
         return new Vector2(cameraPos.x + BlocksController.Instance.GetBlockHolerSize().x, cameraPos.y);
-    }
-
-    void Update()
-    {
-
-
-        //Camera.main.aspect = Screen.currentResolution.width / Screen.currentResolution.height;
     }
 
 }

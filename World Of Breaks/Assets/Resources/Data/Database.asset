@@ -19,6 +19,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300000, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.12
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -34,6 +35,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300032, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.12
+    trailColor: {r: 1, g: 0.17254902, b: 0.17254902, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -49,6 +51,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300034, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.12
+    trailColor: {r: 0.13333334, g: 0.6431373, b: 1, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -64,6 +67,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300036, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.12
+    trailColor: {r: 0.5803922, g: 1, b: 0.13333334, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -79,6 +83,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300038, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.12
+    trailColor: {r: 1, g: 0.9490197, b: 0.13333334, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -94,6 +99,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300002, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.11
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -109,6 +115,7 @@ MonoBehaviour:
     price: 30
     ballSprite: {fileID: 21300004, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -124,6 +131,7 @@ MonoBehaviour:
     price: 30
     ballSprite: {fileID: 21300016, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
+    trailColor: {r: 0.97647065, g: 0.53333336, b: 0.16862746, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -139,6 +147,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300020, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.14
+    trailColor: {r: 0.023529414, g: 0.12941177, b: 0.95294124, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -154,6 +163,7 @@ MonoBehaviour:
     price: 50
     ballSprite: {fileID: 21300022, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.1
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -169,6 +179,7 @@ MonoBehaviour:
     price: 50
     ballSprite: {fileID: 21300040, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.1
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -184,6 +195,7 @@ MonoBehaviour:
     price: 300
     ballSprite: {fileID: 21300024, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.1
+    trailColor: {r: 0.054901965, g: 0.054901965, b: 0.054901965, a: 1}
     abilites: 03000000
     hitSound:
       name: Sound
@@ -199,6 +211,7 @@ MonoBehaviour:
     price: 290
     ballSprite: {fileID: 21300018, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.13
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
     abilites: 08000000
     hitSound:
       name: Sound
@@ -214,6 +227,7 @@ MonoBehaviour:
     price: 400
     ballSprite: {fileID: 21300006, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.14
+    trailColor: {r: 0.9843138, g: 0.8431373, b: 0.28235295, a: 1}
     abilites: 04000000
     hitSound:
       name: Sound
@@ -229,6 +243,7 @@ MonoBehaviour:
     price: 90
     ballSprite: {fileID: 21300008, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.14
+    trailColor: {r: 0.9843138, g: 0.8431373, b: 0.28235295, a: 1}
     abilites: 02000000
     hitSound:
       name: Sound
@@ -244,6 +259,7 @@ MonoBehaviour:
     price: 520
     ballSprite: {fileID: 21300010, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.14
+    trailColor: {r: 0.98823535, g: 0.83921576, b: 0.27058825, a: 1}
     abilites: 06000000
     hitSound:
       name: Sound
@@ -259,6 +275,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300012, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.14
+    trailColor: {r: 0.4431373, g: 0.29411766, b: 0.23137257, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -274,6 +291,7 @@ MonoBehaviour:
     price: 340
     ballSprite: {fileID: 21300014, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.14
+    trailColor: {r: 1, g: 0.8470589, b: 0.3372549, a: 1}
     abilites: 07000000
     hitSound:
       name: Sound
@@ -289,6 +307,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300026, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.13
+    trailColor: {r: 1, g: 0.2509804, b: 0.5882353, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -304,6 +323,7 @@ MonoBehaviour:
     price: 30
     ballSprite: {fileID: 21300030, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.15
+    trailColor: {r: 0.49853522, g: 0.8396226, b: 0.13069598, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -319,6 +339,7 @@ MonoBehaviour:
     price: 40
     ballSprite: {fileID: 21300028, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.11
+    trailColor: {r: 0.9921569, g: 0.64705884, b: 0.21960786, a: 1}
     abilites: 
     hitSound:
       name: Sound
@@ -334,6 +355,7 @@ MonoBehaviour:
     price: 960
     ballSprite: {fileID: 21300042, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.14
+    trailColor: {r: 0, g: 0.3372549, b: 0.62352943, a: 1}
     abilites: 0600000007000000
     hitSound:
       name: Sound
@@ -349,6 +371,7 @@ MonoBehaviour:
     price: 1020
     ballSprite: {fileID: 21300044, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.16
+    trailColor: {r: 0.9490197, g: 0.6039216, b: 0.058823533, a: 1}
     abilites: 0400000006000000
     hitSound:
       name: Sound
@@ -364,6 +387,7 @@ MonoBehaviour:
     price: 70
     ballSprite: {fileID: 21300046, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.11
+    trailColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
     abilites: 01000000
     hitSound:
       name: Sound
@@ -379,6 +403,7 @@ MonoBehaviour:
     price: 970
     ballSprite: {fileID: 21300048, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
     ballRadius: 0.12
+    trailColor: {r: 0.76470596, g: 0.32156864, b: 0.16470589, a: 1}
     abilites: 0500000007000000
     hitSound:
       name: Sound

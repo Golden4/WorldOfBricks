@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1050279109954710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0.48, y: 0.48, z: 0}
   m_Children:
   - {fileID: 4770341713508223006}
   - {fileID: 4741492543389068248}
@@ -70,13 +70,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300012, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 21300048, guid: 94d0bc8d46cd75f4daf3c5f5f9c4946c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 0.28, y: 0.28}
+  m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4882,7 +4882,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Time: 0.15
+  m_Time: 0.12
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -4945,6 +4945,6 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.2
   m_Autodestruct: 0
   m_Emitting: 1

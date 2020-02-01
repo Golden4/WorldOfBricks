@@ -184,11 +184,11 @@ public class TileSizeScreen : ScreenBase<TileSizeScreen>
 
         }
 
-        for (int i = 0; i < buttons.Length; i++)
+       /* for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].transform.DOKill();
             buttons[i].transform.DOScale(1, .5f).ChangeStartValue(Vector3.zero).ChangeEndValue(Vector3.one).SetEase(Ease.OutCubic).SetDelay(.07f * i);
-        }
+        }*/
     }
 
     public static void UnlockTile(int index)

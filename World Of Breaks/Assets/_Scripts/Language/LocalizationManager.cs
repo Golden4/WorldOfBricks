@@ -182,8 +182,8 @@ public class LanguagesList
 {
 
     public static LanguageInfo[] languages = {
-        new LanguageInfo (SystemLanguage.English, "en", "Laqonic4F", FontStyle.Normal),
-        new LanguageInfo (SystemLanguage.Russian, "ru", "Laqonic4F", FontStyle.Normal)
+        new LanguageInfo (SystemLanguage.English, "en", "AmericanPurpose", FontStyle.Normal),
+        //new LanguageInfo (SystemLanguage.Russian, "ru", "Laqonic4F", FontStyle.Normal)
     };
 
     public static LanguageInfo GetLanguageInfo(SystemLanguage lang)

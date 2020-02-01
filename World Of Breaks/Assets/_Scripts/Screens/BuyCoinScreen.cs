@@ -42,13 +42,13 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
 
             buyCoinBtns[i].btn.onClick.AddListener(() => BuyItem(buyCoinBtns[index].productID));
 
-            buyCoinBtns[i].btn.transform.DOKill();
-            buyCoinBtns[i].btn.transform.DOScale(1, .5f).ChangeStartValue(Vector3.zero).ChangeEndValue(Vector3.one).SetDelay(.07f * i).SetEase(Ease.OutCubic).SetAutoKill(false);
+            //buyCoinBtns[i].btn.transform.DOKill();
+           // buyCoinBtns[i].btn.transform.DOScale(1, .5f).ChangeStartValue(Vector3.zero).ChangeEndValue(Vector3.one).SetDelay(.07f * i).SetEase(Ease.OutCubic).SetAutoKill(false);
 
         }
 
-        getCoinsBtn.transform.DOKill();
-        getCoinsBtn.transform.DOScale(1, .5f).ChangeStartValue(Vector3.zero).ChangeEndValue(Vector3.one).SetEase(Ease.OutCubic);
+       // getCoinsBtn.transform.DOKill();
+       // getCoinsBtn.transform.DOScale(1, .5f).ChangeStartValue(Vector3.zero).ChangeEndValue(Vector3.one).SetEase(Ease.OutCubic);
     }
 
     public void ShowBuyCoinScreen()
@@ -83,7 +83,7 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
 
     public Text timer;
 
-    static TimeSpan nextGiftTime = new TimeSpan(0, 10, 0);
+    static TimeSpan nextGiftTime = new TimeSpan(0, 30, 0);
 
     static long _nextGiveGiftTime = -1;
 

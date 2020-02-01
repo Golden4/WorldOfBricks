@@ -5,7 +5,7 @@ using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
 using UnityEngine;
 
-public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, IRewardedVideoAdListener, IBannerAdListener
+public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, IRewardedVideoAdListener, IBannerAdListener, IPermissionGrantedListener
 {
 
 #if UNITY_ANDROID
@@ -25,12 +25,23 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
     public void InitAppodeal()
     {
+        bool gdpr = PlayerPrefs.GetInt("result_gdpr_sdk", 0) == 1;
+
+        Appodeal.disableWriteExternalStoragePermissionCheck();
+
+        //  if (gdpr)
+        Appodeal.disableLocationPermissionCheck();
+        //  else
+        //     Appodeal.requestAndroidMPermissions(this);
+
         Appodeal.disableNetwork("facebook");
         testMode = Debug.isDebugBuild;
+
+        //Appodeal.requestAndroidMPermissions(this);
+
         Appodeal.setTesting(testMode);
         Appodeal.muteVideosIfCallsMuted(true);
-
-        Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO, PlayerPrefs.GetInt("result_gdpr_sdk", 0) == 1);
+        Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO, gdpr);
         Appodeal.setInterstitialCallbacks(this);
         Appodeal.setRewardedVideoCallbacks(this);
         Appodeal.setBannerCallbacks(this);
@@ -214,5 +225,29 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
         PlayerPrefs.SetInt("result_gdpr", 1);
         PlayerPrefs.SetInt("result_gdpr_sdk", 0);
         InitAppodeal();
+    }
+
+    public void writeExternalStorageResponse(int result)
+    {
+        if (result == 0)
+        {
+            Debug.Log("WRITE_EXTERNAL_STORAGE permission granted");
+        }
+        else
+        {
+            Debug.Log("WRITE_EXTERNAL_STORAGE permission grant refused");
+        }
+    }
+
+    public void accessCoarseLocationResponse(int result)
+    {
+        if (result == 0)
+        {
+            Debug.Log("ACCESS_COARSE_LOCATION permission granted");
+        }
+        else
+        {
+            Debug.Log("ACCESS_COARSE_LOCATION permission grant refused");
+        }
     }
 }
