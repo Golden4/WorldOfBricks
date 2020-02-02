@@ -11,7 +11,7 @@ public class BottomPanelMenuUI : MonoBehaviour
     public Button selectedBtn;
     Text selectedBtnText;
     Image selectedBtnSprite;
-    int curActiveBtnIndex = 2;
+    int curActiveBtnIndex = 1;
     float lastClickTime = -1;
 
     void Awake()
@@ -79,7 +79,7 @@ public class BottomPanelMenuUI : MonoBehaviour
     {
         public string name;
         public Image image;
-        public Button button;
+        public ButtonCustom button;
         public Color color = Color.white;
         public ScreenBase screenToChange;
     }

@@ -410,7 +410,7 @@ public class UIScreen : ScreenBase<UIScreen>
 
     public void ActivateScreenPause()
     {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Pause);
+        ScreenController.Ins.ActivateScreen("Pause");
     }
 
 }

@@ -5,13 +5,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public abstract class ButtonCustomBase : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
 {
     public event Action<PointerEventData> onPointerDown;
     public event Action<PointerEventData> onPointerUp;
     public event Action<PointerEventData> onPointerExit;
-    public event Action onClick;
+    public UnityEvent onClick;
+
+    //public event Action<PointerEventData> onPointerDown;
+    //public event Action<PointerEventData> onPointerUp;
+    //public event Action<PointerEventData> onPointerExit;
+    //public event Action onClick;
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -36,7 +42,7 @@ public abstract class ButtonCustomBase : MonoBehaviour, IPointerDownHandler, IPo
 
 public class ButtonCustom : ButtonCustomBase
 {
-    bool pointerEnter;
+    string clickSound = "MenuButton";
     bool holding;
 
     void Start()
@@ -62,6 +68,12 @@ public class ButtonCustom : ButtonCustomBase
                 OnPointerUp(data);
             }
         });
+
+        onClick.AddListener(() =>
+        {
+            AudioManager.PlaySoundFromLibrary(clickSound);
+        });
+
     }
 
 }

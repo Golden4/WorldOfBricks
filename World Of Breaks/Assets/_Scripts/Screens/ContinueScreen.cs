@@ -59,7 +59,7 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
     {
         messageBox.Hide();
         ScreenController.Ins.DeactivateScreen(this);
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.GameOver);
+        ScreenController.Ins.ActivateScreen("GameOver");
     }
 
     void Update()
@@ -97,7 +97,7 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
 
     public void RetryGame()
     {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.UI);
+        ScreenController.Ins.ActivateScreen("UI");
         BlocksController.Instance.DestroyLastLine(false);
         UIScreen.Ins.playerLose = false;
         stopTimer = false;

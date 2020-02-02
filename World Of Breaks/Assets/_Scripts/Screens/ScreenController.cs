@@ -6,31 +6,28 @@ public class ScreenController : MonoBehaviour
 {
     public static ScreenController Ins;
 
-    public enum GameScreen
-    {
-        Menu,
-        Shop,
-        BuyCoin,
-        TileSize,
-        UI,
-        GameOver,
-        Pause,
-        Continue,
-        Challeges,
-        ChallegesGroup,
-        ChallegesResult,
-        Settings,
-    }
+    public string curScene;
 
-    public enum CurScene
-    {
-        Menu,
-        Game
-    }
+    //public enum GameScreen
+    //{
+    //    Menu,
+    //    Shop,
+    //    BuyCoin,
+    //    TileSize,
+    //    UI,
+    //    GameOver,
+    //    Pause,
+    //    Continue,
+    //    Challeges,
+    //    ChallegesGroup,
+    //    ChallegesResult,
+    //    Settings,
+    //}
 
-    public CurScene curScene;
+    public int startScreen;
 
     public List<ScreenList> screensList = new List<ScreenList>();
+
 
     [System.Serializable]
     public class ScreenList
@@ -38,7 +35,7 @@ public class ScreenController : MonoBehaviour
         public ScreenBase screen;
     }
 
-    public static GameScreen curActiveScreen;
+    public static string curActiveScreen;
 
     private Stack<ScreenBase> screenStack = new Stack<ScreenBase>();
 
@@ -58,7 +55,7 @@ public class ScreenController : MonoBehaviour
     {
         Time.timeScale = 1;
         DeactivateAll();
-        ActivateScreen(0);
+        ActivateScreen(startScreen);
     }
 
     public static T GetScreen<T>() where T : ScreenBase
@@ -85,10 +82,20 @@ public class ScreenController : MonoBehaviour
 		}
 	}*/
 
-    public void ActivateScreen(GameScreen screen)
+    public void ActivateScreen(string screen)
     {
-        curActiveScreen = (GameScreen)screen;
+        curActiveScreen = screen;
         int index = screensList.FindIndex(x => x.screen.screenType == screen);
+
+        if (index == -1)
+        {
+            Debug.LogError(screen + " not found.");
+            return;
+        }
+        
+        Debug.Log(screen + " screen is active.");
+        
+
         ActivateScreen(index);
     }
 
@@ -195,15 +202,15 @@ public class ScreenController : MonoBehaviour
 
     void OnApplicationFocus(bool pause)
     {
-        if (pause && curActiveScreen == GameScreen.UI && curScene == CurScene.Game)
-            ActivateScreen(GameScreen.Pause);
+        if (pause && curActiveScreen == "UI" && curScene == "Game")
+            ActivateScreen("Pause");
     }
 
     void OnApplicationPause(bool pause)
     {
-        if (!pause && curActiveScreen == GameScreen.UI && curScene == CurScene.Game)
+        if (!pause && curActiveScreen == "UI" && curScene == "Game")
         {
-            ActivateScreen(GameScreen.Pause);
+            ActivateScreen("Pause");
         }
     }
 

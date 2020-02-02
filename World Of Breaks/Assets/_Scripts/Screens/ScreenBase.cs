@@ -30,7 +30,7 @@ public class ScreenBase<T> : ScreenBase where T : ScreenBase<T> {
 }
 
 public abstract class ScreenBase : MonoBehaviour {
-    public ScreenController.GameScreen screenType;
+    public string screenType;
 
     [System.NonSerialized]
     public bool isActive;

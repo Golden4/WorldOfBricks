@@ -302,7 +302,7 @@ public class ShopScreen : ScreenBase<ShopScreen>
 
     public void BackBtn()
     {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.TileSize);
+        ScreenController.Ins.ActivateScreen("TileSize");
 
     }
 

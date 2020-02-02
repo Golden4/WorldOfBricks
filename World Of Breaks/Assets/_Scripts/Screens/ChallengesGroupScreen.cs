@@ -43,7 +43,7 @@ public class ChallengesGroupScreen : ScreenBase<ChallengesGroupScreen>
                 if (!User.GetChallengesData.IsGroupLocked(index))
                 {
                     ChallengesScreen.Ins.ShowChallengesForGroup(index);
-                    ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Challeges);
+                    ScreenController.Ins.ActivateScreen("Challeges");
                 }
             });
 

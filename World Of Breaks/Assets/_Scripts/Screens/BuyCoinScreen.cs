@@ -53,7 +53,7 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
 
     public void ShowBuyCoinScreen()
     {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.BuyCoin);
+        ScreenController.Ins.ActivateScreen("BuyCoin");
     }
 
     public void BuyItem(string id)
@@ -253,11 +253,11 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
 
     public void BackBtn()
     {
-        if (ScreenController.Ins.curScene == ScreenController.CurScene.Menu)
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Menu);
+        if (ScreenController.Ins.curScene == "Menu")
+            ScreenController.Ins.ActivateScreen("Menu");
 
-        if (ScreenController.Ins.curScene == ScreenController.CurScene.Game)
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Pause);
+        if (ScreenController.Ins.curScene == "Game")
+            ScreenController.Ins.ActivateScreen("Pause");
     }
 
 }

@@ -28,14 +28,14 @@ public class PauseScreen : ScreenBase<PauseScreen>
         Time.timeScale = UIScreen.Ins.GetTimeAccelerationValue();
 
         if (UIScreen.Ins.playerLose)
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.GameOver);
+            ScreenController.Ins.ActivateScreen("GameOver");
         else
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.UI);
+            ScreenController.Ins.ActivateScreen("UI");
     }
 
     public void ActivatePauseScreen()
     {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Pause);
+        ScreenController.Ins.ActivateScreen("Pause");
     }
 
     MessageBox pauseMessageBox;
@@ -50,11 +50,11 @@ public class PauseScreen : ScreenBase<PauseScreen>
 
             if (!Game.isChallenge)
             {
-                ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.GameOver);
+                ScreenController.Ins.ActivateScreen("GameOver");
             }
             else
             {
-                ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+                ScreenController.Ins.ActivateScreen("ChallegesResult");
             }
 
             pauseMessageBox?.Hide();

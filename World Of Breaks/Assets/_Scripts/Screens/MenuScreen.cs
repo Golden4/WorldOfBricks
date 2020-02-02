@@ -173,16 +173,16 @@ public class MenuScreen : ScreenBase<MenuScreen>
 
     public void ShowTileSizeScreen()
     {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.TileSize);
+        ScreenController.Ins.ActivateScreen("TileSize");
     }
 
     public void ShowShopScreen()
     {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Shop);
+        ScreenController.Ins.ActivateScreen("Shop");
     }
 
     public void ShowChallengesScreen()
     {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Challeges);
+        ScreenController.Ins.ActivateScreen("Challeges");
     }
 }

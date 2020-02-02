@@ -83,6 +83,6 @@ public class ChallengesScreen : ScreenBase<ChallengesScreen>
 
     public void Back()
     {
-        ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesGroup);
+        ScreenController.Ins.ActivateScreen("ChallegesGroup");
     }
 }

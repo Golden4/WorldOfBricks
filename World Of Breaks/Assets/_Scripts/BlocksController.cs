@@ -270,7 +270,7 @@ public class BlocksController : MonoBehaviour
 
         DOVirtual.DelayedCall(1.5f, delegate
         {
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+            ScreenController.Ins.ActivateScreen("ChallegesResult");
         });
     }
 
@@ -279,10 +279,10 @@ public class BlocksController : MonoBehaviour
         UIScreen.Ins.playerLose = true;
 
         if (Game.isChallenge)
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.ChallegesResult);
+            ScreenController.Ins.ActivateScreen("ChallegesResult");
         else
             // MessageBox.ShowStatic("Continue?", MessageBox.BoxType.Retry)
-            ScreenController.Ins.ActivateScreen(ScreenController.GameScreen.Continue);
+            ScreenController.Ins.ActivateScreen("Continue");
     }
 
     System.Random rand = new System.Random();
@@ -720,7 +720,7 @@ public class BlocksController : MonoBehaviour
 
     void SaveOrDeleteBlocksMap()
     {
-        if (ScreenController.curActiveScreen == ScreenController.GameScreen.Continue)
+        if (ScreenController.curActiveScreen == "Continue")
         {
             BlocksSaver.DeleteBlockMapKeys();
             PlayerPrefs.Save();
