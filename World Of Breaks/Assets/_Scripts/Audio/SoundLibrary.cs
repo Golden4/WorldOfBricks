@@ -5,10 +5,12 @@ using UnityEngine;
 public class SoundLibrary : MonoBehaviour {
 
 	public SoundGroup[] soundGroup;
+	public List<SoundGroup> musicArray = new List<SoundGroup>();
 
 	public Dictionary<string, SoundGroup> soundsDic = new Dictionary<string, SoundGroup> ();
 
-	#if UNITY_EDITOR
+
+#if UNITY_EDITOR
 	void OnValidate ()
 	{
 		for (int i = 0; i < soundGroup.Length; i++) {
@@ -40,8 +42,24 @@ public class SoundLibrary : MonoBehaviour {
 			Debug.Log ("Sound Not Found!!" + soundName);
 			return null;
 		}
+	}
 
+	public Sound GetMusicBySceneName(string sceneName)
+	{
+		SoundGroup sound = musicArray.Find((x) => {
+			return x.groupName == sceneName;
+		});
 
+		if (sound != null)
+		{
+			int randomIndex = Random.Range(0, sound.clips.Length);
+			return sound.clips[randomIndex];
+		}
+		else
+		{
+			Debug.Log("Music Not Found!!" + sceneName);
+			return null;
+		}
 	}
 
 	[System.Serializable]

@@ -250,4 +250,14 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
             Debug.Log("ACCESS_COARSE_LOCATION permission grant refused");
         }
     }
+
+    public void onInterstitialShowFailed()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void onRewardedVideoShowFailed()
+    {
+        throw new NotImplementedException();
+    }
 }

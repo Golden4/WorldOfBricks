@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : SingletonResourse<AudioManager>
 {
     const int sourceCount = 10;
     AudioSource[] source = new AudioSource[sourceCount];
+    AudioSource musicSource;
 
     public SoundLibrary soundLibrary;
 
@@ -18,16 +20,45 @@ public class AudioManager : SingletonResourse<AudioManager>
         {
             source[i] = gameObject.AddComponent<AudioSource>();
         }
+        musicSource = gameObject.AddComponent<AudioSource>();
 
         soundLibrary = GetComponent<SoundLibrary>();
+        
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
     }
+
+    private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode arg1)
+    {
+
+        Sound music = soundLibrary.GetMusicBySceneName(scene.name);
+
+        if (music != null)
+            PlayMusic(music);
+        else
+            StopMusic();
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+    }
+
 
     public static void PlaySound(Sound sound)
     {
         if (!audioEnabled)
             return;
+
         if (sound != null && sound.clip != null)
             sound.PlaySound(Ins.GetAvaibleSource());
+    }
+
+    public void PlaySound(AudioClip sound)
+    {
+        if (!audioEnabled)
+            return;
+
+        source[0].PlayOneShot(sound);
     }
 
     public AudioSource GetAvaibleSource()
@@ -42,13 +73,25 @@ public class AudioManager : SingletonResourse<AudioManager>
         return source[0];
     }
 
-    public void PlaySound(AudioClip sound)
+    public void PlayMusic(Sound sound)
     {
+
         if (!audioEnabled)
             return;
 
-        source[0].PlayOneShot(sound);
+        if (sound != null && sound.clip != null)
+        {
+            Debug.Log("PlayMusic " + sound.name);
+            sound.PlaySound(musicSource);
+        }
+            
     }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
+
 
     public static bool audioEnabled = true;
 

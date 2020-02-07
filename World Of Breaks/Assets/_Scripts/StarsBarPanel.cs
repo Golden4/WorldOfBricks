@@ -6,11 +6,11 @@ using DG.Tweening;
 
 public class StarsBarPanel : MonoBehaviour
 {
-
     public Image barImage;
     public Image[] stars;
     public ParticleSystem starParticle;
-
+    public ParticleSystem progressParticle;
+    RectTransform RTprogressParticle;
     void Start()
     {
         for (int i = 0; i < ChallengeResultScreen.starPersents.Length; i++)
@@ -19,6 +19,8 @@ public class StarsBarPanel : MonoBehaviour
             stars[i].transform.GetChild(0).gameObject.SetActive(false);
         }
 
+        RTprogressParticle = progressParticle.GetComponent<RectTransform>();
+
         SetProgress(ChallengeResultScreen.progressPersent);
     }
 
@@ -26,6 +28,14 @@ public class StarsBarPanel : MonoBehaviour
     {
         barImage.fillAmount = persent;
         int starsAmount = ChallengeResultScreen.GetCurrentStarCount(persent);
+
+        float width = GetComponent<RectTransform>().sizeDelta.x;
+        persent = Mathf.Clamp01(persent);
+        if (width * persent > 0 && width * persent < 1)
+        {
+            RTprogressParticle.anchoredPosition = new Vector2(width * persent, RTprogressParticle.anchoredPosition.y);
+            progressParticle.Play();
+        }
 
         if (starsShowed < starsAmount)
             ShowStars(starsAmount);

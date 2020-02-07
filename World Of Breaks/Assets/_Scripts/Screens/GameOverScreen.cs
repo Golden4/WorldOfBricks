@@ -69,9 +69,6 @@ public class GameOverScreen : ScreenBase<GameOverScreen>
         //	openBoxPanel.gameObject.SetActive (false);
         //}
 
-
-
-
         // pc.ShowGiftPanel(false);
         // pc.ShowRewardPanel(true);
         // int coinAmunt = UIScreen.Ins.playerScore / 100;

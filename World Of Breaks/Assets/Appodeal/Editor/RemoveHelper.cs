@@ -4,9 +4,6 @@ using UnityEditor;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using System.Collections.Generic;
-using AppodealAds.Unity.Editor;
-using System;
-using System.Collections;
 using System.Xml;
 
 [System.Serializable]
@@ -27,10 +24,17 @@ class ItemsWrapper
     public ItemToRemove[] items;
 }
 
+
 [InitializeOnLoad]
 public class RemoveHelper
 {
-    static string[] pathsToSearchNetworksFiles = {
+    private const string PLAY_SERVICES_RESOLVER_PLUGIN = "Appodeal-Unity-Play-Services-Resolver";
+    private const string ANDROID_SUPPORT_PLUGIN = "Appodeal-Unity-Android-Support";
+    private const string PLAY_SERVICES_PLUGIN = "Unity-Google-Play-Services";
+    private const string UNITY_PLUGIN = "Appodeal-Unity-";
+
+    static string[] pathsToSearchNetworksFiles =
+    {
         Path.Combine(Application.dataPath, "Appodeal/Adapters"),
         Path.Combine(Application.dataPath, "Plugins/Android"),
         Path.Combine(Application.dataPath, "Plugins/Android/appodeal/assets/dex")
@@ -43,9 +47,17 @@ public class RemoveHelper
 
     static void importPackageStartedListener(string packageName)
     {
-        if (packageName.Contains("Appodeal-Unity-"))
+        if (packageName.Contains(PLAY_SERVICES_RESOLVER_PLUGIN) || packageName.Contains(ANDROID_SUPPORT_PLUGIN) ||
+            packageName.Contains(PLAY_SERVICES_PLUGIN))
         {
-            if (EditorUtility.DisplayDialog("Appodeal Warning", "It seems like you are going to install new version of Appodeal plugin. To avoid conflicts it's recommended to delete previous version of the plugin.", "Delete automatically", "I'll do it manually"))
+            return;
+        }
+        else if (packageName.Contains(UNITY_PLUGIN))
+        {
+            if (EditorUtility.DisplayDialog("Appodeal Warning",
+                "It seems like you are going to install new version of Appodeal plugin. " +
+                "To avoid conflicts it's recommended to delete previous version of the plugin.", "Delete automatically",
+                "I'll do it manually"))
             {
                 removePlugin(true);
             }
@@ -79,7 +91,6 @@ public class RemoveHelper
 
                 if (childNode.Name.Equals("is_confirmation_required"))
                 {
-
                     if (childNode.InnerText.Equals("true"))
                     {
                         itemToRemove.is_confirmation_required = true;
@@ -129,6 +140,7 @@ public class RemoveHelper
                     itemToRemove.filter = childNode.InnerText;
                 }
             }
+
             itemToRemoveList.Add(itemToRemove);
         }
 
@@ -143,7 +155,7 @@ public class RemoveHelper
             if (items[i].perform_only_if_total_remove && isCleanBeforeUpdate) continue;
             bool confirmed = !items[i].is_confirmation_required || isCleanBeforeUpdate;
             string fullItemPath = Path.Combine(Application.dataPath, items[i].path);
-            
+
             if (!confirmed)
             {
                 if (EditorUtility.DisplayDialog("Removing " + items[i].name, items[i].description, "Yes", "No"))
@@ -151,7 +163,7 @@ public class RemoveHelper
                     confirmed = true;
                 }
             }
-            
+
             if (!confirmed) continue;
             bool isChecked = !items[i].check_if_empty;
             if (!isChecked) isChecked = isFolderEmpty(fullItemPath);
@@ -163,9 +175,11 @@ public class RemoveHelper
                 FileUtil.DeleteFileOrDirectory(fullItemPath + ".meta");
                 continue;
             }
+
             bool isDirectoryExists = Directory.Exists(fullItemPath);
             if (!isDirectoryExists) continue;
-            List<string> filesList = new List<string>(Directory.GetFiles(fullItemPath, "*", SearchOption.TopDirectoryOnly));
+            List<string> filesList =
+                new List<string>(Directory.GetFiles(fullItemPath, "*", SearchOption.TopDirectoryOnly));
             filesList.AddRange(Directory.GetDirectories(fullItemPath, "*", SearchOption.TopDirectoryOnly));
             for (int j = 0; j < filesList.Count; j++)
             {
@@ -177,13 +191,13 @@ public class RemoveHelper
                 }
             }
 
-            if (isFolderEmpty(fullItemPath)) 
+            if (isFolderEmpty(fullItemPath))
             {
                 FileUtil.DeleteFileOrDirectory(fullItemPath);
                 FileUtil.DeleteFileOrDirectory(fullItemPath + ".meta");
             }
-
         }
+
         AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
     }
 
@@ -194,10 +208,12 @@ public class RemoveHelper
         List<string> s = new List<string>(filesPaths);
         for (int i = 0; i < s.Count; i++)
         {
-            if (s[i].Contains(".DS_Store")) {
+            if (s[i].Contains(".DS_Store"))
+            {
                 s.RemoveAt(i);
             }
         }
+
         return s.Count == 0;
     }
 }

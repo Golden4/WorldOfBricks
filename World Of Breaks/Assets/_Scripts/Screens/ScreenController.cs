@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScreenController : MonoBehaviour
 {
     public static ScreenController Ins;
-
-    public string curScene;
-
+    
     //public enum GameScreen
     //{
     //    Menu,
@@ -93,9 +92,6 @@ public class ScreenController : MonoBehaviour
             return;
         }
         
-        Debug.Log(screen + " screen is active.");
-        
-
         ActivateScreen(index);
     }
 
@@ -202,13 +198,13 @@ public class ScreenController : MonoBehaviour
 
     void OnApplicationFocus(bool pause)
     {
-        if (pause && curActiveScreen == "UI" && curScene == "Game")
+        if (pause && curActiveScreen == "UI" && SceneManager.GetActiveScene().name == "GameScene")
             ActivateScreen("Pause");
     }
 
     void OnApplicationPause(bool pause)
     {
-        if (!pause && curActiveScreen == "UI" && curScene == "Game")
+        if (!pause && curActiveScreen == "UI" && SceneManager.GetActiveScene().name == "GameScene")
         {
             ActivateScreen("Pause");
         }

@@ -20,6 +20,7 @@ public class LoadingText : MonoBehaviour
         loadingTime = 0;
         AdManager.Ins.OnInit();
         PurchaseManager.Ins.TryInit();
+        AudioManager.Ins.OnInit();
         StartCoroutine(PingPongText(SceneController.nextSceneToLoad, 0.7f));
 
         // loadingText.gameObject.SetActive(true);

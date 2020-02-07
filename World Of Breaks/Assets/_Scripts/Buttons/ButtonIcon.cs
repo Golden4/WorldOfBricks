@@ -21,7 +21,6 @@ public class ButtonIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     bool holding;
 
     string clickSoundName = "ButtonClick1";
-
     Vector3 prevPos = Vector3.zero;
 
     public void OnPointerDown(PointerEventData eventData)

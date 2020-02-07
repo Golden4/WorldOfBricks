@@ -2509,7 +2509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: 352.2548}
+  m_AnchoredPosition: {x: -250, y: 352.20157}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &362128985
@@ -3710,7 +3710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0da4fb828989644b904ab0e121bc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClickSoundName: MenuButton
 --- !u!1 &438340714
 GameObject:
   m_ObjectHideFlags: 0
@@ -4242,7 +4241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd3b7af9b4b9704882f4102de2a8b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curScene: Menu
   startScreen: 0
   screensList:
   - screen: {fileID: 1363663213}
@@ -19892,7 +19890,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0da4fb828989644b904ab0e121bc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClickSoundName: MenuButton
 --- !u!1 &1405405935
 GameObject:
   m_ObjectHideFlags: 0
@@ -21482,7 +21479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

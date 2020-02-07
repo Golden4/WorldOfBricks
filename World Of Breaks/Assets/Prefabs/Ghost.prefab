@@ -62,7 +62,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.6, y: 0.65}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.38229993
 --- !u!114 &4310356365225636181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +130,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -141,6 +142,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

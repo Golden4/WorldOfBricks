@@ -253,10 +253,10 @@ public class BuyCoinScreen : ScreenBase<BuyCoinScreen>
 
     public void BackBtn()
     {
-        if (ScreenController.Ins.curScene == "Menu")
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MenuScene")
             ScreenController.Ins.ActivateScreen("Menu");
 
-        if (ScreenController.Ins.curScene == "Game")
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameScene")
             ScreenController.Ins.ActivateScreen("Pause");
     }
 

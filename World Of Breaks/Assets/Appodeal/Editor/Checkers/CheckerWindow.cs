@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
-using System.Linq;
 
 namespace AppodealAds.Unity.Editor.Checkers
 {
     public class CheckerWindow : EditorWindow
     {
-        [SerializeField]
-        private int currentStep = 0;
+        [SerializeField] private int currentStep = 0;
         private List<CheckingStep> steps;
         private List<FixProblemInstruction> fixes;
         private Vector2 scrollPositionSteps;
@@ -21,12 +20,14 @@ namespace AppodealAds.Unity.Editor.Checkers
         public static CheckerWindow GetWindow()
         {
             Rect pos = new Rect(Vector2.zero, new Vector2(800, 400));
-            CheckerWindow window = (CheckerWindow)EditorWindow.GetWindowWithRect(typeof(CheckerWindow), pos, true, "Appodeal Integration Check");
+            CheckerWindow window = (CheckerWindow) EditorWindow.GetWindowWithRect(typeof(CheckerWindow), pos, true,
+                "Appodeal Integration Check");
             return window;
         }
 
-        private void Awake(){}
-
+        private void Awake()
+        {
+        }
 
         private void init()
         {
@@ -55,24 +56,33 @@ namespace AppodealAds.Unity.Editor.Checkers
         void OnGUI()
         {
             if (steps == null) init();
-            while((fixes == null || fixes.Count == 0) && currentStep < steps.Count-1){
+            while ((fixes == null || fixes.Count == 0) && currentStep < steps.Count - 1)
+            {
                 steps[currentStep].done = true;
                 currentStep++;
                 fixes = steps[currentStep].check();
             }
+
             if ((fixes == null || fixes.Count == 0) && currentStep < steps.Count - 1) steps[currentStep].done = true;
             float w1 = position.width * 0.3f;
             GUIStyle styleWhiteBG = new GUIStyle(GUI.skin.scrollView);
             //styleWhiteBG.normal.background = Texture2D.whiteTexture;
-            GUILayout.Label(new GUIContent("This utility will cleck configuration only for the selected platform: " + EditorUserBuildSettings.activeBuildTarget + "\nIf you want to check your project for another patform, you should select it in the File > Build Settings.", EditorGUIUtility.FindTexture("console.warnicon")));
- GUILayout.BeginHorizontal();
+            GUILayout.Label(new GUIContent(
+                "This utility will cleck configuration only for the selected platform: " +
+                EditorUserBuildSettings.activeBuildTarget +
+                "\nIf you want to check your project for another patform, you should select it in the File > Build Settings.",
+                EditorGUIUtility.FindTexture("console.warnicon")));
+            GUILayout.BeginHorizontal();
             scrollPositionSteps = GUILayout.BeginScrollView(scrollPositionSteps, styleWhiteBG, GUILayout.Width(w1));
             GUIStyle selectedLabelStyle = new GUIStyle(GUI.skin.label);
             selectedLabelStyle.normal.background = AppodealUnityUtils.makeColorTexture(1, 1, Color.gray);
-            foreach (CheckingStep step in steps) {
+            foreach (CheckingStep step in steps)
+            {
                 GUIContent stepContent = new GUIContent(step.getName(), step.done ? checkmark : empty);
-                GUILayout.Label(stepContent, step == steps[currentStep] && !step.done ? selectedLabelStyle : GUI.skin.label);
+                GUILayout.Label(stepContent,
+                    step == steps[currentStep] && !step.done ? selectedLabelStyle : GUI.skin.label);
             }
+
             GUILayout.EndScrollView();
 
             GUILayout.BeginVertical();
@@ -94,15 +104,18 @@ namespace AppodealAds.Unity.Editor.Checkers
                         EditorGUI.EndDisabledGroup();
                     }
                 }
+
                 GUILayout.EndScrollView();
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Deselect All", GUILayout.Width(80))) setTogglesState(false);
                 if (GUILayout.Button("Select All", GUILayout.Width(80))) setTogglesState(true);
                 GUILayout.EndHorizontal();
             }
-            else {
+            else
+            {
                 GUILayout.Label("Nothing to check for the selected platform.");
             }
+
             GUILayout.EndVertical();
 
             GUILayout.EndHorizontal();
@@ -113,6 +126,7 @@ namespace AppodealAds.Unity.Editor.Checkers
             {
                 Close();
             }
+
             if (fixes != null && fixes.Count != 0)
             {
                 if (GUILayout.Button("Fix Selected", GUILayout.Width(80)))
@@ -121,40 +135,60 @@ namespace AppodealAds.Unity.Editor.Checkers
                     {
                         if (fix.checkedForResolve) fix.fixProblem();
                     }
+
                     fixes.Clear();
                 }
             }
+
             GUILayout.EndHorizontal();
         }
 
-        private void setTogglesState(bool state){
-            foreach(FixProblemInstruction fix in fixes){
+        private void setTogglesState(bool state)
+        {
+            foreach (FixProblemInstruction fix in fixes)
+            {
                 fix.checkedForResolve = state;
             }
         }
     }
 
-    public class FixProblemInstruction{
+    public class FixProblemInstruction
+    {
         private bool _checkedForResolve;
-        public bool checkedForResolve{
-            get{
-                return _checkedForResolve;
-            }
-            set{
+
+        public bool checkedForResolve
+        {
+            get { return _checkedForResolve; }
+            set
+            {
                 if (isAutoresolvePossible) _checkedForResolve = value;
             }
         }
+
         private string desc;
         private bool isAutoresolvePossible;
 
-        public FixProblemInstruction(string description, bool autoresolve) {
+        public FixProblemInstruction(string description, bool autoresolve)
+        {
             desc = description;
             this.isAutoresolvePossible = autoresolve;
         }
-        public string getDescription() { return desc; }
-        public bool canBeResolvedAutomatically() { return isAutoresolvePossible; }
-        public virtual void fixProblem() { }
+
+        public string getDescription()
+        {
+            return desc;
+        }
+
+        public bool canBeResolvedAutomatically()
+        {
+            return isAutoresolvePossible;
+        }
+
+        public virtual void fixProblem()
+        {
+        }
     }
+
     public abstract class CheckingStep
     {
         public bool done = false;

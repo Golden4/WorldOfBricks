@@ -23,7 +23,7 @@ public static class EditorCoroutineRunner
                 object result = i.Current;
                 if (result != null && result is IEnumerator)
                 {
-                    this.executionStack.Push((IEnumerator)result);
+                    this.executionStack.Push((IEnumerator) result);
                 }
 
                 return true;
@@ -65,10 +65,12 @@ public static class EditorCoroutineRunner
         {
             editorCoroutineList = new List<EditorCoroutine>();
         }
+
         if (buffer == null)
         {
             buffer = new List<IEnumerator>();
         }
+
         if (editorCoroutineList.Count == 0)
         {
             EditorApplication.update += Update;
