@@ -39,7 +39,6 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     public void Init()
     {
         sr = GetComponent<ScrollRect>();
-
         SpawnItemsFromData();
 
         sr.content.sizeDelta = new Vector2(ContentSize, sr.content.sizeDelta.y);
@@ -58,7 +57,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler
             // items[i].AddComponent<MenuBallSound>().itemId = i;
             // items[i].GetComponent<Animation>().Stop();
             Image image = items[i].GetComponent<Image>();
-            image.rectTransform.sizeDelta = Vector2.one * 40;
+            image.rectTransform.sizeDelta = Vector2.one * 30;
             items[i].GetComponent<Animation>().playAutomatically = false;
 
             image.sprite = ItemsInfo.Get.playersData[i].ballSprite;
@@ -103,7 +102,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         for (int i = 0; i < items.Length; i++)
         {
 
-            float targetScale = (i == index) ? 2f : 1;
+            float targetScale = (i == index) ? 1.5f : 1;
 
             items[i].transform.localScale = Vector3.Lerp(items[i].transform.localScale, Vector3.one * targetScale, Time.deltaTime * 8);
         }

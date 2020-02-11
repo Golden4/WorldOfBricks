@@ -31,9 +31,12 @@ public class StarsBarPanel : MonoBehaviour
 
         float width = GetComponent<RectTransform>().sizeDelta.x;
         persent = Mathf.Clamp01(persent);
-        if (width * persent > 0 && width * persent < 1)
+
+        float xPos = width * persent;
+
+        if (xPos > 0 && xPos < width)
         {
-            RTprogressParticle.anchoredPosition = new Vector2(width * persent, RTprogressParticle.anchoredPosition.y);
+            RTprogressParticle.anchoredPosition = new Vector2(xPos, RTprogressParticle.anchoredPosition.y);
             progressParticle.Play();
         }
 

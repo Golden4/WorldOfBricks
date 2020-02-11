@@ -9,6 +9,7 @@ public class BottomPanelMenuUI : MonoBehaviour
     public static BottomPanelMenuUI Ins;
     public BottomPanelBtnInfo[] btnInfos;
     public Button selectedBtn;
+    public MenuBackground background;
     Text selectedBtnText;
     Image selectedBtnSprite;
     int curActiveBtnIndex = 1;
@@ -23,10 +24,9 @@ public class BottomPanelMenuUI : MonoBehaviour
     {
         selectedBtnText = selectedBtn.transform.GetComponentInChildren<Text>();
         selectedBtnSprite = selectedBtn.transform.Find("Image").GetComponent<Image>();
-
         selectedBtnSprite.transform.DOScale(1, .4f).ChangeStartValue(Vector3.zero).ChangeEndValue(Vector3.one).SetEase(Ease.OutBounce).SetAutoKill(false).Pause();
         selectedBtn.transform.DOScale(1, .4f).ChangeStartValue(Vector3.one * .8f).ChangeEndValue(Vector3.one).SetEase(Ease.OutBounce).SetAutoKill(false).Pause();
-        yield return null;
+        yield return new WaitForEndOfFrame();
         selectedBtn.onClick.AddListener(() => { ChangeBtn(curActiveBtnIndex); });
         ChangeBtn(curActiveBtnIndex);
     }
@@ -38,16 +38,16 @@ public class BottomPanelMenuUI : MonoBehaviour
 
     public void ChangeBtn(int index, bool activateScreen = true)
     {
-        if (lastClickTime + .2f > Time.time)
-            return;
-
-        lastClickTime = Time.time;
         ChangeBtn(btnInfos[index], activateScreen, index);
         curActiveBtnIndex = index;
     }
 
     public void ChangeBtn(BottomPanelBtnInfo info, bool activateScreen = true, int index = -1)
     {
+        if (lastClickTime + .2f > Time.time)
+            return;
+
+        lastClickTime = Time.time;
         selectedBtn.gameObject.SetActive(true);
         selectedBtn.transform.DOMove(info.button.transform.position, .15f);
         selectedBtn.transform.DORestart(false);
@@ -58,7 +58,7 @@ public class BottomPanelMenuUI : MonoBehaviour
         selectedBtnSprite.sprite = info.image.sprite;
         selectedBtnSprite.color = info.color;
         selectedBtnSprite.transform.DORestart(false);
-
+        background.ChangeBackground(index);
         if (activateScreen && ScreenController.curActiveScreen != info.screenToChange.screenType)
         {
             ScreenController.Ins.ActivateScreen(info.screenToChange.screenType);

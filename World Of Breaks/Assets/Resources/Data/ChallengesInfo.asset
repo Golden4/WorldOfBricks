@@ -92,9 +92,6 @@ MonoBehaviour:
     - lifeCount: 5
       ballCount: 50
       maxScoreMultiplayer: 1
-    - lifeCount: 5
-      ballCount: 50
-      maxScoreMultiplayer: 1
   - name: Beginner
     mapTexture: {fileID: 0}
     challengesData:

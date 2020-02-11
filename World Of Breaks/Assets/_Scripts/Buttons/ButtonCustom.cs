@@ -45,7 +45,7 @@ public class ButtonCustom : ButtonCustomBase
     string clickSound = "MenuButton";
     bool holding;
 
-    void Start()
+    void Awake()
     {
         onPointerDown += ((PointerEventData data) =>
          {

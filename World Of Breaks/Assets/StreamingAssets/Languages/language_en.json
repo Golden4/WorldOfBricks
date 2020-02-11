@@ -122,7 +122,7 @@
     },
     {
       "key": "small",
-      "value": "Easy"
+      "value": "Small"
     },
     {
       "key": "medium",
@@ -138,7 +138,7 @@
     },
     {
       "key": "big",
-      "value": "Hard"
+      "value": "Big"
     },
     {
       "key": "big_unlock",

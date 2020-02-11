@@ -50,17 +50,20 @@ public class ChallengeResultScreen : ScreenBase<ChallengeResultScreen> {
     public override void OnActivate () {
         base.OnActivate ();
         Game.gamesPlayed++;
-
+        
         BallController.Instance.ReturnAllBalls ();
 
         if (UIScreen.Ins.playerWin) {
             OnPlayerWin ();
-
         } else if (UIScreen.Ins.playerLose) {
             OnPlayerLose ();
         } else {
             OnPlayerLose ();
         }
+
+        //retryBtnTextButton.transform.DOScale(1, .5f).ChangeStartValue(0);
+        //retryBtnSmallButton.transform.DOScale(1, .5f).ChangeStartValue(0);
+        //nextBtnTextButton.transform.DOScale(1, .5f).ChangeStartValue(0);
 
         Game.ballTryingIndex = -1;
 
