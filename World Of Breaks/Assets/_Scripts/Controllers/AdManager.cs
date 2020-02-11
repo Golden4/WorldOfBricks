@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using AppodealAds.Unity.Api;
-using AppodealAds.Unity.Common;
+//using AppodealAds.Unity.Api;
+//using AppodealAds.Unity.Common;
 using UnityEngine;
 
-public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, IRewardedVideoAdListener, IBannerAdListener, IPermissionGrantedListener
+public class AdManager : SingletonResourse<AdManager>//, IInterstitialAdListener, IRewardedVideoAdListener, IBannerAdListener, IPermissionGrantedListener
 {
 
 #if UNITY_ANDROID
@@ -25,26 +25,26 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
     public void InitAppodeal()
     {
-        bool gdpr = PlayerPrefs.GetInt("result_gdpr_sdk", 0) == 1;
+        //bool gdpr = PlayerPrefs.GetInt("result_gdpr_sdk", 0) == 1;
 
-        Appodeal.disableWriteExternalStoragePermissionCheck();
+        //Appodeal.disableWriteExternalStoragePermissionCheck();
 
-        //  if (gdpr)
-        Appodeal.disableLocationPermissionCheck();
-        //  else
-        //     Appodeal.requestAndroidMPermissions(this);
+        ////  if (gdpr)
+        //Appodeal.disableLocationPermissionCheck();
+        ////  else
+        ////     Appodeal.requestAndroidMPermissions(this);
 
-        Appodeal.disableNetwork("facebook");
-        testMode = Debug.isDebugBuild;
+        //Appodeal.disableNetwork("facebook");
+        //testMode = Debug.isDebugBuild;
 
-        //Appodeal.requestAndroidMPermissions(this);
+        ////Appodeal.requestAndroidMPermissions(this);
 
-        Appodeal.setTesting(testMode);
-        Appodeal.muteVideosIfCallsMuted(true);
-        Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO, gdpr);
-        Appodeal.setInterstitialCallbacks(this);
-        Appodeal.setRewardedVideoCallbacks(this);
-        Appodeal.setBannerCallbacks(this);
+        //Appodeal.setTesting(testMode);
+        //Appodeal.muteVideosIfCallsMuted(true);
+        //Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO, gdpr);
+        //Appodeal.setInterstitialCallbacks(this);
+        //Appodeal.setRewardedVideoCallbacks(this);
+        //Appodeal.setBannerCallbacks(this);
     }
 
     bool isRewardedVideoFinished;
@@ -70,13 +70,13 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
     public void showBanner()
     {
-        if (Appodeal.isLoaded(Appodeal.BANNER_BOTTOM))
-            Appodeal.show(Appodeal.BANNER_BOTTOM);
+        //if (Appodeal.isLoaded(Appodeal.BANNER_BOTTOM))
+        //    Appodeal.show(Appodeal.BANNER_BOTTOM);
     }
 
     public void hideBanner()
     {
-        Appodeal.hide(Appodeal.BANNER_BOTTOM);
+        //Appodeal.hide(Appodeal.BANNER_BOTTOM);
     }
 
     public void onBannerLoaded(bool isPrecache) { }
@@ -93,14 +93,14 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
     public void showInterstitial()
     {
-        if (Appodeal.isLoaded(Appodeal.INTERSTITIAL) && !Appodeal.isPrecache(Appodeal.INTERSTITIAL))
-        {
-            Appodeal.show(Appodeal.INTERSTITIAL);
-        }
-        else
-        {
-            Appodeal.cache(Appodeal.INTERSTITIAL);
-        }
+        //if (Appodeal.isLoaded(Appodeal.INTERSTITIAL) && !Appodeal.isPrecache(Appodeal.INTERSTITIAL))
+        //{
+        //    Appodeal.show(Appodeal.INTERSTITIAL);
+        //}
+        //else
+        //{
+        //    Appodeal.cache(Appodeal.INTERSTITIAL);
+        //}
     }
 
     public void onInterstitialLoaded(bool isPrecache) { }
@@ -128,14 +128,14 @@ public class AdManager : SingletonResourse<AdManager>, IInterstitialAdListener, 
 
         Action showVideo = delegate
         {
-            if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO) && !Appodeal.isPrecache(Appodeal.REWARDED_VIDEO))
-            {
-                Appodeal.show(Appodeal.REWARDED_VIDEO);
-            }
-            else
-            {
-                Appodeal.cache(Appodeal.REWARDED_VIDEO);
-            }
+            //if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO) && !Appodeal.isPrecache(Appodeal.REWARDED_VIDEO))
+            //{
+            //    Appodeal.show(Appodeal.REWARDED_VIDEO);
+            //}
+            //else
+            //{
+            //    Appodeal.cache(Appodeal.REWARDED_VIDEO);
+            //}
 
             if (isRewardedVideoLoaded)
                 MessageBox.ShowStatic("Loading video...", MessageBox.BoxType.Retry);
