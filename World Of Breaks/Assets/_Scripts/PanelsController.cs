@@ -122,7 +122,7 @@ public class PanelsController : MonoBehaviour
                     ball.transform.Find("Info").GetComponent<Button>().onClick.RemoveAllListeners();
                     ball.transform.Find("Info").GetComponent<Button>().onClick.AddListener(delegate
                     {
-                        MessageBox.ShowStatic(LocalizationManager.GetLocalizedText(ItemsInfo.Get.playersData[ballsIndex[index]].name), MessageBox.BoxType.Info)
+                        MessageBox.ShowStatic(ItemsInfo.Get.playersData[ballsIndex[index]].name, MessageBox.BoxType.Info)
                         .SetDesc(ItemsInfo.Get.playersData[ballsIndex[index]].GetDescription(), ItemsInfo.Get.playersData[ballsIndex[index]].ballSprite);
                         // DialogBox.Show(LocalizationManager.GetLocalizedText(ItemsInfo.Get.playersData[ballsIndex[index]].name) + "\n\n" + ItemsInfo.Get.playersData[ballsIndex[index]].GetDescription(), null, null, true, false, 350);
                     });

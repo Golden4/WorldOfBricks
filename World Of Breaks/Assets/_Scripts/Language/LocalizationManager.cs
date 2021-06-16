@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
@@ -35,12 +34,11 @@ public class LocalizationManager : MonoBehaviour
     {
         if (!isLoaded)
         {
-
             curLanguage = Application.systemLanguage;
             //#if UNITY_ANDROID
             if (Application.isMobilePlatform)
             {
-                loadLocalizedTexts(GetFileName(curLanguage));
+                LoadLocalizedTextsMobile(GetFileName(curLanguage));
             }
             else
             {
@@ -54,8 +52,8 @@ public class LocalizationManager : MonoBehaviour
 
         if (!localizedText.TryGetValue(key, out valueText))
         {
-            Debug.LogError("Localization key not found: " + key);
             valueText = key;
+            Debug.LogWarning("Localization key not found: " + key);
         }
 
         return valueText;
@@ -64,18 +62,16 @@ public class LocalizationManager : MonoBehaviour
     static string GetFileName(LanguageInfo language)
     {
         return "Languages/language_" + language.filePrefix + ".json";
-
     }
 
-    static void loadLocalizedTexts(string fileName)
+    static void LoadLocalizedTextsMobile(string fileName)
     {
-
         string filePath = Path.Combine("jar:file://" + Application.dataPath + "!/assets/", fileName);
         WWW www = new WWW(filePath);
         while (!www.isDone)
         {
         }
-        LocalizationData loadedData = SetJsonToLocailizedText(www.text);
+        ParseJsonToLocailizedText(www.text);
         isLoaded = true;
     }
 
@@ -88,21 +84,17 @@ public class LocalizationManager : MonoBehaviour
 
         if (File.Exists(filePath))
         {
-
             string jsonDataString = File.ReadAllText(filePath);
-
-            LocalizationData loadedData = SetJsonToLocailizedText(jsonDataString);
-
+            ParseJsonToLocailizedText(jsonDataString);
         }
         else
         {
             Debug.LogError("Localization file not founded");
         }
         isLoaded = true;
-
     }
 
-    static LocalizationData SetJsonToLocailizedText(string jsonDataString)
+    static LocalizationData ParseJsonToLocailizedText(string jsonDataString)
     {
         LocalizationData loadedData = JsonUtility.FromJson<LocalizationData>(jsonDataString);
 
@@ -123,7 +115,7 @@ public class LocalizationManager : MonoBehaviour
 
         if (Application.isMobilePlatform)
         {
-            loadLocalizedTexts(GetFileName(curLanguage));
+            LoadLocalizedTextsMobile(GetFileName(curLanguage));
         }
         else
         {
@@ -183,7 +175,7 @@ public class LanguagesList
 
     public static LanguageInfo[] languages = {
         new LanguageInfo (SystemLanguage.English, "en", "AmericanPurpose", FontStyle.Normal),
-        //new LanguageInfo (SystemLanguage.Russian, "ru", "Laqonic4F", FontStyle.Normal)
+        new LanguageInfo (SystemLanguage.Russian, "ru", "AmericanPurpose", FontStyle.Normal)
     };
 
     public static LanguageInfo GetLanguageInfo(SystemLanguage lang)

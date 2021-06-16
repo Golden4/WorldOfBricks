@@ -23,7 +23,7 @@ public class DialogBox : MonoBehaviour {
 		instance.anim = instance.GetComponentInChildren<GUIAnim> ();
 	}
 
-	public static void Show (string title, Action onClickOk, Action onClickCancel = null, bool OkBtnEnable = true, bool CancelBtnEnable = true, float size = -1, string btnOkText = "", string btnCancelText = "")
+	public static void Show (string title, Action onClickOk, Action onClickCancel = null, bool okBtnEnable = true, bool cancelBtnEnable = true, float size = -1, string btnOkText = "", string btnCancelText = "")
 	{
 		if (instance == null)
 			Init ();
@@ -36,8 +36,8 @@ public class DialogBox : MonoBehaviour {
 
 		instance.backgroundImage.raycastTarget = true;
 		instance.gameObject.SetActive (true);
-		instance.cancelBtn.gameObject.SetActive (CancelBtnEnable);
-		instance.okBtn.gameObject.SetActive (OkBtnEnable);
+		instance.cancelBtn.gameObject.SetActive (cancelBtnEnable);
+		instance.okBtn.gameObject.SetActive (okBtnEnable);
 
 		if (btnOkText != "") {
 			instance.okBtn.GetComponentInChildren <Text> ().text = btnOkText;

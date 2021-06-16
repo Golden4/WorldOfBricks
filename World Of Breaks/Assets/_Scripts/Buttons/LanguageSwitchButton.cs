@@ -17,8 +17,7 @@ public class LanguageSwitchButton : SwitchButton
         for (int i = 0; i < LanguagesList.Count(); i++)
         {
             SystemLanguage lang = LanguagesList.languages[i].systemLanguage;
-            actions[i] = delegate ()
-            {
+            actions[i] = delegate {
                 LocalizationManager.ChangeLanguage(lang);
             };
         }

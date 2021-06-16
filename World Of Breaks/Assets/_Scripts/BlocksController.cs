@@ -632,7 +632,7 @@ public class BlocksController : MonoBehaviour
         Time.timeScale = 0;
         int coinToRetry = 40 * (retryCount + 1);
 
-        MessageBox.ShowStatic("Undo throw?", MessageBox.BoxType.Retry, delegate
+        MessageBox.ShowStatic("undo_throw" , MessageBox.BoxType.Retry, delegate
         {
             Time.timeScale = 1;
         }).SetImageTextBtn(

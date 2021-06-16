@@ -26,7 +26,7 @@ public class ContinueScreen : ScreenBase<ContinueScreen>
 
         dieCount++;
 
-        messageBox = MessageBox.ShowStatic("Continue?", MessageBox.BoxType.Continue, () => CloseContinueScreen(), false)
+        messageBox = MessageBox.ShowStatic("continue", MessageBox.BoxType.Continue, () => CloseContinueScreen(), false)
         .SetImageTextBtn((coinAmountToContinue * dieCount).ToString(), true, () =>
         {
             if (User.BuyWithCoin(coinAmountToContinue * dieCount))

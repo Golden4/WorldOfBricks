@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SettingsScreen : ScreenBase<SettingsScreen>
+﻿public class SettingsScreen : ScreenBase<SettingsScreen>
 {
     public override void OnActivate()
     {
-        MessageBox.ShowStatic("Settings", MessageBox.BoxType.Settings).ShowSettings(); ;
+        MessageBox.ShowStatic("settings", MessageBox.BoxType.Settings).ShowSettings(); ;
 
         AdManager.Ins.showBanner();
     }

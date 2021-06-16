@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -11,6 +10,7 @@ public class BottomPanelMenuUI : MonoBehaviour
     public Button selectedBtn;
     public MenuBackground background;
     Text selectedBtnText;
+    LocalizedText selectedBtnLocalizedText;
     Image selectedBtnSprite;
     int curActiveBtnIndex = 1;
     float lastClickTime = -1;
@@ -23,6 +23,7 @@ public class BottomPanelMenuUI : MonoBehaviour
     IEnumerator Start()
     {
         selectedBtnText = selectedBtn.transform.GetComponentInChildren<Text>();
+        selectedBtnLocalizedText = selectedBtn.transform.GetComponentInChildren<LocalizedText>();
         selectedBtnSprite = selectedBtn.transform.Find("Image").GetComponent<Image>();
         selectedBtnSprite.transform.DOScale(1, .4f).ChangeStartValue(Vector3.zero).ChangeEndValue(Vector3.one).SetEase(Ease.OutBounce).SetAutoKill(false).Pause();
         selectedBtn.transform.DOScale(1, .4f).ChangeStartValue(Vector3.one * .8f).ChangeEndValue(Vector3.one).SetEase(Ease.OutBounce).SetAutoKill(false).Pause();
@@ -52,7 +53,7 @@ public class BottomPanelMenuUI : MonoBehaviour
         selectedBtn.transform.DOMove(info.button.transform.position, .15f);
         selectedBtn.transform.DORestart(false);
 
-        selectedBtnText.text = info.name;
+        selectedBtnLocalizedText.Key = info.name;
         selectedBtnText.color = info.color;
 
         selectedBtnSprite.sprite = info.image.sprite;

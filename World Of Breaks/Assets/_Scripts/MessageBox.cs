@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +15,7 @@ public class MessageBox : MonoBehaviour
     public Button imageTextBtn;
     public Button textBtn;
     public Button cancelBtn;
-    public Text title;
+    public LocalizedText title;
     public RectTransform descText;
     public Image progressImage;
     public Image progressImageCircle;
@@ -72,7 +71,7 @@ public class MessageBox : MonoBehaviour
 
     public void Show(string title, BoxType type, Action onClickCancelBtn = null, bool hideOnClickBackground = true)
     {
-        this.title.text = title;
+        this.title.Key = title;
         iconImage.sprite = iconSprites[(int)type];
 
         backgroundImage.raycastTarget = true;
@@ -213,7 +212,6 @@ public class MessageBox : MonoBehaviour
 
     public MessageBox SetTextBtn(string text, bool enabled = true, Action onBtnClick = null, Color color = default, bool hideOnClick = true)
     {
-
         if (!textBtn.gameObject.activeInHierarchy)
             textBtn.gameObject.SetActive(true);
         else
@@ -262,9 +260,7 @@ public class MessageBox : MonoBehaviour
     {
         messageBoxes.Remove(this);
         backgroundImage.DOFade(0, .5f).SetUpdate(true);
-
         Utility.FadeUITo(box.transform, 0, .2f, true);
-
         box.rectTransform.DOAnchorPos(Vector3.zero, .3f).ChangeEndValue(Vector3.up * -300).SetEase(Ease.OutSine).SetUpdate(true).OnComplete(() =>
         {
             Destroy(gameObject);

@@ -233,7 +233,7 @@ MonoBehaviour:
     - name: MenuMusic
       clip: {fileID: 8300000, guid: e0b8db12a06815346ba98ac5a3ba4148, type: 3}
       loop: 1
-      volume: 1
+      volume: 0
       pitch: 1
       randomVolume: 0
       randomPitch: 0

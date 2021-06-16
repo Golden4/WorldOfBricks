@@ -247,13 +247,13 @@ public class ShopScreen : ScreenBase<ShopScreen>
         {
             if (index == User.GetInfo.GetCurPlayerIndex())
             {
-                SelectBtn.gameObject.GetComponentInChildren<Text>().text = "Selected";
+                SelectBtn.gameObject.GetComponentInChildren<Text>().text = LocalizationManager.GetLocalizedText("selected");
                 SelectBtn.GetComponent<Image>().color = new Color(0.6128193f, 0.867f, 0.1253494f);
                 SelectBtn.interactable = false;
             }
             else
             {
-                SelectBtn.gameObject.GetComponentInChildren<Text>().text = "Select";
+                SelectBtn.gameObject.GetComponentInChildren<Text>().text = LocalizationManager.GetLocalizedText("select");
                 SelectBtn.GetComponent<Image>().color = new Color(0.6901961f, 0.9764706f, 0.1411765f);
                 SelectBtn.interactable = true;
             }

@@ -3150,7 +3150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &402824929
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5123,7 +5123,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.17993164}
-  m_SizeDelta: {x: -72.70001, y: -39.381104}
+  m_SizeDelta: {x: -51.89, y: -20.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &603835522
 MonoBehaviour:
@@ -5154,9 +5154,9 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'radius: 10'
+  m_Text: 
 --- !u!222 &603835523
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5254,22 +5254,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnInfos:
-  - name: Levels
+  - name: levels
     image: {fileID: 180318695}
     button: {fileID: 722573578}
     color: {r: 0.735849, g: 0.39954552, b: 0.114542544, a: 1}
     screenToChange: {fileID: 629002088}
-  - name: Endless
+  - name: endless
     image: {fileID: 70070378}
     button: {fileID: 1315366449}
     color: {r: 0.126691, g: 0.37159413, b: 0.6886792, a: 1}
     screenToChange: {fileID: 1417766885}
-  - name: Balls
+  - name: balls
     image: {fileID: 1405405937}
     button: {fileID: 1207391286}
     color: {r: 0.53443635, g: 0.745283, b: 0.13007298, a: 1}
     screenToChange: {fileID: 402824932}
-  - name: Shop
+  - name: shop
     image: {fileID: 215160406}
     button: {fileID: 1479980875}
     color: {r: 0.7075472, g: 0.1557328, b: 0.15018693, a: 1}
@@ -6103,7 +6103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: balls
+  key: 
 --- !u!1 &651933398
 GameObject:
   m_ObjectHideFlags: 0
@@ -6500,7 +6500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: challenges
+  key: 
 --- !u!1 &681497695
 GameObject:
   m_ObjectHideFlags: 0
@@ -7077,7 +7077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: play
+  key: 
 --- !u!114 &750950861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7833,7 +7833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: get_gift
+  key: 
 --- !u!1 &813670958
 GameObject:
   m_ObjectHideFlags: 0
@@ -8052,7 +8052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: challenges
+  key: 
 --- !u!114 &821696460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14378,7 +14378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: control
+  key: 
 --- !u!1 &1085155155
 GameObject:
   m_ObjectHideFlags: 0
@@ -15531,7 +15531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: audio
+  key: 
 --- !u!1 &1207391282
 GameObject:
   m_ObjectHideFlags: 0
@@ -16569,7 +16569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: shop
+  key: 
 --- !u!1 &1254140757
 GameObject:
   m_ObjectHideFlags: 0
@@ -23450,6 +23450,7 @@ GameObject:
   - component: {fileID: 1783355484}
   - component: {fileID: 1783355486}
   - component: {fileID: 1783355485}
+  - component: {fileID: 1783355487}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -23516,6 +23517,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783355483}
   m_CullTransparentMesh: 0
+--- !u!114 &1783355487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783355483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &1785721892
 GameObject:
   m_ObjectHideFlags: 0
@@ -24003,8 +24017,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -97.8}
-  m_SizeDelta: {x: -35.5, y: -643.2}
+  m_AnchoredPosition: {x: 0, y: -102.7}
+  m_SizeDelta: {x: -35.5, y: -633.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1854077531
 MonoBehaviour:
@@ -30334,7 +30348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: language
+  key: 
 --- !u!1 &2071617287
 GameObject:
   m_ObjectHideFlags: 0
@@ -31094,4 +31108,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4664d0e0421354e9a4d319ec96a2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: gift_through
+  key: 

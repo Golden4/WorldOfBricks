@@ -61,10 +61,7 @@ public class PauseScreen : ScreenBase<PauseScreen>
         };
 
         if (!Game.isChallenge)
-            MessageBox.ShowStatic("Quit game?", MessageBox.BoxType.Failed)
-            .SetDesc(LocalizationManager.GetLocalizedText("warning"))
-            .SetTextBtn("Ok", true, action)
-            .SetTextBtn("Cancel", true);
+            ShowQuitGameDialog(action);
         else
             action.Invoke();
     }
@@ -76,15 +73,20 @@ public class PauseScreen : ScreenBase<PauseScreen>
             GameOverScreen.Ins.RestartLevel();
         };
 
-        MessageBox.ShowStatic("Restart game?", MessageBox.BoxType.Retry)
-        .SetDesc(LocalizationManager.GetLocalizedText("warning"))
+        ShowQuitGameDialog(action);
+    }
+
+    void ShowQuitGameDialog(Action action)
+    {
+        MessageBox.ShowStatic("quit_game", MessageBox.BoxType.Retry)
+        .SetDesc(LocalizationManager.GetLocalizedText("All progress will be lost!\n Checkpoint and record will be saved!"))
         .SetTextBtn("Ok", true, action)
         .SetTextBtn("Cancel", true);
     }
 
     public void ActivatePauseBox()
     {
-        pauseMessageBox = MessageBox.ShowStatic("Pause", MessageBox.BoxType.Pause, () => Deactivate())
+        pauseMessageBox = MessageBox.ShowStatic("pause", MessageBox.BoxType.Pause, () => Deactivate())
         .SetImageBtn(true, () => ActivateMenu(), MessageBox.BtnSprites.Close, default, false)
         .SetImageBtn(true, () => RestartLevelBtn(), MessageBox.BtnSprites.Retry, default, false)
         .ShowSettings();

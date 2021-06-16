@@ -45,6 +45,14 @@
       "value": "Магазин"
     },
     {
+      "key": "endless",
+      "value": "Выживание"
+    },
+    {
+      "key": "levels",
+      "value": "Уровни"
+    },
+    {
       "key": "audio",
       "value": "Аудио"
     },
@@ -121,6 +129,58 @@
       "value": "Уровень сложности"
     },
     {
+      "key": "pause",
+      "value": "Пауза"
+    },
+    {
+      "key": "sounds",
+      "value": "Звуки"
+    },
+    {
+      "key": "music",
+      "value": "Музыка"
+    },
+    {
+      "key": "invert_controls",
+      "value": "Инвертир. управление"
+    },
+    {
+      "key": "quit_game",
+      "value": "Завершить игру?"
+    },
+    {
+      "key": "restart_game",
+      "value": "Перезапустить игру?"
+    },
+    {
+      "key": "undo_throw",
+      "value": "Отменить бросок?"
+    },
+    {
+      "key": "continue",
+      "value": "Продолжить?"
+    },
+    {
+      "key": "retry",
+      "value": "Повторить"
+    },
+    {
+      "key": "settings",
+      "value": "Настройки"
+    },
+    {
+      "key": "share",
+      "value": "Поделиться!"
+    },
+    {
+      "key": "select",
+      "value": "Выбрать"
+    },
+    {
+      "key": "selected",
+      "value": "Выбрано"
+    },
+    {
       "key": "small",
       "value": "Легкий"
     },
@@ -154,19 +214,19 @@
     },
     {
       "key": "None",
-      "value": "None"
+      "value": "Нет"
     },
     {
       "key": "RandomDirection",
-      "value": "Shots in random direction"
+      "value": "Выстрелы в случайном направлении"
     },
     {
       "key": "Speed",
-      "value": "20% faster"
+      "value": "На 20% быстрее"
     },
     {
       "key": "CoinChance",
-      "value": "Higher coin chance"
+      "value": "Более высокий шанс выпадения монеты"
     },
     {
       "key": "Bounce2Times",
@@ -178,7 +238,7 @@
     },
     {
       "key": "SkullDestroy",
-      "value": "Destroy Skull"
+      "value": "Уничтожает черепа"
     },
     {
       "key": "DoubleHitBrick",

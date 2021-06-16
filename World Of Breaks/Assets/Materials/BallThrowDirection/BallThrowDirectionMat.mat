@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BallThrowDirectionMat
-  m_Shader: {fileID: 4800000, guid: c86b498a3943e2b49982b09be493be10, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: e85a746b8f2dd8d41a785fa7ed14f864,
+    type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -52,6 +53,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_2AEC0C18: -0.1
+    - Vector1_4933E6AE: 1
     - Vector1_5F9C968E: 1
     - Vector1_ED50CEF2: -0.1
     - _AlphaClip: 0

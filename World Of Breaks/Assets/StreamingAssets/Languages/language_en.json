@@ -45,6 +45,14 @@
       "value": "Shop"
     },
     {
+      "key": "endless",
+      "value": "Endless"
+    },
+    {
+      "key": "levels",
+      "value": "Levels"
+    },
+    {
       "key": "audio",
       "value": "Audio"
     },
@@ -119,6 +127,58 @@
     {
       "key": "tile_map_size",
       "value": "Map size"
+    },
+    {
+      "key": "pause",
+      "value": "Pause"
+    },
+    {
+      "key": "sounds",
+      "value": "Sounds"
+    },
+    {
+      "key": "music",
+      "value": "Music"
+    },
+    {
+      "key": "invert_controls",
+      "value": "Invert controls"
+    },
+    {
+      "key": "quit_game",
+      "value": "Quit game?"
+    },
+    {
+      "key": "restart_game",
+      "value": "Restart game?"
+    },
+    {
+      "key": "undo_throw",
+      "value": "Undo throw?"
+    },
+    {
+      "key": "continue",
+      "value": "Continue?"
+    },
+    {
+      "key": "retry",
+      "value": "Retry"
+    },
+    {
+      "key": "settings",
+      "value": "Settings"
+    },
+    {
+      "key": "share",
+      "value": "Share!"
+    },
+    {
+      "key": "select",
+      "value": "Select"
+    },
+    {
+      "key": "selected",
+      "value": "Selected"
     },
     {
       "key": "small",
